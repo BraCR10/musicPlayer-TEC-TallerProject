@@ -1,4 +1,4 @@
-#Esta funcion lee un fichero llamado propietario.txt y reorna cada linea en una lista dentro de otra lista
+#Esta funcion lee un fichero llamado propietario.txt y retorna cada linea en una lista dentro de otra lista
 def insertProp(): 
     texto = open('propietario.txt', 'r')
     propietariosOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
@@ -11,9 +11,84 @@ def insertProp():
             continue
         else:
             cod+=[nuevo[0]]
-            if nuevo==['\n'] or len(nuevo)!=2:#Validacion si hay un enter o un elemento diferente
-                nuevo=[]
-            else:#Validacion
+            if len(nuevo)==2:#Validacion 
                 nuevo[1] = nuevo[1].replace('\n', '') #Elimina cada '\n' en cada elemento [1]
-                propietarios+=[nuevo]          
-    return propietarios
+                propietarios+=[nuevo]
+            elif len(nuevo)==3:#Validacion 
+                album+=[nuevo[:2]]
+            else:#Validacion 
+                continue          
+    return cod
+#Esta funcion lee un fichero llamado Artista.txt y retorna cada linea en una lista dentro de otra lista
+def insertArt():
+    #Hacer
+    print()
+#Esta funcion lee un fichero llamado Genero.txt y retorna cada linea en una lista dentro de otra lista
+def insertGen():
+    #Hacer
+    print()
+#Esta funcion lee un fichero llamado Playlist.txt y retorna cada linea en una lista dentro de otra lista
+def insertPlaylist():
+    #Hacer
+    print()
+    
+    
+#Esta funcion lee un fichero llamado Album.txt y retorna cada linea en una lista dentro de otra lista
+def insertAlbum(): 
+    texto = open('Album.txt', 'r')
+    albumOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
+    texto.close()
+    album=[]#Lista para almacenar cambios en los datos del fichero
+    cod=[]#Almacena codigos
+    for linea in albumOri:#Itera en lista sin cambios
+        nuevo=linea.split(';')#Por cada elemento de albumOri crea una nueva lista dividiendo cada vez que hay un ';'['1234','Music','620193']
+        if nuevo[0] in cod:#Validacion si codigo esta repetido
+            continue
+        else:
+            cod+=[nuevo[0]]
+            if len(nuevo)==3:#Validacion 
+                nuevo[2] = nuevo[2].replace('\n', '') #Elimina cada '\n' en cada elemento [2]
+                codprop=insertProp()#Obtiene la lista de codigos registrados
+                if nuevo[2] in codprop:#Agrega solo si el propietario esta
+                    album+=[nuevo] 
+            elif len(nuevo)==4:#Validacion 
+                codprop=insertProp()
+                if nuevo[2] in codprop:#Agrega solo si el propietario esta
+                    album+=[nuevo[:3]]
+            else:#Validacion 
+                continue     
+    return cod
+
+#Esta funcion lee un fichero llamado Canciones.txt y retorna cada linea en una lista dentro de otra lista
+def insertCanciones(): 
+    texto = open('Canciones.txt', 'r')
+    cancionesOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
+    texto.close()
+    canciones=[]#Lista para almacenar cambios en los datos del fichero
+    cod=[]#Almacena codigos
+    for linea in cancionesOri:#Itera en lista sin cambios
+        nuevo=linea.split(';')#Por cada elemento de cancionesOri crea una nueva lista dividiendo cada vez que hay un ';'['1234','Music','620193']
+        if nuevo[0] in cod:#Validacion si codigo esta repetido
+            continue
+        else:
+            cod+=[nuevo[0]]
+            if len(nuevo)==6:#Validacion 
+                nuevo[5] = nuevo[5].replace('\n', '') #Elimina cada '\n' en cada elemento [2]
+                codArt=insertArt()#Obtiene la lista de codigos registrados
+                codPlaylist=insertPlaylist()
+                codGen=insertGen()
+                codAlbum=insertAlbum()
+                if (nuevo[2] in codArt) and (nuevo[3] in codAlbum) and (nuevo[4] in codGen) and (nuevo[5] in codPlaylist) :#Agrega solo si los otros estan
+                    canciones+=[nuevo] 
+            elif len(nuevo)==7:#Validacion 
+                codArt=insertArt()#Obtiene la lista de codigos registrados
+                codPlaylist=insertPlaylist()
+                codGen=insertGen()
+                codAlbum=insertAlbum()
+                if (nuevo[2] in codArt) and (nuevo[3] in codAlbum) and (nuevo[4] in codGen) and (nuevo[5] in codPlaylist) :#Agrega solo si los otros estan
+                    canciones+=[nuevo[:6]] 
+            else:#Validacion 
+                continue     
+    return cod
+
+
