@@ -1,0 +1,6 @@
+1234;Juan Perez
+45780;Carlos Mora
+231;Maria Gonzalez
+50129; Ana Torres
+654;Jose Patiño
+1234;Repetido
