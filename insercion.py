@@ -7,7 +7,7 @@ def insertProp():
     cod=[]#Almacena codigos
     for linea in propietariosOri:#Itera en lista sin cambios
         nuevo=linea.split(';')#Por cada elemento de propietariosOri crea una nueva lista dividiendo cada vez que hay un ';'['1234', 'Juan Perez']
-        if nuevo[0]=='\n':#Validacion en caso de lineas con enter
+        if nuevo[0]=='\n'or len(nuevo)<2 or len(nuevo)>3:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
             continue
         else:
             if nuevo[0] in cod:#Validacion si codigo esta repetido
@@ -32,7 +32,7 @@ def insertGen():
     cod=[]#Almacena codigos
     for linea in GenerosOri:#Itera en lista sin cambios
         nuevo=linea.split(';')#Por cada elemento de GeneroOri crea una nueva lista dividiendo cada vez que hay un ';'
-        if nuevo[0]=='\n':#Validacion en caso de lineas con enter
+        if nuevo[0]=='\n'or len(nuevo)<2 or len(nuevo)>3:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
             continue
         else:
             if nuevo[0] in cod:#Validacion si codigo esta repetido
@@ -58,7 +58,7 @@ def insertArt():
     codValidos=[]
     for linea in artistasOri:#Itera en lista sin cambios
         nuevo=linea.split(';')#Por cada elemento de artistasOri crea una nueva lista dividiendo cada vez que hay un ';'['1234','Music','620193']
-        if nuevo[0]=='\n':#Validacion en caso de lineas con enter
+        if nuevo[0]=='\n'or len(nuevo)<3 or len(nuevo)>4:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
             continue
         else:
             if nuevo[0] in cod:#Validacion si codigo esta repetido
@@ -89,7 +89,7 @@ def insertPlaylist():
     codValidos=[]
     for linea in playlistOri:#Itera en lista sin cambios
         nuevo=linea.split(';')#Por cada elemento de PlaylistOri crea una nueva lista dividiendo cada vez que hay un ';'
-        if nuevo[0]=='\n':##Validacion en caso de lineas con enter
+        if nuevo[0]=='\n'or len(nuevo)<3 or len(nuevo)>4:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
             continue
         else:
             if nuevo[0] in cod:#Validacion si codigo esta repetido
@@ -119,7 +119,7 @@ def insertAlbum():
     codValidos=[]#Almacena codigos que cumple todas las condiciones
     for linea in albumOri:#Itera en lista sin cambios
         nuevo=linea.split(';')#Por cada elemento de albumOri crea una nueva lista dividiendo cada vez que hay un ';'['1234','Music','620193']
-        if nuevo[0]=='\n':##Validacion en caso de lineas con enter
+        if nuevo[0]=='\n'or len(nuevo)<3 or len(nuevo)>4:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
             continue
         else:
             if nuevo[0] in cod:#Validacion si codigo esta repetido
@@ -149,7 +149,7 @@ def insertCanciones():
     codValidos=[]
     for linea in cancionesOri:#Itera en lista sin cambios
         nuevo=linea.split(';')#Por cada elemento de cancionesOri crea una nueva lista dividiendo cada vez que hay un ';'
-        if nuevo[0]=='\n':##Validacion en caso de lineas con enter
+        if nuevo[0]=='\n'or len(nuevo)<6 or len(nuevo)>7:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
             continue
         else:
             if nuevo[0] in cod:#Validacion si codigo esta repetido
@@ -168,4 +168,3 @@ def insertCanciones():
                 else:#Validacion 
                     continue     
     return codValidos,canciones
-
