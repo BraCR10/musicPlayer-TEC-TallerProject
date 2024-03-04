@@ -81,7 +81,7 @@ def insertArt():
 
 #Esta funcion lee un fichero llamado Playlist.txt y retorna cada linea en una lista dentro de otra lista
 def insertPlaylist():
-    texto = open('Playlist.txt', 'r')
+    texto = open('playlist.txt', 'r')
     playlistOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
     texto.close()
     playlists=[]#Lista para almacenar cambios en los datos del fichero
@@ -168,4 +168,4 @@ def insertCanciones():
                 else:#Validacion 
                     continue     
     return codValidos,canciones
-
+print(insertCanciones())
