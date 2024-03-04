@@ -10,7 +10,7 @@ def buscarProp(codProp):
           if i[0]==codProp:#Si el propietario ingresado esta en los codigos
               nombre=i[1]      
     return nombre
-print(buscarProp('123'))
+
 #Esta busca una Playlist por codigo
 def buscarPlaylist(codPlaylist): 
     for i in insertPlaylist()[1]:
@@ -46,4 +46,3 @@ def buscarCancion(codCancion):
             nombrePlaylist=i[1] #Obtiene el nombre de la playlist
 
     return nombreCacion,nombreArtista,nombreAlbum,nombreGenero,nombrePlaylist#Retorna Nombre de cancion y los datos adicionales
-print(buscarCancion('123'))
