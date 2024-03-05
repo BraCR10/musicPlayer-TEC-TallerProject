@@ -47,3 +47,34 @@ def buscarCancion(codCancion):
 
     return nombreCacion,nombreArtista,nombreAlbum,nombreGenero,nombrePlaylist#Retorna Nombre de cancion y los datos adicionales
 print(buscarCancion('123'))
+
+def buscarGenero(codGenero):
+    for i in insertGen()[1]:
+        if i[0]==codGenero:#Si el genero esta en la memoria
+            nombreGenero=i[1] #Almacena nombre del genero
+        return nombreGenero #Retorna el nombre del genero
+    
+
+def buscarArtista(codArtista):
+    for i in insertArt()[1]:
+        if i[0]==codArtista:
+            nombreArtista=i[1]
+            codGenero=i[2]
+    for i in insertGen()[1]:
+        if i[0]==codGenero:
+            nombreGenero=i[1]
+    return nombreArtista,nombreGenero
+
+def buscarAlbun(codAlbum):
+    for i in insertAlbum()[1]:
+        if i[0]==codAlbum:
+            nombreAlbum=i[1]
+            codArtista=i[2]
+            codGenero=i[3]
+    for i in insertArt()[1]:
+        if i[0]==codArtista:
+            nombreArtista=i[1]
+    for i in insertGen()[1]:
+        if i[0]==codGenero:
+            nombreGenero=i[1]
+    return nombreAlbum,nombreArtista,nombreGenero
