@@ -29,6 +29,39 @@ def eliminarPlaylist(codPlaylist):
     return copiaCod,copiaTodo
 print(eliminarPlaylist('985'))
 
+def eliminarGenero(codGen):
+    copiaCod=insertGen()[0]
+    copiaTodo=insertGen()[1]
+    for i in copiaCod:#i obtiene el valor de cada argumento
+        if i == codGen:
+            copiaCod.remove(codGen) 
+    for i in copiaTodo:
+        if i[0] == codGen:
+                copiaTodo.remove(i) 
+    return copiaCod,copiaTodo
+
+def eliminarArtista(codArt):
+    copiaCod=insertArt()[0]
+    copiaTodo=insertArt()[1]
+    for i in copiaCod:#i obtiene el valor de cada argumento
+        if i == codArt:
+            copiaCod.remove(codArt) 
+    for i in copiaTodo:
+        if i[0] == codArt:
+                copiaTodo.remove(i) 
+    return copiaCod,copiaTodo
+
+def eliminarAlbum(codAlb):
+    copiaCod=insertAlbum()[0]
+    copiaTodo=insertAlbum()[1]
+    for i in copiaCod:#i obtiene el valor de cada argumento
+        if i == codAlb:
+            copiaCod.remove(codAlb) 
+    for i in copiaTodo:
+        if i[0] == codAlb:
+                copiaTodo.remove(i) 
+    return copiaCod,copiaTodo
+
 def eliminarCanciones(codCancion):
     copiaCod=insertCanciones()[0]
     copiaTodo=insertCanciones()[1]
