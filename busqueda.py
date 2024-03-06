@@ -46,7 +46,6 @@ def buscarCancion(codCancion):
             nombrePlaylist=i[1] #Obtiene el nombre de la playlist
 
     return nombreCacion,nombreArtista,nombreAlbum,nombreGenero,nombrePlaylist#Retorna Nombre de cancion y los datos adicionales
-print(buscarCancion('123'))
 
 def buscarGenero(codGenero):
     for i in insertGen()[1]:
