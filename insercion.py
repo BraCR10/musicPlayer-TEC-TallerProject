@@ -1,6 +1,6 @@
 #Esta funcion lee un fichero llamado propietario.txt y retorna cada linea en una lista dentro de otra lista
 def insertProp(): 
-    texto = open('propietario.txt', 'r')
+    texto = open('Propietario.txt', 'r')
     propietariosOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
     texto.close()
     propietarios=[]#Lista para almacenar cambios en los datos del fichero
@@ -25,7 +25,7 @@ def insertProp():
 
 #Esta funcion lee un fichero llamado Genero.txt y retorna cada linea en una lista dentro de otra lista
 def insertGen():
-    texto = open('genero.txt', 'r')
+    texto = open('Genero.txt', 'r')
     GenerosOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
     texto.close()
     Generos=[]#Lista para almacenar cambios en los datos del fichero
@@ -81,7 +81,7 @@ def insertArt():
 
 #Esta funcion lee un fichero llamado Playlist.txt y retorna cada linea en una lista dentro de otra lista
 def insertPlaylist():
-    texto = open('playlist.txt', 'r')
+    texto = open('Playlist.txt', 'r')
     playlistOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
     texto.close()
     playlists=[]#Lista para almacenar cambios en los datos del fichero
@@ -168,3 +168,13 @@ def insertCanciones():
                 else:#Validacion 
                     continue     
     return codValidos,canciones
+
+
+'''
+#Pruebas:
+print(insertProp())
+print(insertAlbum())
+print(insertArt())
+print(insertCanciones())
+print(insertPlaylist())
+print(insertGen())'''

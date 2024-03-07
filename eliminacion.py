@@ -22,12 +22,10 @@ def eliminarPlaylist(codPlaylist):
     for i in copiaCod:#i obtiene el valor de cada argumento
         if i == codPlaylist:
             copiaCod.remove(codPlaylist) 
-            print(copiaCod)
     for i in copiaTodo:
         if i[0] == codPlaylist:
                 copiaTodo.remove(i) 
     return copiaCod,copiaTodo
-print(eliminarPlaylist('985'))
 
 def eliminarGenero(codGen):
     copiaCod=insertGen()[0]
@@ -40,7 +38,7 @@ def eliminarGenero(codGen):
                 copiaTodo.remove(i) 
     return copiaCod,copiaTodo
 
-def eliminarArtista(codArt):
+def eliminarArt(codArt):
     copiaCod=insertArt()[0]
     copiaTodo=insertArt()[1]
     for i in copiaCod:#i obtiene el valor de cada argumento
@@ -72,3 +70,17 @@ def eliminarCanciones(codCancion):
         if i[0] == codCancion:
                 copiaTodo.remove(i) 
     return copiaCod,copiaTodo
+'''
+#Pruebas
+print(eliminarProp(''))
+print(eliminarProp('123'))
+print('\n',eliminarGenero(''))
+print(eliminarGenero('109'))
+print('\n',eliminarPlaylist(''))
+print(eliminarPlaylist('3920'))
+print('\n',eliminarArt(''))
+print(eliminarArt('11534'))
+print('\n',eliminarAlbum(''))
+print(eliminarAlbum('34561'))
+print('\n',eliminarCanciones(''))
+print(eliminarCanciones('124'))'''

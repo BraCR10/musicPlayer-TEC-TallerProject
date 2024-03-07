@@ -64,16 +64,22 @@ def buscarArtista(codArtista):
             nombreGenero=i[1]
     return nombreArtista,nombreGenero
 
-def buscarAlbun(codAlbum):
+def buscarAlbum(codAlbum):
     for i in insertAlbum()[1]:
         if i[0]==codAlbum:
             nombreAlbum=i[1]
             codArtista=i[2]
-            codGenero=i[3]
     for i in insertArt()[1]:
         if i[0]==codArtista:
             nombreArtista=i[1]
-    for i in insertGen()[1]:
-        if i[0]==codGenero:
-            nombreGenero=i[1]
-    return nombreAlbum,nombreArtista,nombreGenero
+    return nombreAlbum,nombreArtista
+
+
+'''
+#Pruebas
+print(buscarProp('123'))
+print(buscarGenero('109'))
+print(buscarPlaylist('3920'))
+print(buscarArtista('11534'))
+print(buscarAlbum('34561'))
+print(buscarCancion('124'))'''
