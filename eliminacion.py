@@ -1,3 +1,8 @@
+#Primer avance proyecto del reproductor de musica
+#Estudiantes:
+#Matthew Cordero Salazar
+#Brian Ramirez Arias 
+
 from insercion import insertProp
 from insercion import insertPlaylist
 from insercion import insertAlbum
@@ -73,7 +78,7 @@ def eliminarCanciones(codCancion):
 '''
 #Pruebas
 print(eliminarProp(''))
-print(eliminarProp('123'))
+print(eliminarProp('1234'))
 print('\n',eliminarGenero(''))
 print(eliminarGenero('109'))
 print('\n',eliminarPlaylist(''))

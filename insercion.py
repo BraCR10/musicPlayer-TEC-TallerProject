@@ -1,3 +1,8 @@
+#Primer avance proyecto del reproductor de musica
+#Estudiantes:
+#Matthew Cordero Salazar
+#Brian Ramirez Arias 
+
 #Esta funcion lee un fichero llamado propietario.txt y retorna cada linea en una lista dentro de otra lista
 def insertProp(): 
     texto = open('Propietario.txt', 'r')
@@ -70,6 +75,7 @@ def insertArt():
                     #Obtiene la lista de codigos registrados
                     if nuevo[2] in insertGen()[0]:#Agrega solo si el genero esta en la lista de codigos que pertenece a insertGen
                         artistas+=[nuevo] 
+                        
                         codValidos+=[nuevo[0]]
                 elif len(nuevo)==4:#Validacion 
                     if nuevo[2] in insertGen()[0]:#Agrega solo si el genero esta en la lista de codigos que pertenece a insertGen
@@ -111,7 +117,7 @@ def insertPlaylist():
 
 #Esta funcion lee un fichero llamado Album.txt y retorna cada linea en una lista dentro de otra lista
 def insertAlbum(): 
-    texto = open('Album.txt', 'r')
+    texto = open('Albumes.txt', 'r')
     albumOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
     texto.close()
     albums=[]#Lista para almacenar cambios en los datos del fichero
@@ -119,7 +125,7 @@ def insertAlbum():
     codValidos=[]#Almacena codigos que cumple todas las condiciones
     for linea in albumOri:#Itera en lista sin cambios
         nuevo=linea.split(';')#Por cada elemento de albumOri crea una nueva lista dividiendo cada vez que hay un ';'['1234','Music','620193']
-        if nuevo[0]=='\n'or len(nuevo)<3 or len(nuevo)>4:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
+        if nuevo[0]=='\n'or len(nuevo)<3 or len(nuevo)<4:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
             continue
         else:
             if nuevo[0] in cod:#Validacion si codigo esta repetido
@@ -173,8 +179,8 @@ def insertCanciones():
 '''
 #Pruebas:
 print(insertProp())
-print(insertAlbum())
-print(insertArt())
-print(insertCanciones())
 print(insertPlaylist())
-print(insertGen())'''
+print(insertGen())
+print(insertArt())
+print(insertAlbum())
+print(insertCanciones())'''

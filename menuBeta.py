@@ -1,3 +1,8 @@
+#Primer avance proyecto del reproductor de musica
+#Estudiantes:
+#Matthew Cordero Salazar
+#Brian Ramirez Arias 
+
 from insercion import insertAlbum,insertArt,insertCanciones,insertGen,insertPlaylist,insertProp
 from busqueda import buscarAlbum,buscarArtista,buscarCancion,buscarGenero,buscarPlaylist,buscarProp
 from eliminacion import eliminarProp,eliminarCanciones,eliminarPlaylist
