@@ -47,7 +47,7 @@ def menu():
                 print('\nVolver al menu principal o salir?:')
                 print('\n1- Volver al menu principal')   
                 print('2- Salir de reproductor')  
-                opcion=int(input('Escoja un numero segun la accion que desea realizar:  '))
+                opcion=int(input('\nEscoja un numero segun la accion que desea realizar:  '))
                 if opcion == 1:
                     continue
                 else:
