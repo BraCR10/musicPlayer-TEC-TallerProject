@@ -14,8 +14,9 @@ def eliminarProp(codProp):
             copiaCod.remove(codProp) 
     for i in copiaTodo:
         if i[0] == codProp:
+                prop=i[1]
                 copiaTodo.remove(i) 
-    return copiaCod,copiaTodo
+    return copiaCod,copiaTodo,prop
 
 def eliminarPlaylist(codPlaylist):
     copiaCod=insertPlaylist()[0]

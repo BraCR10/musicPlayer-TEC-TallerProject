@@ -13,16 +13,14 @@ def opcionNoExiste():
     print('2- Salir de reproductor')  
     opcion=int(input('\nEscoja un numero segun la accion que desea realizar:  '))
     if opcion == 1:
-        return 1
-
-    
+        return True
 def volver():
     print('\nVolver al menu principal o salir?:')
     print('\n1- Volver al menu principal')   
     print('2- Salir de reproductor')  
     opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
     if opcion==1:
-        return 1 
+        return True
 def menu():
     listaPropcod,listaProptodo=insertProp()
     listaGencod,listaGentodo=insertGen()
@@ -50,12 +48,12 @@ def menu():
                     print('\n ---> El propietario no existe')
                 else:
                     print('\n ---> El propietario es: ',buscarProp(dato,listaProptodo))
-                if volver()==1:
+                if volver():
                     continue
                 else:
                     break
             else:
-                if opcionNoExiste() == 1:
+                if opcionNoExiste():
                     continue
                 else:
                     break
@@ -71,26 +69,25 @@ def menu():
             print('6- Eliminar Cancion') 
             opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
             if opcion==1:
-                dato=str(input('Digite el codigo de propietario a eliminar: '))
+                dato=str(input('\nDigite el codigo de propietario a eliminar: '))
                 if dato in listaPropcod:
-                    listaPropcod,listaProptodo=eliminarProp(dato)#Actualiza la lista si el codigo no existe, la deja igual
+                    listaPropcod,listaProptodo,prop=eliminarProp(dato)#Actualiza la lista si el codigo no existe, la deja igual
                     for i in listaPlaylisttodo:
                         if i[2]==dato:#Los elemento [2] de todo lista contienen codProp
                             listaPlaylistcod,listaPlaylisttodo=eliminarPlaylist(i[0])#Actualiza la lista si el codigo no existe, la deja igual
-                    print('\nEl propietario ha sido eliminado correctamente')
-                    if volver()==1:
+                    print(f'\nEl propietario "{prop}" ha sido eliminado correctamente')
+                    if volver():
                         continue
                     else:
                         break
                 else:
-                    print('\nEl propietario ha sido eliminado correctamente')
-                    
-            elif opcion==6:
-                dato=str(input('Digite el codigo a eliminar: '))
-                listaPropcod,listaProptodo=eliminarProp(dato)
-                print('\n Ha sido eliminado correctamente')
+                    print('\n--->El propietario no exite')
+                    if volver():
+                        continue
+                    else:
+                        break
             else:
-                if opcionNoExiste() == 1:
+                if opcionNoExiste():
                     continue
                 else:
                     break 
@@ -110,7 +107,7 @@ def menu():
             else:
                 break
         else:
-            if opcionNoExiste() == 1:
+            if opcionNoExiste():
                 continue
             else:
                 break
