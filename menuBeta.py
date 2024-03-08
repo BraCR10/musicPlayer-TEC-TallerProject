@@ -37,7 +37,7 @@ def menu():
                 print('\nVolver al menu principal o salir?:')
                 print('\n1- Volver al menu principal')   
                 print('2- Salir de reproductor')  
-                opcion=int(input('\nEscoja un numero: '))
+                opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                 if opcion==1:
                     continue
                 else:
@@ -47,7 +47,7 @@ def menu():
                 print('\nVolver al menu principal o salir?:')
                 print('\n1- Volver al menu principal')   
                 print('2- Salir de reproductor')  
-                opcion=int(input('\nEscoja un numero: '))
+                opcion=int(input('Escoja un numero segun la accion que desea realizar:  '))
                 if opcion == 1:
                     continue
                 else:
@@ -55,7 +55,7 @@ def menu():
         elif opcion==2:
             print('En proceso')
         elif opcion==3:#Eliminaciones
-            print('\nEscoja una opcion:\n')
+            print('\nLista de opciones:\n')
             print('1- Eliminar Propietario') 
             print('6- Eliminar Cancion') 
             opcion=int(input('\nDigite un numero: '))
