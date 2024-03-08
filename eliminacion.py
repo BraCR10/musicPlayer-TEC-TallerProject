@@ -3,76 +3,85 @@
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
 
-from insercion import *
-
-        
-def eliminarProp(codProp):
-    copiaCod=insertProp()[0]
-    copiaTodo=insertProp()[1]
+def eliminarProp(codProp,listaCod,listaTodo):
+    copiaCod=listaCod
+    copiaTodo=listaTodo
     for i in copiaCod:#i obtiene el valor de cada argumento
         if i == codProp:
             copiaCod.remove(codProp) 
     for i in copiaTodo:
         if i[0] == codProp:
+                ubicacion=copiaTodo.index(i)
                 nombre=i[1]
-                copiaTodo.remove(i) 
+                copiaTodo.pop(ubicacion) 
     return copiaCod,copiaTodo,nombre
 
-def eliminarPlaylist(codPlaylist):
-    copiaCod=insertPlaylist()[0]
-    copiaTodo=insertPlaylist()[1]
+def eliminarPlaylist(codPlaylist,listaCod,listaTodo):
+    copiaCod=listaCod
+    copiaTodo=listaTodo
     for i in copiaCod:#i obtiene el valor de cada argumento
         if i == codPlaylist:
             copiaCod.remove(codPlaylist) 
     for i in copiaTodo:
         if i[0] == codPlaylist:
+                ubicacion=copiaTodo.index(i)
                 nombre=i[1]
-                copiaTodo.remove(i) 
+                copiaTodo.pop(ubicacion) 
+     
+    #print(copiaTodo)
     return copiaCod,copiaTodo,nombre
-
-def eliminarGenero(codGen):
-    copiaCod=insertGen()[0]
-    copiaTodo=insertGen()[1]
+#print(eliminarPlaylist('123',['123','127'],[['12','lll'],['123','127']]))  
+#print(eliminarPlaylist('98',[],[['98', 'Musicaaaaaaaaaaaaaaal1', '123'], ['8844', 'pppppppppppp', '123'], ['77777777777777777', 'fffffffffffffffffffff', '123'], ['1745', 'Merengues unicos', '45780'], ['985', 'Viajando por la musica', '231'], ['3920', 'Volver al pasado', '50129']]))
+def eliminarGenero(codGen,listaCod,listaTodo):
+    copiaCod=listaCod
+    copiaTodo=listaTodo
     for i in copiaCod:#i obtiene el valor de cada argumento
         if i == codGen:
             copiaCod.remove(codGen) 
     for i in copiaTodo:
         if i[0] == codGen:
+                nombre=i[1]
                 copiaTodo.remove(i) 
-    return copiaCod,copiaTodo
+    return copiaCod,copiaTodo,nombre
 
-def eliminarArt(codArt):
-    copiaCod=insertArt()[0]
-    copiaTodo=insertArt()[1]
+def eliminarArt(codArt,listaCod,listaTodo):
+    copiaCod=listaCod
+    copiaTodo=listaTodo
     for i in copiaCod:#i obtiene el valor de cada argumento
         if i == codArt:
             copiaCod.remove(codArt) 
     for i in copiaTodo:
         if i[0] == codArt:
+                nombre=i[1]
                 copiaTodo.remove(i) 
-    return copiaCod,copiaTodo
+    return copiaCod,copiaTodo,nombre
 
-def eliminarAlbum(codAlb):
-    copiaCod=insertAlbum()[0]
-    copiaTodo=insertAlbum()[1]
+def eliminarAlbum(codAlb,listaCod,listaTodo):
+    copiaCod=listaCod
+    copiaTodo=listaTodo
     for i in copiaCod:#i obtiene el valor de cada argumento
         if i == codAlb:
             copiaCod.remove(codAlb) 
     for i in copiaTodo:
         if i[0] == codAlb:
+                nombre=i[1]
                 copiaTodo.remove(i) 
-    return copiaCod,copiaTodo
+    return copiaCod,copiaTodo,nombre
 
-def eliminarCanciones(codCancion):
-    copiaCod=insertCanciones()[0]
-    copiaTodo=insertCanciones()[1]
+def eliminarCanciones(codCancion,listaCod,listaTodo):
+    copiaCod=listaCod
+    copiaTodo=listaTodo
     for i in copiaCod:#i obtiene el valor de cada argumento
         if i == codCancion:
             copiaCod.remove(codCancion) 
     for i in copiaTodo:
         if i[0] == codCancion:
+                nombre=i[1]
                 copiaTodo.remove(i) 
-    return copiaCod,copiaTodo
+    return copiaCod,copiaTodo,nombre
+
+
+
 '''
 #Pruebas
 print(eliminarProp(''))

@@ -126,10 +126,7 @@ def menu():
             if opcion==1:
                 dato=str(input('\nDigite el codigo de propietario a eliminar: '))
                 if dato in listaPropcod:
-                    listaPropcod,listaProptodo,nombre=eliminarProp(dato)#Actualiza la lista si el codigo no existe, la deja igual
-                    for i in listaPlaylisttodo:
-                        if i[2]==dato:#Los elemento [2] de todo lista contienen codProp
-                            listaPlaylistcod,listaPlaylisttodo=eliminarPlaylist(i[0])#Actualiza la lista si el codigo no existe, la deja igual
+                    listaPropcod,listaProptodo,nombre=eliminarProp(dato,listaPropcod,listaProptodo)#Actualiza la lista si el codigo no existe, la deja igual
                     print(f'\nEl propietario "{nombre}" ha sido eliminado correctamente')
                     if volver():
                         continue
@@ -151,17 +148,80 @@ def menu():
                             check=1
                             break
                     if check==1:
-                        listaPlaylistcod,listaPlaylisttodo,nombre=eliminarPlaylist(codplaylist)#Actualiza la lista si el codigo no existe, la deja igual
-                        for i in listaCancionestodo:
-                            if i[5]==codplaylist:#Los elemento [5] de todo lista contienen codPlaylist
-                                listaCancionescod,listaCancionestodo=eliminarCanciones(i[0])#Actualiza la lista si el codigo no existe, la deja igual
-                        print(f'\nEl propietario "{nombre}" ha sido eliminado correctamente')
+                        listaPlaylistcod,listaPlaylisttodo,nombre=eliminarPlaylist(codplaylist,listaPlaylistcod,listaPlaylisttodo)#Actualiza la lista si el codigo no existe, la deja igual
+                        print(f'\nLa playlist  "{nombre}" ha sido eliminada correctamente')
+                        if volver():
+                            continue
+                        else:
+                            break
+                    else:
+                        print('\n El codigo de propietario no tiene relacion con la playlist')
                         if volver():
                             continue
                         else:
                             break
                 else:
                     print('\n--->La playlist no existe o los datos no conciden')
+                    if volver():
+                        continue
+                    else:
+                        break
+            elif opcion==3:
+                dato=str(input('\nDigite el codigo de propietario a eliminar: '))
+                if dato in listaGencod:
+                    listaGencod,listaGentodo,nombre=eliminarGenero(dato,listaGencod,listaGentodo)#Actualiza la lista si el codigo no existe, la deja igual
+                    print(f'\nEl genero "{nombre}" ha sido eliminado correctamente')
+                    if volver():
+                        continue
+                    else:
+                        break
+                else:
+                    print('\n--->El genero no exite')
+                    if volver():
+                        continue
+                    else:
+                        break
+            elif opcion==4:
+                dato=str(input('\nDigite el codigo de artista a eliminar: '))
+                if dato in listaArtcod:
+                    listaArtcod,listaArttodo,nombre=eliminarArt(dato,listaArtcod,listaArttodo)#Actualiza la lista si el codigo no existe, la deja igual
+                    print(f'\nEl artista "{nombre}" ha sido eliminado correctamente')
+                    if volver():
+                        continue
+                    else:
+                        break
+                else:
+                    print('\n--->El artista no exite')
+                    if volver():
+                        continue
+                    else:
+                        break
+            elif opcion==5:
+                dato=str(input('\nDigite el codigo de album a eliminar: '))
+                if dato in listaAlbumcod:
+                    listaAlbumcod,listaAlbumtodo,nombre=eliminarAlbum(dato,listaAlbumcod,listaAlbumtodo)#Actualiza la lista si el codigo no existe, la deja igual
+                    print(f'\nEl album "{nombre}" ha sido eliminado correctamente')
+                    if volver():
+                        continue
+                    else:
+                        break
+                else:
+                    print('\n--->El album no exite')
+                    if volver():
+                        continue
+                    else:
+                        break
+            elif opcion==6:
+                dato=str(input('\nDigite el codigo de la cancion a eliminar: '))
+                if dato in listaCancionescod:
+                    listaCancionescod,listaCancionestodo,nombre=eliminarCanciones(dato,listaCancionescod,listaCancionestodo)#Actualiza la lista si el codigo no existe, la deja igual
+                    print(f'\nLa cancion "{nombre}" ha sido eliminado correctamente')
+                    if volver():
+                        continue
+                    else:
+                        break
+                else:
+                    print('\n--->La cancion no exite')
                     if volver():
                         continue
                     else:
@@ -173,19 +233,68 @@ def menu():
                     break 
            
         elif opcion==4:#Consultas
-            print('Escoja una opcion:\n')
-            print('1- Ver Propietarios')
-            print('2- Ver Playlist')
-            opcion=int(input('Digite un numero: '))
+            print('\nLista de opciones:\n')
+            print('1- Ver Propietario') 
+            print('2- Ver Playlist') 
+            print('3- Ver Genero') 
+            print('4- Ver Artista') 
+            print('5- Ver Album') 
+            print('6- Ver Cancion') 
+            opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
             if opcion==1:
-                print(listaProptodo)
-            if opcion==2:
-                print(listaPlaylisttodo)
-            opcion=str(input('Volver? Y/N: '))
-            if opcion == 'Y' or opcion == 'y':
+                print('\nLos propietarios registrados: \n')
+                i=0
+                print('Codigo - Nombre ')
+                while i < len(listaProptodo):
+                    print('-----------------------------------------')
+                    print(f'{listaProptodo[i][0]} - {listaProptodo[i][1]}')
+                    i+=1
+            elif opcion==2:
+                print('\nLas playlists registradas: ')
+                i=0
+                print('Codigo - Nombre - Codigo del Propietario \n')
+                while i < len(listaPlaylisttodo):
+                    print('-----------------------------------------')
+                    print(f'{listaPlaylisttodo[i][0]} - {listaPlaylisttodo[i][1]} - {listaPlaylisttodo[i][1]}')
+                    i+=1
+            elif opcion==3:
+                print('\nLos generos registrados: \n')
+                i=0
+                print('Codigo - Nombre ')
+                while i < len(listaGentodo):
+                    print('-----------------------------------------')
+                    print(f'{listaGentodo[i][0]} - {listaGentodo[i][1]}')
+                    i+=1
+            elif opcion==4:
+                print('\nLos artista registrados: \n')
+                i=0
+                print('Codigo - Nombre - Codigo del Genero ')
+                while i < len(listaArttodo):
+                    print('-----------------------------------------')
+                    print(f'{listaArttodo[i][0]} - {listaArttodo[i][1]} - {listaArttodo[i][2]}')
+                    i+=1
+            elif opcion==5:
+                print('\nLos albumes registrados: \n')
+                i=0
+                print('Codigo - Nombre - Codigo del Artista ')
+                while i < len(listaAlbumtodo):
+                    print('-----------------------------------------')
+                    print(f'{listaAlbumtodo[i][0]} - {listaAlbumtodo[i][1]} - {listaAlbumtodo[i][2]}')
+                    i+=1
+            elif opcion==6:
+                print('\nLas canciones registrados: \n')
+                i=0
+                print('Codigo - Nombre - Codigo del Artista - Codigo del Album - Codigo de Genero - Codigo de Playlist ')
+                while i < len(listaCancionestodo):
+                    print('-----------------------------------------')
+                    print(f'{listaCancionestodo[i][0]} - {listaCancionestodo[i][1]} - {listaCancionestodo[i][2]} - {listaCancionestodo[i][3]} - {listaCancionestodo[i][4]} - {listaCancionestodo[i][5]}')
+                    i+=1
+            if volver():
                 continue
             else:
                 break
+        elif opcion==5:
+            break
         else:
             if opcionNoExiste():
                 continue
