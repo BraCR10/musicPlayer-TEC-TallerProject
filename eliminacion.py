@@ -3,12 +3,8 @@
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
 
-from insercion import insertProp
-from insercion import insertPlaylist
-from insercion import insertAlbum
-from insercion import insertGen
-from insercion import insertCanciones
-from insercion import insertArt
+from insercion import *
+
         
 def eliminarProp(codProp):
     copiaCod=insertProp()[0]
