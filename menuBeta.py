@@ -6,7 +6,7 @@
 from insercion import *#insertAlbum,insertArt,insertCanciones,insertGen,insertPlaylist,insertProp
 from busqueda import * #buscarAlbum,buscarArtista,buscarCancion,buscarGenero,buscarPlaylist,buscarProp
 from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist
-def noExiste():
+def opcionNoExiste():
     print('\n ---> Esta opcion no exite')
     print('\nVolver al menu principal o salir?:')
     print('\n1- Volver al menu principal')   
@@ -55,7 +55,7 @@ def menu():
                 else:
                     break
             else:
-                if noExiste() == 1:
+                if opcionNoExiste() == 1:
                     continue
                 else:
                     break
@@ -71,21 +71,30 @@ def menu():
             print('6- Eliminar Cancion') 
             opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
             if opcion==1:
-                dato=str(input('Digite el codigo a eliminar: '))
-                listaPropcod,listaProptodo=eliminarProp(dato)#Actualiza la lista si el codigo no existe, la deja igual
-                for i in listaPlaylisttodo:
-                    if i[2]==dato:#Los elemento [2] de todo lista contienen codProp
-                        listaPlaylistcod,listaPlaylisttodo=eliminarPlaylist(i[0])#Actualiza la lista si el codigo no existe, la deja igual
-                print('\n Ha sido eliminado correctamente')
-            if opcion==6:
+                dato=str(input('Digite el codigo de propietario a eliminar: '))
+                if dato in listaPropcod:
+                    listaPropcod,listaProptodo=eliminarProp(dato)#Actualiza la lista si el codigo no existe, la deja igual
+                    for i in listaPlaylisttodo:
+                        if i[2]==dato:#Los elemento [2] de todo lista contienen codProp
+                            listaPlaylistcod,listaPlaylisttodo=eliminarPlaylist(i[0])#Actualiza la lista si el codigo no existe, la deja igual
+                    print('\nEl propietario ha sido eliminado correctamente')
+                    if volver()==1:
+                        continue
+                    else:
+                        break
+                else:
+                    print('\nEl propietario ha sido eliminado correctamente')
+                    
+            elif opcion==6:
                 dato=str(input('Digite el codigo a eliminar: '))
                 listaPropcod,listaProptodo=eliminarProp(dato)
                 print('\n Ha sido eliminado correctamente')
-            opcion=str(input('Volver? Y/N: '))
-            if opcion == 'Y' or opcion == 'y':
-                continue
             else:
-                break
+                if opcionNoExiste() == 1:
+                    continue
+                else:
+                    break 
+           
         elif opcion==4:#Consultas
             print('Escoja una opcion:\n')
             print('1- Ver Propietarios')
@@ -101,5 +110,8 @@ def menu():
             else:
                 break
         else:
-            break
+            if opcionNoExiste() == 1:
+                continue
+            else:
+                break
 menu()
