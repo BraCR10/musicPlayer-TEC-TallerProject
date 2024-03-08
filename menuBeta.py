@@ -126,17 +126,42 @@ def menu():
             if opcion==1:
                 dato=str(input('\nDigite el codigo de propietario a eliminar: '))
                 if dato in listaPropcod:
-                    listaPropcod,listaProptodo,prop=eliminarProp(dato)#Actualiza la lista si el codigo no existe, la deja igual
+                    listaPropcod,listaProptodo,nombre=eliminarProp(dato)#Actualiza la lista si el codigo no existe, la deja igual
                     for i in listaPlaylisttodo:
                         if i[2]==dato:#Los elemento [2] de todo lista contienen codProp
                             listaPlaylistcod,listaPlaylisttodo=eliminarPlaylist(i[0])#Actualiza la lista si el codigo no existe, la deja igual
-                    print(f'\nEl propietario "{prop}" ha sido eliminado correctamente')
+                    print(f'\nEl propietario "{nombre}" ha sido eliminado correctamente')
                     if volver():
                         continue
                     else:
                         break
                 else:
                     print('\n--->El propietario no exite')
+                    if volver():
+                        continue
+                    else:
+                        break
+            elif opcion==2:
+                codplaylist=str(input('\nDigite el codigo de playlist a eliminar: '))
+                codprop=str(input('\nDigite el codigo de propietario al que pertenece la playlist: '))
+                if codplaylist in listaPlaylistcod and codprop in listaPropcod :
+                    check=0#Para verificar si el prop tiene vinculada la playlist
+                    for i in listaPlaylisttodo:
+                        if i[2]==codprop:
+                            check=1
+                            break
+                    if check==1:
+                        listaPlaylistcod,listaPlaylisttodo,nombre=eliminarPlaylist(codplaylist)#Actualiza la lista si el codigo no existe, la deja igual
+                        for i in listaCancionestodo:
+                            if i[5]==codplaylist:#Los elemento [5] de todo lista contienen codPlaylist
+                                listaCancionescod,listaCancionestodo=eliminarCanciones(i[0])#Actualiza la lista si el codigo no existe, la deja igual
+                        print(f'\nEl propietario "{nombre}" ha sido eliminado correctamente')
+                        if volver():
+                            continue
+                        else:
+                            break
+                else:
+                    print('\n--->La playlist no existe o los datos no conciden')
                     if volver():
                         continue
                     else:
