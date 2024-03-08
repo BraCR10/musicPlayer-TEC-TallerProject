@@ -41,6 +41,11 @@ def menu():
             print('\n------------------------------------------------------------------')
             print('\nLista de opciones:\n')
             print('1- Buscar Propietario') 
+            print('2- Buscar Playlist') 
+            print('3- Buscar Genero') 
+            print('4- Buscar Artista') 
+            print('5- Buscar Album') 
+            print('6- Buscar Cancion') 
             opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
             if opcion==1:
                 dato=str(input('\nDigite el codigo de propietario: '))
@@ -48,7 +53,57 @@ def menu():
                     print('\n ---> El propietario no existe')
                 else:
                     print('\n ---> El propietario es: ',buscarProp(dato,listaProptodo))
-                if volver():
+                if volver()==1:
+                    continue
+                else:
+                    break
+            elif opcion==2:
+                dato=str(input('\nDigite el codigo de playlist: '))
+                if buscarPlaylist(dato,listaPlaylisttodo,listaProptodo)==None:
+                    print('\n ---> La playlist no existe')
+                else:
+                    print('\n ---> La playlist es: ',buscarPlaylist(dato,listaPlaylisttodo,listaProptodo))
+                if volver()==1:
+                    continue
+                else:
+                    break
+            elif opcion==3:
+                dato=str(input('\nDigite el codigo de genero: '))
+                if buscarGenero(dato,listaGentodo)==None:
+                    print('\n ---> El genero no existe')
+                else:
+                    print('\n ---> El genero es: ',buscarGenero(dato,listaGentodo))
+                if volver()==1:
+                    continue
+                else:
+                    break
+            elif opcion==4:
+                dato=str(input('\nDigite el codigo de artista: '))
+                if buscarArtista(dato,listaArttodo,listaGentodo)==None:
+                    print('\n ---> El artista no existe')
+                else:
+                    print('\n ---> La playlist es: ',buscarArtista(dato,listaArttodo,listaGentodo))
+                if volver()==1:
+                    continue
+                else:
+                    break
+            elif opcion==5:
+                dato=str(input('\nDigite el codigo de album: '))
+                if buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)==None:
+                    print('\n ---> El album no existe')
+                else:
+                    print('\n ---> el album es: ',buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo))
+                if volver()==1:
+                    continue
+                else:
+                    break
+            elif opcion==6:
+                dato=str(input('\nDigite el codigo de cancion: '))
+                if buscarCancion(dato,listaCancionestodo,listaAlbumtodo,listaArttodo,listaGentodo)==None:
+                    print('\n ---> La cancion no existe')
+                else:
+                    print('\n ---> La cancion es: ',buscarCancion(dato,listaCancionestodo,listaAlbumtodo,listaArttodo,listaGentodo))
+                if volver()==1:
                     continue
                 else:
                     break
