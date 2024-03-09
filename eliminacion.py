@@ -11,9 +11,8 @@ def eliminarProp(codProp,listaCod,listaTodo):
             copiaCod.remove(codProp) 
     for i in copiaTodo:
         if i[0] == codProp:
-                ubicacion=copiaTodo.index(i)
                 nombre=i[1]
-                copiaTodo.pop(ubicacion) 
+                copiaTodo.remove(i) 
     return copiaCod,copiaTodo,nombre
 
 def eliminarPlaylist(codPlaylist,listaCod,listaTodo):
@@ -24,9 +23,8 @@ def eliminarPlaylist(codPlaylist,listaCod,listaTodo):
             copiaCod.remove(codPlaylist) 
     for i in copiaTodo:
         if i[0] == codPlaylist:
-                ubicacion=copiaTodo.index(i)
                 nombre=i[1]
-                copiaTodo.pop(ubicacion) 
+                copiaTodo.remove(i) 
      
     #print(copiaTodo)
     return copiaCod,copiaTodo,nombre

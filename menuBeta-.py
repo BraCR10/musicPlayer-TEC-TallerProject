@@ -21,6 +21,19 @@ def volver():
     opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
     if opcion==1:
         return True
+def eliminadorDeVinculados(dato,listacod,listaTodo):#La usamos para eliminar cosas que se ven afectadas por la eliminacion de otras
+    cont=0#Almacena la cantidad de codigos ligados que hay que eliminar
+    i=0
+    while i<len(listaTodo):#Obtiene la cantidad de codigos que hay que eliminar en la lista de Todo
+        if listaTodo[i][2]==dato:
+            cont+=1
+        i+=1
+    while cont>0:#Elimina codigo por codigo 
+        if listaTodo[0][2] == dato:
+            listacod,listaTodo,decartar=eliminarPlaylist(listaTodo[0][0],listacod,listaTodo)
+        i+=1
+        cont-=1
+    return listacod,listaTodo        
 def menu():
     listaPropcod,listaProptodo=insertProp()
     listaGencod,listaGentodo=insertGen()
@@ -126,7 +139,10 @@ def menu():
             if opcion==1:
                 dato=str(input('\nDigite el codigo de propietario a eliminar: '))
                 if dato in listaPropcod:
+                    cont=0#Almacena la cantidad de codigos ligados que hay que eliminar
+                    i=0
                     listaPropcod,listaProptodo,nombre=eliminarProp(dato,listaPropcod,listaProptodo)#Actualiza la lista si el codigo no existe, la deja igual
+                    listaPlaylistcod,listaPlaylisttodo=eliminadorDeVinculados(dato,listaPlaylistcod,listaPlaylisttodo)
                     print(f'\nEl propietario "{nombre}" ha sido eliminado correctamente')
                     if volver():
                         continue
@@ -143,11 +159,11 @@ def menu():
                 codprop=str(input('\nDigite el codigo de propietario al que pertenece la playlist: '))
                 if codplaylist in listaPlaylistcod and codprop in listaPropcod :
                     check=0#Para verificar si el prop tiene vinculada la playlist
-                    for i in listaPlaylisttodo:
+                    for i in listaPlaylisttodo:#Pasa playlist por playlist verificando los codigos de prop registrados
                         if i[2]==codprop:
                             check=1
                             break
-                    if check==1:
+                    if check==1:#Si hay codigos
                         listaPlaylistcod,listaPlaylisttodo,nombre=eliminarPlaylist(codplaylist,listaPlaylistcod,listaPlaylisttodo)#Actualiza la lista si el codigo no existe, la deja igual
                         print(f'\nLa playlist  "{nombre}" ha sido eliminada correctamente')
                         if volver():
@@ -255,7 +271,7 @@ def menu():
                 print('Codigo - Nombre - Codigo del Propietario \n')
                 while i < len(listaPlaylisttodo):
                     print('-----------------------------------------')
-                    print(f'{listaPlaylisttodo[i][0]} - {listaPlaylisttodo[i][1]} - {listaPlaylisttodo[i][1]}')
+                    print(f'{listaPlaylisttodo[i][0]} - {listaPlaylisttodo[i][1]} - {listaPlaylisttodo[i][2]}')
                     i+=1
             elif opcion==3:
                 print('\nLos generos registrados: \n')
