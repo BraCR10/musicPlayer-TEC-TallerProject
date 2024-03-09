@@ -21,19 +21,14 @@ def volver():
     opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
     if opcion==1:
         return True
-def eliminadorDeVinculados(dato,listacod,listaTodo):#La usamos para eliminar cosas que se ven afectadas por la eliminacion de otras
+def eliminadorDeVinculados(dato,listaTodo,posicion):#La usamos para eliminar cosas que se ven afectadas por la eliminacion de otras
     cont=0#Almacena la cantidad de codigos ligados que hay que eliminar
     i=0
     while i<len(listaTodo):#Obtiene la cantidad de codigos que hay que eliminar en la lista de Todo
-        if listaTodo[i][2]==dato:
+        if listaTodo[i][posicion]==dato:
             cont+=1
         i+=1
-    while cont>0:#Elimina codigo por codigo 
-        if listaTodo[0][2] == dato:
-            listacod,listaTodo,decartar=eliminarPlaylist(listaTodo[0][0],listacod,listaTodo)
-        i+=1
-        cont-=1
-    return listacod,listaTodo        
+    return cont,posicion        
 def menu():
     listaPropcod,listaProptodo=insertProp()
     listaGencod,listaGentodo=insertGen()
@@ -139,10 +134,16 @@ def menu():
             if opcion==1:
                 dato=str(input('\nDigite el codigo de propietario a eliminar: '))
                 if dato in listaPropcod:
-                    cont=0#Almacena la cantidad de codigos ligados que hay que eliminar
-                    i=0
                     listaPropcod,listaProptodo,nombre=eliminarProp(dato,listaPropcod,listaProptodo)#Actualiza la lista si el codigo no existe, la deja igual
-                    listaPlaylistcod,listaPlaylisttodo=eliminadorDeVinculados(dato,listaPlaylistcod,listaPlaylisttodo)
+                    cont,posicion=eliminadorDeVinculados(dato,listaPlaylisttodo,2)
+                    i=0
+                    while cont>0:#Elimina codigo por codigo 
+                        if listaPlaylisttodo[i][posicion] == dato:
+                            listaPlaylistcod,listaPlaylisttodo,decartar=eliminarPlaylist(listaPlaylisttodo[i][0],listaPlaylistcod,listaPlaylisttodo)#Genera nuevas listas
+                            cont-=1
+                            i=0
+                        if cont!=1:
+                            i+=1
                     print(f'\nEl propietario "{nombre}" ha sido eliminado correctamente')
                     if volver():
                         continue
@@ -165,6 +166,15 @@ def menu():
                             break
                     if check==1:#Si hay codigos
                         listaPlaylistcod,listaPlaylisttodo,nombre=eliminarPlaylist(codplaylist,listaPlaylistcod,listaPlaylisttodo)#Actualiza la lista si el codigo no existe, la deja igual
+                        cont,posicion=eliminadorDeVinculados(codplaylist,listaCancionestodo,5)
+                        i=0
+                        while cont>0:#Elimina canciones vinculadas
+                            if listaCancionestodo[i][posicion] == codplaylist:#Verfica los cogido vinculados
+                                listaCancionescod,listaCancionestodo,decartar=eliminarCanciones(listaCancionestodo[i][0],listaCancionescod,listaCancionestodo)#Genera las nuevas listas
+                                i=0
+                                cont-=1
+                            if cont!=0:
+                                i+=1
                         print(f'\nLa playlist  "{nombre}" ha sido eliminada correctamente')
                         if volver():
                             continue
@@ -183,9 +193,47 @@ def menu():
                     else:
                         break
             elif opcion==3:
-                dato=str(input('\nDigite el codigo de propietario a eliminar: '))
+                dato=str(input('\nDigite el codigo de genero a eliminar: '))
                 if dato in listaGencod:
                     listaGencod,listaGentodo,nombre=eliminarGenero(dato,listaGencod,listaGentodo)#Actualiza la lista si el codigo no existe, la deja igual
+                    cont,posicion=eliminadorDeVinculados(dato,listaArttodo,2)
+                    i=0
+                    artElminadoscod=[]
+                    artElminadoscodGen=[]
+                    while cont>0:#Elimina los Artistas vinculados
+                        if listaArttodo[i][posicion] == dato:
+                            artElminadoscod+=[listaArttodo[i][0]]
+                            artElminadoscodGen+=[listaArttodo[i][2]]
+                            listaArtcod,listaArttodo,decartar=eliminarArt(listaArttodo[i][0],listaArtcod,listaArttodo)#Genera nuevas listas
+                            cont-=1
+                            i=0
+                        if cont>0:#Diferente a todos, no se identifica porque
+                            i+=1
+                    cont,posicion=eliminadorDeVinculados(dato,listaCancionestodo,4)
+                    i=0
+                    while cont>0:#Elimina las canciones viculadas
+                        if listaCancionestodo[i][posicion] == dato:
+                            listaCancionescod,listaCancionestodo,decartar=eliminarCanciones(listaCancionestodo[i][0],listaCancionescod,listaCancionestodo)#Genera nuevas listas
+                            cont-=1
+                            i=0
+                        if cont!=1:
+                            i+=1
+                    for i in artElminadoscod:
+                        cont+=eliminadorDeVinculados(i,listaAlbumtodo,2)[0]
+                        posicion=eliminadorDeVinculados(i,listaAlbumtodo,2)[1]
+                    i=0
+                    while cont>0:#Elimina los albumes
+                        print(i,cont)
+                        #print(listaAlbumtodo[i])
+                        if artElminadoscodGen[0] == dato:
+                            if artElminadoscod[0] == listaAlbumtodo[i][2]:
+                                listaAlbumcod,listaAlbumtodo,decartar=eliminarAlbum(listaAlbumtodo[i][0],listaAlbumcod,listaAlbumtodo)#Genera nuevas listas
+                                cont-=1
+                                i=0
+                        else:
+                            artElminadoscodGen.pop(0)
+                        if cont>0:
+                            i+=1
                     print(f'\nEl genero "{nombre}" ha sido eliminado correctamente')
                     if volver():
                         continue
@@ -202,6 +250,15 @@ def menu():
                 if dato in listaArtcod:
                     listaArtcod,listaArttodo,nombre=eliminarArt(dato,listaArtcod,listaArttodo)#Actualiza la lista si el codigo no existe, la deja igual
                     print(f'\nEl artista "{nombre}" ha sido eliminado correctamente')
+                    cont,posicion=eliminadorDeVinculados(dato,listaCancionestodo,2)
+                    i=0
+                    while cont>0:#Elimina canciones vinculadas
+                        if listaCancionestodo[i][posicion] == dato:#Verfica los cogido vinculados
+                            listaCancionescod,listaCancionestodo,decartar=eliminarCanciones(listaCancionestodo[i][0],listaCancionescod,listaCancionestodo)#Genera las nuevas listas
+                            i=0
+                            cont-=1
+                        if cont!=0:
+                            i+=1
                     if volver():
                         continue
                     else:
