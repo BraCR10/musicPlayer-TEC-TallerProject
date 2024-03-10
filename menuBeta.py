@@ -125,62 +125,30 @@ def menu():
             print('5- Eliminar Album') 
             print('6- Eliminar Cancion') 
             opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
-            if opcion==1:
-                dato=str(input('\nDigite el codigo de propietario a eliminar: '))
-                if dato in listaPropcod:
-                    #Eliminacion principal
-                    listaPropcod,listaProptodo,nombre=eliminarProp(dato,listaPropcod,listaProptodo)#Actualiza la lista si el codigo no existe, la deja igual
-                    #Eliminacion de vinculos
-                    #Eliminacion de playlist
-                    cont=0#Contador de veces que esta presente el codigo eliminado 
-                    i=0
-                    while i<len(listaPlaylisttodo):#Obtiene las veces que va a tener que operar el siguiente while, cont hace referecia a la cantidad de elementos que hay que eliminar en la lista vinculada
-                        if listaPlaylisttodo[i][2]==dato:#Dato es el codigo eliminado originalmente
-                            cont+=1
-                        i+=1
-                    i=0
-                    check=0#Verifica si se elimino un dato de la lista vinculada 
-                    codigosPlaylistElminados=[]
-                    while cont>0:
-                        if listaPlaylisttodo[i][2] == dato:#Dato es el codigo eliminado originalmente
-                            codigosPlaylistElminados+=[listaPlaylisttodo[i][0]]#Almacena los codigos eliminados para usarlos depsues en canciones
-                            listaPlaylistcod,listaPlaylisttodo,decartar=eliminarPlaylist(listaPlaylisttodo[i][0],listaPlaylistcod,listaPlaylisttodo)#Se almacena la nueva lista proporcionada por la funcion de eliminar se almacena y la misma lista, descartar es un dato adicional que aqui no se usa
-                            check=1#Ya se elimino un elemento 
-                            cont-=1
-                        if check==1:
-                            i=0#i debe volver a 0 ya que el elmento 0 es otro, el pasado ya se elimino
-                            check=0
-                        else:
-                            i+=1# i incrementa, la unica forma de que esto pase, es que aun falte un elemento por eliminar, por lo tanto se debe recorrer la lista 
-                    #Eliminacion de cancion, viculada con playlist
-                    i=len(listaCancionestodo)-1
-                    temp=0#Cuenta las veces que se compara los playlist con los canciones
-                    constante=len(listaCancionestodo)#El tamano de la lista de canciones
-                    while codigosPlaylistElminados!=[]:
-                        if codigosPlaylistElminados[0] == listaCancionestodo[i][5]:
-                            listaCancionescod,listaCancionestodo,descartar=eliminarCanciones(listaCancionestodo[i][0],listaCancionescod,listaCancionestodo)#Almacena la nueva listas
-                            i=len(listaCancionestodo)
-                        i-=1
-                        temp+=1
-                        if temp==constante:
-                            temp=0
-                            i=len(listaCancionestodo)-1#Permite buscar de nuevo y revisar dato por dato
-                            if len(codigosPlaylistElminados)>1:
-                                codigosPlaylistElminados=codigosPlaylistElminados[1:]#Elimina el dato ya verificado 100%
-                                i=0
-                            else:
-                                codigosPlaylistElminados.pop(0)#Elimina el dato ya verificado 100%
-                    print(f'\nEl propietario "{nombre}" ha sido eliminado correctamente')
-                    if volver():
-                        continue
-                    else:
-                        break
+            if opcion==1: 
+                dato=str(input('\nDigite el codigo de propietario a eliminar: ')) #Recibe un codigo de propietario
+                if dato in listaPropcod: #Si el codigo esta en la lista de codigos de propietraios, entra.
+                    # Eliminacion principal
+                    listaPropcod,listaProptodo,nombre=eliminarProp(dato,listaPropcod,listaProptodo) #Elimina el propietario
+                    # Eliminacion de playlists y canciones vinculadas
+                    codigosPlaylistEliminados=[] #Crea nueva lista para los codigos de los propietarios eliminados
+                    i=0 
+                    t=0
+                    while i < len(listaPlaylisttodo): #Mientras que i sea menor que el largo de la lista de playlist, entra.
+                        if listaPlaylisttodo[i][2]==dato: #Si el codigo esta asociado a una playlist, sigue.
+                            codigosPlaylistEliminados.append(listaPlaylisttodo[i][0]) #Agrega el codigo que esta vinculado a la playlist a la lista con los codigos eliminados
+                            listaCancionestodo=[cancion for cancion in listaCancionestodo if cancion[5]!=listaPlaylisttodo[i][0]] #Hace que la lista de cancionestodo sea igual a que si hay una cancion dentro de la lista de canciones todo que contenga el codigo de la playlist eliminada en la posicion 5, elimine esa cancion de la lista y guarde la lista sin esa cancion.
+                            listaPlaylisttodo.pop(i) #Corta la lista para volver a entrar al ciclo
+                        else: 
+                            i+=1 #Aumenta el i 
+                    # Eliminacion de propietario
+                    print(f'\nEl propietario "{nombre}" ha sido eliminado correctamente') #Imprime este mensaje si fue eliminado
                 else:
-                    print('\n--->El propietario no exite')
-                    if volver():
-                        continue
-                    else:
-                        break
+                    print(f'\nEl propietario con el código "{dato}" no existe en la lista de propietarios.') #Imprime esto si no fue eliminado
+                if volver():
+                    continue
+                else:
+                    break
             elif opcion==2:
                 codplaylist=str(input('\nDigite el codigo de playlist a eliminar: '))
                 codprop=str(input('\nDigite el codigo de propietario al que pertenece la playlist: '))
