@@ -82,7 +82,7 @@ def menu():
                 if buscarArtista(dato,listaArttodo,listaGentodo)==None:
                     print('\n ---> El artista no existe')
                 else:
-                    print('\n ---> La playlist es: ',buscarArtista(dato,listaArttodo,listaGentodo))
+                    print('\n ---> El artista es: ',buscarArtista(dato,listaArttodo,listaGentodo)[0],' y el genero es: ',buscarArtista(dato,listaArttodo,listaGentodo)[1])
                 if volver()==1:
                     continue
                 else:
@@ -92,17 +92,17 @@ def menu():
                 if buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)==None:
                     print('\n ---> El album no existe')
                 else:
-                    print('\n ---> el album es: ',buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo))
+                    print(f'\n ---> El album es: {buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)[0]}, el artista es: {buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)[1]} y  el genero es: {buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)[2]}')
                 if volver()==1:
                     continue
                 else:
                     break
             elif opcion==6:
                 dato=str(input('\nDigite el codigo de cancion: '))
-                if buscarCancion(dato,listaCancionestodo,listaAlbumtodo,listaArttodo,listaGentodo,listaPlaylisttodo)==None:
+                if buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)==None:
                     print('\n ---> La cancion no existe')
                 else:
-                    print('\n ---> La cancion es: ',buscarCancion(dato,listaCancionestodo,listaAlbumtodo,listaArttodo,listaGentodo,listaPlaylisttodo))
+                    print(f'\n ---> La cancion es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]}, el artista: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1]}, el album es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[2]}, el genero es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[3]} y la playlist es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[4]} ' )
                 if volver()==1:
                     continue
                 else:
