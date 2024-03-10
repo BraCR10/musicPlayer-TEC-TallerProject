@@ -2,7 +2,7 @@
 #Estudiantes:
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
-
+from insercion import *
 #Esta busca un usuario por codigo
 def buscarProp(codProp,listaProp): 
         nombre=[]
@@ -11,15 +11,16 @@ def buscarProp(codProp,listaProp):
                 nombre=i[1]      
         if nombre!=[]:
             return nombre
+#print(insertProp()[1])
 
 #Esta busca una Playlist por codigo
 def buscarPlaylist(codPlaylist,listaPlaylist,listaProp): 
     nombrePlaylist=[]
     codProp=[]
     for i in listaPlaylist:
-          if i[0]==codPlaylist:#Si la Playlist es en la memoria 
-              nombrePlaylist=i[1] #Almacena nombre de la playlist
-              codProp=i[2]#Almacena el codigo de la persona
+        if i[0]==codPlaylist:#Si la Playlist es en la memoria 
+            nombrePlaylist=i[1] #Almacena nombre de la playlist
+            codProp=i[2]#Almacena el codigo de la persona
     for i in listaProp:
         if i[0]==codProp:#Verifica el codigo de la persona
             nombreProp=i[1] #Obtiene el nombre de la persona
@@ -34,12 +35,12 @@ def buscarCancion(codCancion,listaCancion,listaGen,listaAlbum,listaArt,listaPlay
     codGenero=[]
     codPlaylist=[]
     for i in listaCancion:
-          if i[0]==codCancion:#Si la Cancion es en la memoria 
-              nombreCacion=i[1] #Almacena nombre de la Cancion
-              codArt=i[2]#Almacena el codigo del Artista
-              codAlbum=i[3]
-              codGenero=i[4]
-              codPlaylist=i[5]
+        if i[0]==codCancion:#Si la Cancion es en la memoria 
+            nombreCacion=i[1] #Almacena nombre de la Cancion
+            codArt=i[2]#Almacena el codigo del Artista
+            codAlbum=i[3]
+            codGenero=i[4]
+            codPlaylist=i[5]
     for i in listaGen:
         if i[0]==codGenero:#Verifica el codigo del genero
             nombreGenero=i[1] #Obtiene el nombre del Genero
@@ -57,12 +58,11 @@ def buscarCancion(codCancion,listaCancion,listaGen,listaAlbum,listaArt,listaPlay
 
 def buscarGenero(codGenero,listaGen):
     nombreGenero=[]
-    for i in listaGen()[1]:
+    for i in listaGen:
         if i[0]==codGenero:#Si el genero esta en la memoria
             nombreGenero=i[1] #Almacena nombre del genero
     if nombreGenero!=[]:
         return nombreGenero #Retorna el nombre del genero
-    
 
 def buscarArtista(codArtista,listaArt,listaGen):
     nombreArtista=[]
@@ -89,8 +89,6 @@ def buscarAlbum(codAlbum,listaAlbum,listaArt):
             nombreArtista=i[1]
     if nombreAlbum!=[] and nombreArtista!=[]:
         return nombreAlbum,nombreArtista
-
-
 '''
 #Pruebas
 print(buscarProp('1234'))

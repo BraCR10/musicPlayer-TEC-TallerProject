@@ -117,7 +117,7 @@ def insertPlaylist():
 
 #Esta funcion lee un fichero llamado Album.txt y retorna cada linea en una lista dentro de otra lista
 def insertAlbum(): 
-    texto = open('Albumes.txt', 'r')
+    texto = open('Album.txt', 'r')
     albumOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
     texto.close()
     albums=[]#Lista para almacenar cambios en los datos del fichero
