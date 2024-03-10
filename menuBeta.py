@@ -36,8 +36,9 @@ def menu():
         print('2- Reproducir')   
         print('3- Eliminar')  
         print('4- Modificar')
-        print('5- Datos diponibles')
-        print('6- Salir') 
+        print('5- Reportes')
+        print('6- Salir')
+        #print('7- Datos diponibles') 
         opcion=int(input('\nEscoja un numero: '))
         if opcion==1:#Busquedas
             print('\n------------------------------------------------------------------')
@@ -488,7 +489,61 @@ def menu():
                     continue
                 else:
                     break
-        elif opcion==5:#Consultas
+        elif opcion == 5:#Reportes
+            print('\nLista de opciones:\n')
+            print('1- Reporte de Propietario') 
+            print('2- Reporte de Playlist') 
+            #print('3- Reporte de Genero') 
+            #print('4- Reporte de Artista') 
+            #print('5- Reporte de Album') 
+            #print('6- Reporte de Cancion')
+            opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+            if opcion==1:#Reportes propietarios
+                print('\nLos propietarios registrados son: \n')
+                i=0
+                print('Codigo - Nombre ')
+                print('-----------------------------------------')
+                while i < len(listaProptodo):
+                    if i>=1:
+                        print('-----------------------------------------')
+                    print(f'{listaProptodo[i][0]} - {listaProptodo[i][1]}')
+                    i+=1 
+                if volver():
+                    continue
+                else:
+                    break
+            elif opcion==2:#Reportes playlist
+                dato=str(input('\nDigite el codigo de propietario para mostrar las playlist vinculadas: '))
+                if dato in listaPropcod:
+                    print('\nLas playlists registradas son : \n')
+                    print('Codigo - Nombre - Codigo del Propietario ')
+                    print('-----------------------------------------')
+                    temp=0#Verifica la cantidad de veces que se a ejecutado for para imprimir guiones
+                    for i in listaPlaylisttodo:
+                        if i[2] == dato:
+                            if temp==1:
+                                print('-----------------------------------------')
+                            print(f'{i[0]} - {i[1]} - {i[2]}')
+                            temp=1
+                    if temp ==0:
+                        print(f'\nVacio  -  Vacio  -   {dato}')
+                        print('\n ---> No hay playlist vinculadas a este propietario')
+                    if volver():
+                        continue
+                    else:
+                        break
+                else:
+                    print('\n --->El propietario no existe')
+                    if volver():
+                        continue
+                    else:
+                        break
+            else:
+                if opcionNoExiste():
+                    continue
+                else:
+                    break
+        elif opcion==7:#Consultas
             print('\nLista de opciones:\n')
             print('1- Ver Propietario') 
             print('2- Ver Playlist') 
@@ -549,9 +604,9 @@ def menu():
                 continue
             else:
                 break
-        elif opcion==6:
+        elif opcion==6:#Salir
             break
-        else:
+        else:#No existe
             if opcionNoExiste():
                 continue
             else:
