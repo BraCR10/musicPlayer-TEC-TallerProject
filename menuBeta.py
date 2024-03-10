@@ -407,24 +407,68 @@ def menu():
             print('5- Modificar Album') 
             print('6- Modificar Cancion') 
             opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
-            if opcion==1:
+            if opcion==1:#Modifica propietario
                 dato=str(input('\nDigite el codigo de propietario a modificar: '))
                 if dato in listaPropcod:
                     print(f'\n--->El propietario es: {buscarProp(dato,listaProptodo)}')
                     nuevo=str(input('\nDigite el nuevo nombre de propietario: '))
                     listaProptodo=modificarProp(dato,listaProptodo,nuevo)
-                    print('\n--->El nombre de propietario modifico con exito!')
+                    print('\n--->El nombre de propietario se modifico con exito!')
                     if volver():
                         continue
                     else:
                         break
-            if opcion==6:
+            elif opcion==2:#Modifica playlist
+                dato=str(input('\nDigite el codigo de playlist a modificar: '))
+                if dato in listaPlaylistcod:
+                    print(f'\n--->La playlist es: {buscarPlaylist(dato,listaPlaylisttodo,listaProptodo)[0]}')
+                    nuevo=str(input('\nDigite el nuevo nombre de la playlist : '))
+                    listaPlaylisttodo=modificarPlaylist(dato,listaPlaylisttodo,nuevo)
+                    print('\n--->El nombre de la playlist se modifico con exito!')
+                    if volver():
+                        continue
+                    else:
+                        break
+            elif opcion==3:#Modifica genero
+                dato=str(input('\nDigite el codigo de genero a modificar: '))
+                if dato in listaGencod:
+                    print(f'\n--->El genero es: {buscarGenero(dato,listaGentodo)}')
+                    nuevo=str(input('\nDigite el nuevo nombre del genero : '))
+                    listaGentodo=modificarGen(dato,listaGentodo,nuevo)
+                    print('\n--->El nombre del genero se modifico con exito!')
+                    if volver():
+                        continue
+                    else:
+                        break
+            elif opcion==4:#Modifica Artistas
+                dato=str(input('\nDigite el codigo del artista a modificar: '))
+                if dato in listaArtcod:
+                    print(f'\n--->El artista es: {buscarArtista(dato,listaArttodo,listaGentodo)[0]}')
+                    nuevo=str(input('\nDigite el nuevo nombre del artista : '))
+                    listaArttodo=modificarArt(dato,listaArttodo,nuevo)
+                    print('\n--->El nombre del artista se modifico con exito!')
+                    if volver():
+                        continue
+                    else:
+                        break
+            elif opcion==5:#Modifica Albumes
+                dato=str(input('\nDigite el codigo del album a modificar: '))
+                if dato in listaAlbumcod:
+                    print(f'\n--->El album es: {buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)[0]}')
+                    nuevo=str(input('\nDigite el nuevo nombre del album : '))
+                    listaAlbumtodo=modificarArt(dato,listaAlbumtodo,nuevo)
+                    print('\n--->El nombre del album se modifico con exito!')
+                    if volver():
+                        continue
+                    else:
+                        break
+            elif opcion==6:#Modifica Cancion
                 dato=str(input('\nDigite el codigo de cancion a modificar: '))
                 codArt=str(input('\nDigite el codigo del artista ligado a la cancion a modificar: '))
                 codAlb=str(input('\nDigite el codigo de album ligado a la cancion a modificar: '))
                 codGen=str(input('\nDigite el codigo del genero ligado a la cancion a modificar: '))
                 codPlaylist=str(input('\nDigite el codigo de la playlist ligada a la cancion a modificar: '))
-                if dato in listaCancionescod and buscarArtista(codArt,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1] and buscarAlbum(codAlb,listaAlbumtodo,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[2] and buscarGenero(codGen,listaGentodo) == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[3] and buscarPlaylist(codPlaylist,listaPlaylisttodo,listaProptodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[4]:
+                if dato in listaCancionescod and buscarArtista(codArt,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1] and buscarAlbum(codAlb,listaAlbumtodo,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[2] and buscarGenero(codGen,listaGentodo) == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[3] and buscarPlaylist(codPlaylist,listaPlaylisttodo,listaProptodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[4]:#Valida que la cancion coincida con todos los datos
                     print(f'\n--->La cancion es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]}')
                     nuevo=str(input('\nDigite el nuevo nombre de la cancion: '))
                     listaCancionestodo=modificarcancion(dato,listaCancionestodo,nuevo)
