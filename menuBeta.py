@@ -6,6 +6,7 @@
 from insercion import *#insertAlbum,insertArt,insertCanciones,insertGen,insertPlaylist,insertProp
 from busqueda import * #buscarAlbum,buscarArtista,buscarCancion,buscarGenero,buscarPlaylist,buscarProp
 from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist
+from modificacion import *
 def opcionNoExiste():
     print('\n ---> Esta opcion no exite')
     print('\nVolver al menu principal o salir?:')
@@ -34,8 +35,9 @@ def menu():
         print('1- Buscar')#Agregar a cola
         print('2- Reproducir')   
         print('3- Eliminar')  
-        print('4- Datos diponibles')
-        print('5- Salir') 
+        print('4- Modificar')
+        print('5- Datos diponibles')
+        print('6- Salir') 
         opcion=int(input('\nEscoja un numero: '))
         if opcion==1:#Busquedas
             print('\n------------------------------------------------------------------')
@@ -395,9 +397,54 @@ def menu():
                 if opcionNoExiste():
                     continue
                 else:
-                    break 
-           
-        elif opcion==4:#Consultas
+                    break     
+        elif opcion==4:#Modificar
+            print('\nLista de opciones:\n')
+            print('1- Modificar Propietario') 
+            print('2- Modificar Playlist') 
+            print('3- Modificar Genero') 
+            print('4- Modificar Artista') 
+            print('5- Modificar Album') 
+            print('6- Modificar Cancion') 
+            opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+            if opcion==1:
+                dato=str(input('\nDigite el codigo de propietario a modificar: '))
+                if dato in listaPropcod:
+                    print(f'\n--->El propietario es: {buscarProp(dato,listaProptodo)}')
+                    nuevo=str(input('\nDigite el nuevo nombre de propietario: '))
+                    listaProptodo=modificarProp(dato,listaProptodo,nuevo)
+                    print('\n--->El nombre de propietario modifico con exito!')
+                    if volver():
+                        continue
+                    else:
+                        break
+            if opcion==6:
+                dato=str(input('\nDigite el codigo de cancion a modificar: '))
+                codArt=str(input('\nDigite el codigo del artista ligado a la cancion a modificar: '))
+                codAlb=str(input('\nDigite el codigo de album ligado a la cancion a modificar: '))
+                codGen=str(input('\nDigite el codigo del genero ligado a la cancion a modificar: '))
+                codPlaylist=str(input('\nDigite el codigo de la playlist ligada a la cancion a modificar: '))
+                if dato in listaCancionescod and buscarArtista(codArt,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1] and buscarAlbum(codAlb,listaAlbumtodo,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[2] and buscarGenero(codGen,listaGentodo) == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[3] and buscarPlaylist(codPlaylist,listaPlaylisttodo,listaProptodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[4]:
+                    print(f'\n--->La cancion es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]}')
+                    nuevo=str(input('\nDigite el nuevo nombre de la cancion: '))
+                    listaCancionestodo=modificarcancion(dato,listaCancionestodo,nuevo)
+                    print('\n--->El nombre la cancion se modifico con exito!')
+                    if volver():
+                        continue
+                    else:
+                        break
+                else:
+                    print('\n--->La cancion no exite o los datos no coinciden')
+                    if volver():
+                        continue
+                    else:
+                        break
+            else:
+                if opcionNoExiste():
+                    continue
+                else:
+                    break
+        elif opcion==5:#Consultas
             print('\nLista de opciones:\n')
             print('1- Ver Propietario') 
             print('2- Ver Playlist') 
@@ -458,7 +505,7 @@ def menu():
                 continue
             else:
                 break
-        elif opcion==5:
+        elif opcion==6:
             break
         else:
             if opcionNoExiste():
