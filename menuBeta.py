@@ -99,10 +99,10 @@ def menu():
                     break
             elif opcion==6:
                 dato=str(input('\nDigite el codigo de cancion: '))
-                if buscarCancion(dato,listaCancionestodo,listaAlbumtodo,listaArttodo,listaGentodo)==None:
+                if buscarCancion(dato,listaCancionestodo,listaAlbumtodo,listaArttodo,listaGentodo,listaPlaylisttodo)==None:
                     print('\n ---> La cancion no existe')
                 else:
-                    print('\n ---> La cancion es: ',buscarCancion(dato,listaCancionestodo,listaAlbumtodo,listaArttodo,listaGentodo))
+                    print('\n ---> La cancion es: ',buscarCancion(dato,listaCancionestodo,listaAlbumtodo,listaArttodo,listaGentodo,listaPlaylisttodo))
                 if volver()==1:
                     continue
                 else:
