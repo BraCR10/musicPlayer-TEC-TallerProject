@@ -52,7 +52,7 @@ def menu():
                 if buscarProp(dato,listaProptodo)==None:
                     print('\n ---> El propietario no existe')
                 else:
-                    print('\n ---> El propietario es: ',buscarProp(dato,listaProptodo))
+                    print('\n ---> El nombre del propietario es: ',buscarProp(dato,listaProptodo))
                 if volver()==1:
                     continue
                 else:
@@ -62,7 +62,7 @@ def menu():
                 if buscarPlaylist(dato,listaPlaylisttodo,listaProptodo)==None:
                     print('\n ---> La playlist no existe')
                 else:
-                    print('\n ---> La playlist es: ',buscarPlaylist(dato,listaPlaylisttodo,listaProptodo))
+                    print('\n ---> El nombre de la playlist es: ',buscarPlaylist(dato,listaPlaylisttodo,listaProptodo)[0], 'y el nombre del propietario es:', buscarPlaylist(dato,listaPlaylisttodo,listaProptodo)[1])
                 if volver()==1:
                     continue
                 else:
