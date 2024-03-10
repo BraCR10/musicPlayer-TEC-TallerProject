@@ -543,7 +543,7 @@ def menu():
                     continue
                 else:
                     break
-        elif opcion==7:#Consultas
+        elif opcion==789:#Consultas
             print('\nLista de opciones:\n')
             print('1- Ver Propietario') 
             print('2- Ver Playlist') 
