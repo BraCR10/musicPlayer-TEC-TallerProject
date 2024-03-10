@@ -28,7 +28,7 @@ def buscarPlaylist(codPlaylist,listaPlaylist,listaProp):
         return nombrePlaylist,nombreProp#Retorna Nombre de playlist y Nombre de persona al que pertenece
 
 #Esta busca una cancion por codigo
-def buscarCancion(codCancion,listaCancion,listaGen,listaAlbum,listaArt,listaPlaylist): 
+def buscarCancion(codCancion,listaCancion,listaArt,listaAlbum,listaGen,listaPlaylist): 
     nombreCacion=[]
     codArt=[]
     codAlbum=[]
@@ -41,20 +41,20 @@ def buscarCancion(codCancion,listaCancion,listaGen,listaAlbum,listaArt,listaPlay
             codAlbum=i[3]
             codGenero=i[4]
             codPlaylist=i[5]
-    for i in listaGen:
-        if i[0]==codGenero:#Verifica el codigo del genero
-            nombreGenero=i[1] #Obtiene el nombre del Genero
+    for i in listaArt:
+        if i[0]==codArt:#Verifica el codigo del genero
+            nombreArt=i[1] #Obtiene el nombre del Genero
     for i in listaAlbum:
         if i[0]==codAlbum:#Verifica el codigo del album
             nombreAlbum=i[1] #Obtiene el nombre del album
-    for i in listaArt:
-        if i[0]==codArt:#Verifica el codigo del artista
-            nombreArtista=i[1] #Obtiene el nombre del artista
+    for i in listaGen:
+        if i[0]==codGenero:#Verifica el codigo del artista
+            nombreGenero=i[1] #Obtiene el nombre del artista
     for i in listaPlaylist:
         if i[0]==codPlaylist:#Verifica el codigo de la playlist
             nombrePlaylist=i[1] #Obtiene el nombre de la playlist
-    if nombreCacion!=[] and nombreArtista!=[] and nombreAlbum!=[] and nombreGenero!=[] and nombrePlaylist!=[]: 
-        return nombreCacion,nombreArtista,nombreAlbum,nombreGenero,nombrePlaylist#Retorna Nombre de cancion y los datos adicionales
+    if nombreCacion!=[] and nombreArt!=[] and nombreAlbum!=[] and nombreGenero!=[] and nombrePlaylist!=[]: 
+        return nombreCacion,nombreArt,nombreAlbum,nombreGenero,nombrePlaylist#Retorna Nombre de cancion y los datos adicionales
 
 def buscarGenero(codGenero,listaGen):
     nombreGenero=[]
