@@ -125,7 +125,7 @@ def insertAlbum():
     codValidos=[]#Almacena codigos que cumple todas las condiciones
     for linea in albumOri:#Itera en lista sin cambios
         nuevo=linea.split(';')#Por cada elemento de albumOri crea una nueva lista dividiendo cada vez que hay un ';'['1234','Music','620193']
-        if nuevo[0]=='\n'or len(nuevo)<3 or len(nuevo)<4:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
+        if nuevo[0]=='\n'or len(nuevo)<2 or len(nuevo)>4:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
             continue
         else:
             if nuevo[0] in cod:#Validacion si codigo esta repetido
@@ -174,7 +174,6 @@ def insertCanciones():
                 else:#Validacion 
                     continue     
     return codValidos,canciones
-
 
 '''
 #Pruebas:

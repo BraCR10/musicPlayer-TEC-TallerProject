@@ -451,7 +451,7 @@ def menu():
                 i=0
                 print('Codigo - Nombre - Codigo del Artista - Codigo del Album - Codigo de Genero - Codigo de Playlist ')
                 while i < len(listaCancionestodo):
-                    print('-----------------------------------------')
+                    print('----------------------------------------------------------------------------------------------------')
                     print(f'{listaCancionestodo[i][0]} - {listaCancionestodo[i][1]} - {listaCancionestodo[i][2]} - {listaCancionestodo[i][3]} - {listaCancionestodo[i][4]} - {listaCancionestodo[i][5]}')
                     i+=1
             if volver():
