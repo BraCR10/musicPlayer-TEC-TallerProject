@@ -88,16 +88,17 @@ def buscarAlbum(codAlbum,listaAlbum,listaArt,listaGen):
     for i in listaArt:
         if i[0]==codArtista:
             nombreArtista=i[1]
+            codGenero=i[2]
     for i in listaGen:
         if i[0]==codGenero:
             nombreGenero=i[1]
     if nombreAlbum!=[] and nombreArtista!=[] and nombreGenero!=[]:
-        return nombreAlbum,nombreArtista
-'''
+        return nombreAlbum,nombreArtista,nombreGenero
+
 #Pruebas
-print(buscarProp('1234'))
+'''print(buscarProp('1234'))
 print(buscarGenero('109'))
 print(buscarPlaylist('3920'))
-print(buscarArtista('11534'))
-print(buscarAlbum('34561'))
-print(buscarCancion('124'))'''
+print(buscarArtista('11534'))'''
+#print(buscarAlbum('34561',insertAlbum()[1],insertArt()[1],insertGen()[1]))
+#print(buscarCancion('124'))
