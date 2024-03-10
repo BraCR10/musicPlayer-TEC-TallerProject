@@ -77,9 +77,10 @@ def buscarArtista(codArtista,listaArt,listaGen):
     if nombreArtista!=[] and nombreGenero!=[]:
         return nombreArtista,nombreGenero
 
-def buscarAlbum(codAlbum,listaAlbum,listaArt):
+def buscarAlbum(codAlbum,listaAlbum,listaArt,listaGen):
     nombreAlbum=[]
     codArtista=[]
+    codGenero=[]
     for i in listaAlbum:
         if i[0]==codAlbum:
             nombreAlbum=i[1]
@@ -87,7 +88,10 @@ def buscarAlbum(codAlbum,listaAlbum,listaArt):
     for i in listaArt:
         if i[0]==codArtista:
             nombreArtista=i[1]
-    if nombreAlbum!=[] and nombreArtista!=[]:
+    for i in listaGen:
+        if i[0]==codGenero:
+            nombreGenero=i[1]
+    if nombreAlbum!=[] and nombreArtista!=[] and nombreGenero!=[]:
         return nombreAlbum,nombreArtista
 '''
 #Pruebas
