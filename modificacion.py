@@ -42,7 +42,7 @@ def modificarArt(codArt,listaTodo,valorACambiar):
                 copiaTodo[ubicacion].insert(1,valorACambiar)#A esa misma lista le insertamos en la posicion de nombres '[1]' el nuevo mobre
                 #nombre=i[1] 
     return copiaTodo
-def modificarcancion(codCancion,listaTodo,valorACambiar):
+def modificarCancion(codCancion,listaTodo,valorACambiar):
     copiaTodo=listaTodo
     ubicacion=0#Ubica el campo que hay que cambiar
     for i in copiaTodo:

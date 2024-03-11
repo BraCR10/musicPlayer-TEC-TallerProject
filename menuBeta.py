@@ -2,11 +2,11 @@
 #Estudiantes:
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
-
+import playsound
 from insercion import *#insertAlbum,insertArt,insertCanciones,insertGen,insertPlaylist,insertProp
 from busqueda import * #buscarAlbum,buscarArtista,buscarCancion,buscarGenero,buscarPlaylist,buscarProp
-from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist
-from modificacion import *
+from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,eliminarAlbum,EliminarGenero,EliminarArtistas
+from modificacion import *#ModificarPlaylist,modificarArt,modificarCancion,modificarGen,modificarProp
 def opcionNoExiste():
     print('\n ---> Esta opcion no exite')
     print('\nVolver al menu principal o salir?:')
@@ -141,7 +141,23 @@ def menu():
                             listaPlaylisttodo.pop(i) #Corta la lista para volver a entrar al ciclo
                         else: 
                             i+=1 #Aumenta el i 
-                    # Eliminacion de propietario
+                    #Elimina los codigos eliminados de la lista de todo
+                    i=0#itera en listaCancionescod
+                    t=0#itera en listaCancionestodo
+                    vuelta=len(listaCancionestodo)#Evita index out range
+                    codigosActualizados=[]#Almacen los codigos nuevos
+                    while len(codigosActualizados)!=len(listaCancionestodo):
+                        if listaCancionescod[i] == listaCancionestodo[t][0]:
+                            t=0
+                            codigosActualizados+=[listaCancionescod[i]]#En caso de que el codigo si este presente
+                            i+=1
+                            continue
+                        else:
+                           t+=1
+                        if t==vuelta:#Si esto pasa, significa que el codigo ya fue eliminado por lo tanto no se almacena
+                            i+=1
+                            t=0
+                    listaCancionescod=codigosActualizados
                     print(f'\nEl propietario "{nombre}" ha sido eliminado correctamente') #Imprime este mensaje si fue eliminado
                 else:
                     print(f'\nEl propietario con el código "{dato}" no existe en la lista de propietarios.') #Imprime esto si no fue eliminado
@@ -193,7 +209,7 @@ def menu():
                         else:
                             break
                 else:
-                    print('\n--->La playlist no existe o los datos no conciden')
+                    print(f'\n--->La playlist con el codigo {codplaylist} no existe o los datos no conciden')
                     if volver():
                         continue
                     else:
@@ -202,25 +218,65 @@ def menu():
                 dato=str(input('\nDigite el codigo de genero a eliminar: ')) #Recibe un codigo de genero
                 if dato in listaGencod: #Si el codigo esta en la lista de codigos de propietraios, entra.
                     # Eliminacion principal
-                    listaGencod,listaGentodo,nombre=eliminarGen(dato,listaGencod,listaGentodo) #Elimina el genero
+                    listaGencod,listaGentodo,nombre=eliminarGenero(dato,listaGencod,listaGentodo) #Elimina el genero
                     # Eliminacion de artistas y albumes vinculadas
                     codigosArtistaEliminados=[] #Crea nueva lista para los codigos de los generos eliminados
                     i=0 
-                    while i < len(listaArtistatodo): #Mientras que i sea menor que el largo de la lista de Artistas, entra.
-                        if listaArtistatodo[i][2]==dato: #Si el codigo esta asociado a un artista, sigue.
-                            codigosArtistaEliminados.append(listaArtistatodo[i][0]) #Agrega el codigo que esta vinculado al artista a la lista con los codigos eliminados
-                            listaAlbumestodo=[Album for Album in listaAlbumestodo if Album[2]!=listaArtistatodo[i][0]] #Hace que la lista de albumestodo sea igual a que si hay un album dentro de la lista de albumestodo que contenga el codigo del artista eliminada en la posicion 2, elimine ese album, de la lista y guarde la lista sin ese album.
-                            listaArtistatodo.pop(i) #Corta la lista para volver a entrar al ciclo
+                    while i < len(listaArttodo): #Mientras que i sea menor que el largo de la lista de Artistas, entra.
+                        if listaArttodo[i][2]==dato: #Si el codigo esta asociado a un artista, sigue.
+                            codigosArtistaEliminados.append(listaArttodo[i][0]) #Agrega el codigo que esta vinculado al artista a la lista con los codigos eliminados
+                            listaAlbumtodo=[Album for Album in listaAlbumtodo if Album[2]!=listaArttodo[i][0]] #Hace que la lista de albumestodo sea igual a que si hay un album dentro de la lista de albumestodo que contenga el codigo del artista eliminada en la posicion 2, elimine ese album, de la lista y guarde la lista sin ese album.
+                            listaArttodo.pop(i) #Corta la lista para volver a entrar al ciclo
                         else: 
-                            i+=1 #Aumenta el i 
+                            i+=1 #Aumenta el i
+                    #Elimina los codigos eliminados de la lista de todo
+                    i=0#itera en listaCancionescod
+                    t=0#itera en listaCancionestodo
+                    vuelta=len(listaAlbumtodo)#Evita index out range
+                    codigosActualizados=[]#Almacen los codigos nuevos
+                    while len(codigosActualizados)!=len(listaAlbumtodo):
+                        if listaAlbumcod[i] == listaAlbumtodo[t][0]:
+                            t=0
+                            codigosActualizados+=[listaAlbumcod[i]]#En caso de que el codigo si este presente
+                            i+=1
+                            continue
+                        else:
+                           t+=1
+                        if t==vuelta:#Si esto pasa, significa que el codigo ya fue eliminado por lo tanto no se almacena
+                            i+=1
+                            t=0
+                    listaAlbumcod=codigosActualizados 
+                    #Elimina Canciones
+                    cont=0#Contador de veces que esta presente el codigo eliminado 
+                    i=0
+                    while i<len(listaCancionestodo):#Obtiene las veces que va a tener que operar el siguiente while, cont hace referecia a la cantidad de elementos que hay que eliminar en la lista vinculada
+                        if listaCancionestodo[i][4]==dato:#Dato es el codigo eliminado originalmente
+                            cont+=1
+                        i+=1
+                    i=0
+                    check=0#Verifica si se elimino un dato de la lista vinculada 
+                    while cont>0:
+                        if listaCancionestodo[i][4] == dato:#Dato es el codigo eliminado originalmente
+                            listaCancionescod,listaCancionestodo,decartar=eliminarCanciones(listaCancionestodo[i][0],listaCancionescod,listaCancionestodo)
+                            check=1#Ya se elimino un elemento 
+                            cont-=1
+                        if check==1:
+                            i=0#i debe volver a 0 ya que el elmento 0 es otro, el pasado ya se elimino 
+                            check=0
+                        else:
+                            i+=1# i incrementa, la unica forma de que esto pase, es que aun falte un elemento por eliminar, por lo tanto se debe recorrer la lista 
                     # Eliminacion de album
                     print(f'\nEl genero "{nombre}" ha sido eliminado correctamente') #Imprime este mensaje si fue eliminado
+                    if volver():
+                        continue
+                    else:
+                        break
                 else:
                     print(f'\nEl genero con el código "{dato}" no existe en la lista de generos.') #Imprime esto si no fue eliminado
-                if volver():
-                    continue
-                else:
-                    break
+                    if volver():
+                        continue
+                    else:
+                        break
             elif opcion==4:
                 dato=str(input('\nDigite el codigo de artista a eliminar: '))
                 if dato in listaArtcod:
@@ -252,7 +308,7 @@ def menu():
                     else:
                         break
                 else:
-                    print('\n--->El artista no exite')
+                    print(f'\n--->El artista con el codigo {dato} no exite')
                     if volver():
                         continue
                     else:
@@ -288,7 +344,7 @@ def menu():
                     else:
                         break
                 else:
-                    print('\n--->El album no exite')
+                    print(f'\n--->El album con el codigo {dato} no exite')
                     if volver():
                         continue
                     else:
@@ -304,7 +360,7 @@ def menu():
                     else:
                         break
                 else:
-                    print('\n--->La cancion no exite')
+                    print(f'\n--->La cancion con el codigo {dato} no exite')
                     if volver():
                         continue
                     else:
@@ -387,7 +443,7 @@ def menu():
                 if dato in listaCancionescod and buscarArtista(codArt,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1] and buscarAlbum(codAlb,listaAlbumtodo,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[2] and buscarGenero(codGen,listaGentodo) == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[3] and buscarPlaylist(codPlaylist,listaPlaylisttodo,listaProptodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[4]:#Valida que la cancion coincida con todos los datos
                     print(f'\n--->La cancion es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]}')
                     nuevo=str(input('\nDigite el nuevo nombre de la cancion: '))
-                    listaCancionestodo=modificarcancion(dato,listaCancionestodo,nuevo)
+                    listaCancionestodo=modificarCancion(dato,listaCancionestodo,nuevo)
                     print('\n--->El nombre la cancion se modifico con exito!')
                     if volver():
                         continue
