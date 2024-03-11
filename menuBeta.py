@@ -134,7 +134,6 @@ def menu():
                     # Eliminacion de playlists y canciones vinculadas
                     codigosPlaylistEliminados=[] #Crea nueva lista para los codigos de los propietarios eliminados
                     i=0 
-                    t=0
                     while i < len(listaPlaylisttodo): #Mientras que i sea menor que el largo de la lista de playlist, entra.
                         if listaPlaylisttodo[i][2]==dato: #Si el codigo esta asociado a una playlist, sigue.
                             codigosPlaylistEliminados.append(listaPlaylisttodo[i][0]) #Agrega el codigo que esta vinculado a la playlist a la lista con los codigos eliminados
@@ -200,80 +199,28 @@ def menu():
                     else:
                         break
             elif opcion==3:
-                dato=str(input('\nDigite el codigo del genero a eliminar: '))
-                if dato in listaGencod:
-                    #Eliminacion principal
-                    listaGencod,listaGentodo,nombre=eliminarGenero(dato,listaGencod,listaGentodo)#Actualiza la lista si el codigo no existe, la deja igual
-                    #Eliminacion de viculos
-                    #Eliminar Artistas
-                    cont=0#Contador de veces que esta presente el codigo eliminado 
-                    i=0
-                    while i<len(listaArttodo):#Obtiene las veces que va a tener que operar el siguiente while, cont hace referecia a la cantidad de elementos que hay que eliminar en la lista vinculada
-                        if listaArttodo[i][2]==dato:#Dato es el codigo eliminado originalmente
-                            cont+=1
-                        i+=1
-                    i=0
-                    check=0#Verifica si se elimino un dato de la lista vinculada 
-                    codigosArtistaEliminados=[]
-                    while cont>0:
-                        if listaArttodo[i][2] == dato:#Dato es el codigo eliminado originalmente
-                            codigosArtistaEliminados+=[listaArttodo[i][0]]#Almacena los codigos eliminados para usarlos depsues en canciones
-                            listaArtcod,listaArttodo,decartar=eliminarArt(listaArttodo[i][0],listaArtcod,listaArttodo)#Se almacena la nueva lista proporcionada por la funcion de eliminar se almacena y la misma lista, descartar es un dato adicional que aqui no se usa
-                            check=1#Ya se elimino un elemento 
-                            cont-=1
-                        if check==1:
-                            i=0#i debe volver a 0 ya que el elmento 0 es otro, el pasado ya se elimino 
-                            check=0
-                        else:
-                            i+=1# i incrementa, la unica forma de que esto pase, es que aun falte un elemento por eliminar, por lo tanto se debe recorrer la lista 
-                    #Elimina Canciones
-                    cont=0#Contador de veces que esta presente el codigo eliminado 
-                    i=0
-                    while i<len(listaCancionestodo):#Obtiene las veces que va a tener que operar el siguiente while, cont hace referecia a la cantidad de elementos que hay que eliminar en la lista vinculada
-                        if listaCancionestodo[i][4]==dato:#Dato es el codigo eliminado originalmente
-                            cont+=1
-                        i+=1
-                    i=0
-                    check=0#Verifica si se elimino un dato de la lista vinculada 
-                    while cont>0:
-                        if listaCancionestodo[i][4] == dato:#Dato es el codigo eliminado originalmente
-                            listaCancionescod,listaCancionestodo,descartar=eliminarCanciones(listaCancionestodo[i][0],listaCancionescod,listaCancionestodo)
-                            check=1#Ya se elimino un elemento 
-                            cont-=1
-                        if check==1:
-                            i=0#i debe volver a 0 ya que el elmento 0 es otro, el pasado ya se elimino 
-                            check=0
-                        else:
-                            i+=1# i incrementa, la unica forma de que esto pase, es que aun falte un elemento por eliminar, por lo tanto se debe recorrer la lista 
-                    #Eliminacion de albumes, viculada con artistas
-                    i=len(listaAlbumtodo)-1
-                    temp=0#Cuenta las veces que se cmpara los artistas con los albums
-                    constante=len(listaAlbumtodo)#El tamano de la lista de albums
-                    while codigosArtistaEliminados!=[]:
-                        if codigosArtistaEliminados[0] == listaAlbumtodo[i][2]:
-                            listaAlbumcod,listaAlbumtodo,descartar=eliminarAlbum(listaAlbumtodo[i][0],listaAlbumcod,listaAlbumtodo)#Almacena la nueva listas
-                            i=len(listaAlbumtodo)
-                        i-=1
-                        temp+=1
-                        if temp==constante:
-                            temp=0
-                            i=len(listaAlbumtodo)-1#Permite buscar de nuevo y revisar dato por dato
-                            if len(codigosArtistaEliminados)>1:
-                                codigosArtistaEliminados=codigosArtistaEliminados[1:]#Elimina el dato ya verificado 100%
-                                i=0
-                            else:
-                                codigosArtistaEliminados.pop(0)#Elimina el dato ya verificado 100%
-                    print(f'\nEl genero "{nombre}" ha sido eliminado correctamente')
-                    if volver():
-                        continue
-                    else:
-                        break
+                dato=str(input('\nDigite el codigo de genero a eliminar: ')) #Recibe un codigo de genero
+                if dato in listaGencod: #Si el codigo esta en la lista de codigos de propietraios, entra.
+                    # Eliminacion principal
+                    listaGencod,listaGentodo,nombre=eliminarGen(dato,listaGencod,listaGentodo) #Elimina el genero
+                    # Eliminacion de artistas y albumes vinculadas
+                    codigosArtistaEliminados=[] #Crea nueva lista para los codigos de los generos eliminados
+                    i=0 
+                    while i < len(listaArtistatodo): #Mientras que i sea menor que el largo de la lista de Artistas, entra.
+                        if listaArtistatodo[i][2]==dato: #Si el codigo esta asociado a un artista, sigue.
+                            codigosArtistaEliminados.append(listaArtistatodo[i][0]) #Agrega el codigo que esta vinculado al artista a la lista con los codigos eliminados
+                            listaAlbumestodo=[Album for Album in listaAlbumestodo if Album[2]!=listaArtistatodo[i][0]] #Hace que la lista de albumestodo sea igual a que si hay un album dentro de la lista de albumestodo que contenga el codigo del artista eliminada en la posicion 2, elimine ese album, de la lista y guarde la lista sin ese album.
+                            listaArtistatodo.pop(i) #Corta la lista para volver a entrar al ciclo
+                        else: 
+                            i+=1 #Aumenta el i 
+                    # Eliminacion de album
+                    print(f'\nEl genero "{nombre}" ha sido eliminado correctamente') #Imprime este mensaje si fue eliminado
                 else:
-                    print('\n--->El genero no exite')
-                    if volver():
-                        continue
-                    else:
-                        break
+                    print(f'\nEl genero con el código "{dato}" no existe en la lista de generos.') #Imprime esto si no fue eliminado
+                if volver():
+                    continue
+                else:
+                    break
             elif opcion==4:
                 dato=str(input('\nDigite el codigo de artista a eliminar: '))
                 if dato in listaArtcod:
