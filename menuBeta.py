@@ -153,7 +153,7 @@ def menu():
                             i+=1
                             continue
                         else:
-                           t+=1
+                            t+=1
                         if t==vuelta:#Si esto pasa, significa que el codigo ya fue eliminado por lo tanto no se almacena
                             i+=1
                             t=0
@@ -241,7 +241,7 @@ def menu():
                             i+=1
                             continue
                         else:
-                           t+=1
+                            t+=1
                         if t==vuelta:#Si esto pasa, significa que el codigo ya fue eliminado por lo tanto no se almacena
                             i+=1
                             t=0
