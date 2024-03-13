@@ -120,7 +120,7 @@ def menu():
                         continue
                     else:
                         break
-            elif opcion==2:
+            elif opcion==2:#Insercion
                 print('\n------------------------------------------------------------------')
                 print('\nLista de opciones:\n')
                 print('1- Insertar Propietario') 
@@ -177,11 +177,15 @@ def menu():
                         print('\n ---> La cola de reproduccion ya esta en su limite, no se puede agregar mas canciones')
                     else:
                         dato=str(input('\nDigite el codigo de la cancion que desea añadir a la cola de reproduccion: ')) #Recibe un codigo de propietario
-                        if dato in listaCancionescod:
+                        codArt= str(input('Digite el codigo del artista al que pertenece: '))
+                        codAlb= str(input('Digite el codigo del album al que pertenece: '))
+                        codGen= str(input('Digite el codigo del genero al que pertenece: '))
+                        codPlaylist= str(input('Digite el codigo de la playlist al que pertenece: '))
+                        if dato in listaCancionescod and codArt in listaArtcod and codAlb in listaAlbumcod and codGen in listaGencod and codPlaylist in listaPlaylistcod:
                             ColaDeReproduccion+=[dato]
-                            print ('Se ha agregado la cancion con el codigo:', dato, "a la cola de reproduccion")
+                            print ('\n --->Se ha agregado la cancion: ',buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0], ' con el codigo:', dato, "a la cola de reproduccion")
                         else:
-                            print("Cancion inexsistente")
+                            print("\n --->Cancion inexsistente o los datos relacionados son incorrectos")
                     if volver()==1:
                         continue
                     else:
@@ -679,6 +683,8 @@ def menu():
     except NameError:
         print( "\n---> El programa ha tenido incovenientes\n")
     except TypeError:
+        print( "\n---> El programa ha tenido incovenientes\n")
+    except IndexError:
         print( "\n---> El programa ha tenido incovenientes\n")
     finally:
         print( "\n---> Vuelva a cargar el programa\n")
