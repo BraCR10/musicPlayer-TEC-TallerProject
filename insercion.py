@@ -5,7 +5,7 @@
 
 #Esta funcion lee un fichero llamado propietario.txt y retorna cada linea en una lista dentro de otra lista
 def insertProp(): 
-    texto = open('Propietario.txt', 'r')
+    texto = open('Propietario.txt', 'r',encoding="utf8")
     propietariosOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
     texto.close()
     propietarios=[]#Lista para almacenar cambios en los datos del fichero
@@ -30,7 +30,7 @@ def insertProp():
 
 #Esta funcion lee un fichero llamado Genero.txt y retorna cada linea en una lista dentro de otra lista
 def insertGen():
-    texto = open('Genero.txt', 'r')
+    texto = open('Genero.txt', 'r',encoding="utf8")
     GenerosOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
     texto.close()
     Generos=[]#Lista para almacenar cambios en los datos del fichero
@@ -55,7 +55,7 @@ def insertGen():
 
 #Esta funcion lee un fichero llamado Artista.txt y retorna cada linea en una lista dentro de otra lista
 def insertArt():
-    texto = open('Artista.txt', 'r')
+    texto = open('Artista.txt', 'r',encoding="utf8")
     artistasOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
     texto.close()
     artistas=[]#Lista para almacenar cambios en los datos del fichero
@@ -87,7 +87,7 @@ def insertArt():
 
 #Esta funcion lee un fichero llamado Playlist.txt y retorna cada linea en una lista dentro de otra lista
 def insertPlaylist():
-    texto = open('Playlist.txt', 'r')
+    texto = open('Playlist.txt', 'r',encoding="utf8")
     playlistOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
     texto.close()
     playlists=[]#Lista para almacenar cambios en los datos del fichero
@@ -117,7 +117,7 @@ def insertPlaylist():
 
 #Esta funcion lee un fichero llamado Album.txt y retorna cada linea en una lista dentro de otra lista
 def insertAlbum(): 
-    texto = open('Albumes.txt', 'r')
+    texto = open('Albumes.txt', 'r',encoding="utf8")
     albumOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
     texto.close()
     albums=[]#Lista para almacenar cambios en los datos del fichero
@@ -147,7 +147,7 @@ def insertAlbum():
 
 #Esta funcion lee un fichero llamado Canciones.txt y retorna cada linea en una lista dentro de otra lista
 def insertCanciones(): 
-    texto = open('Canciones.txt', 'r')
+    texto = open('Canciones.txt', 'r',encoding="utf8")
     cancionesOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
     texto.close()
     canciones=[]#Lista para almacenar cambios en los datos del fichero
