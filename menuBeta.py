@@ -144,6 +144,10 @@ def menu():
                     print('----------------------------------------------')
                     print(f'{ColaDeReproduccion[i]}  -  {listaCancionestodo[i][1]}  -  {listaCancionestodo[i][2]}')
                     i+=1
+                if volver()==1:
+                    continue
+                else:
+                    break
             elif opcion==3:
                 i=0
                 for i in ColaDeReproduccion:
@@ -151,6 +155,7 @@ def menu():
                     ruta = CodCancion + '.wav'
                     playsound(ruta)
                     ColaDeReproduccion=ColaDeReproduccion[1:]
+                    print('Si desea dejar de reproducir la cancion ejecute la tecla Ctrl + C, sin embargo, tenga en cuenta que esta accion detendra todo el programa y tendra que volver a inicializar el programa en caso de quiera seguir haciendo uso del mismo')
                 print('La cola de reproduccion ha quedado vacia')
             else:
                 continue
