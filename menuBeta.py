@@ -2,7 +2,7 @@
 #Estudiantes:
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
-import playsound
+from playsound import playsound 
 from insercion import *#insertAlbum,insertArt,insertCanciones,insertGen,insertPlaylist,insertProp
 from busqueda import * #buscarAlbum,buscarArtista,buscarCancion,buscarGenero,buscarPlaylist,buscarProp
 from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,eliminarAlbum,EliminarGenero,EliminarArtistas
@@ -29,6 +29,7 @@ def menu():
     listaAlbumcod,listaAlbumtodo=insertAlbum()
     listaPlaylistcod,listaPlaylisttodo=insertPlaylist()
     listaCancionescod,listaCancionestodo=insertCanciones()
+    ColaDeReproduccion=[]
     while True:
         print('\n--- BIENVENIDOS A EL REPRODUCTOR ---\n')
         print('Lista de opciones:\n')
@@ -115,8 +116,44 @@ def menu():
                     continue
                 else:
                     break
-        elif opcion==2:
-            print('En proceso')
+        elif opcion==2:#Reproducir
+            print('\nLista de opciones:\n')
+            print('1- Añadir una cancion a la cola de reproduccion') 
+            print('2- Ver la cola de reproduccion') 
+            print('3- Reproducir cola de reproduccion')
+            opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+            if opcion==1:
+                if len(ColaDeReproduccion)>=5:
+                    print('La cola de reproduccion ya esta en su limite, no se puede agregar mas canciones')
+                else:
+                    dato=str(input('\nDigite el codigo de la cancion que desea añadir a la cola de reproduccion: ')) #Recibe un codigo de propietario
+                    if dato in listaCancionescod:
+                        ColaDeReproduccion+=[dato]
+                        print ('Se ha agregado la cancion con el codigo:', dato, "a la cola de reproduccion")
+                    else:
+                        print("Cancion inexsistente")
+                if volver()==1:
+                    continue
+                else:
+                    break
+            elif opcion==2:
+                print('\nLa cola de reproduccion es: ')
+                i=0
+                print('Codigo   -   Cancion   -   Artista \n')
+                while i < len(ColaDeReproduccion):
+                    print('----------------------------------------------')
+                    print(f'{ColaDeReproduccion[i]}  -  {listaCancionestodo[i][1]}  -  {listaCancionestodo[i][2]}')
+                    i+=1
+            elif opcion==3:
+                i=0
+                for i in ColaDeReproduccion:
+                    CodCancion=ColaDeReproduccion[0]
+                    ruta = CodCancion + '.wav'
+                    playsound(ruta)
+                    ColaDeReproduccion=ColaDeReproduccion[1:]
+                print('La cola de reproduccion ha quedado vacia')
+            else:
+                continue
         elif opcion==3:#Eliminaciones
             print('\nLista de opciones:\n')
             print('1- Eliminar Propietario') 
