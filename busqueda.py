@@ -2,7 +2,7 @@
 #Estudiantes:
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
-from insercion import *
+from lecturaArchivos import *
 #Esta busca un usuario por codigo
 def buscarProp(codProp,listaProp): 
         nombre=[]
