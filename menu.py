@@ -33,6 +33,8 @@ def menu():
         listaPlaylistcod,listaPlaylisttodo=leerPlaylist()
         listaCancionescod,listaCancionestodo=leerCanciones()
         ColaDeReproduccion=[]
+        contPropR=1
+        contPlayistR=1
         while True:
             print('\n--- BIENVENIDOS A EL REPRODUCTOR ---\n')
             print('Lista de opciones:\n')
@@ -566,15 +568,19 @@ def menu():
                 #print('6- Reporte de Cancion')
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                 if opcion==1:#Reportes propietarios
-                    print('\nLos propietarios registrados son: \n')
+                    print('\n ---> El reporte de propietarios se ha creado correctamente')#Mensaje
+                    reporte = open(f"reportePropietario{contPropR}.txt", "a")#Crea un nuevo archivo .txt
+                    reporte.write('\nLos propietarios registrados son: \n')#Agerga datos al archivo
                     i=0
-                    print('Codigo - Nombre ')
-                    print('-----------------------------------------')
+                    reporte.write('\nCodigo - Nombre ')#Agerga datos al archivo
+                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
                     while i < len(listaProptodo):
                         if i>=1:
-                            print('-----------------------------------------')
-                        print(f'{listaProptodo[i][0]} - {listaProptodo[i][1]}')
-                        i+=1 
+                            reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                        reporte.write(f'\n{listaProptodo[i][0]} - {listaProptodo[i][1]}')#Agerga datos al archivo
+                        i+=1
+                    contPropR+=1#Contador para nombrar reporte
+                    reporte.close()#Cierra archivo
                     if volver():
                         continue
                     else:
@@ -582,19 +588,23 @@ def menu():
                 elif opcion==2:#Reportes playlist
                     dato=str(input('\nDigite el codigo de propietario para mostrar las playlist vinculadas: '))
                     if dato in listaPropcod:
-                        print('\nLas playlists registradas son : \n')
-                        print('Codigo - Nombre - Codigo del Propietario ')
-                        print('-----------------------------------------')
-                        temp=0#Verifica la cantidad de veces que se a ejecutado for para imprimir guiones
+                        print(f'\n ---> El reporte de playlist del propietario {buscarProp(dato,listaProptodo)} se ha creado correctamente')
+                        reporte = open(f"reportePlaylist{contPlayistR}.txt", "a")#Crea un nuevo archivo .txt
+                        reporte.write(f'\n ---> Las playlist del propietario {buscarProp(dato,listaProptodo)} son: \n')#Agerga datos al archivo
+                        reporte.write('\nCodigo - Nombre - Codigo del Propietario ')#Agerga datos al archivo
+                        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                        temp=0#Verifica las playlist y guiones
                         for i in listaPlaylisttodo:
                             if i[2] == dato:
                                 if temp==1:
-                                    print('-----------------------------------------')
-                                print(f'{i[0]} - {i[1]} - {i[2]}')
+                                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                                reporte.write(f'\n{i[0]} - {i[1]} - {i[2]}')#Agerga datos al archivo
                                 temp=1
-                        if temp ==0:
-                            print(f'\nVacio  -  Vacio  -   {dato}')
-                            print('\n ---> No hay playlist vinculadas a este propietario')
+                        if temp ==0:#Si no hay playlist
+                            reporte.write(f'\nVacio  -  Vacio  -   {dato}\n')#Agrega al archivo
+                            reporte.write('\n ---> No hay playlist vinculadas a este propietario')#Agrega al archivo
+                        contPlayistR+=1 #Contador para nombrar reporte
+                        reporte.close()#Cierra el archivo
                         if volver():
                             continue
                         else:
