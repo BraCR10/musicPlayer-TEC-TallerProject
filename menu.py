@@ -27,6 +27,7 @@ def volver():
 
 def menu():
     try :
+        #Listas principales, se original de leer
         listaPropcod,listaProptodo=leerProp()
         listaGencod,listaGentodo=leerGen()
         listaArtcod,listaArttodo=leerArt()
@@ -34,9 +35,15 @@ def menu():
         listaPlaylistcod,listaPlaylisttodo=leerPlaylist()
         listaCancionescod,listaCancionestodo=leerCanciones()
         ColaDeReproduccion=[]
+        #Contadores para generar reportes
         contPropR=1
-        contPlayistR=1
+        contPlaylistR=1
+        contAlbumR=1
+        contGenR=1
+        contCancionesR=1
+        contArtR=1
         contTendenciasR=1
+        #Listas para determinar tendencias
         modaCancion=[]
         modaArt=[]
         modaPlaylist=[]
@@ -120,7 +127,7 @@ def menu():
                         break
                 elif opcion==6:
                     dato=str(input('\nDigite el codigo de cancion: '))
-                    if buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)==None:
+                    if buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)=='No hay':
                         print('\n ---> La cancion no existe')
                     else:
                         print(f'\n ---> La cancion es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]}, el artista: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1]}, el album es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[2]}, el genero es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[3]} y la playlist es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[4]} ' )
@@ -197,11 +204,11 @@ def menu():
                 #print('4- Vaciar cola de reproduccion')
                 print('5- Volver')
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
-                if opcion==1:
+                if opcion==1:#Agregar
                     if len(ColaDeReproduccion)>=5:
                         print('\n ---> La cola de reproduccion ya esta en su limite, no se puede agregar mas canciones')
                     else:
-                        dato=str(input('\nDigite el codigo de la cancion que desea añadir a la cola de reproduccion: ')) #Recibe un codigo de propietario
+                        dato=str(input('\nDigite el codigo de la cancion que desea añadir a la cola de reproduccion: ')) #Recibe un codigo de cancion
                         codArt= str(input('Digite el codigo del artista al que pertenece: '))
                         codAlb= str(input('Digite el codigo del album al que pertenece: '))
                         codGen= str(input('Digite el codigo del genero al que pertenece: '))
@@ -222,10 +229,13 @@ def menu():
                 elif opcion==2:
                     print('\nLa cola de reproduccion es: ')
                     i=0
-                    print('Codigo   -   Cancion   -   Artista ')
+                    print('\nCodigo   -   Cancion   -   Artista ')
                     while i < len(ColaDeReproduccion):
                         print('----------------------------------------------')
-                        print(f'{ColaDeReproduccion[i]}  -  {buscarCancion(ColaDeReproduccion[i],listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]}  -  {buscarCancion(ColaDeReproduccion[i],listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1]}')
+                        if buscarCancion(ColaDeReproduccion[i],listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)=='No hay':
+                            print('\nVacio  -  Vacio  -   Vacio\n')
+                        else:
+                            print(f'{ColaDeReproduccion[i]}  -  {buscarCancion(ColaDeReproduccion[i],listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]}  -  {buscarCancion(ColaDeReproduccion[i],listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1]}')
                         i+=1
                     if volver()==1:
                         continue
@@ -684,7 +694,7 @@ def menu():
                     dato=str(input('\nDigite el codigo de genero para mostrar los artistas vinculadas: '))
                     if dato in listaGencod:
                         print(f'\n ---> El reporte de artista del genero {buscarGenero(dato,listaGentodo)} se ha creado correctamente')
-                        reporte = open(f"reporteArtista{contArtistaR}.txt", "a")#Crea un nuevo archivo .txt
+                        reporte = open(f"reporteArtista{contArtR}.txt", "a")#Crea un nuevo archivo .txt
                         reporte.write(f'\n ---> Los artistas del genero {buscarGenero(dato,listaGentodo)} son: \n')#Agerga datos al archivo
                         reporte.write('\nCodigo - Nombre - Codigo del Genero ')#Agerga datos al archivo
                         reporte.write('\n-----------------------------------------')#Agerga datos al archivo
@@ -698,7 +708,7 @@ def menu():
                         if temp ==0:#Si no hay artistas
                             reporte.write(f'\nVacio  -  Vacio  -   {dato}\n')#Agrega al archivo
                             reporte.write('\n ---> No hay artistas vinculadas a este genero')#Agrega al archivo
-                        contArtistaR+=1 #Contador para nombrar reporte
+                        contArtR+=1 #Contador para nombrar reporte
                         reporte.close()#Cierra el archivo
                         if volver():
                             continue
@@ -711,12 +721,12 @@ def menu():
                         else:
                             break
                 elif opcion==5:#Reportes albumes
-                    dato=str(input('\nDigite el codigo de genero para mostrar los artistas vinculadas: '))
+                    dato=str(input('\nDigite el codigo de artistas para mostrar los albumes vinculadas: '))
                     if dato in listaArtcod:
-                        print(f'\n ---> El reporte de album del artista {buscarArtista(dato,listaArttodo)} se ha creado correctamente')
+                        print(f'\n ---> El reporte de album del artista {buscarArtista(dato,listaArttodo,listaGentodo)[0]} se ha creado correctamente')
                         reporte = open(f"reporteAlbum{contAlbumR}.txt", "a")#Crea un nuevo archivo .txt
-                        reporte.write(f'\n ---> Los albumes del artista {buscarArtista(dato,listaArttodo)} son: \n')#Agerga datos al archivo
-                        reporte.write('\nCodigo - Nombre - Codigo del Genero ')#Agerga datos al archivo
+                        reporte.write(f'\n ---> Los albumes del artista {buscarArtista(dato,listaArttodo,listaGentodo)[0]} son: \n')#Agerga datos al archivo
+                        reporte.write('\nCodigo - Nombre - Codigo del Artista ')#Agerga datos al archivo
                         reporte.write('\n-----------------------------------------')#Agerga datos al archivo
                         temp=0#Verifica los albumes y guiones
                         for i in listaAlbumtodo:
@@ -743,9 +753,9 @@ def menu():
                 elif opcion==6:#Reportes Cancion
                     dato=str(input('\nDigite el codigo de artista para mostrar las canciones vinculadas: '))
                     if dato in listaArtcod:
-                        print(f'\n ---> El reporte de canciones del artista {buscarArtista(dato,listaArttodo)} se ha creado correctamente')
+                        print(f'\n ---> El reporte de canciones del artista {buscarArtista(dato,listaArttodo,listaGentodo)[0]} se ha creado correctamente')
                         reporte = open(f"reporteCanciones{contCancionesR}.txt", "a")#Crea un nuevo archivo .txt
-                        reporte.write(f'\n ---> Las canciones del artista {buscarArtista(dato,listaArttodo)} son: \n')#Agerga datos al archivo
+                        reporte.write(f'\n ---> Las canciones del artista {buscarArtista(dato,listaArttodo,listaGentodo)[0]} son: \n')#Agerga datos al archivo
                         reporte.write('\nCodigo - Nombre - Codigo del artista ')#Agerga datos al archivo
                         reporte.write('\n-----------------------------------------')#Agerga datos al archivo
                         temp=0#Verifica las canciones y guiones
@@ -779,7 +789,10 @@ def menu():
                      if modaCancion==[]:
                          reporte.write(f'\n No se ha reproducido ninguna cancion \n')#Agerga datos al archivo
                      else:
-                        reporte.write(f'\n La cancion mas reproducida: {buscarCancion(mode(modaCancion),listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]} \n')#Agerga datos al archivo
+                         if buscarCancion(mode(modaCancion),listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)=='No hay':
+                             reporte.write(f'\nHas eliminado la cancion mas escuchada!')
+                         else:
+                            reporte.write(f'\n La cancion mas reproducida: {buscarCancion(mode(modaCancion),listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]} \n')#Agerga datos al archivo
                      reporte.write('\n-----------------------------------------')#Agerga datos al archivo
                      for i in listaCancionestodo:
                          if i[2] in listaArtcod:
@@ -812,7 +825,7 @@ def menu():
                         break
                     
                 elif opcion==8:
-                    volver
+                    continue
                 else:
                     if opcionNoExiste():
                         continue
@@ -881,7 +894,7 @@ def menu():
                 else:
                     break
             elif opcion==7:#Salir
-                continue
+                break
             else:#No existe
                 if opcionNoExiste():
                     continue
@@ -889,14 +902,7 @@ def menu():
                     break
     except ValueError:
         print( "\n---> Debes digitar un numero entero para escojer una opcion\n")
-    except NameError:
-        print( "\n---> El programa ha tenido incovenientes\n")
-    except TypeError:
-        print( "\n---> El programa ha tenido incovenientes\n")
-    except IndexError:
-        print( "\n---> El programa ha tenido incovenientes\n")
-    except KeyboardInterrupt:
-        print( "\n---> El programa ha tenido incovenientes\n")
+
     finally:
         print( "\n---> Vuelva a cargar el programa\n")
 

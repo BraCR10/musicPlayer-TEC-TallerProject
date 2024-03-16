@@ -2,7 +2,7 @@
 #Estudiantes:
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
-from lecturaArchivos import *
+
 #Esta busca un usuario por codigo
 def buscarProp(codProp,listaProp): 
         nombre=[]
@@ -55,6 +55,8 @@ def buscarCancion(codCancion,listaCancion,listaArt,listaAlbum,listaGen,listaPlay
             nombrePlaylist=i[1] #Obtiene el nombre de la playlist
     if nombreCacion!=[] and nombreArt!=[] and nombreAlbum!=[] and nombreGenero!=[] and nombrePlaylist!=[]: 
         return nombreCacion,nombreArt,nombreAlbum,nombreGenero,nombrePlaylist#Retorna Nombre de cancion y los datos adicionales
+    else:
+        return 'No hay'
 
 def buscarGenero(codGenero,listaGen):
     nombreGenero=[]
