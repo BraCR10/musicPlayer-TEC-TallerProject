@@ -8,6 +8,7 @@ from busqueda import * #buscarAlbum,buscarArtista,buscarCancion,buscarGenero,bus
 from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,eliminarAlbum,EliminarGenero,EliminarArtistas
 from modificacion import *#ModificarPlaylist,modificarArt,modificarCancion,modificarGen,modificarProp
 from insercion import *
+from statistics import mode
 def opcionNoExiste():
     print('\n ---> Esta opcion no exite')
     print('\nVolver al menu principal o salir?:')
@@ -56,6 +57,7 @@ def menu():
                 print('4- Buscar Artista') 
                 print('5- Buscar Album') 
                 print('6- Buscar Cancion') 
+                print('7- Volver') 
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                 if opcion==1:
                     dato=str(input('\nDigite el codigo de propietario: '))
@@ -117,6 +119,8 @@ def menu():
                         continue
                     else:
                         break
+                elif opcion==7:
+                    continue
                 else:
                     if opcionNoExiste():
                         continue
@@ -131,6 +135,7 @@ def menu():
                 print('4- Insertar Artista') 
                 print('5- Insertar Album') 
                 print('6- Insertar Cancion') 
+                print('7- Volver') 
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                 if opcion==1:
                     listaPropcod,listaProptodo=insertProp(listaPropcod,listaProptodo)
@@ -168,11 +173,20 @@ def menu():
                         continue
                     else:
                         break
+                elif opcion==7:
+                    continue
+                else:
+                    if opcionNoExiste():
+                        continue
+                    else:
+                        break
             elif opcion==3:#Reproducir
                 print('\nLista de opciones:\n')
                 print('1- Añadir una cancion a la cola de reproduccion') 
                 print('2- Ver la cola de reproduccion') 
                 print('3- Reproducir cola de reproduccion')
+                print('4- Vaciar cola de reproduccion')
+                print('5- Volver')
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                 if opcion==1:
                     if len(ColaDeReproduccion)>=5:
@@ -207,14 +221,26 @@ def menu():
                 elif opcion==3:
                     i=0
                     for i in ColaDeReproduccion:
+                        print('\n---> Si desea dejar de reproducir la cancion ejecute la tecla Ctrl + C, sin embargo, tenga en cuenta que esta accion detendra todo el programa y tendra que volver a inicializar el programa en caso de quiera seguir haciendo uso del mismo')
                         CodCancion=ColaDeReproduccion[0]
                         ruta = f'Canciones wav\{CodCancion}.wav'
                         playsound(ruta)
                         ColaDeReproduccion=ColaDeReproduccion[1:]
-                        print('Si desea dejar de reproducir la cancion ejecute la tecla Ctrl + C, sin embargo, tenga en cuenta que esta accion detendra todo el programa y tendra que volver a inicializar el programa en caso de quiera seguir haciendo uso del mismo')
-                    print('La cola de reproduccion ha quedado vacia')
-                else:
+                    print('\n---> La cola de reproduccion ha quedado vacia')
+                elif opcion==4:
+                    ColaDeReproduccion=[]
+                    print('\n---> La cola de reproduccion ha quedado vacia')
+                    if volver()==1:
+                        continue
+                    else:
+                        break
+                elif opcion==5:
                     continue
+                else:
+                    if opcionNoExiste():
+                        continue
+                    else:
+                        break
             elif opcion==4:#Eliminaciones
                 print('\nLista de opciones:\n')
                 print('1- Eliminar Propietario') 
@@ -223,6 +249,7 @@ def menu():
                 print('4- Eliminar Artista') 
                 print('5- Eliminar Album') 
                 print('6- Eliminar Cancion') 
+                print('7- Volver') 
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                 if opcion==1: 
                     dato=str(input('\nDigite el codigo de propietario a eliminar: ')) #Recibe un codigo de propietario
@@ -463,6 +490,8 @@ def menu():
                             continue
                         else:
                             break
+                elif opcion==7:
+                    continue
                 else:
                     if opcionNoExiste():
                         continue
@@ -476,6 +505,7 @@ def menu():
                 print('4- Modificar Artista') 
                 print('5- Modificar Album') 
                 print('6- Modificar Cancion') 
+                print('7- Volver') 
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                 if opcion==1:#Modifica propietario
                     dato=str(input('\nDigite el codigo de propietario a modificar: '))
@@ -553,6 +583,8 @@ def menu():
                             continue
                         else:
                             break
+                elif opcion==7:
+                    continue
                 else:
                     if opcionNoExiste():
                         continue
@@ -628,6 +660,7 @@ def menu():
                 print('4- Ver Artista') 
                 print('5- Ver Album') 
                 print('6- Ver Cancion') 
+                print('7- Volver') 
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                 if opcion==1:
                     print('\nLos propietarios registrados: \n')
@@ -681,8 +714,8 @@ def menu():
                     continue
                 else:
                     break
-            elif opcion==6:#Salir
-                break
+            elif opcion==7:#Salir
+                continue
             else:#No existe
                 if opcionNoExiste():
                     continue
@@ -695,6 +728,8 @@ def menu():
     except TypeError:
         print( "\n---> El programa ha tenido incovenientes\n")
     except IndexError:
+        print( "\n---> El programa ha tenido incovenientes\n")
+    except KeyboardInterrupt:
         print( "\n---> El programa ha tenido incovenientes\n")
     finally:
         print( "\n---> Vuelva a cargar el programa\n")
