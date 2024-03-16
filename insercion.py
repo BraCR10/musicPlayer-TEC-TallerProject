@@ -1,3 +1,8 @@
+#Primer avance proyecto del reproductor de musica
+#Estudiantes:
+#Matthew Cordero Salazar
+#Brian Ramirez Arias 
+
 def insertProp(listaCod,listaTodo):
     cod =str(input('Digite el codigo de propiertario: '))
     nombre= str(input('Digite el nombre de propiertario: '))

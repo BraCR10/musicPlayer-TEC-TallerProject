@@ -24,7 +24,6 @@ def volver():
     opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
     if opcion==1:
         return True
-
 def menu():
     try :
         #Listas principales, se original de leer
@@ -201,8 +200,7 @@ def menu():
                 print('1- Añadir una cancion a la cola de reproduccion') 
                 print('2- Ver la cola de reproduccion') 
                 print('3- Reproducir cola de reproduccion')
-                #print('4- Vaciar cola de reproduccion')
-                print('5- Volver')
+                print('4- Volver')
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                 if opcion==1:#Agregar
                     if len(ColaDeReproduccion)>=5:
@@ -233,10 +231,11 @@ def menu():
                     while i < len(ColaDeReproduccion):
                         print('----------------------------------------------')
                         if buscarCancion(ColaDeReproduccion[i],listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)=='No hay':
-                            print('\nVacio  -  Vacio  -   Vacio\n')
+                            print('************** Eliminado **************')
+                            ColaDeReproduccion.pop(i)#Elimina de cola de reproduccion lo que ya no existe por haberse eliminado
                         else:
                             print(f'{ColaDeReproduccion[i]}  -  {buscarCancion(ColaDeReproduccion[i],listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]}  -  {buscarCancion(ColaDeReproduccion[i],listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1]}')
-                        i+=1
+                            i+=1
                     if volver()==1:
                         continue
                     else:
@@ -250,14 +249,7 @@ def menu():
                         playsound(ruta)
                         ColaDeReproduccion=ColaDeReproduccion[1:]
                     print('\n---> La cola de reproduccion ha quedado vacia')
-                    '''elif opcion==4:#Vaciar cola
-                        ColaDeReproduccion=[]
-                        print('\n---> La cola de reproduccion ha quedado vacia')
-                        if volver()==1:
-                            continue
-                        else:
-                            break'''
-                elif opcion==5:
+                elif opcion==4:
                     continue
                 else:
                     if opcionNoExiste():
@@ -345,13 +337,13 @@ def menu():
                                     check=0
                                 else:
                                     i+=1# i incrementa, la unica forma de que esto pase, es que aun falte un elemento por eliminar, por lo tanto se debe recorrer la lista 
-                            print(f'\nLa playlist  "{nombre}" ha sido eliminada correctamente')
+                            print(f'\n---> La playlist  "{nombre}" ha sido eliminada correctamente')
                             if volver():
                                 continue
                             else:
                                 break
                         else:
-                            print('\n El codigo de propietario no tiene relacion con la playlist')
+                            print('\n---> El codigo de propietario no tiene relacion con la playlist')
                             if volver():
                                 continue
                             else:
@@ -503,6 +495,7 @@ def menu():
                         #Elimicacion principal
                         listaCancionescod,listaCancionestodo,nombre=eliminarCanciones(dato,listaCancionescod,listaCancionestodo)#Actualiza la lista si el codigo no existe, la deja igual
                         print(f'\nLa cancion "{nombre}" ha sido eliminado correctamente')
+                        #ColaDeReproduccion=[]#Se elimina toda la cola al elimin
                         if volver():
                             continue
                         else:
@@ -579,7 +572,7 @@ def menu():
                     if dato in listaAlbumcod:
                         print(f'\n--->El album es: {buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)[0]}')
                         nuevo=str(input('\nDigite el nuevo nombre del album : '))
-                        listaAlbumtodo=modificarArt(dato,listaAlbumtodo,nuevo)
+                        listaAlbumtodo=modificarAlbum(dato,listaAlbumtodo,nuevo)
                         print('\n--->El nombre del album se modifico con exito!')
                         if volver():
                             continue
@@ -902,8 +895,14 @@ def menu():
                     break
     except ValueError:
         print( "\n---> Debes digitar un numero entero para escojer una opcion\n")
-
+    except NameError:
+        print( "\n---> El programa ha tenido incovenientes\n")
+    except TypeError:
+        print( "\n---> El programa ha tenido incovenientes\n")
+    except IndexError:
+        print( "\n---> El programa ha tenido incovenientes\n")
+    except KeyboardInterrupt:
+        print( "\n---> El programa ha tenido incovenientes\n")
     finally:
         print( "\n---> Vuelva a cargar el programa\n")
-
 menu()

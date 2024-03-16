@@ -28,8 +28,7 @@ def eliminarPlaylist(codPlaylist,listaCod,listaTodo):
      
     #print(copiaTodo)
     return copiaCod,copiaTodo,nombre
-#print(eliminarPlaylist('123',['123','127'],[['12','lll'],['123','127']]))  
-#print(eliminarPlaylist('98',[],[['98', 'Musicaaaaaaaaaaaaaaal1', '123'], ['8844', 'pppppppppppp', '123'], ['77777777777777777', 'fffffffffffffffffffff', '123'], ['1745', 'Merengues unicos', '45780'], ['985', 'Viajando por la musica', '231'], ['3920', 'Volver al pasado', '50129']]))
+
 def eliminarGenero(codGen,listaCod,listaTodo):
     copiaCod=listaCod
     copiaTodo=listaTodo
