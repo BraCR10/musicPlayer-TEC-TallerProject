@@ -36,6 +36,15 @@ def menu():
         ColaDeReproduccion=[]
         contPropR=1
         contPlayistR=1
+        contTendenciasR=1
+        modaCancion=[]
+        modaArt=[]
+        modaPlaylist=[]
+        modaGen=[]
+        modaProp=[]
+        modaAlbum1=[]
+        modaAlbum2=[]
+        modaProp=[]
         while True:
             print('\n--- BIENVENIDOS A EL REPRODUCTOR ---\n')
             print('Lista de opciones:\n')
@@ -185,7 +194,7 @@ def menu():
                 print('1- Añadir una cancion a la cola de reproduccion') 
                 print('2- Ver la cola de reproduccion') 
                 print('3- Reproducir cola de reproduccion')
-                print('4- Vaciar cola de reproduccion')
+                #print('4- Vaciar cola de reproduccion')
                 print('5- Volver')
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                 if opcion==1:
@@ -197,6 +206,10 @@ def menu():
                         codAlb= str(input('Digite el codigo del album al que pertenece: '))
                         codGen= str(input('Digite el codigo del genero al que pertenece: '))
                         codPlaylist= str(input('Digite el codigo de la playlist al que pertenece: '))
+                        modaCancion+=[dato]
+                        modaGen+=[codGen]
+                        modaAlbum2+=[codAlb]
+                        modaPlaylist+=[codPlaylist]
                         if dato in listaCancionescod and buscarArtista(codArt,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1] and buscarAlbum(codAlb,listaAlbumtodo,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[2] and buscarGenero(codGen,listaGentodo) == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[3] and buscarPlaylist(codPlaylist,listaPlaylisttodo,listaProptodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[4]:
                             ColaDeReproduccion+=[dato]
                             print ('\n --->Se ha agregado la cancion: ',buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0], ' con el codigo:', dato, "a la cola de reproduccion")
@@ -227,13 +240,13 @@ def menu():
                         playsound(ruta)
                         ColaDeReproduccion=ColaDeReproduccion[1:]
                     print('\n---> La cola de reproduccion ha quedado vacia')
-                elif opcion==4:
-                    ColaDeReproduccion=[]
-                    print('\n---> La cola de reproduccion ha quedado vacia')
-                    if volver()==1:
-                        continue
-                    else:
-                        break
+                    '''elif opcion==4:#Vaciar cola
+                        ColaDeReproduccion=[]
+                        print('\n---> La cola de reproduccion ha quedado vacia')
+                        if volver()==1:
+                            continue
+                        else:
+                            break'''
                 elif opcion==5:
                     continue
                 else:
@@ -598,6 +611,7 @@ def menu():
                 #print('4- Reporte de Artista') 
                 #print('5- Reporte de Album') 
                 #print('6- Reporte de Cancion')
+                #print('7- Reporte de Tendencias')
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                 if opcion==1:#Reportes propietarios
                     print('\n ---> El reporte de propietarios se ha creado correctamente')#Mensaje
@@ -755,6 +769,37 @@ def menu():
                             continue
                         else:
                             break
+                elif opcion==7:#Modas
+                     print(f'\n ---> El reporte de tendencias se ha creado correctamente')
+                     reporte = open(f"reporteTendencias{contTendenciasR}.txt", "a")#Crea un nuevo archivo .txt
+                     reporte.write(f'\n ---> Las tendencias y moda: \n')#Agerga datos al archivo
+                     reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                     reporte.write(f'\n La cancion mas reproducida: {buscarCancion(mode(modaCancion),listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]} \n')#Agerga datos al archivo
+                     reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                     for i in listaCancionestodo:
+                         if i[2] in listaArtcod:
+                             modaArt+=[i[2]]
+                     reporte.write(f'\n El artistas con mas canciones: {buscarArtista(mode(modaArt),listaArttodo,listaGentodo)[0]} \n')#Agerga datos al archivo
+                     reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                     for i in listaCancionestodo:
+                         if i[3] in listaAlbumcod:
+                             modaAlbum1+=[i[3]]
+                     reporte.write(f'\n El album  con mas canciones: {buscarAlbum(mode(modaAlbum1),listaAlbumtodo,listaArttodo,listaGentodo)[0]} \n')#Agerga datos al archivo
+                     reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                     reporte.write(f'\n El genero mas solicitado : {buscarGenero(mode(modaGen),listaGentodo)} \n')#Agerga datos al archivo
+                     reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                     for i in listaPlaylisttodo:
+                         if i[2] in listaPropcod:
+                             modaProp+=[i[2]]
+                     reporte.write(f'\n El propietario con mas playlists: {buscarProp(mode(modaProp),listaProptodo)} \n')#Agerga datos al archivo
+                     reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                     reporte.write(f'\n El album mas solicitado: {buscarAlbum(mode(modaAlbum2),listaAlbumtodo,listaArttodo,listaGentodo)[0]} \n')#Agerga datos al archivo
+                     contTendenciasR=+1
+                     reporte.close()#Cierra el archivo
+                     if volver():
+                        continue
+                     else:
+                        break
                 else:
                     if opcionNoExiste():
                         continue
