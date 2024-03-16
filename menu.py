@@ -647,6 +647,114 @@ def menu():
                             continue
                         else:
                             break
+                elif opcion==3:#Reportes genero
+                    print('\n ---> El reporte de generos se ha creado correctamente')#Mensaje
+                    reporte = open(f"reporteGenero{contGenR}.txt", "a")#Crea un nuevo archivo .txt
+                    reporte.write('\nLos generos registrados son: \n')#Agerga datos al archivo
+                    i=0
+                    reporte.write('\nCodigo - Nombre ')#Agerga datos al archivo
+                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                    while i < len(listaGentodo):
+                        if i>=1:
+                            reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                        reporte.write(f'\n{listaGentodo[i][0]} - {listaGentodo[i][1]}')#Agerga datos al archivo
+                        i+=1
+                    contGenR+=1#Contador para nombrar reporte
+                    reporte.close()#Cierra archivo
+                    if volver():
+                        continue
+                    else:
+                        break
+                elif opcion==4:#Reportes Artistas
+                    dato=str(input('\nDigite el codigo de genero para mostrar los artistas vinculadas: '))
+                    if dato in listaGencod:
+                        print(f'\n ---> El reporte de artista del genero {buscarGenero(dato,listaGentodo)} se ha creado correctamente')
+                        reporte = open(f"reporteArtista{contArtistaR}.txt", "a")#Crea un nuevo archivo .txt
+                        reporte.write(f'\n ---> Los artistas del genero {buscarGenero(dato,listaGentodo)} son: \n')#Agerga datos al archivo
+                        reporte.write('\nCodigo - Nombre - Codigo del Genero ')#Agerga datos al archivo
+                        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                        temp=0#Verifica los artistas y guiones
+                        for i in listaArttodo:
+                            if i[2] == dato:
+                                if temp==1:
+                                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                                reporte.write(f'\n{i[0]} - {i[1]} - {i[2]}')#Agerga datos al archivo
+                                temp=1
+                        if temp ==0:#Si no hay artistas
+                            reporte.write(f'\nVacio  -  Vacio  -   {dato}\n')#Agrega al archivo
+                            reporte.write('\n ---> No hay artistas vinculadas a este genero')#Agrega al archivo
+                        contArtistaR+=1 #Contador para nombrar reporte
+                        reporte.close()#Cierra el archivo
+                        if volver():
+                            continue
+                        else:
+                            break
+                    else:
+                        print('\n --->El genero no existe')
+                        if volver():
+                            continue
+                        else:
+                            break
+                elif opcion==5:#Reportes albumes
+                    dato=str(input('\nDigite el codigo de genero para mostrar los artistas vinculadas: '))
+                    if dato in listaArtcod:
+                        print(f'\n ---> El reporte de album del artista {buscarArtista(dato,listaArttodo)} se ha creado correctamente')
+                        reporte = open(f"reporteAlbum{contAlbumR}.txt", "a")#Crea un nuevo archivo .txt
+                        reporte.write(f'\n ---> Los albumes del artista {buscarArtista(dato,listaArttodo)} son: \n')#Agerga datos al archivo
+                        reporte.write('\nCodigo - Nombre - Codigo del Genero ')#Agerga datos al archivo
+                        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                        temp=0#Verifica los albumes y guiones
+                        for i in listaAlbumtodo:
+                            if i[2] == dato:
+                                if temp==1:
+                                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                                reporte.write(f'\n{i[0]} - {i[1]} - {i[2]}')#Agerga datos al archivo
+                                temp=1
+                        if temp ==0:#Si no hay albumes
+                            reporte.write(f'\nVacio  -  Vacio  -   {dato}\n')#Agrega al archivo
+                            reporte.write('\n ---> No hay artistas vinculadas a este genero')#Agrega al archivo
+                        contAlbumR+=1 #Contador para nombrar reporte
+                        reporte.close()#Cierra el archivo
+                        if volver():
+                            continue
+                        else:
+                            break
+                    else:
+                        print('\n --->El artista no existe')
+                        if volver():
+                            continue
+                        else:
+                            break
+                elif opcion==6:#Reportes Artistas
+                    dato=str(input('\nDigite el codigo de artista para mostrar las canciones vinculadas: '))
+                    if dato in listaArtcod:
+                        print(f'\n ---> El reporte de canciones del artista {buscarArtista(dato,listaArttodo)} se ha creado correctamente')
+                        reporte = open(f"reporteCanciones{contCancionesR}.txt", "a")#Crea un nuevo archivo .txt
+                        reporte.write(f'\n ---> Las canciones del artista {buscarArtista(dato,listaArttodo)} son: \n')#Agerga datos al archivo
+                        reporte.write('\nCodigo - Nombre - Codigo del artista ')#Agerga datos al archivo
+                        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                        temp=0#Verifica las canciones y guiones
+                        for i in listaCancionestodo:
+                            if i[2] == dato:
+                                if temp==1:
+                                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                                reporte.write(f'\n{i[0]} - {i[1]} - {i[2]}')#Agerga datos al archivo
+                                temp=1
+                        if temp ==0:#Si no hay canciones
+                            reporte.write(f'\nVacio  -  Vacio  -   {dato}\n')#Agrega al archivo
+                            reporte.write('\n ---> No hay canciones vinculadas a este artista')#Agrega al archivo
+                        contCancionesR+=1 #Contador para nombrar reporte
+                        reporte.close()#Cierra el archivo
+                        if volver():
+                            continue
+                        else:
+                            break
+                    else:
+                        print('\n --->El artista no existe')
+                        if volver():
+                            continue
+                        else:
+                            break
                 else:
                     if opcionNoExiste():
                         continue
