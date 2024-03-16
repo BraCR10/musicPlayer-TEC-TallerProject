@@ -197,7 +197,7 @@ def menu():
                         codAlb= str(input('Digite el codigo del album al que pertenece: '))
                         codGen= str(input('Digite el codigo del genero al que pertenece: '))
                         codPlaylist= str(input('Digite el codigo de la playlist al que pertenece: '))
-                        if dato in listaCancionescod and codArt in listaArtcod and codAlb in listaAlbumcod and codGen in listaGencod and codPlaylist in listaPlaylistcod:
+                        if dato in listaCancionescod and buscarArtista(codArt,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1] and buscarAlbum(codAlb,listaAlbumtodo,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[2] and buscarGenero(codGen,listaGentodo) == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[3] and buscarPlaylist(codPlaylist,listaPlaylisttodo,listaProptodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[4]:
                             ColaDeReproduccion+=[dato]
                             print ('\n --->Se ha agregado la cancion: ',buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0], ' con el codigo:', dato, "a la cola de reproduccion")
                         else:
