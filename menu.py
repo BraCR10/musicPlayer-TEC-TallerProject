@@ -206,13 +206,13 @@ def menu():
                         codAlb= str(input('Digite el codigo del album al que pertenece: '))
                         codGen= str(input('Digite el codigo del genero al que pertenece: '))
                         codPlaylist= str(input('Digite el codigo de la playlist al que pertenece: '))
-                        modaCancion+=[dato]
-                        modaGen+=[codGen]
-                        modaAlbum2+=[codAlb]
-                        modaPlaylist+=[codPlaylist]
                         if dato in listaCancionescod and buscarArtista(codArt,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1] and buscarAlbum(codAlb,listaAlbumtodo,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[2] and buscarGenero(codGen,listaGentodo) == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[3] and buscarPlaylist(codPlaylist,listaPlaylisttodo,listaProptodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[4]:
                             ColaDeReproduccion+=[dato]
                             print ('\n --->Se ha agregado la cancion: ',buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0], ' con el codigo:', dato, "a la cola de reproduccion")
+                            modaCancion+=[dato]
+                            modaAlbum2+=[codAlb]
+                            modaGen+=[codGen]
+                            modaPlaylist+=[codPlaylist]
                         else:
                             print("\n --->Cancion inexsistente o los datos relacionados son incorrectos")
                     if volver()==1:
@@ -607,11 +607,12 @@ def menu():
                 print('\nLista de opciones:\n')
                 print('1- Reporte de Propietario') 
                 print('2- Reporte de Playlist') 
-                #print('3- Reporte de Genero') 
-                #print('4- Reporte de Artista') 
-                #print('5- Reporte de Album') 
-                #print('6- Reporte de Cancion')
-                #print('7- Reporte de Tendencias')
+                print('3- Reporte de Genero') 
+                print('4- Reporte de Artista') 
+                print('5- Reporte de Album') 
+                print('6- Reporte de Cancion')
+                print('7- Reporte de Tendencias')
+                print('8- Volver')
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                 if opcion==1:#Reportes propietarios
                     print('\n ---> El reporte de propietarios se ha creado correctamente')#Mensaje
@@ -739,7 +740,7 @@ def menu():
                             continue
                         else:
                             break
-                elif opcion==6:#Reportes Artistas
+                elif opcion==6:#Reportes Cancion
                     dato=str(input('\nDigite el codigo de artista para mostrar las canciones vinculadas: '))
                     if dato in listaArtcod:
                         print(f'\n ---> El reporte de canciones del artista {buscarArtista(dato,listaArttodo)} se ha creado correctamente')
@@ -769,12 +770,16 @@ def menu():
                             continue
                         else:
                             break
-                elif opcion==7:#Modas
+                elif opcion==7:#Reporte Modas
                      print(f'\n ---> El reporte de tendencias se ha creado correctamente')
                      reporte = open(f"reporteTendencias{contTendenciasR}.txt", "a")#Crea un nuevo archivo .txt
+                     contTendenciasR+=1
                      reporte.write(f'\n ---> Las tendencias y moda: \n')#Agerga datos al archivo
                      reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                     reporte.write(f'\n La cancion mas reproducida: {buscarCancion(mode(modaCancion),listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]} \n')#Agerga datos al archivo
+                     if modaCancion==[]:
+                         reporte.write(f'\n No se ha reproducido ninguna cancion \n')#Agerga datos al archivo
+                     else:
+                        reporte.write(f'\n La cancion mas reproducida: {buscarCancion(mode(modaCancion),listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]} \n')#Agerga datos al archivo
                      reporte.write('\n-----------------------------------------')#Agerga datos al archivo
                      for i in listaCancionestodo:
                          if i[2] in listaArtcod:
@@ -786,20 +791,28 @@ def menu():
                              modaAlbum1+=[i[3]]
                      reporte.write(f'\n El album  con mas canciones: {buscarAlbum(mode(modaAlbum1),listaAlbumtodo,listaArttodo,listaGentodo)[0]} \n')#Agerga datos al archivo
                      reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                     reporte.write(f'\n El genero mas solicitado : {buscarGenero(mode(modaGen),listaGentodo)} \n')#Agerga datos al archivo
+                     if modaGen==[]:
+                        reporte.write(f'\n No se ha solicitado ninguna cancion relacionada con un genero \n')#Agerga datos al archivo
+                     else:
+                        reporte.write(f'\n El genero mas solicitado : {buscarGenero(mode(modaGen),listaGentodo)} \n')#Agerga datos al archivo
                      reporte.write('\n-----------------------------------------')#Agerga datos al archivo
                      for i in listaPlaylisttodo:
                          if i[2] in listaPropcod:
                              modaProp+=[i[2]]
                      reporte.write(f'\n El propietario con mas playlists: {buscarProp(mode(modaProp),listaProptodo)} \n')#Agerga datos al archivo
                      reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                     reporte.write(f'\n El album mas solicitado: {buscarAlbum(mode(modaAlbum2),listaAlbumtodo,listaArttodo,listaGentodo)[0]} \n')#Agerga datos al archivo
-                     contTendenciasR=+1
+                     if modaGen==[]:
+                        reporte.write(f'\n No se ha solicitado ninguna cancion relacionada con un album \n')#Agerga datos al archivo
+                     else:
+                        reporte.write(f'\n El album mas solicitado: {buscarAlbum(mode(modaAlbum2),listaAlbumtodo,listaArttodo,listaGentodo)[0]} \n')#Agerga datos al archivo
                      reporte.close()#Cierra el archivo
                      if volver():
                         continue
                      else:
                         break
+                    
+                elif opcion==8:
+                    volver
                 else:
                     if opcionNoExiste():
                         continue
