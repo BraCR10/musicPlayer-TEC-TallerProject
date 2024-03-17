@@ -774,47 +774,47 @@ def menu():
                         else:
                             break
                 elif opcion==7:#Reporte Modas
-                     print(f'\n ---> El reporte de tendencias se ha creado correctamente')
-                     reporte = open(f"reporteTendencias{contTendenciasR}.txt", "a")#Crea un nuevo archivo .txt
-                     contTendenciasR+=1
-                     reporte.write(f'\n ---> Las tendencias y moda: \n')#Agerga datos al archivo
-                     reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                     if modaCancion==[]:
-                         reporte.write(f'\n No se ha reproducido ninguna cancion \n')#Agerga datos al archivo
-                     else:
-                         if buscarCancion(mode(modaCancion),listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)=='No hay':
-                             reporte.write(f'\nHas eliminado la cancion mas escuchada!')
-                         else:
+                    print(f'\n ---> El reporte de tendencias se ha creado correctamente')
+                    reporte = open(f"reporteTendencias{contTendenciasR}.txt", "a")#Crea un nuevo archivo .txt
+                    contTendenciasR+=1
+                    reporte.write(f'\n ---> Las tendencias y moda: \n')#Agerga datos al archivo
+                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                    if modaCancion==[]:
+                        reporte.write(f'\n No se ha reproducido ninguna cancion \n')#Agerga datos al archivo
+                    else:
+                        if buscarCancion(mode(modaCancion),listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)=='No hay':
+                            reporte.write(f'\nHas eliminado la cancion mas escuchada!')
+                        else:
                             reporte.write(f'\n La cancion mas reproducida: {buscarCancion(mode(modaCancion),listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]} \n')#Agerga datos al archivo
-                     reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                     for i in listaCancionestodo:
-                         if i[2] in listaArtcod:
-                             modaArt+=[i[2]]
-                     reporte.write(f'\n El artistas con mas canciones: {buscarArtista(mode(modaArt),listaArttodo,listaGentodo)[0]} \n')#Agerga datos al archivo
-                     reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                     for i in listaCancionestodo:
-                         if i[3] in listaAlbumcod:
-                             modaAlbum1+=[i[3]]
-                     reporte.write(f'\n El album  con mas canciones: {buscarAlbum(mode(modaAlbum1),listaAlbumtodo,listaArttodo,listaGentodo)[0]} \n')#Agerga datos al archivo
-                     reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                     if modaGen==[]:
+                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                    for i in listaCancionestodo:
+                        if i[2] in listaArtcod:
+                            modaArt+=[i[2]]
+                    reporte.write(f'\n El artistas con mas canciones: {buscarArtista(mode(modaArt),listaArttodo,listaGentodo)[0]} \n')#Agerga datos al archivo
+                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                    for i in listaCancionestodo:
+                        if i[3] in listaAlbumcod:
+                            modaAlbum1+=[i[3]]
+                    reporte.write(f'\n El album  con mas canciones: {buscarAlbum(mode(modaAlbum1),listaAlbumtodo,listaArttodo,listaGentodo)[0]} \n')#Agerga datos al archivo
+                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                    if modaGen==[]:
                         reporte.write(f'\n No se ha solicitado ninguna cancion relacionada con un genero \n')#Agerga datos al archivo
-                     else:
+                    else:
                         reporte.write(f'\n El genero mas solicitado : {buscarGenero(mode(modaGen),listaGentodo)} \n')#Agerga datos al archivo
-                     reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                     for i in listaPlaylisttodo:
-                         if i[2] in listaPropcod:
-                             modaProp+=[i[2]]
-                     reporte.write(f'\n El propietario con mas playlists: {buscarProp(mode(modaProp),listaProptodo)} \n')#Agerga datos al archivo
-                     reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                     if modaGen==[]:
+                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                    for i in listaPlaylisttodo:
+                        if i[2] in listaPropcod:
+                            modaProp+=[i[2]]
+                    reporte.write(f'\n El propietario con mas playlists: {buscarProp(mode(modaProp),listaProptodo)} \n')#Agerga datos al archivo
+                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+                    if modaGen==[]:
                         reporte.write(f'\n No se ha solicitado ninguna cancion relacionada con un album \n')#Agerga datos al archivo
-                     else:
+                    else:
                         reporte.write(f'\n El album mas solicitado: {buscarAlbum(mode(modaAlbum2),listaAlbumtodo,listaArttodo,listaGentodo)[0]} \n')#Agerga datos al archivo
-                     reporte.close()#Cierra el archivo
-                     if volver():
+                    reporte.close()#Cierra el archivo
+                    if volver():
                         continue
-                     else:
+                    else:
                         break
                     
                 elif opcion==8:
