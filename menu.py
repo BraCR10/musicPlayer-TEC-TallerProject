@@ -25,7 +25,7 @@ def volver():
     if opcion==1:
         return True
 def menu():
-    #try :
+    try :
         #Listas principales, se original de leer
         listaPropcod,listaProptodo=leerProp()
         listaGencod,listaGentodo=leerGen()
@@ -966,5 +966,16 @@ def menu():
                     continue
                 else:
                     break
-           
+    except ValueError:
+        print( "\n---> Debes digitar un numero entero para escojer una opcion\n")
+    except NameError:
+        print( "\n---> El programa ha tenido incovenientes\n")
+    except TypeError:
+        print( "\n---> El programa ha tenido incovenientes\n")
+    except IndexError:
+        print( "\n---> El programa ha tenido incovenientes\n")
+    except KeyboardInterrupt:
+        print( "\n---> El programa ha tenido incovenientes\n")
+    finally:
+        print( "\n---> Vuelva a cargar el programa\n")             
 menu()
