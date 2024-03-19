@@ -9,6 +9,7 @@ from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,elimin
 from modificacion import *#ModificarPlaylist,modificarArt,modificarCancion,modificarGen,modificarProp
 from insercion import *
 from statistics import mode
+#Funciones auxiliares
 def opcionNoExiste():
     print('\n ---> Esta opcion no exite')
     print('\nVolver al menu principal o salir?:')
@@ -24,6 +25,7 @@ def volver():
     opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
     if opcion==1:
         return True
+#Menu principal
 def menu():
     try :
         #Listas principales, se original de leer
@@ -534,7 +536,6 @@ def menu():
                         #Elimicacion principal
                         listaCancionescod,listaCancionestodo,nombre=eliminarCanciones(dato,listaCancionescod,listaCancionestodo)#Actualiza la lista si el codigo no existe, la deja igual
                         print(f'\nLa cancion "{nombre}" ha sido eliminado correctamente')
-                        #ColaDeReproduccion=[]#Se elimina toda la cola al elimin
                         if volver():
                             continue
                         else:
