@@ -29,18 +29,22 @@ def buscarPlaylist(codPlaylist,listaPlaylist,listaProp):
 
 #Esta busca una cancion por codigo
 def buscarCancion(codCancion,listaCancion,listaArt,listaAlbum,listaGen,listaPlaylist): 
-    nombreCacion=[]
+    nombreCancion=[]
     codArt=[]
     codAlbum=[]
     codGenero=[]
     codPlaylist=[]
     for i in listaCancion:
         if i[0]==codCancion:#Si la Cancion es en la memoria 
-            nombreCacion=i[1] #Almacena nombre de la Cancion
+            nombreCancion=i[1] #Almacena nombre de la Cancion
             codArt=i[2]#Almacena el codigo del Artista
             codAlbum=i[3]
             codGenero=i[4]
             codPlaylist=i[5]
+            nombreArt=0
+            nombreAlbum=0
+            nombreGenero=0
+            nombrePlaylist=0
     for i in listaArt:
         if i[0]==codArt:#Verifica el codigo del genero
             nombreArt=i[1] #Obtiene el nombre del Genero
@@ -53,10 +57,9 @@ def buscarCancion(codCancion,listaCancion,listaArt,listaAlbum,listaGen,listaPlay
     for i in listaPlaylist:
         if i[0]==codPlaylist:#Verifica el codigo de la playlist
             nombrePlaylist=i[1] #Obtiene el nombre de la playlist
-    if nombreCacion!=[] and nombreArt!=[] and nombreAlbum!=[] and nombreGenero!=[] and nombrePlaylist!=[]: 
-        return nombreCacion,nombreArt,nombreAlbum,nombreGenero,nombrePlaylist#Retorna Nombre de cancion y los datos adicionales
-    else:
-        return 'No hay'
+    if nombreCancion!=[] and nombreArt!=0 and nombreAlbum!=0 and nombreGenero!=0 and nombrePlaylist!=0: 
+        return nombreCancion,nombreArt,nombreAlbum,nombreGenero,nombrePlaylist#Retorna Nombre de cancion y los datos adicionales
+
 
 def buscarGenero(codGenero,listaGen):
     nombreGenero=[]
@@ -69,6 +72,7 @@ def buscarGenero(codGenero,listaGen):
 def buscarArtista(codArtista,listaArt,listaGen):
     nombreArtista=[]
     codGenero=[]
+    nombreGenero=0
     for i in listaArt:
         if i[0]==codArtista:
             nombreArtista=i[1]
@@ -76,13 +80,15 @@ def buscarArtista(codArtista,listaArt,listaGen):
     for i in listaGen:
         if i[0]==codGenero:
             nombreGenero=i[1]
-    if nombreArtista!=[] and nombreGenero!=[]:
+    if nombreArtista!=[] and nombreGenero!=0:
         return nombreArtista,nombreGenero
 
 def buscarAlbum(codAlbum,listaAlbum,listaArt,listaGen):
     nombreAlbum=[]
     codArtista=[]
     codGenero=[]
+    nombreArtista=0 
+    nombreGenero=0
     for i in listaAlbum:
         if i[0]==codAlbum:
             nombreAlbum=i[1]
@@ -94,7 +100,7 @@ def buscarAlbum(codAlbum,listaAlbum,listaArt,listaGen):
     for i in listaGen:
         if i[0]==codGenero:
             nombreGenero=i[1]
-    if nombreAlbum!=[] and nombreArtista!=[] and nombreGenero!=[]:
+    if nombreAlbum!=[] and nombreArtista!=0 and nombreGenero!=0:
         return nombreAlbum,nombreArtista,nombreGenero
 
 #Pruebas
