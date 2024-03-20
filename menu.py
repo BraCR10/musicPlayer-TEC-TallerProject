@@ -8,7 +8,7 @@ from busqueda import * #buscarAlbum,buscarArtista,buscarCancion,buscarGenero,bus
 from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,eliminarAlbum,EliminarGenero,EliminarArtistas
 from modificacion import *#ModificarPlaylist,modificarArt,modificarCancion,modificarGen,modificarProp
 from insercion import *
-from statistics import mode
+
 #Funciones auxiliares
 def opcionNoExiste():
     print('\n ---> Esta opcion no exite')
@@ -708,6 +708,7 @@ def menu():
                     else:
                         break
             elif opcion == 6:#Reportes
+                from statistics import mode
                 print('\nLista de opciones:\n')
                 print('1- Reporte de Propietario') 
                 print('2- Reporte de Playlist') 
