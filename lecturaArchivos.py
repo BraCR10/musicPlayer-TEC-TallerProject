@@ -123,13 +123,11 @@ def leerPlaylist():
                         codValidos+=[nuevo[0]]
                 else:#Validacion 
                     continue   
+
     for i in range(len(playlists)):
-        for j in range(len(playlists[i])//2):
-            playlists[i]+=[(playlists[i][0],playlists[i][1])]
-            playlists[i]= playlists[i][2:]
-        playlists[i]=dict(playlists[i])
+        playlists[i]=playlists[i][0],[playlists[i][1],playlists[i][2]]
     for i in range(len(playlists)):
-        playlists+=[(i+1,playlists[0])]
+        playlists+=[playlists[0],playlists[1]]
         playlists=playlists[1:]
     playlists=dict(playlists)  
     return codValidos,playlists#Lista de codigos y lista de todo
@@ -193,14 +191,11 @@ def leerCanciones():
                 else:#Validacion 
                     continue 
     for i in range(len(canciones)):
-        for j in range(len(canciones[i])//2):
-            canciones[i]+=[(canciones[i][0],canciones[i][1])]
-            canciones[i]= canciones[i][2:]
-        canciones[i]=dict(canciones[i])
+        canciones[i]=canciones[i][0],[canciones[i][1],canciones[i][2],canciones[i][3],canciones[i][4],canciones[i][5]]
     for i in range(len(canciones)):
-        canciones+=[(i+1,canciones[0])]
+        canciones+=[canciones[0],canciones[1]]
         canciones=canciones[1:]
-    canciones=dict(canciones)    
+    canciones=dict(canciones)  
     return codValidos,canciones
 '''
 #Pruebas:
@@ -210,5 +205,6 @@ print(insertGen())
 print(insertArt())
 print(insertAlbum())
 print(insertCanciones())'''
+
+#print(leerPlaylist())
 print(leerCanciones())
-print(leerPlaylist())
