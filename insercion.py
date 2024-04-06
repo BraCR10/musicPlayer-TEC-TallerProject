@@ -13,7 +13,8 @@ def insertProp(listaCod,diccTodo):
         diccTodo[len(diccTodo)+1]={cod:nombre,codMembresia:estado} #Añade  un propietario al dict
         print('\n---> El nuevo propietario se ha incluido!')
     else:
-        print('\n---> El codigo de propietario ya esta en uso')    
+        print('\n---> El codigo de propietario ya esta en uso') 
+    print (listaCod,diccTodo)    
     return listaCod,diccTodo
 def insertPlaylist(listaCod,diccTodo,listaCodProp):
     cod =str(input('Digite el codigo de la playlist: '))
@@ -24,7 +25,8 @@ def insertPlaylist(listaCod,diccTodo,listaCodProp):
         diccTodo[len(diccTodo)+1]={cod:[nombre,codProp]} 
         print('\n---> La nueva playlist se ha incluido!')
     else:
-        print('\n---> El codigo de playlist ya esta en uso o el codigo de propietario no existe')    
+        print('\n---> El codigo de playlist ya esta en uso o el codigo de propietario no existe') 
+    print (listaCod,diccTodo)       
     return listaCod,diccTodo
 def insertGen(listaCod,diccTodo):
     cod =str(input('Digite el codigo del genero: '))
@@ -34,7 +36,8 @@ def insertGen(listaCod,diccTodo):
         diccTodo[len(diccTodo)+1]={cod:[nombre]}
         print('\n---> El nuevo genero se ha incluido!')
     else:
-        print('\n---> El codigo del genero ya esta en uso')    
+        print('\n---> El codigo del genero ya esta en uso')  
+    print (listaCod,diccTodo)       
     return listaCod,diccTodo
 def insertArt(listaCod,diccTodo,listaCodGen):
     cod =str(input('Digite el codigo del artista: '))
@@ -45,7 +48,8 @@ def insertArt(listaCod,diccTodo,listaCodGen):
         diccTodo[len(diccTodo)+1]={cod:[nombre,codGen]}
         print('\n---> El nuevo artista  se ha incluido!')
     else:
-        print('\n---> El codigo del artista ya esta en uso o el codigo de genero no existe')    
+        print('\n---> El codigo del artista ya esta en uso o el codigo de genero no existe')
+    print (listaCod,diccTodo)       
     return listaCod,diccTodo
 def insertAlbum(listaCod,diccTodo,listaCodArt):
     cod =str(input('Digite el codigo del album: '))
@@ -56,7 +60,8 @@ def insertAlbum(listaCod,diccTodo,listaCodArt):
         diccTodo[len(diccTodo)+1]={cod:[nombre,codArt]}
         print('\n---> El nuevo album  se ha incluido!')
     else:
-        print('\n---> El codigo del album ya esta en uso o el codigo de artista no existe')    
+        print('\n---> El codigo del album ya esta en uso o el codigo de artista no existe') 
+    print (listaCod,diccTodo)       
     return listaCod,diccTodo
 def insertCanciones(listaCod,diccTodo,listaCodArt,listaCodAlbum,listaCodGen,listaCodPlaylist):
     cod =str(input('Digite el codigo de la cancion: '))
@@ -70,5 +75,6 @@ def insertCanciones(listaCod,diccTodo,listaCodArt,listaCodAlbum,listaCodGen,list
         diccTodo[len(diccTodo)+1]={cod:[nombre,codArt,codAlb,codGen,codPlaylist]} 
         print('\n---> La nueva cancion  se ha incluido!')
     else:
-        print('\n---> El codigo de la cancion ya esta en uso o digito algun codigo no existente')    
+        print('\n---> El codigo de la cancion ya esta en uso o digito algun codigo no existente') 
+    print (listaCod,diccTodo)       
     return listaCod,diccTodo

@@ -27,15 +27,11 @@ def leerProp():
                 else:#Validacion 
                     continue 
     for i in range(len(propietarios)):
-            for j in range(len(propietarios[i])//2):
-                propietarios[i]+=[(propietarios[i][0],propietarios[i][1])]
-                propietarios[i]= propietarios[i][2:]
-            propietarios[i]=dict(propietarios[i])
+        propietarios[i]=propietarios[i][0],[propietarios[i][1],propietarios[i][2],propietarios[i][3]]
     for i in range(len(propietarios)):
-        propietarios+=[(i+1,propietarios[0])]
+        propietarios+=[propietarios[0],propietarios[1],propietarios[2]]
         propietarios=propietarios[1:]
-    propietarios=dict(propietarios)
-
+    propietarios=dict(propietarios)  
     return cod,propietarios#Lista de codigos y lista de todo
 
 #Esta funcion lee un fichero llamado Genero.txt y retorna cada linea en una lista dentro de otra lista
@@ -225,4 +221,4 @@ print(insertCanciones())'''
 
 #print(leerPlaylist())
 #print(leerCanciones())
-#print(leerGen())
+#print(leerProp())
