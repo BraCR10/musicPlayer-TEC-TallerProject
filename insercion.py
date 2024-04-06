@@ -8,13 +8,17 @@ def insertProp(listaCod,diccTodo):
     nombre= str(input('Digite el nombre de propiertario: '))
     codMembresia =str(input('Digite el codigo de la membresia: '))
     estado= str(input('Digite 0 para membresia inactiva o 1 para membresia inactiva : '))
-    if cod not in listaCod:#Validacion si codigo esta repetido
-        listaCod+=[cod]
-        diccTodo[len(diccTodo)+1]={cod:nombre,codMembresia:estado} #Añade  un propietario al dict
-        print('\n---> El nuevo propietario se ha incluido!')
+    if estado== '1' or estado== '0':
+        if cod not in listaCod:#Validacion si codigo esta repetido
+            listaCod+=[cod]
+            diccTodo[cod]=[nombre,codMembresia,estado]#Añade  un propietario al dict
+            print('\n---> El nuevo propietario se ha incluido!')
+        else:
+            print('\n---> El codigo de propietario ya esta en uso') 
     else:
-        print('\n---> El codigo de propietario ya esta en uso') 
-    print (listaCod,diccTodo)    
+        print('\nEl estado de la membresia debe ser 1 o 0, vuelva a insertar el usuario')
+        
+
     return listaCod,diccTodo
 def insertPlaylist(listaCod,diccTodo,listaCodProp):
     cod =str(input('Digite el codigo de la playlist: '))
@@ -22,22 +26,22 @@ def insertPlaylist(listaCod,diccTodo,listaCodProp):
     codProp= str(input('Digite el codigo del propietario al que pertenece: '))
     if cod not in listaCod and codProp in listaCodProp:#Validacion si codigo esta repetido
         listaCod+=[cod]
-        diccTodo[len(diccTodo)+1]={cod:[nombre,codProp]} 
+        diccTodo[cod]=[nombre,codProp]
         print('\n---> La nueva playlist se ha incluido!')
     else:
         print('\n---> El codigo de playlist ya esta en uso o el codigo de propietario no existe') 
-    print (listaCod,diccTodo)       
+          
     return listaCod,diccTodo
 def insertGen(listaCod,diccTodo):
     cod =str(input('Digite el codigo del genero: '))
     nombre= str(input('Digite el nombre del genero: '))
     if cod not in listaCod:#Validacion si codigo esta repetido
         listaCod+=[cod]
-        diccTodo[len(diccTodo)+1]={cod:[nombre]}
+        diccTodo[cod]=[nombre]
         print('\n---> El nuevo genero se ha incluido!')
     else:
         print('\n---> El codigo del genero ya esta en uso')  
-    print (listaCod,diccTodo)       
+           
     return listaCod,diccTodo
 def insertArt(listaCod,diccTodo,listaCodGen):
     cod =str(input('Digite el codigo del artista: '))
@@ -45,11 +49,11 @@ def insertArt(listaCod,diccTodo,listaCodGen):
     codGen= str(input('Digite el codigo del genero al que pertenece: '))
     if cod not in listaCod and codGen in listaCodGen:#Validacion si codigo esta repetido
         listaCod+=[cod]
-        diccTodo[len(diccTodo)+1]={cod:[nombre,codGen]}
+        diccTodo[cod]=[nombre,codGen]
         print('\n---> El nuevo artista  se ha incluido!')
     else:
         print('\n---> El codigo del artista ya esta en uso o el codigo de genero no existe')
-    print (listaCod,diccTodo)       
+           
     return listaCod,diccTodo
 def insertAlbum(listaCod,diccTodo,listaCodArt):
     cod =str(input('Digite el codigo del album: '))
@@ -57,11 +61,11 @@ def insertAlbum(listaCod,diccTodo,listaCodArt):
     codArt= str(input('Digite el codigo del artista al que pertenece: '))
     if cod not in listaCod and codArt in listaCodArt:#Validacion si codigo esta repetido
         listaCod+=[cod]
-        diccTodo[len(diccTodo)+1]={cod:[nombre,codArt]}
+        diccTodo[cod]=[nombre,codArt]
         print('\n---> El nuevo album  se ha incluido!')
     else:
         print('\n---> El codigo del album ya esta en uso o el codigo de artista no existe') 
-    print (listaCod,diccTodo)       
+           
     return listaCod,diccTodo
 def insertCanciones(listaCod,diccTodo,listaCodArt,listaCodAlbum,listaCodGen,listaCodPlaylist):
     cod =str(input('Digite el codigo de la cancion: '))
@@ -72,9 +76,9 @@ def insertCanciones(listaCod,diccTodo,listaCodArt,listaCodAlbum,listaCodGen,list
     codPlaylist= str(input('Digite el codigo de la playlist al que pertenece: '))
     if cod not in listaCod and codArt in listaCodArt and codAlb in listaCodAlbum and codGen in listaCodGen and codPlaylist in listaCodPlaylist:#Validacion si codigo esta repetido
         listaCod+=[cod]
-        diccTodo[len(diccTodo)+1]={cod:[nombre,codArt,codAlb,codGen,codPlaylist]} 
+        diccTodo[cod]=[nombre,codArt,codAlb,codGen,codPlaylist]
         print('\n---> La nueva cancion  se ha incluido!')
     else:
         print('\n---> El codigo de la cancion ya esta en uso o digito algun codigo no existente') 
-    print (listaCod,diccTodo)       
+           
     return listaCod,diccTodo

@@ -28,13 +28,14 @@ def volver():
 #Menu principal
 def menu():
     try :
+        
         #Listas principales, se original de leer
-        listaPropcod,listaProptodo=leerProp()
-        listaGencod,listaGentodo=leerGen()
-        listaArtcod,listaArttodo=leerArt()
-        listaAlbumcod,listaAlbumtodo=leerAlbum()
-        listaPlaylistcod,listaPlaylisttodo=leerPlaylist()
-        listaCancionescod,listaCancionestodo=leerCanciones()
+        listaPropcod,diccProptodo=leerProp()
+        listaGencod,diccGentodo=leerGen()
+        listaArtcod,diccArttodo=leerArt()
+        listaAlbumcod,diccAlbumtodo=leerAlbum()
+        listaPlaylistcod,diccPlaylisttodo=leerPlaylist()
+        listaCancionescod,diccCancionestodo=leerCanciones()
         ColaDeReproduccion=[]
         #Contadores para generar reportes
         contPropR=1
@@ -993,50 +994,57 @@ def menu():
                 if opcion==1:
                     print('\nLos propietarios registrados: \n')
                     i=0
-                    print('Codigo - Nombre ')
-                    while i < len(listaProptodo):
+                    print('Codigo - Nombre - Mebresia - Estado ')
+                    claves = list(diccProptodo.keys())
+                    while i < len(diccProptodo):
                         print('-----------------------------------------')
-                        print(f'{listaProptodo[i][0]} - {listaProptodo[i][1]}')
+                        print(f'{claves[i]} - {diccProptodo[claves[i]][0]} - {diccProptodo[claves[i]][1]} - {diccProptodo[claves[i]][2]}')
                         i+=1
                 elif opcion==2:
                     print('\nLas playlists registradas: ')
                     i=0
                     print('Codigo - Nombre - Codigo del Propietario \n')
-                    while i < len(listaPlaylisttodo):
+                    claves = list(diccPlaylisttodo.keys())
+                    while i < len(diccPlaylisttodo):
                         print('-----------------------------------------')
-                        print(f'{listaPlaylisttodo[i][0]} - {listaPlaylisttodo[i][1]} - {listaPlaylisttodo[i][2]}')
+                        print(f'{claves[i]} - {diccPlaylisttodo[claves[i]][0]}- {diccPlaylisttodo[claves[i]][1]}')
                         i+=1
                 elif opcion==3:
                     print('\nLos generos registrados: \n')
                     i=0
                     print('Codigo - Nombre ')
-                    while i < len(listaGentodo):
+                    claves = list(diccGentodo.keys())
+                    while i < len(diccGentodo):
                         print('-----------------------------------------')
-                        print(f'{listaGentodo[i][0]} - {listaGentodo[i][1]}')
+                        print(f'{claves[i]} - {diccGentodo[claves[i]][0]}')
                         i+=1
                 elif opcion==4:
                     print('\nLos artista registrados: \n')
                     i=0
+                    claves = list(diccArttodo.keys())
                     print('Codigo - Nombre - Codigo del Genero ')
-                    while i < len(listaArttodo):
+                    while i < len(diccArttodo):
                         print('-----------------------------------------')
-                        print(f'{listaArttodo[i][0]} - {listaArttodo[i][1]} - {listaArttodo[i][2]}')
+                        print(f'{claves[i]} - {diccArttodo[claves[i]][0]} - {diccArttodo[claves[i]][1]}')
                         i+=1
                 elif opcion==5:
                     print('\nLos albumes registrados: \n')
                     i=0
+                    claves = list(diccAlbumtodo.keys())
                     print('Codigo - Nombre - Codigo del Artista ')
-                    while i < len(listaAlbumtodo):
+                    while i < len(diccAlbumtodo):
                         print('-----------------------------------------')
-                        print(f'{listaAlbumtodo[i][0]} - {listaAlbumtodo[i][1]} - {listaAlbumtodo[i][2]}')
+                        print(f'{claves[i]} - {diccAlbumtodo[claves[i]][0]} - {diccAlbumtodo[claves[i]][1]}')
                         i+=1
                 elif opcion==6:
                     print('\nLas canciones registrados: \n')
                     i=0
+                    claves = list(diccCancionestodo.keys())
                     print('Codigo - Nombre - Codigo del Artista - Codigo del Album - Codigo de Genero - Codigo de Playlist ')
-                    while i < len(listaCancionestodo):
+                    while i < len(diccCancionestodo):
                         print('----------------------------------------------------------------------------------------------------')
-                        print(f'{listaCancionestodo[i][0]} - {listaCancionestodo[i][1]} - {listaCancionestodo[i][2]} - {listaCancionestodo[i][3]} - {listaCancionestodo[i][4]} - {listaCancionestodo[i][5]}')
+                        print(f'{claves[i]} - {diccCancionestodo[claves[i]][0]} - {diccCancionestodo[claves[i]][1]} - {diccCancionestodo[claves[i]][2]} - {diccCancionestodo[claves[i]][3]} - {diccCancionestodo[claves[i]][4]}  ')
+                       
                         i+=1
                 if volver():
                     continue
