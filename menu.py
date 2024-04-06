@@ -1051,8 +1051,10 @@ def menu():
                     break
     except ValueError:
         print( "\n---> Debes digitar un numero entero para escojer una opcion\n")
+        
     except NameError:
         print( "\n---> El programa ha tenido incovenientes\n")
+        
     except TypeError:
         print( "\n---> El programa ha tenido incovenientes\n")
     except IndexError:

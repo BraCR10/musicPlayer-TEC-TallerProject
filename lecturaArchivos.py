@@ -12,20 +12,30 @@ def leerProp():
     cod=[]#Almacena codigos
     for linea in propietariosOri:#Itera en lista sin cambios
         nuevo=linea.split(';')#Por cada elemento de propietariosOri crea una nueva lista dividiendo cada vez que hay un ';'['1234', 'Juan Perez']
-        if nuevo[0]=='\n'or len(nuevo)<2 or len(nuevo)>3:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
+        if nuevo[0]=='\n'or len(nuevo)<3 or len(nuevo)>4:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
             continue
         else:
             if nuevo[0] in cod:#Validacion si codigo esta repetido
                 continue
             else:
                 cod+=[nuevo[0]]
-                if len(nuevo)==2:#Validacion 
-                    nuevo[1] = nuevo[1].replace('\n', '') #Elimina cada '\n' en cada elemento [1]
+                if len(nuevo)==4:#Validacion 
+                    nuevo[3] = nuevo[3].replace('\n', '') #Elimina cada '\n' en cada elemento [1]
                     propietarios+=[nuevo]
-                elif len(nuevo)==3:#Validacion 
-                    propietarios+=[nuevo[:2]]
+                elif len(nuevo)==5:#Validacion 
+                    propietarios+=[nuevo[:4]]
                 else:#Validacion 
-                    continue          
+                    continue 
+    for i in range(len(propietarios)):
+            for j in range(len(propietarios[i])//2):
+                propietarios[i]+=[(propietarios[i][0],propietarios[i][1])]
+                propietarios[i]= propietarios[i][2:]
+            propietarios[i]=dict(propietarios[i])
+    for i in range(len(propietarios)):
+        propietarios+=[(i+1,propietarios[0])]
+        propietarios=propietarios[1:]
+    propietarios=dict(propietarios)
+
     return cod,propietarios#Lista de codigos y lista de todo
 
 #Esta funcion lee un fichero llamado Genero.txt y retorna cada linea en una lista dentro de otra lista
@@ -112,7 +122,16 @@ def leerPlaylist():
                         playlists+=[nuevo[:3]]
                         codValidos+=[nuevo[0]]
                 else:#Validacion 
-                    continue     
+                    continue   
+    for i in range(len(playlists)):
+        for j in range(len(playlists[i])//2):
+            playlists[i]+=[(playlists[i][0],playlists[i][1])]
+            playlists[i]= playlists[i][2:]
+        playlists[i]=dict(playlists[i])
+    for i in range(len(playlists)):
+        playlists+=[(i+1,playlists[0])]
+        playlists=playlists[1:]
+    playlists=dict(playlists)  
     return codValidos,playlists#Lista de codigos y lista de todo
 
 #Esta funcion lee un fichero llamado Album.txt y retorna cada linea en una lista dentro de otra lista
@@ -172,9 +191,17 @@ def leerCanciones():
                         canciones+=[nuevo[:6]] 
                         codValidos+=[nuevo[0]]
                 else:#Validacion 
-                    continue     
+                    continue 
+    for i in range(len(canciones)):
+        for j in range(len(canciones[i])//2):
+            canciones[i]+=[(canciones[i][0],canciones[i][1])]
+            canciones[i]= canciones[i][2:]
+        canciones[i]=dict(canciones[i])
+    for i in range(len(canciones)):
+        canciones+=[(i+1,canciones[0])]
+        canciones=canciones[1:]
+    canciones=dict(canciones)    
     return codValidos,canciones
-
 '''
 #Pruebas:
 print(insertProp())
@@ -183,3 +210,5 @@ print(insertGen())
 print(insertArt())
 print(insertAlbum())
 print(insertCanciones())'''
+print(leerCanciones())
+print(leerPlaylist())
