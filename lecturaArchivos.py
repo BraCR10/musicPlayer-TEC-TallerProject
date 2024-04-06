@@ -60,8 +60,14 @@ def leerGen():
                 elif len(nuevo)==3:#Validacion 
                     Generos+=[nuevo[:2]]
                 else:#Validacion 
-                    continue          
-    return cod,Generos#Lista de codigos y lista de todo
+                    continue       
+    for i in range(len(Generos)):
+        Generos[i]=Generos[i][0],[Generos[i][1]]
+    for i in range(len(Generos)):
+        Generos+=[Generos[0],Generos[1]]
+        Generos=Generos[1:]
+    Generos=dict(Generos)  
+    return cod,Generos#Lista de codigos y lista de todo    
 
 #Esta funcion lee un fichero llamado Artista.txt y retorna cada linea en una lista dentro de otra lista
 def leerArt():
@@ -93,6 +99,12 @@ def leerArt():
                         codValidos+=[nuevo[0]]
                 else:#Validacion 
                     continue     
+    for i in range(len(artistas)):
+        artistas[i]=artistas[i][0],[artistas[i][1],artistas[i][2]]
+    for i in range(len(artistas)):
+        artistas+=[artistas[0],artistas[1]]
+        artistas=artistas[1:]
+    artistas=dict(artistas)  
     return codValidos,artistas#Lista de codigos y lista de todo
 
 #Esta funcion lee un fichero llamado Playlist.txt y retorna cada linea en una lista dentro de otra lista
@@ -123,7 +135,6 @@ def leerPlaylist():
                         codValidos+=[nuevo[0]]
                 else:#Validacion 
                     continue   
-
     for i in range(len(playlists)):
         playlists[i]=playlists[i][0],[playlists[i][1],playlists[i][2]]
     for i in range(len(playlists)):
@@ -160,6 +171,12 @@ def leerAlbum():
                         codValidos+=[nuevo[0]]
                 else:#Validacion 
                     continue     
+    for i in range(len(albums)):
+        albums[i]=albums[i][0],[albums[i][1],albums[i][2]]
+    for i in range(len(albums)):
+        albums+=[albums[0],albums[1]]
+        albums=albums[1:]
+    albums=dict(albums)  
     return codValidos,albums#Lista de codigos y lista de todo
 
 #Esta funcion lee un fichero llamado Canciones.txt y retorna cada linea en una lista dentro de otra lista
@@ -207,4 +224,5 @@ print(insertAlbum())
 print(insertCanciones())'''
 
 #print(leerPlaylist())
-print(leerCanciones())
+#print(leerCanciones())
+#print(leerGen())
