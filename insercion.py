@@ -3,16 +3,18 @@
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
 
-def insertProp(listaCod,listaTodo):
+def insertProp(listaCod,diccTodo):
     cod =str(input('Digite el codigo de propiertario: '))
     nombre= str(input('Digite el nombre de propiertario: '))
+    codMembresia =str(input('Digite el codigo de la membresia: '))
+    estado= str(input('Digite 0 para membresia inactiva o 1 para membresia inactiva : '))
     if cod not in listaCod:#Validacion si codigo esta repetido
         listaCod+=[cod]
-        listaTodo+=[[cod,nombre]]  
+        diccTodo[len(diccTodo)+1]={cod:nombre,codMembresia:estado} #Añade  un propietario al dict
         print('\n---> El nuevo propietario se ha incluido!')
     else:
         print('\n---> El codigo de propietario ya esta en uso')    
-    return listaCod,listaTodo
+    return listaCod,diccTodo
 def insertPlaylist(listaCod,listaTodo,listaCodProp):
     cod =str(input('Digite el codigo de la playlist: '))
     nombre= str(input('Digite el nombre de la playlist: '))
