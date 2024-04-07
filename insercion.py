@@ -20,14 +20,17 @@ def insertProp(listaCod,diccTodo):
         
 
     return listaCod,diccTodo
-def insertPlaylist(listaCod,diccTodo,listaCodProp):
+def insertPlaylist(listaCod,diccTodo,listaCodProp,diccTodoProp):
     cod =str(input('Digite el codigo de la playlist: '))
     nombre= str(input('Digite el nombre de la playlist: '))
     codProp= str(input('Digite el codigo del propietario al que pertenece: '))
     if cod not in listaCod and codProp in listaCodProp:#Validacion si codigo esta repetido
-        listaCod+=[cod]
-        diccTodo[cod]=[nombre,codProp]
-        print('\n---> La nueva playlist se ha incluido!')
+        if diccTodoProp[codProp][2]=="1":#Busca en el diccionario de Propietarios la key para ver si esta activo
+            listaCod+=[cod]
+            diccTodo[cod]=[nombre,codProp]
+            print('\n---> La nueva playlist se ha incluido!')
+        else:
+            print('\n---> No se puede insertar la playlist debido a que el propietario no esta activo!')
     else:
         print('\n---> El codigo de playlist ya esta en uso o el codigo de propietario no existe') 
           

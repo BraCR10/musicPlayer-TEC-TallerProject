@@ -59,7 +59,7 @@ def menu():
                     else:
                         break
                 elif opcion==2:
-                    listaPlaylistcod,diccPlaylisttodo=insertPlaylist(listaPlaylistcod,diccPlaylisttodo,listaPropcod)
+                    listaPlaylistcod,diccPlaylisttodo=insertPlaylist(listaPlaylistcod,diccPlaylisttodo,listaPropcod,diccProptodo)
                     if volver()==1:
                         continue
                     else:
