@@ -3,36 +3,20 @@
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
 
-#Esta funcion lee un fichero llamado propietario.txt y retorna cada linea en una lista dentro de otra lista
 def leerProp(): 
-    texto = open('Propietario.txt', 'r',encoding="utf8")
-    propietariosOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
-    texto.close()
-    propietarios=[]#Lista para almacenar cambios en los datos del fichero
-    cod=[]#Almacena codigos
-    for linea in propietariosOri:#Itera en lista sin cambios
-        nuevo=linea.split(';')#Por cada elemento de propietariosOri crea una nueva lista dividiendo cada vez que hay un ';'['1234', 'Juan Perez']
-        if nuevo[0]=='\n'or len(nuevo)<3 or len(nuevo)>4:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
-            continue
-        else:
-            if nuevo[0] in cod:#Validacion si codigo esta repetido
-                continue
-            else:
-                cod+=[nuevo[0]]
-                if len(nuevo)==4:#Validacion 
-                    nuevo[3] = nuevo[3].replace('\n', '') #Elimina cada '\n' en cada elemento [1]
-                    propietarios+=[nuevo]
-                elif len(nuevo)==5:#Validacion 
-                    propietarios+=[nuevo[:4]]
-                else:#Validacion 
-                    continue 
-    for i in range(len(propietarios)):
-        propietarios[i]=propietarios[i][0],[propietarios[i][1],propietarios[i][2],propietarios[i][3]]
-    for i in range(len(propietarios)):
-        propietarios+=[propietarios[0],propietarios[1],propietarios[2]]
-        propietarios=propietarios[1:]
-    propietarios=dict(propietarios)  
-    return cod,propietarios#Lista de codigos y lista de todo
+    archivo=open('Propietario.txt', 'r',encoding="utf8")
+    dicc={}
+    for linea in archivo:
+            linea = linea.rstrip("\n")  # Quitar salto de línea
+            columnas = linea.split(';')
+            if columnas[0] not in list(dicc.keys()) and len(columnas)==4 and (columnas[3]=='1'or columnas[3]=='0') :
+                cod = columnas[0]
+                nombre = columnas[1]
+                codMem = columnas[2]
+                estado = columnas[3]
+                dicc[cod]={'nombre':nombre,'codMem':codMem,'estado':estado}
+    return dicc
+
 
 #Esta funcion lee un fichero llamado Genero.txt y retorna cada linea en una lista dentro de otra lista
 def leerGen():
@@ -175,41 +159,22 @@ def leerAlbum():
     albums=dict(albums)  
     return codValidos,albums#Lista de codigos y lista de todo
 
-#Esta funcion lee un fichero llamado Canciones.txt y retorna cada linea en una lista dentro de otra lista
 def leerCanciones(): 
-    texto = open('Canciones.txt', 'r',encoding="utf8")
-    cancionesOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
-    texto.close()
-    canciones=[]#Lista para almacenar cambios en los datos del fichero
-    cod=[]#Almacena codigos
-    codValidos=[]
-    for linea in cancionesOri:#Itera en lista sin cambios
-        nuevo=linea.split(';')#Por cada elemento de cancionesOri crea una nueva lista dividiendo cada vez que hay un ';'
-        if nuevo[0]=='\n'or len(nuevo)<6 or len(nuevo)>7:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
-            continue
-        else:
-            if nuevo[0] in cod:#Validacion si codigo esta repetido
-                continue
-            else:
-                cod+=[nuevo[0]]
-                if len(nuevo)==6:#Validacion 
-                    nuevo[5] = nuevo[5].replace('\n', '') #Elimina cada '\n' en cada elemento [2]
-                    if nuevo[2] in leerArt()[0] and nuevo[3] in leerAlbum()[0] and nuevo[4] in leerGen()[0] and nuevo[5] in leerPlaylist()[0] :#Revisa la lista de codigos de cada funcion, si cumple todo entonces almacena la cancion
-                        canciones+=[nuevo] 
-                        codValidos+=[nuevo[0]]
-                elif len(nuevo)==7:#Validacion 
-                    if nuevo[2] in leerArt()[0] and nuevo[3] in leerAlbum()[0] and nuevo[4] in leerGen()[0] and nuevo[5] in leerPlaylist()[0] :#Revisa la lista de codigos de cada funcion, si cumple todo entonces almacena la cancion
-                        canciones+=[nuevo[:6]] 
-                        codValidos+=[nuevo[0]]
-                else:#Validacion 
-                    continue 
-    for i in range(len(canciones)):
-        canciones[i]=canciones[i][0],[canciones[i][1],canciones[i][2],canciones[i][3],canciones[i][4],canciones[i][5]]
-    for i in range(len(canciones)):
-        canciones+=[canciones[0],canciones[1]]
-        canciones=canciones[1:]
-    canciones=dict(canciones)  
-    return codValidos,canciones
+    archivo=open('Canciones.txt', 'r',encoding="utf8")
+    dicc={}
+    for linea in archivo:
+            linea = linea.rstrip("\n")  # Quitar salto de línea
+            columnas = linea.split(';')
+            if columnas[0] not in list(dicc.keys()) and len(columnas)==6:
+                cod = columnas[0]
+                nombre = columnas[1]
+                codArt = columnas[2]
+                codAlb = columnas[3]
+                codGen= columnas[4]
+                codPlaylist= columnas[5]
+                dicc[cod]={'nombre':nombre,'codArt':codArt,'codAlb':codAlb,'codGen':codGen,'codPlaylist':codPlaylist }
+    return dicc
+
 '''
 #Pruebas:
 print(insertProp())
