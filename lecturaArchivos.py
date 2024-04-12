@@ -151,7 +151,7 @@ def leerCanciones():
                 codPlaylist= columnas[5]
                 dicc[cod]={'nombre':nombre,'codArt':codArt,'codAlb':codAlb,'codGen':codGen,'codPlaylist':codPlaylist }
     return dicc
-
+#print(leerCanciones())PENDIENTES DE REVISAR
 '''
 #Pruebas:
 print(insertProp())
