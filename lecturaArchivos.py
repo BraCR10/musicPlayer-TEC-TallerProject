@@ -93,7 +93,7 @@ def leerPlaylist():
     for linea in archivo:
             linea = linea.rstrip("\n")  # Quitar salto de línea
             columnas = linea.split(';')
-            if columnas[0] not in list(dicc.keys()) and len(columnas)==3 :
+            if columnas[0] not in list(dicc.keys()) and len(columnas)==3 and columnas[2] in list(leerProp().keys()) and leerProp()[columnas[2]]['estado']=='1':#Agrega solo si esta el usuario activo 
                 cod = columnas[0]
                 nombre = columnas[1]
                 codProp = columnas[2]
@@ -142,7 +142,7 @@ def leerCanciones():
     for linea in archivo:
             linea = linea.rstrip("\n")  # Quitar salto de línea
             columnas = linea.split(';')
-            if columnas[0] not in list(dicc.keys()) and len(columnas)==6:
+            if columnas[0] not in list(dicc.keys()) and len(columnas)==6 and columnas[2]==list(leerArt().keys()) and columnas[3]==list(leerAlbum().keys()) and columnas[4]==list(leerGen().keys())and columnas[5]==list(leerPlaylist().keys()):
                 cod = columnas[0]
                 nombre = columnas[1]
                 codArt = columnas[2]

@@ -24,7 +24,6 @@ def insertPlaylist(diccTodo,diccTodoProp,):
     codProp= str(input('Digite el codigo del propietario al que pertenece: '))
     if cod not in list(diccTodo.keys()) and codProp in list(diccTodoProp.keys()):#Validacion si codigo esta repetido
         if diccTodoProp[codProp]['estado']=="1":#Busca en el diccionario de Propietarios la key para ver si esta activo
-            listaCod+=[cod]
             diccTodo[cod]={'nombre':nombre,'codProp':codProp}#Añade  una playlist al dict
             print('\n---> La nueva playlist se ha incluido!')
         else:
@@ -41,8 +40,8 @@ def insertGen(diccTodo):
     else:
         print('\n---> El codigo del genero ya esta en uso')       
     return diccTodo
-#insertGen(leerGen)
-insertPlaylist(leerPlaylist(),leerProp())
+#insertGen(leerGen)PEDIENTE DE REVISAR
+
 def insertArt(listaCod,diccTodo,listaCodGen):
     cod =str(input('Digite el codigo del artista: '))
     nombre= str(input('Digite el nombre del artista: '))
