@@ -18,32 +18,31 @@ def insertProp(diccTodo):
         print('\nEl estado de la membresia debe ser 1 o 0, vuelva a insertar el usuario')
     return diccTodo
 
-def insertPlaylist(listaCod,diccTodo,listaCodProp,diccTodoProp):
+def insertPlaylist(diccTodo,diccTodoProp,):
     cod =str(input('Digite el codigo de la playlist: '))
     nombre= str(input('Digite el nombre de la playlist: '))
     codProp= str(input('Digite el codigo del propietario al que pertenece: '))
-    if cod not in listaCod and codProp in listaCodProp:#Validacion si codigo esta repetido
-        if diccTodoProp[codProp][2]=="1":#Busca en el diccionario de Propietarios la key para ver si esta activo
+    if cod not in list(diccTodo.keys()) and codProp in list(diccTodoProp.keys()):#Validacion si codigo esta repetido
+        if diccTodoProp[codProp]['estado']=="1":#Busca en el diccionario de Propietarios la key para ver si esta activo
             listaCod+=[cod]
-            diccTodo[cod]=[nombre,codProp]
+            diccTodo[cod]={'nombre':nombre,'codProp':codProp}#Añade  una playlist al dict
             print('\n---> La nueva playlist se ha incluido!')
         else:
             print('\n---> No se puede insertar la playlist debido a que el propietario no esta activo!')
     else:
-        print('\n---> El codigo de playlist ya esta en uso o el codigo de propietario no existe') 
-          
-    return listaCod,diccTodo
-def insertGen(listaCod,diccTodo):
+        print('\n---> El codigo de playlist ya esta en uso o el codigo de propietario no existe')    
+    return diccTodo
+def insertGen(diccTodo):
     cod =str(input('Digite el codigo del genero: '))
     nombre= str(input('Digite el nombre del genero: '))
-    if cod not in listaCod:#Validacion si codigo esta repetido
-        listaCod+=[cod]
-        diccTodo[cod]=[nombre]
+    if cod not in  list(diccTodo.keys()):#Validacion si codigo esta repetido
+        diccTodo[cod]={'nombre':nombre}#Añade  un genero al dict
         print('\n---> El nuevo genero se ha incluido!')
     else:
-        print('\n---> El codigo del genero ya esta en uso')  
-           
-    return listaCod,diccTodo
+        print('\n---> El codigo del genero ya esta en uso')       
+    return diccTodo
+#insertGen(leerGen)
+insertPlaylist(leerPlaylist(),leerProp())
 def insertArt(listaCod,diccTodo,listaCodGen):
     cod =str(input('Digite el codigo del artista: '))
     nombre= str(input('Digite el nombre del artista: '))
@@ -66,8 +65,8 @@ def insertAlbum(listaCod,diccTodo,listaCodArt):
         print('\n---> El nuevo album  se ha incluido!')
     else:
         print('\n---> El codigo del album ya esta en uso o el codigo de artista no existe') 
-           
     return listaCod,diccTodo
+
 def insertCanciones(listaCod,diccTodo,listaCodArt,listaCodAlbum,listaCodGen,listaCodPlaylist):
     cod =str(input('Digite el codigo de la cancion: '))
     nombre= str(input('Digite el nombre de la cancion: '))

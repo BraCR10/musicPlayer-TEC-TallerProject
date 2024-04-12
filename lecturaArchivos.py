@@ -87,41 +87,18 @@ def leerArt():
     artistas=dict(artistas)  
     return codValidos,artistas#Lista de codigos y lista de todo
 
-#Esta funcion lee un fichero llamado Playlist.txt y retorna cada linea en una lista dentro de otra lista
-def leerPlaylist():
-    texto = open('Playlist.txt', 'r',encoding="utf8")
-    playlistOri=texto.readlines()#Se crea una lista, cada linea en el fichero es un elemento
-    texto.close()
-    playlists=[]#Lista para almacenar cambios en los datos del fichero
-    cod=[]#Almacena codigos
-    codValidos=[]
-    for linea in playlistOri:#Itera en lista sin cambios
-        nuevo=linea.split(';')#Por cada elemento de PlaylistOri crea una nueva lista dividiendo cada vez que hay un ';'
-        if nuevo[0]=='\n'or len(nuevo)<3 or len(nuevo)>4:#Validacion en caso de lineas con enter o mala sintaxis en el .txt
-            continue
-        else:
-            if nuevo[0] in cod:#Validacion si codigo esta repetido
-                continue
-            else:
-                cod+=[nuevo[0]]
-                if len(nuevo)==3:#Validacion 
-                    nuevo[2] = nuevo[2].replace('\n', '') #Elimina cada '\n' en cada elemento [2]
-                    if nuevo[2] in leerProp()[0]:#Agrega solo si el propietario esta en la lista de codigos que pertenece a insertProp
-                        playlists+=[nuevo] 
-                        codValidos+=[nuevo[0]]
-                elif len(nuevo)==4:#Validacion 
-                    if nuevo[2] in leerProp()[0]:#Agrega solo si el propietario esta en la lista de codigos que pertenece a insertProp
-                        playlists+=[nuevo[:3]]
-                        codValidos+=[nuevo[0]]
-                else:#Validacion 
-                    continue   
-    for i in range(len(playlists)):
-        playlists[i]=playlists[i][0],[playlists[i][1],playlists[i][2]]
-    for i in range(len(playlists)):
-        playlists+=[playlists[0],playlists[1]]
-        playlists=playlists[1:]
-    playlists=dict(playlists)  
-    return codValidos,playlists#Lista de codigos y lista de todo
+def leerPlaylist(): 
+    archivo=open('Playlist.txt', 'r',encoding="utf8")
+    dicc={}
+    for linea in archivo:
+            linea = linea.rstrip("\n")  # Quitar salto de línea
+            columnas = linea.split(';')
+            if columnas[0] not in list(dicc.keys()) and len(columnas)==3 :
+                cod = columnas[0]
+                nombre = columnas[1]
+                codProp = columnas[2]
+                dicc[cod]={'nombre':nombre,'codProp':codProp}
+    return dicc
 
 #Esta funcion lee un fichero llamado Album.txt y retorna cada linea en una lista dentro de otra lista
 def leerAlbum(): 
