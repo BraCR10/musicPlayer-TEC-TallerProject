@@ -42,7 +42,6 @@ def insertGen(diccTodo):
     else:
         print('\n---> El codigo del genero ya esta en uso')       
     return diccTodo
-#insertGen(leerGen) PEDIENTE DE REVISAR
 
 def insertArt(diccTodo,diccTodoGen):
     cod =str(input('Digite el codigo del artista: '))

@@ -3,32 +3,31 @@
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
 
-def eliminarProp(codProp,listaCod,listaTodo):
-    copiaCod=listaCod
-    copiaTodo=listaTodo
-    for i in copiaCod:#i obtiene el valor de cada argumento
-        if i == codProp:
-            copiaCod.remove(codProp) 
-    for i in copiaTodo:
-        if i[0] == codProp:
-                nombre=i[1]
-                copiaTodo.remove(i) 
-    return copiaCod,copiaTodo,nombre
+def eliminarProp(codProp,diccProptodo,diccPlaylisttodo,diccCancionestodo):
+    #Eliminacion de vinculos
+    for i in  list(diccPlaylisttodo.keys()):#i itera en una listas con las llaves del dicc playlist
+        if diccPlaylisttodo[i]['codProp']==codProp:# Si el prop ligado a esa playlist es el que se elimina
+            #Eliminacion de vinculo de playlist
+            for codCancion in list(diccCancionestodo.keys()):#codCanciones itera en una lista de llaves de canciones
+                if diccCancionestodo[codCancion]['codPlaylist']==i:#si la playlist ligada a esa cancion se elimina
+                    diccCancionestodo.pop(codCancion)#
+            diccPlaylisttodo.pop(i)
+    #Eliminacion principal
+    diccProptodo.pop(codProp)
+        
+def eliminarPlaylist(codPlaylist,diccPlaylisttodo,diccCancionestodo):
+    #Eliminacion de vinculos
+    for i in  list(diccCancionestodo.keys()):#i itera en una listas con las llaves del dicc playlist
+        if diccCancionestodo[i]['codPlaylist']==codPlaylist:# Si el prop ligado a esa playlist es el que se elimina
+            diccCancionestodo.pop(i)
+    #Eliminacion principal
+    diccPlaylisttodo.pop(codPlaylist)
 
-def eliminarPlaylist(codPlaylist,listaCod,listaTodo):
-    copiaCod=listaCod
-    copiaTodo=listaTodo
-    for i in copiaCod:#i obtiene el valor de cada argumento
-        if i == codPlaylist:
-            copiaCod.remove(codPlaylist) 
-    for i in copiaTodo:
-        if i[0] == codPlaylist:
-                nombre=i[1]
-                copiaTodo.remove(i) 
-     
-    #print(copiaTodo)
-    return copiaCod,copiaTodo,nombre
-
+def eliminarCanciones(dato,diccCancionestodo):
+    #Eliminacion principal
+    diccCancionestodo.pop(dato)
+#############################################################################################################################
+#Falta
 def eliminarGenero(codGen,listaCod,listaTodo):
     copiaCod=listaCod
     copiaTodo=listaTodo
@@ -40,7 +39,7 @@ def eliminarGenero(codGen,listaCod,listaTodo):
                 nombre=i[1]
                 copiaTodo.remove(i) 
     return copiaCod,copiaTodo,nombre
-
+#Falta
 def eliminarArt(codArt,listaCod,listaTodo):
     copiaCod=listaCod
     copiaTodo=listaTodo
@@ -52,7 +51,7 @@ def eliminarArt(codArt,listaCod,listaTodo):
                 nombre=i[1]
                 copiaTodo.remove(i) 
     return copiaCod,copiaTodo,nombre
-
+#Falta
 def eliminarAlbum(codAlb,listaCod,listaTodo):
     copiaCod=listaCod
     copiaTodo=listaTodo
@@ -65,31 +64,7 @@ def eliminarAlbum(codAlb,listaCod,listaTodo):
                 copiaTodo.remove(i) 
     return copiaCod,copiaTodo,nombre
 
-def eliminarCanciones(codCancion,listaCod,listaTodo):
-    copiaCod=listaCod
-    copiaTodo=listaTodo
-    for i in copiaCod:#i obtiene el valor de cada argumento
-        if i == codCancion:
-            copiaCod.remove(codCancion) 
-    for i in copiaTodo:
-        if i[0] == codCancion:
-                nombre=i[1]
-                copiaTodo.remove(i) 
-    return copiaCod,copiaTodo,nombre
 
 
 
-'''
-#Pruebas
-print(eliminarProp(''))
-print(eliminarProp('1234'))
-print('\n',eliminarGenero(''))
-print(eliminarGenero('109'))
-print('\n',eliminarPlaylist(''))
-print(eliminarPlaylist('3920'))
-print('\n',eliminarArt(''))
-print(eliminarArt('11534'))
-print('\n',eliminarAlbum(''))
-print(eliminarAlbum('34561'))
-print('\n',eliminarCanciones(''))
-print(eliminarCanciones('124'))'''
+

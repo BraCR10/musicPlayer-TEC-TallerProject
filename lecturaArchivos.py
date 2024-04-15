@@ -2,7 +2,7 @@
 #Estudiantes:
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
-
+#Esta funcion lee un fichero llamado Propietarios.txt y retorna cada linea en una lista dentro de otra lista
 def leerProp(): 
     archivo=open('Propietario.txt', 'r',encoding="utf8")
     dicc={}
@@ -16,8 +16,6 @@ def leerProp():
                 estado = columnas[3]
                 dicc[cod]={'nombre':nombre,'codMem':codMem,'estado':estado}
     return dicc
-
-
 #Esta funcion lee un fichero llamado Genero.txt y retorna cada linea en una lista dentro de otra lista
 def leerGen(): 
     archivo=open('Genero.txt', 'r',encoding="utf8")
@@ -30,7 +28,6 @@ def leerGen():
                 nombre = columnas[1]
                 dicc[cod]={'nombre':nombre}
     return dicc  
-
 #Esta funcion lee un fichero llamado Artista.txt y retorna cada linea en una lista dentro de otra lista
 def leerArt(): 
     archivo=open('Artista.txt', 'r',encoding="utf8")
@@ -44,7 +41,7 @@ def leerArt():
                 codGen = columnas[2]
                 dicc[cod]={'nombre':nombre,'codGen':codGen}
     return dicc
-
+#Esta funcion lee un fichero llamado Playlist.txt y retorna cada linea en una lista dentro de otra lista
 def leerPlaylist(): 
     archivo=open('Playlist.txt', 'r',encoding="utf8")
     dicc={}
@@ -57,7 +54,6 @@ def leerPlaylist():
                 codProp = columnas[2]
                 dicc[cod]={'nombre':nombre,'codProp':codProp}
     return dicc
-
 #Esta funcion lee un fichero llamado Album.txt y retorna cada linea en una lista dentro de otra lista
 def leerAlbum(): 
     archivo=open('Albumes.txt', 'r',encoding="utf8")
@@ -71,7 +67,7 @@ def leerAlbum():
                 codArt = columnas[2]
                 dicc[cod]={'nombre':nombre,'codArt':codArt}
     return dicc
-
+#Esta funcion lee un fichero llamado Canciones.txt y retorna cada linea en una lista dentro de otra lista
 def leerCanciones(): 
     archivo=open('Canciones.txt', 'r',encoding="utf8")
     dicc={}
@@ -87,19 +83,3 @@ def leerCanciones():
                 codPlaylist= columnas[5]
                 dicc[cod]={'nombre':nombre,'codArt':codArt,'codAlb':codAlb,'codGen':codGen,'codPlaylist':codPlaylist }
     return dicc
-#print(leerCanciones()) #PENDIENTES DE REVISAR
-'''
-#Pruebas:
-print(insertProp())
-print(insertPlaylist())
-print(insertGen())
-print(insertArt())
-print(insertAlbum())
-print(insertCanciones())'''
-
-#print(leerPlaylist())
-#print(leerCanciones())
-#print(leerProp())
-#print(leerGen())
-#print(leerArt())
-#print(leerAlbum())
