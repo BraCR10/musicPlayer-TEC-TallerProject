@@ -3,7 +3,7 @@
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
 
-def eliminarProp(codProp,diccProptodo,diccPlaylisttodo,diccCancionestodo):
+def eliminarProp(codProp,diccProptodo,diccMembresias,diccPlaylisttodo,diccCancionestodo):
     #Eliminacion de vinculos
     for i in  list(diccPlaylisttodo.keys()):#i itera en una listas con las llaves del dicc playlist
         if diccPlaylisttodo[i]['codProp']==codProp:# Si el prop ligado a esa playlist es el que se elimina
@@ -13,6 +13,7 @@ def eliminarProp(codProp,diccProptodo,diccPlaylisttodo,diccCancionestodo):
                     diccCancionestodo.pop(codCancion)#
             diccPlaylisttodo.pop(i)
     #Eliminacion principal
+    diccMembresias.pop(codProp)
     diccProptodo.pop(codProp)
         
 def eliminarPlaylist(codPlaylist,diccPlaylisttodo,diccCancionestodo):

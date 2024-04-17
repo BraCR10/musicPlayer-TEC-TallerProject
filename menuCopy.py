@@ -27,7 +27,8 @@ def volver():
 def menu():
     #try :
         #Listas principales, se original de leer
-        diccProptodo=leerProp()
+        diccProptodo=leerProp()[0]#Devuelve una lista con membresias
+        diccMembresias=leerProp()[1]
         diccGentodo=leerGen()
         diccArttodo=leerArt()
         diccAlbumtodo=leerAlbum()
@@ -139,7 +140,7 @@ def menu():
                 print('7- Volver') 
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                 if opcion==1:#Insertar Propietario
-                    diccProptodo=insertProp(diccProptodo)
+                    diccProptodo,diccMembresias=insertProp(diccProptodo,diccMembresias)
                     if volver()==1:
                         continue
                     else:
@@ -196,7 +197,7 @@ def menu():
                     if dato in  list(diccProptodo.keys()): #Si el codigo esta en la lista de codigos de propietraios, entra.
                         print(f'\nEl propietario "{buscarProp(dato,diccProptodo)}" ha sido eliminado correctamente') #Imprime este mensaje si fue eliminado
                         #El mensaje se imprime debido a que busca dentro de la mima lista, si se  imprime despues dice 'None'
-                        eliminarProp(dato,diccProptodo,diccPlaylisttodo,diccCancionestodo)  
+                        eliminarProp(dato,diccProptodo,diccMembresias,diccPlaylisttodo,diccCancionestodo)  
                     else:
                         print(f'\nEl propietario con el código "{dato}" no existe en la lista de propietarios.') #Imprime esto si no fue eliminado
                     if volver():

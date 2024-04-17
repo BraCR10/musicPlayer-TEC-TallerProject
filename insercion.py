@@ -4,20 +4,21 @@
 #Brian Ramirez Arias 
 from lecturaArchivos import *
 
-def insertProp(diccTodo):
+def insertProp(diccTodo,diccMembresias):
     cod =str(input('Digite el codigo de propiertario: '))
     nombre= str(input('Digite el nombre de propiertario: '))
     codMem =str(input('Digite el codigo de la membresia: '))
     estado= str(input('Digite 0 para membresia inactiva o 1 para membresia activa : '))
-    if estado== '1' or estado== '0':
-        if cod  not in list(diccTodo.keys()):#Validacion si codigo esta repetido
+    if estado== '1' or estado== '0' :
+        if cod  not in list(diccTodo.keys()) and codMem not in list(diccMembresias.values()):#Validacion si codigo esta repetido
             diccTodo[cod]={'nombre':nombre,'codMem':codMem,'estado':estado}#Añade  un propietario al dict
+            diccMembresias[cod]=codMem
             print('\n---> El nuevo propietario se ha incluido!')
         else:
-            print('\n---> El codigo de propietario ya esta en uso') 
+            print('\n---> El codigo de propietario o de membresia ya esta en uso ') 
     else:
-        print('\nEl estado de la membresia debe ser 1 o 0, vuelva a insertar el usuario')
-    return diccTodo
+        print('\n--->El estado de la membresia debe ser 1 o 0, vuelva a insertar el usuario')
+    return diccTodo,diccMembresias
 
 def insertPlaylist(diccTodo,diccTodoProp):
     cod =str(input('Digite el codigo de la playlist: '))

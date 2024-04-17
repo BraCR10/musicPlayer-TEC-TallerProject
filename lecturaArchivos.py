@@ -6,16 +6,20 @@
 def leerProp(): 
     archivo=open('Propietario.txt', 'r',encoding="utf8")
     dicc={}
+    membresias={}#Verificar membresias repetidas
     for linea in archivo:
             linea = linea.rstrip("\n")  # Quitar salto de línea
             columnas = linea.split(';')
-            if columnas[0] not in list(dicc.keys()) and len(columnas)==4 and (columnas[3]=='1'or columnas[3]=='0') :
+            if columnas[0] not in list(dicc.keys())  and len(columnas)==4 and (columnas[3]=='1'or columnas[3]=='0' ) and columnas[2] not in list(membresias.values()):
                 cod = columnas[0]
                 nombre = columnas[1]
                 codMem = columnas[2]
                 estado = columnas[3]
                 dicc[cod]={'nombre':nombre,'codMem':codMem,'estado':estado}
-    return dicc
+                membresias[columnas[0]]=columnas[2]
+    
+    return dicc,membresias
+
 #Esta funcion lee un fichero llamado Genero.txt y retorna cada linea en una lista dentro de otra lista
 def leerGen(): 
     archivo=open('Genero.txt', 'r',encoding="utf8")
@@ -48,7 +52,7 @@ def leerPlaylist():
     for linea in archivo:
             linea = linea.rstrip("\n")  # Quitar salto de línea
             columnas = linea.split(';')
-            if columnas[0] not in list(dicc.keys()) and len(columnas)==3 and columnas[2] in list(leerProp().keys()) and leerProp()[columnas[2]]['estado']=='1':#Agrega solo si esta el usuario activo 
+            if columnas[0] not in list(dicc.keys()) and len(columnas)==3 and columnas[2] in list(leerProp()[0].keys()) and leerProp()[0][columnas[2]]['estado']=='1':#Agrega solo si esta el usuario activo 
                 cod = columnas[0]
                 nombre = columnas[1]
                 codProp = columnas[2]
