@@ -7,7 +7,7 @@ from insercion import *#insertAlbum,insertArt,insertCanciones,insertGen,insertPl
 from busqueda import * #buscarAlbum,buscarArtista,buscarCancion,buscarGenero,buscarPlaylist,buscarProp
 from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,eliminarAlbum,eliminarGenero,eliminarArtistas
 from modificacion import *#ModificarPlaylist,modificarArt,modificarCancion,modificarGen,modificarProp
-from login import *#registar
+from login import *#registar,pagar,exportarTXT,factura
 #Funciones auxiliares
 def opcionNoExiste():
     print('\n ---> Esta opcion no exite')
