@@ -29,41 +29,39 @@ def eliminarCanciones(dato,diccCancionestodo):
     diccCancionestodo.pop(dato)
 #############################################################################################################################
 #Falta
-def eliminarGenero(codGen,listaCod,listaTodo):
-    copiaCod=listaCod
-    copiaTodo=listaTodo
-    for i in copiaCod:#i obtiene el valor de cada argumento
-        if i == codGen:
-            copiaCod.remove(codGen) 
-    for i in copiaTodo:
-        if i[0] == codGen:
-                nombre=i[1]
-                copiaTodo.remove(i) 
-    return copiaCod,copiaTodo,nombre
+def eliminarGenero(codGen,diccGentodo,diccArttodo,diccAlbumtodo,diccCancionestodo):
+    #Eliminacio de vinculos
+    for i in  list(diccArttodo.keys()):#i itera en una listas con las llaves del dicc playlist
+        if diccArttodo[i]['codGen']==codGen:# Si el prop ligado a esa playlist es el que se elimina
+            #Eliminacion de vinculo de playlist
+            for codAlbum in list(diccAlbumtodo.keys()):#codCanciones itera en una lista de llaves de canciones
+                if diccAlbumtodo[codAlbum]['codArt']==i:#si la playlist ligada a esa cancion se elimina
+                    for codCancion in list(diccCancionestodo.keys()):#codCanciones itera en una lista de llaves de canciones
+                        if diccCancionestodo[codCancion]['codAlb']==i:#si la playlist ligada a esa cancion se elimina
+                            diccCancionestodo.pop(codCancion)#
+                    diccAlbumtodo.pop(codAlbum)#
+            diccArttodo.pop(i)
+    #Eliminacion principal
+    diccGentodo.pop(codGen)
 #Falta
-def eliminarArt(codArt,listaCod,listaTodo):
-    copiaCod=listaCod
-    copiaTodo=listaTodo
-    for i in copiaCod:#i obtiene el valor de cada argumento
-        if i == codArt:
-            copiaCod.remove(codArt) 
-    for i in copiaTodo:
-        if i[0] == codArt:
-                nombre=i[1]
-                copiaTodo.remove(i) 
-    return copiaCod,copiaTodo,nombre
+def eliminarArt(codArt,diccArttodo,diccAlbumtodo,diccCancionestodo):
+    #Eliminacion de vinculos
+    for i in  list(diccAlbumtodo.keys()):#i itera en una listas con las llaves del dicc playlist
+        if diccAlbumtodo[i]['codArt']==codArt:# Si el prop ligado a esa playlist es el que se elimina
+            diccAlbumtodo.pop(i)
+    for i in list(diccCancionestodo.keys()):#codCanciones itera en una lista de llaves de canciones
+        if diccCancionestodo[i]['codArt']==codArt:#si la playlist ligada a esa cancion se elimina
+            diccCancionestodo.pop(i)
+    #Eliminacion principal
+    diccArttodo.pop(codArt)
 #Falta
-def eliminarAlbum(codAlb,listaCod,listaTodo):
-    copiaCod=listaCod
-    copiaTodo=listaTodo
-    for i in copiaCod:#i obtiene el valor de cada argumento
-        if i == codAlb:
-            copiaCod.remove(codAlb) 
-    for i in copiaTodo:
-        if i[0] == codAlb:
-                nombre=i[1]
-                copiaTodo.remove(i) 
-    return copiaCod,copiaTodo,nombre
+def eliminarAlbum(codAlb,diccAlbumtodo,diccCancionestodo):
+    #Eliminacion de vinculos
+    for i in list(diccCancionestodo.keys()):#codCanciones itera en una lista de llaves de canciones
+        if diccCancionestodo[i]['codAlb']==codAlb:
+            diccCancionestodo.pop(i)
+    #Eliminacion principal
+    diccAlbumtodo.pop(codAlb)
 
 
 

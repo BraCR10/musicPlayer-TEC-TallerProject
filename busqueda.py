@@ -20,48 +20,18 @@ def buscarCancion(codCancion,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGen
     for i in list(diccCancionestodo.keys()):
         if i==codCancion:#Si la Cancion es en la memoria 
             return diccCancionestodo[i]['nombre'], diccArttodo[diccCancionestodo[i]['codArt']]['nombre'],diccAlbumtodo[diccCancionestodo[i]['codAlb']]['nombre'],diccGentodo[diccCancionestodo[i]['codGen']]['nombre'],diccPlaylisttodo[diccCancionestodo[i]['codPlaylist']]['nombre']#Retorna Nombre de cancion y los datos adicionales
-    
 
-#Faltan###########################################################################################################
-def buscarGenero(codGenero,listaGen):
-    nombreGenero=[]
-    for i in listaGen:
-        if i[0]==codGenero:#Si el genero esta en la memoria
-            nombreGenero=i[1] #Almacena nombre del genero
-    if nombreGenero!=[]:
-        return nombreGenero #Retorna el nombre del genero
+def buscarGenero(codGenero,diccGentodo):
+    for i in list(diccGentodo.keys()):
+        if i==codGenero:
+            return diccGentodo[i]['nombre']
 
-def buscarArtista(codArtista,listaArt,listaGen):
-    nombreArtista=[]
-    codGenero=[]
-    nombreGenero=0
-    for i in listaArt:
-        if i[0]==codArtista:
-            nombreArtista=i[1]
-            codGenero=i[2]
-    for i in listaGen:
-        if i[0]==codGenero:
-            nombreGenero=i[1]
-    if nombreArtista!=[] and nombreGenero!=0:
-        return nombreArtista,nombreGenero
+def buscarArtista(codArt,diccArttodo,diccGentodo):
+    for i in list(diccArttodo.keys()):
+        if i==codArt:
+            return diccArttodo[i]['nombre'],diccGentodo[diccArttodo[i]['codGen']]['nombre']
 
-def buscarAlbum(codAlbum,listaAlbum,listaArt,listaGen):
-    nombreAlbum=[]
-    codArtista=[]
-    codGenero=[]
-    nombreArtista=0 
-    nombreGenero=0
-    for i in listaAlbum:
-        if i[0]==codAlbum:
-            nombreAlbum=i[1]
-            codArtista=i[2]
-    for i in listaArt:
-        if i[0]==codArtista:
-            nombreArtista=i[1]
-            codGenero=i[2]
-    for i in listaGen:
-        if i[0]==codGenero:
-            nombreGenero=i[1]
-    if nombreAlbum!=[] and nombreArtista!=0 and nombreGenero!=0:
-        return nombreAlbum,nombreArtista,nombreGenero
-
+def buscarAlbum(codAlb,diccAlbumtodo,diccArttodo):
+    for i in list(diccAlbumtodo.keys()):
+        if i==codAlb:
+            return diccAlbumtodo[i]['nombre'],diccArttodo[diccAlbumtodo[i]['codArt']]['nombre']

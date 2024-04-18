@@ -52,9 +52,9 @@ def menu():
                 print('\nLista de opciones:\n')
                 print('1- Buscar Propietario') 
                 print('2- Buscar Playlist') 
-                #print('3- Buscar Genero') 
-                #print('4- Buscar Artista') 
-                #print('5- Buscar Album') 
+                print('3- Buscar Genero') 
+                print('4- Buscar Artista') 
+                print('5- Buscar Album') 
                 print('6- Buscar Cancion') 
                 print('7- Volver') 
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
@@ -103,10 +103,10 @@ def menu():
                 #Falta
                 elif opcion==5:
                     dato=str(input('\nDigite el codigo de album: '))
-                    if buscarAlbum(dato,diccAlbumtodo,diccArttodo,diccGentodo)==None:#Validacion
+                    if buscarAlbum(dato,diccAlbumtodo,diccArttodo)==None:#Validacion
                         print('\n ---> El album no existe')
                     else:#Validacion
-                        print(f'\n ---> El album es: {buscarAlbum(dato,diccAlbumtodo,diccArttodo,diccGentodo)[0]}, el artista es: {buscarAlbum(dato,diccAlbumtodo,diccArttodo,diccGentodo)[1]} y  el genero es: {buscarAlbum(dato,diccAlbumtodo,diccArttodo,diccGentodo)[2]}')
+                        print(f'\n ---> El album es: {buscarAlbum(dato,diccAlbumtodo,diccArttodo)[0]}, el artista es: {buscarAlbum(dato,diccAlbumtodo,diccArttodo,diccGentodo)[1]} y  el genero es: {buscarAlbum(dato,diccAlbumtodo,diccArttodo,diccGentodo)[2]}')
                     if volver()==1:
                         continue
                     else:
@@ -186,9 +186,9 @@ def menu():
                 print('\nLista de opciones:\n')
                 print('1- Eliminar Propietario') 
                 print('2- Eliminar Playlist') 
-                #print('3- Eliminar Genero') 
-                #print('4- Eliminar Artista') 
-                #print('5- Eliminar Album') 
+                print('3- Eliminar Genero') 
+                print('4- Eliminar Artista') 
+                print('5- Eliminar Album') 
                 print('6- Eliminar Cancion') 
                 print('7- Volver') 
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
@@ -216,51 +216,39 @@ def menu():
                         continue
                     else:
                         break
-                #Falta
                 elif opcion==3:
                     dato=str(input('\nDigite el codigo de genero a eliminar: ')) #Recibe un codigo de genero
-                    if dato in listaGencod: #Si el codigo esta en la lista de codigos de propietraios, entra. 
-                        print(f'\nEl genero "{nombre}" ha sido eliminado correctamente') #Imprime este mensaje si fue eliminado
-                        if volver():
-                            continue
-                        else:
-                            break
+                    if dato in diccGentodo: #Si el codigo esta en la lista de codigos de propietraios, entra. 
+                        print(f'\nEl genero "{buscarGenero(dato,diccGentodo)[0]}" ha sido eliminado correctamente') #Imprime este mensaje si fue eliminado
+                        eliminarGenero(dato,diccGentodo,diccArttodo,diccAlbumtodo,diccCancionestodo)
                     else:
-                        print(f'\nEl genero con el código "{dato}" no existe en la lista de generos.') #Imprime esto si no fue eliminado
-                        if volver():
-                            continue
-                        else:
-                            break
-                #Falta
+                        print(f'\nEl Genero con el codigo "{dato}" no existe en la lista de generos')
+                    if volver():
+                        continue
+                    else:
+                        break
                 elif opcion==4:
                     dato=str(input('\nDigite el codigo de artista a eliminar: '))
-                    if dato in listaArtcod:
-                        print(f'\nEl artista "{nombre}" ha sido eliminado correctamente')
-                        if volver():
-                            continue
-                        else:
-                            break
+                    if dato in diccArttodo:
+                        print(f'\nEl artista "{buscarArtista(dato,diccArttodo,diccGentodo)[0]}" ha sido eliminado correctamente')
+                        eliminarArt(dato,diccArttodo,diccAlbumtodo,diccCancionestodo)
                     else:
-                        print(f'\n--->El artista con el codigo {dato} no exite')
-                        if volver():
-                            continue
-                        else:
-                            break
-                #Falta
+                        print(f'\nEl artista con el codigo "{dato}" no existe en la lista de artistas')
+                    if volver():
+                        continue
+                    else:
+                        break
                 elif opcion==5:
                     dato=str(input('\nDigite el codigo de album a eliminar: '))
-                    if dato in listaAlbumcod:
-                        print(f'\nEl album "{nombre}" ha sido eliminado correctamente')
-                        if volver():
-                            continue
-                        else:
-                            break
+                    if dato in diccAlbumtodo:
+                        print(f'\nEl album "{buscarAlbum(dato,diccAlbumtodo,diccArttodo)[0]}" ha sido eliminado correctamente')
+                        eliminarAlbum(dato,diccAlbumtodo,diccCancionestodo)
                     else:
-                        print(f'\n--->El album con el codigo {dato} no exite')
-                        if volver():
-                            continue
-                        else:
-                            break
+                        print(f'\nEl album con el codigo "{dato}" no exite en la lista de albumes')
+                    if volver():
+                        continue
+                    else:
+                        break
                 elif opcion==6:#Eliminar Cancion
                     dato=str(input('\nDigite el codigo de la cancion a eliminar: '))
                     if dato in list(diccCancionestodo.keys()):
@@ -284,9 +272,9 @@ def menu():
                 print('\nLista de opciones:\n')
                 print('1- Modificar Propietario') 
                 print('2- Modificar Playlist') 
-                #print('3- Modificar Genero') 
-                #print('4- Modificar Artista') 
-                #print('5- Modificar Album') 
+                print('3- Modificar Genero') 
+                print('4- Modificar Artista') 
+                print('5- Modificar Album') 
                 print('6- Modificar Cancion') 
                 print('7- Volver') 
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
@@ -296,93 +284,61 @@ def menu():
                         print(f'\n--->El propietario es: {buscarProp(dato,diccProptodo)}')
                         modificarProp(dato,diccProptodo)
                         print('\n--->El nombre de propietario se modifico con exito!')
-                        if volver():
-                            continue
-                        else:
-                            break
                     else:
                         print('\n--->El propietario no existe') 
-                        if volver():
-                            continue
-                        else:
-                            break
+                    if volver():
+                        continue
+                    else:
+                        break
                 elif opcion==2:#Modifica playlist
                     dato=str(input('\nDigite el codigo de playlist a modificar: '))
                     if dato in list(diccPlaylisttodo.keys()):#Revisa una lista de llaves
                         print(f'\n--->La playlist es: {buscarPlaylist(dato,diccPlaylisttodo,diccProptodo)[0]}')
                         modificarPlaylist(dato,diccPlaylisttodo)
                         print('\n--->El nombre de la playlist se modifico con exito!')
-                        if volver():
-                            continue
-                        else:
-                            break
                     else:
                         print('\n--->La playlist no existe')
-                        if volver():
-                            continue
-                        else:
-                            break
-                #Falta
+                    if volver():
+                        continue
+                    else:
+                        break
                 elif opcion==3:#Modifica genero
                     dato=str(input('\nDigite el codigo de genero a modificar: '))
-                    if dato in listaGencod:
-                        if buscarGenero(dato,listaGentodo)==None:
-                            print('\n--->El genero no existe') 
-                            continue
-                        else:
-                            print(f'\n--->El genero es: {buscarGenero(dato,listaGentodo)}')
-                        nuevo=str(input('\nDigite el nuevo nombre del genero : '))
-                        listaGentodo=modificarGen(dato,listaGentodo,nuevo)
+                    if dato in list(diccGentodo.keys()):
+                        print(f'\n--->El genero es: {buscarGenero(dato,diccGentodo)[0]}')
+                        modificarGen(dato,diccGentodo)
                         print('\n--->El nombre del genero se modifico con exito!')
-                        if volver():
-                            continue
-                        else:
-                            break
                     else:
                         print('\n--->El genero no existe')
-                        if volver():
-                            continue
-                        else:
-                            break
-                #Falta
+                    if volver():
+                        continue
+                    else:
+                        break
                 elif opcion==4:#Modifica Artistas
                     dato=str(input('\nDigite el codigo del artista a modificar: '))
                     if dato in list(diccArttodo.keys()):
                         print(f'\n--->El artista es: {buscarArtista(dato,diccArttodo,diccGentodo)[0]}')
                         modificarArt(dato,diccArttodo)
                         print('\n--->El nombre del artista se modifico con exito!')
-                        if volver():
-                            continue
-                        else:
-                            break
                     else:
                         print('\n--->El artista no existe ')
-                        if volver():
-                            continue
-                        else:
-                            break
+                    if volver():
+                        continue
+                    else:
+                        break
                 #Falta
                 elif opcion==5:#Modifica Albumes
                     dato=str(input('\nDigite el codigo del album a modificar: '))
-                    if dato in listaAlbumcod:
-                        if buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)==None:
-                            print('\n--->El album no existe') 
-                            continue
-                        else:
-                            print(f'\n--->El album es: {buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)[0]}')
-                        nuevo=str(input('\nDigite el nuevo nombre del album : '))
-                        listaAlbumtodo=modificarAlbum(dato,listaAlbumtodo,nuevo)
+                    if dato in list(diccAlbumtodo.keys()):
+                        print(f'\n--->El Album es: {buscarAlbum(dato,diccAlbumtodo,diccArttodo)[0]}')
+                        modificarAlbum(dato,diccAlbumtodo)
                         print('\n--->El nombre del album se modifico con exito!')
-                        if volver():
-                            continue
-                        else:
-                            break
                     else:
                         print('\n--->El album no existe') 
-                        if volver():
-                            continue
-                        else:
-                            break
+                    if volver():
+                        continue
+                    else:
+                        break
                 elif opcion==6:#Modifica Cancion
                     dato=str(input('\nDigite el codigo de cancion a modificar: '))
                     codArt=str(input('\nDigite el codigo del artista ligado a la cancion a modificar: '))
@@ -479,7 +435,7 @@ def menu():
                         temp=list(diccCancionestodo[claves[i]].keys())#Almacena todas las llaves que pertenecena el diccionario con la llave
                         print('----------------------------------------------------------------------------------------------------')
                         print(f'{claves[i]} - {diccCancionestodo[claves[i]][temp[0]]} - {diccCancionestodo[claves[i]][temp[1]]} - {diccCancionestodo[claves[i]][temp[2]]} - {diccCancionestodo[claves[i]][temp[3]]} - {diccCancionestodo[claves[i]][temp[4]]}')
-                       
+                        
                         i+=1
                 if volver():
                     continue
