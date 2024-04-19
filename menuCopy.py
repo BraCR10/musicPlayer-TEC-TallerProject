@@ -456,7 +456,6 @@ def menu():
                             continue
                         else:
                             break
-                    #Falta
                     elif opcion==5:#Modifica Albumes
                         dato=str(input('\nDigite el codigo del album a modificar: '))
                         if dato in list(diccAlbumtodo.keys()):
@@ -496,6 +495,81 @@ def menu():
                             continue
                         else:
                             break
+                elif opcion==6:#Reportes
+                    from statistics import mode
+                    print('\nLista de opciones:\n')
+                    print('1- Reporte de Propietario') 
+                    print('2- Reporte de Playlist') 
+                    print('3- Reporte de Genero') 
+                    print('4- Reporte de Artista') 
+                    print('5- Reporte de Album') 
+                    print('6- Reporte de Cancion')
+                    print('7- Reporte de Canción más reproducida')
+                    print('8- Reporte de Artista con más canciones')
+                    print('9- Reporte de Álbum con más canciones')
+                    print('10- Reporte de Genero más solicitado')
+                    print('11- Reporte de Propietario con más playlist')
+                    print('12- Reporte de Álbum más solicitado')
+                    print('13- Playlist con más canciones')
+                    print('14- Genero con más artistas')
+                    print('15- Genero con más álbumes')
+                    print('16- Artista con más álbumes')
+                    print('17- Canción que mas se repite en una playlist')
+                    print('18- Album nunca buscado')
+                    print('19- Artista nunca buscado')
+                    print('20- Propietario sin playlist')
+                    print('21- Canción nunca reproducida')
+                    print('22- Volver')
+                    opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+                    if opcion==1:#Reporte propietarios
+                        print('En proceso')
+                    elif opcion==2:#Reporte playlist
+                        print('En proceso')
+                    elif opcion==3:#Reporte Genero
+                        print('En proceso')
+                    elif opcion==4:#Reporte Artistas
+                        print('En proceso')
+                    elif opcion==5:#Reporte Album
+                        print('En proceso')
+                    elif opcion==6:#Reporte Cancion
+                        print('En proceso')
+                    elif opcion==7:#Reporte Cancion mas reproducida
+                        print('En proceso')
+                    elif opcion==8:#Reporte de Artista con más canciones
+                        print('En proceso')
+                    elif opcion==9:#Reporte de Álbum con más canciones
+                        print('En proceso')
+                    elif opcion==10:#Reporte de Genero más solicitado
+                        print('En proceso')
+                    elif opcion==11:# Reporte de Propietario con más playlist
+                        print('En proceso')
+                    elif opcion==12:# Reporte de Álbum más solicitad
+                        print('En proceso')
+                    elif opcion==13:# Playlist con más canciones
+                        print('En proceso')
+                    elif opcion==14:# Genero con más artistas
+                        print('En proceso')
+                    elif opcion==15:# Genero con más álbumes
+                        print('En proceso')
+                    elif opcion==16:# Artista con más álbumes
+                        print('En proceso')
+                    elif opcion==17:# Canción que mas se repite en una playlist
+                        print('En proceso')
+                    elif opcion==18:# Album nunca buscado
+                        print('En proceso')
+                    elif opcion==19:# Artista nunca buscado
+                        print('En proceso')
+                    elif opcion==20:#  Propietario sin playlist
+                        print('En proceso')
+                    elif opcion==21:# Canción nunca reproducida
+                        print('En proceso')
+                    elif opcion==22:# Salir
+                        continue
+                    else:#No existe
+                        if opcionNoExiste():
+                            continue
+                        else:
+                            break 
                 elif opcion==789:#Consultas
                     print('\nLista de opciones:\n')
                     print('1- Ver Propietario') 
