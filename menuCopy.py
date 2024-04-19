@@ -8,6 +8,7 @@ from busqueda import * #buscarAlbum,buscarArtista,buscarCancion,buscarGenero,bus
 from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,eliminarAlbum,eliminarGenero,eliminarArtistas
 from modificacion import *#ModificarPlaylist,modificarArt,modificarCancion,modificarGen,modificarProp
 from login import *#registar,pagar,exportarTXT,factura
+from playsound import *
 #Funciones auxiliares
 def opcionNoExiste():
     print('\n ---> Esta opcion no exite')
@@ -26,7 +27,7 @@ def volver():
         return True
 #Menu principal
 def menu():
-    try :
+    #try:
         #Listas principales, se original de leer
         diccProptodo=leerProp()[0]#Devuelve una lista con membresias
         diccMembresias=leerProp()[1]
@@ -109,7 +110,7 @@ def menu():
                 print('Lista de opciones:\n')
                 print('1- Buscar')
                 print('2- Insertar ')
-                #print('3- Reproducir')   
+                print('3- Reproducir')   
                 print('4- Eliminar')  
                 print('5- Modificar')
                 #print('6- Reportes')
@@ -266,11 +267,44 @@ def menu():
                             codGen= str(input('Digite el codigo del genero al que pertenece: '))
                             codPlaylist= str(input('Digite el codigo de la playlist al que pertenece: '))
                             codprop=str(input('Digite el codigo de propietario: '))
-                            if x:
+                            if dato in list(diccCancionestodo.keys()) and diccCancionestodo[dato]['codArt']==codArt and diccCancionestodo[dato]['codAlb']==codAlb and diccCancionestodo[dato]['codGen']==codGen and diccCancionestodo[dato]['codPlaylist']==codPlaylist and codprop in list(diccProptodo.keys()) and diccProptodo[codprop]['estado']=='1':
                                 ColaDeReproduccion+=[dato]
-                                print ('\n --->Se ha agregado la cancion: ',buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0], ' con el codigo:', dato, "a la cola de reproduccion")
+                                print ('\n --->Se ha agregado la cancion: ',buscarCancion(dato,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0], ' con el codigo:', dato, "a la cola de reproduccion!\n")
                             else:
-                                print("\n --->Cancion inexsistente o los datos relacionados son incorrectos")
+                                print("\n --->Cancion inexsistente o los datos relacionados son incorrectos\n")
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==2:
+                        print('\nLa cola de reproduccion es: ')
+                        i=0
+                        print('\nCodigo   -   Cancion   -   Artista ')
+                        while i < len(ColaDeReproduccion):
+                            print('----------------------------------------------')
+                            if buscarCancion(ColaDeReproduccion[i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)==None:
+                                print('************** Eliminado **************')
+                                ColaDeReproduccion.pop(i)#Elimina de cola de reproduccion lo que ya no existe por haberse eliminado
+                            else:
+                                print(f'{ColaDeReproduccion[i]}  -  {buscarCancion(ColaDeReproduccion[i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}  -  {buscarCancion(ColaDeReproduccion[i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[1]}')
+                                i+=1
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==3:
+                        i=0
+                        for i in ColaDeReproduccion:
+                            print('\n---> Si desea dejar de reproducir la cancion ejecute la tecla Ctrl + C, sin embargo, tenga en cuenta que esta accion detendra todo el programa y tendra que volver a inicializar el programa en caso de quiera seguir haciendo uso del mismo')
+                            CodCancion=ColaDeReproduccion[0]
+                            ruta=f'Canciones Wav\{CodCancion}.wav'
+                            playsound(ruta)
+                            ColaDeReproduccion=ColaDeReproduccion[1:]
+                        print('\n---> La cola de reproduccion ha quedado vacia')
+                        if volver()==1:
+                            continue
+                        else:
+                            break
                     elif opcion==4:
                         continue
                     else:
@@ -565,18 +599,18 @@ def menu():
                         continue
                     else:
                         break
-    except ValueError:
-        print( "\n---> Debes digitar un numero entero para escojer una opcion\n")       
-    except NameError:
-        print( "\n---> El programa ha tenido incovenientes\n")
+    #except ValueError:
+    #    print( "\n---> Debes digitar un numero entero para escojer una opcion\n")       
+    #except NameError:
+    #    print( "\n---> El programa ha tenido incovenientes\n")
         
-    except TypeError:
-        print( "\n---> El programa ha tenido incovenientes\n")
-    except IndexError:
-        print( "\n---> El programa ha tenido incovenientes\n")
-    except KeyboardInterrupt:
-        print( "\n---> El programa ha tenido incovenientes\n")
-    finally:
-        print( "\n---> Vuelva a cargar el programa\n")  
+    #except TypeError:
+    #    print( "\n---> El programa ha tenido incovenientes\n")
+    #except IndexError:
+    #    print( "\n---> El programa ha tenido incovenientes\n")
+    #except KeyboardInterrupt:
+    #    print( "\n---> El programa ha tenido incovenientes\n")
+    #finally:
+    #    print( "\n---> Vuelva a cargar el programa\n")  
         
 menu()
