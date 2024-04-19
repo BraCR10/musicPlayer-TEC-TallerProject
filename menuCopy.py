@@ -35,6 +35,7 @@ def menu():
         diccAlbumtodo=leerAlbum()
         diccPlaylisttodo=leerPlaylist()
         diccCancionestodo=leerCanciones()
+        ColaDeReproduccion=[]
         #Verificador de login
         bandera=0
         #Contador de facturas al mismo usuario
@@ -194,7 +195,7 @@ def menu():
                             continue
                         else:
                             break
-                if opcion==2:#Insercion
+                elif opcion==2:#Insercion
                     print('\n------------------------------------------------------------------')
                     print('\nLista de opciones:\n')
                     print('1- Insertar Propietario') 
@@ -244,6 +245,35 @@ def menu():
                     elif opcion==7:#Salir
                         continue
                     else:#INo existe
+                        if opcionNoExiste():
+                            continue
+                        else:
+                            break
+                elif opcion==3:#Reproducir
+                    print('\nLista de opciones:\n')
+                    print('1- Añadir una cancion a la cola de reproduccion') 
+                    print('2- Ver la cola de reproduccion') 
+                    print('3- Reproducir cola de reproduccion')
+                    print('4- Volver')
+                    opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+                    if opcion==1:#Agregar cancion
+                        if len(ColaDeReproduccion)>=5:#Validacion
+                            print('\n ---> La cola de reproduccion ya esta en su limite, no se puede agregar mas canciones')
+                        else:#Validacion
+                            dato=str(input('\nDigite el codigo de la cancion que desea añadir a la cola de reproduccion: ')) #Recibe un codigo de cancion
+                            codArt= str(input('Digite el codigo del artista al que pertenece: '))
+                            codAlb= str(input('Digite el codigo del album al que pertenece: '))
+                            codGen= str(input('Digite el codigo del genero al que pertenece: '))
+                            codPlaylist= str(input('Digite el codigo de la playlist al que pertenece: '))
+                            codprop=str(input('Digite el codigo de propietario: '))
+                            if x:
+                                ColaDeReproduccion+=[dato]
+                                print ('\n --->Se ha agregado la cancion: ',buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0], ' con el codigo:', dato, "a la cola de reproduccion")
+                            else:
+                                print("\n --->Cancion inexsistente o los datos relacionados son incorrectos")
+                    elif opcion==4:
+                        continue
+                    else:
                         if opcionNoExiste():
                             continue
                         else:
