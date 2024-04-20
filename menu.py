@@ -37,7 +37,7 @@ def menu():
         diccAlbumtodo=leerAlbum()
         diccPlaylisttodo=leerPlaylist()
         diccCancionestodo=leerCanciones()
-        ColaDeReproduccion=[]
+        ColasDeReproduccion={}#Cada propietarion tiene su propia cola
         #Verificador de login
         bandera=0
         #Contador de facturas al mismo usuario
@@ -115,6 +115,7 @@ def menu():
                         break 
             elif codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='1' or bandera ==1:
                 bandera=1
+                print(f'\n >>> Bienvenid@ {buscarProp(codigo,diccProptodo)}!\n')
                 #Opciones de menu
                 print('Lista de opciones:\n')
                 print('1- Buscar')
@@ -124,7 +125,7 @@ def menu():
                 print('5- Modificar')
                 print('6- Reportes')
                 print('7- Consultar factura')
-                print('8- Salir')
+                print('8- Cerrar sesion')
                 #print('789- Datos diponibles') 
                 opcion=int(input('\nEscoja un numero: '))
                 if opcion==1:#Busquedas
@@ -269,7 +270,9 @@ def menu():
                     print('4- Volver')
                     opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                     if opcion==1:#Agregar cancion
-                        if len(ColaDeReproduccion)>=5:#Validacion
+                        if codigo not in list(ColasDeReproduccion.keys()):
+                            ColasDeReproduccion[codigo]=[]
+                        if len(ColasDeReproduccion[codigo])>=5:#Validacion,--El codigo es el codProp que se logio--
                             print('\n ---> La cola de reproduccion ya esta en su limite, no se puede agregar mas canciones')
                         else:#Validacion
                             dato=str(input('\nDigite el codigo de la cancion que desea añadir a la cola de reproduccion: ')) #Recibe un codigo de cancion
@@ -279,7 +282,7 @@ def menu():
                             codPlaylist= str(input('Digite el codigo de la playlist al que pertenece: '))
                             codprop=str(input('Digite el codigo de propietario: '))
                             if dato in list(diccCancionestodo.keys()) and diccCancionestodo[dato]['codArt']==codArt and diccCancionestodo[dato]['codAlb']==codAlb and diccCancionestodo[dato]['codGen']==codGen and diccCancionestodo[dato]['codPlaylist']==codPlaylist and codprop in list(diccProptodo.keys()) and diccProptodo[codprop]['estado']=='1':
-                                ColaDeReproduccion+=[dato]
+                                ColasDeReproduccion[codigo]+=[dato]#Agrega a la lista
                                 print ('\n --->Se ha agregado la cancion: ',buscarCancion(dato,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0], ' con el codigo:', dato, "a la cola de reproduccion!\n")
                             else:
                                 print("\n --->Cancion inexsistente o los datos relacionados son incorrectos\n")
@@ -287,39 +290,47 @@ def menu():
                             continue
                         else:
                             break
-                    elif opcion==2:
-                        print('\nLa cola de reproduccion es: ')
-                        i=0
-                        print('\nCodigo   -   Cancion   -   Artista ')
-                        while i < len(ColaDeReproduccion):
-                            print('----------------------------------------------')
-                            if buscarCancion(ColaDeReproduccion[i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)==None:
-                                print('************** Eliminado **************')
-                                ColaDeReproduccion.pop(i)#Elimina de cola de reproduccion lo que ya no existe por haberse eliminado
-                            else:
-                                print(f'{ColaDeReproduccion[i]}  -  {buscarCancion(ColaDeReproduccion[i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}  -  {buscarCancion(ColaDeReproduccion[i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[1]}')
-                                i+=1
+                    elif opcion==2:#ver cola
+                        if codigo  in list(ColasDeReproduccion.keys()):#Si ya agrego algo a cola
+                            print('\nLa cola de reproduccion es: ')
+                            i=0
+                            print('\nCodigo   -   Cancion   -   Artista ')
+                            while i < len(ColasDeReproduccion[codigo]):
+                                print('----------------------------------------------')
+                                if buscarCancion(ColasDeReproduccion[codigo][i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)==None:
+                                    print('************** Eliminado **************')
+                                    ColasDeReproduccion.pop(i)#Elimina de cola de reproduccion lo que ya no existe por haberse eliminado
+                                else:
+                                    print(f'{ColasDeReproduccion[codigo][i]}  -  {buscarCancion(ColasDeReproduccion[codigo][i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}  -  {buscarCancion(ColasDeReproduccion[codigo][i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[1]}')
+                                    i+=1
+                        else:
+                            print('\n---> Aun no has agregado una cancion a la cola de reproduccion!\n')
                         if volver()==1:
                             continue
                         else:
                             break
-                    elif opcion==3:
-                        i=0
-                        for i in ColaDeReproduccion:
-                            print('\n---> Si desea dejar de reproducir la cancion ejecute la tecla Ctrl + C, sin embargo, tenga en cuenta que esta accion detendra todo el programa y tendra que volver a inicializar el programa en caso de quiera seguir haciendo uso del mismo')
-                            CodCancion=ColaDeReproduccion[0]
-                            ruta=f'Canciones Wav\{CodCancion}.wav'
-                            playsound(ruta)
-                            modaMusica+=[CodCancion]
-                            ColaDeReproduccion=ColaDeReproduccion[1:]
-                        print('\n---> La cola de reproduccion ha quedado vacia')
+                    elif opcion==3:#Reproducir
+                        if codigo  in list(ColasDeReproduccion.keys()):#Si ya agrego algo a cola
+                            i=0
+                            for i in ColasDeReproduccion[codigo]:
+                                print('\n---> Si desea dejar de reproducir la cancion ejecute la tecla Ctrl + C, sin embargo, tenga en cuenta que esta accion detendra todo el programa y tendra que volver a inicializar el programa en caso de quiera seguir haciendo uso del mismo')
+                                CodCancion=ColasDeReproduccion[codigo][0]
+                                ruta=f'Canciones Wav\{CodCancion}.wav'
+                                playsound(ruta)
+                                modaMusica+=[CodCancion]
+                                ColasDeReproduccion=ColasDeReproduccion[codigo][1:]
+                                if len(ColasDeReproduccion[codigo])==0:#Si se reprodujo todo, se elimina de la cola el registro asociado a ese usuario
+                                    ColasDeReproduccion.pop(codigo)
+                            print('\n---> La cola de reproduccion ha quedado vacia')
+                        else:
+                            print('\n---> Aun no has agregado una cancion a la cola de reproduccion!\n')
                         if volver()==1:
                             continue
                         else:
                             break
-                    elif opcion==4:
+                    elif opcion==4:#Salir
                         continue
-                    else:
+                    else:#No existe
                         if opcionNoExiste():
                             continue
                         else:
@@ -508,8 +519,6 @@ def menu():
                         else:
                             break
                 elif opcion==6:#Reportes
-
-                    from statistics import mode
                     print('\nLista de opciones:\n')
                     print('1- Reporte de Propietario')
                     print('2- Reporte de Playlist') 
@@ -527,12 +536,11 @@ def menu():
                     print('14- Genero con más artistas')
                     print('15- Genero con más álbumes')
                     print('16- Artista con más álbumes')
-                    print('17- Canción que mas se repite en una playlist')
-                    print('18- Album nunca buscado')
-                    print('19- Artista nunca buscado')
-                    print('20- Propietario sin playlist')
-                    print('21- Canción nunca reproducida')
-                    print('22- Volver')
+                    print('17- Album nunca buscado')
+                    print('18- Artista nunca buscado')
+                    print('19- Propietario sin playlist')
+                    print('20- Canción nunca reproducida')
+                    print('21- Volver')
                     opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                     if opcion==1:#Reporte propietarios
                         reportesProp(diccProptodo,cont)
@@ -582,21 +590,19 @@ def menu():
                     elif opcion==16:# Artista con más álbumes
                         artistaConMasAlbumes(temp,cont,diccArttodo,diccAlbumtodo,diccGentodo)
                         cont=cont+'.'
-                    elif opcion==17:# Canción que mas se repite en una playlist
-                        print('En proceso')
-                    elif opcion==18:# Album nunca buscado
+                    elif opcion==17:# Album nunca buscado
                         albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,cont,diccArttodo)
                         cont=cont+'.'
-                    elif opcion==19:# Artista nunca buscado
+                    elif opcion==18:# Artista nunca buscado
                         artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,temp,cont,diccArttodo)
                         cont=cont+'.'
-                    elif opcion==20:#  Propietario sin playlist
+                    elif opcion==19:#  Propietario sin playlist
                         propietarioSinPlayList(diccProptodo,diccPlaylisttodo,temp,cont)
                         cont=cont+'.'
-                    elif opcion==21:# Canción nunca reproducida
+                    elif opcion==20:# Canción nunca reproducida
                         cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,temp,cont,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)
                         cont=cont+'.'
-                    elif opcion==22:# Salir
+                    elif opcion==21:# Salir
                         continue
                     else:#No existe
                         if opcionNoExiste():
@@ -721,3 +727,4 @@ def menu():
     #    print( "\n---> Vuelva a cargar el programa\n")  
         
 menu()
+
