@@ -588,11 +588,14 @@ def menu():
                         albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,cont,diccArttodo)
                         cont=cont+'.'
                     elif opcion==19:# Artista nunca buscado
-                        print('En proceso')
+                        artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,temp,cont,diccArttodo)
+                        cont=cont+'.'
                     elif opcion==20:#  Propietario sin playlist
-                        print('En proceso')
+                        propietarioSinPlayList(diccProptodo,diccPlaylisttodo,temp,cont)
+                        cont=cont+'.'
                     elif opcion==21:# Canción nunca reproducida
-                        print('En proceso')
+                        cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,temp,cont,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)
+                        cont=cont+'.'
                     elif opcion==22:# Salir
                         continue
                     else:#No existe

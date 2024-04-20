@@ -122,22 +122,58 @@ def albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,cont,diccArttodo):
     else:
         print('\n --->El reporte no se puede crear pues todos los albumes han sido  buscados')
         
-def albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,cont,diccArttodo):
+def cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,temp,cont,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo):
     temp=[]
-    for i in list(diccAlbumtodo.keys()):
-        if i not in albumNuncaBuscado:
+    print(diccCancionestodo)
+    for i in list(diccCancionestodo.keys()):
+        if i not in modaMusica:
             temp+=[i]
     if temp!=[]:
-        reporte = open(f"Reporte_Album_Nunca_Buscado{cont}.txt", "a")#Crea un nuevo archivo .txt
-        reporte.write(f'\n ---> Reporte de los albumes nunca buscados : \n')#Agerga datos al archivo
+        reporte = open(f"Reporte_Cancion_Nunca_Reproducida{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> Reporte de las canciones nunca reproducidas : \n')#Agerga datos al archivo
         reporte.write('\n-----------------------------------------')#Agerga datos al archivo
         for i in temp:
-            reporte.write(f'\n -->  {buscarAlbum(i,diccAlbumtodo,diccArttodo)[0]} \n')#Agerga datos al archivo
+            reporte.write(f'\n -->  {buscarCancion(i,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]} \n')#Agerga datos al archivo
             reporte.write('\n-----------------------------------------')#Agerga datos al archivo
         reporte.close()#Cierra el archivo
-        print('\n ---> El reporte de los albumes nunca buscados se ha creado correctamente\n')#Mensaje
+        print('\n ---> El reporte de las canciones nunca reproducidas se ha creado correctamente\n')#Mensaje
     else:
-        print('\n --->El reporte no se puede crear pues todos los albumes han sido  buscados')
+        print('\n --->El reporte no se puede crear pues todos las canciones han sido  reproducidas o no hay\n')
+        
+def artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,temp,cont,diccArttodo):
+    temp=[]
+    for i in list(diccArttodo.keys()):
+        if i not in artistaNuncaBuscado:
+            temp+=[i]
+    if temp!=[]:
+        reporte = open(f"Reporte_Artista_Nunca_Buscado{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> Reporte de los artistas nunca buscados : \n')#Agerga datos al archivo
+        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        for i in temp:
+            reporte.write(f'\n -->  { buscarArtista(i,diccArttodo,diccGentodo)} \n')#Agerga datos al archivo
+            reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        reporte.close()#Cierra el archivo
+        print('\n ---> El reporte de los artistas nunca buscados se ha creado correctamente\n')#Mensaje
+    else:
+        print('\n --->El reporte no se puede crear pues todos los artistas han sido  buscados')
+        
+def propietarioSinPlayList(diccProptodo,diccPlaylisttodo,temp,cont):
+    temp=[]
+    for i in list(diccPlaylisttodo.keys()):
+        temp+=[i]
+    if temp!=[]:
+        reporte = open(f"Reporte_Propietarios_Sin_Playlist{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> Reporte de los propietarios sin playlist : \n')#Agerga datos al archivo
+        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        for i in list(diccProptodo.keys()):
+            if i not in temp:
+                reporte.write(f'\n -->  { buscarProp(i,diccProptodo)} \n')#Agerga datos al archivo
+                reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        reporte.close()#Cierra el archivo
+        print('\n ---> El reporte de los propietarios sin playlist se ha creado correctamente\n')#Mensaje
+    else:
+        print('\n --->El reporte no se puede crear pues todos los artistas han sido  buscados')
+    
 
 def reportesProp(diccProptodo,cont):
     reporte = open(f"reportePropietario{cont}.txt", "a")#Crea un nuevo archivo .txt
