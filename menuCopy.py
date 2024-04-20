@@ -9,6 +9,7 @@ from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,elimin
 from modificacion import *#ModificarPlaylist,modificarArt,modificarCancion,modificarGen,modificarProp
 from login import *#registar,pagar,exportarTXT,factura
 from playsound import *
+from reportes import *
 #Funciones auxiliares
 def opcionNoExiste():
     print('\n ---> Esta opcion no exite')
@@ -41,6 +42,9 @@ def menu():
         bandera=0
         #Contador de facturas al mismo usuario
         contFacturas=1
+        #Contadores para los reportes 
+        cont=''
+
         while True:
             if bandera==0:
                 print('\n--- BIENVENIDOS A EL REPRODUCTOR ---\n')
@@ -113,7 +117,7 @@ def menu():
                 print('3- Reproducir')   
                 print('4- Eliminar')  
                 print('5- Modificar')
-                #print('6- Reportes')
+                print('6- Reportes')
                 print('7- Consultar factura')
                 print('8- Salir')
                 #print('789- Datos diponibles') 
@@ -496,9 +500,10 @@ def menu():
                         else:
                             break
                 elif opcion==6:#Reportes
+
                     from statistics import mode
                     print('\nLista de opciones:\n')
-                    print('1- Reporte de Propietario') 
+                    print('1- Reporte de Propietario')
                     print('2- Reporte de Playlist') 
                     print('3- Reporte de Genero') 
                     print('4- Reporte de Artista') 
@@ -522,9 +527,13 @@ def menu():
                     print('22- Volver')
                     opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                     if opcion==1:#Reporte propietarios
-                        print('En proceso')
+                        print('\n ---> El reporte de propietarios se ha creado correctamente')#Mensaje
+                        reportesProp(diccProptodo,cont)
+                        cont=cont+'.'
                     elif opcion==2:#Reporte playlist
-                        print('En proceso')
+                        reportesPlaylist(diccPlaylisttodo,diccProptodo,cont)
+                        
+                        cont=cont+'.'
                     elif opcion==3:#Reporte Genero
                         print('En proceso')
                     elif opcion==4:#Reporte Artistas
