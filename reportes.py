@@ -1,3 +1,7 @@
+#Primer avance proyecto del reproductor de musica
+#Estudiantes:
+#Matthew Cordero Salazar
+#Brian Ramirez Arias 
 from busqueda import *
 from statistics import mode
 
