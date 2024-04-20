@@ -1,4 +1,162 @@
 from busqueda import *
+from statistics import mode
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def reportesProp(diccProptodo,cont):
     reporte = open(f"reportePropietario{cont}.txt", "a")#Crea un nuevo archivo .txt
     reporte.write('\nLos propietarios registrados son: \n')#Agerga datos al archivo
@@ -80,3 +238,45 @@ def reporteCancion(diccCancionestodo,diccArttodo,cont):
         print(f'\n ---> El reporte de canciones del artista {buscarArtista(codArt,diccArttodo)} se ha creado correctamente')
     else:
         print(f'\n -->El genero con el codigo {codArt} no existe\n')
+
+def reportemodacanciones(diccCancionestodo,lista,cont):
+    if lista==[]:
+        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+    else:
+        cancionmasreproducida=mode(lista)
+        reporte=open(f"reporteCancionMasReproducida{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> La cancion mas reproducida es: \n')#Agerga datos al archivo
+        reporte.write('\n-----------------------------------------\n')
+        reporte.write(f'\n {diccCancionestodo[cancionmasreproducida]['nombre']}')#Agerga datos al archivo
+        reporte.close()#Cierra archivo
+        print(f'\n ---> El reporte de la cancion mas reproducida se ha creado correctamente')
+
+def reportemodagenero(diccCancionestodo,diccGentodo,lista,cont):
+    if lista==[]:
+        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+    else:
+        modageneros=[]
+        for i in lista:
+            modageneros+=[diccCancionestodo[i]['codGen']]
+        generomassolicitado=mode(modageneros)
+        reporte=open(f"reporteGeneroMasSolicitado{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> El genero mas solicitado es: \n')#Agerga datos al archivo
+        reporte.write('\n-----------------------------------------\n')
+        reporte.write(f'\n {diccGentodo[generomassolicitado]['nombre']}')#Agerga datos al archivo
+        reporte.close()#Cierra archivo
+        print(f'\n ---> El reporte del genero mas solicitado se ha creado correctamente')
+
+def reportemodaalbum(diccCancionestodo,diccAlbumtodo,lista,cont):
+    if lista==[]:
+        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+    else:
+        modaalbumes=[]
+        for i in lista:
+            modaalbumes+=[diccCancionestodo[i]['codAlb']]
+        albummassolicitado=mode(modaalbumes)
+        reporte=open(f"reporteAlbumMasSolicitado{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> El Album mas solicitado es: \n')#Agerga datos al archivo
+        reporte.write('\n-----------------------------------------\n')
+        reporte.write(f'\n {diccAlbumtodo[albummassolicitado]['nombre']}')#Agerga datos al archivo
+        reporte.close()#Cierra archivo
+        print(f'\n ---> El reporte del genero mas solicitado se ha creado correctamente')

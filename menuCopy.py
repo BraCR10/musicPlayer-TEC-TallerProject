@@ -44,7 +44,7 @@ def menu():
         contFacturas=1
         #Contadores para los reportes 
         cont=''
-
+        modaMusica=[]
         while True:
             if bandera==0:
                 print('\n--- BIENVENIDOS A EL REPRODUCTOR ---\n')
@@ -303,6 +303,7 @@ def menu():
                             CodCancion=ColaDeReproduccion[0]
                             ruta=f'Canciones Wav\{CodCancion}.wav'
                             playsound(ruta)
+                            modaMusica+=[CodCancion]
                             ColaDeReproduccion=ColaDeReproduccion[1:]
                         print('\n---> La cola de reproduccion ha quedado vacia')
                         if volver()==1:
@@ -545,17 +546,20 @@ def menu():
                         reporteCancion(diccCancionestodo,diccArttodo,cont)
                         cont=cont+'.'
                     elif opcion==7:#Reporte Cancion mas reproducida
-                        print('En proceso')
+                        reportemodacanciones(diccCancionestodo,modaMusica,cont)
+                        cont=cont+'.'
                     elif opcion==8:#Reporte de Artista con más canciones
                         print('En proceso')
                     elif opcion==9:#Reporte de Álbum con más canciones
                         print('En proceso')
                     elif opcion==10:#Reporte de Genero más solicitado
-                        print('En proceso')
+                        reportemodagenero(diccCancionestodo,diccGentodo,modaMusica,cont)
+                        cont=cont+'.'
                     elif opcion==11:# Reporte de Propietario con más playlist
                         print('En proceso')
                     elif opcion==12:# Reporte de Álbum más solicitad
-                        print('En proceso')
+                        reportemodaalbum(diccCancionestodo,diccAlbumtodo,modaMusica,cont)
+                        cont=cont+'.'
                     elif opcion==13:# Playlist con más canciones
                         print('En proceso')
                     elif opcion==14:# Genero con más artistas
