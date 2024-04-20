@@ -527,21 +527,23 @@ def menu():
                     print('22- Volver')
                     opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                     if opcion==1:#Reporte propietarios
-                        print('\n ---> El reporte de propietarios se ha creado correctamente')#Mensaje
                         reportesProp(diccProptodo,cont)
                         cont=cont+'.'
                     elif opcion==2:#Reporte playlist
                         reportesPlaylist(diccPlaylisttodo,diccProptodo,cont)
-                        
                         cont=cont+'.'
                     elif opcion==3:#Reporte Genero
-                        print('En proceso')
+                        reporteGeneros(diccGentodo,cont)
+                        cont=cont+'.'
                     elif opcion==4:#Reporte Artistas
-                        print('En proceso')
+                        reporteArt(diccArttodo,diccGentodo,cont)
+                        cont=cont+'.'
                     elif opcion==5:#Reporte Album
-                        print('En proceso')
+                        resporteAlbumes(diccAlbumtodo,diccArttodo,cont)
+                        cont=cont+'.'
                     elif opcion==6:#Reporte Cancion
-                        print('En proceso')
+                        reporteCancion(diccCancionestodo,diccArttodo,cont)
+                        cont=cont+'.'
                     elif opcion==7:#Reporte Cancion mas reproducida
                         print('En proceso')
                     elif opcion==8:#Reporte de Artista con más canciones
