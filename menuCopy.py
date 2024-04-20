@@ -2,7 +2,6 @@
 #Estudiantes:
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
-print("Hello world!")
 from lecturaArchivos import *#leerAlbum,leerArt,leerCanciones,leerGen,leerPlaylist,leerProp
 from insercion import *#insertAlbum,insertArt,insertCanciones,insertGen,insertPlaylist,insertProp
 from busqueda import * #buscarAlbum,buscarArtista,buscarCancion,buscarGenero,buscarPlaylist,buscarProp
@@ -646,7 +645,7 @@ def menu():
                         continue
                     else:
                         break
-                elif opcion==7:
+                elif opcion==7:#Factura
                     factura(diccProptodo,codigo)
                     print('\nLista de opciones:\n')
                     print('1- Exportar factura a .txt') 
