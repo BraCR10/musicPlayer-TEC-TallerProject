@@ -2,13 +2,14 @@
 #Estudiantes:
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
-from playsound import playsound 
-from lecturaArchivos import *#insertAlbum,insertArt,insertCanciones,insertGen,insertPlaylist,insertProp
+from lecturaArchivos import *#leerAlbum,leerArt,leerCanciones,leerGen,leerPlaylist,leerProp
+from insercion import *#insertAlbum,insertArt,insertCanciones,insertGen,insertPlaylist,insertProp
 from busqueda import * #buscarAlbum,buscarArtista,buscarCancion,buscarGenero,buscarPlaylist,buscarProp
-from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,eliminarAlbum,EliminarGenero,EliminarArtistas
+from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,eliminarAlbum,eliminarGenero,eliminarArtistas
 from modificacion import *#ModificarPlaylist,modificarArt,modificarCancion,modificarGen,modificarProp
-from insercion import *
-
+from login import *#registar,pagar,exportarTXT,factura
+from playsound import *
+from reportes import *
 #Funciones auxiliares
 def opcionNoExiste():
     print('\n ---> Esta opcion no exite')
@@ -27,1047 +28,696 @@ def volver():
         return True
 #Menu principal
 def menu():
-    try :
+    #try:
         #Listas principales, se original de leer
-        listaPropcod,diccProptodo=leerProp()
-        listaGencod,diccGentodo=leerGen()
-        listaArtcod,diccArttodo=leerArt()
-        listaAlbumcod,diccAlbumtodo=leerAlbum()
-        listaPlaylistcod,diccPlaylisttodo=leerPlaylist()
-        listaCancionescod,diccCancionestodo=leerCanciones()
+        diccProptodo=leerProp()[0]#Devuelve una lista con membresias
+        diccMembresias=leerProp()[1]
+        diccGentodo=leerGen()
+        diccArttodo=leerArt()
+        diccAlbumtodo=leerAlbum()
+        diccPlaylisttodo=leerPlaylist()
+        diccCancionestodo=leerCanciones()
         ColaDeReproduccion=[]
-        #Contadores para generar reportes
-        contPropR=1
-        contPlaylistR=1
-        contAlbumR=1
-        contGenR=1
-        contCancionesR=1
-        contArtR=1
-        contCancionTenR=1#Contador de reportes de 	Canción más reproducida
-        contArtMasR=1#Contador de reportes de 	Artista con más canciones
-        contAlbumMasR=1#Contador de reportes de 	Álbum con más canciones
-        contGeneroTenR=1#Contador de reportes de 	Genero más solicitado
-        contPropMasR=1#Contador de reportes de 	Propietario con más playlist
-        contAlbumTenR=1#Contador de reportes de	Álbum más solicitado
-        
-        #Listas para determinar tendencias
-        modaCancion=[]
-        modaArt=[]
-        modaPlaylist=[]
-        modaGen=[]
-        modaProp=[]
-        modaAlbum1=[]
-        modaAlbum2=[]
-        modaProp=[]
+        #Verificador de login
+        bandera=0
+        #Contador de facturas al mismo usuario
+        contFacturas=1
+        #Contadores para crear los reportes 
+        cont=''
+        #Listas para crear reportes
+        temp=[]
+        #Listas para nunca buscados
+        albumNuncaBuscado=[]
+        artistaNuncaBuscado=[]
+        modaMusica=[]
         while True:
-            #Opciones de menu
-            print('\n--- BIENVENIDOS A EL REPRODUCTOR ---\n')
-            print('Lista de opciones:\n')
-            print('1- Buscar')
-            print('2- Insertar ')
-            print('3- Reproducir')   
-            print('4- Eliminar')  
-            print('5- Modificar')
-            print('6- Reportes')
-            print('7- Salir')
-            #print('789- Datos diponibles') 
-            opcion=int(input('\nEscoja un numero: '))
-            if opcion==1:#Busquedas
-                print('\n------------------------------------------------------------------')
+            if bandera==0:
+                print('\n--- BIENVENIDOS A EL REPRODUCTOR ---\n')
+                codigo=str(input('Digite su codigo de propietario: '))#Para saber quien 
+            if codigo not in list(diccProptodo.keys()) and bandera==0:#Si el usuario no existe
+                print('\n ---> El  propietario no esta registrado! ')
                 print('\nLista de opciones:\n')
-                print('1- Buscar Propietario') 
-                print('2- Buscar Playlist') 
-                print('3- Buscar Genero') 
-                print('4- Buscar Artista') 
-                print('5- Buscar Album') 
-                print('6- Buscar Cancion') 
-                print('7- Volver') 
+                print('1- Registrarse') 
+                print('2- Atras') 
+                print('3- Salir') 
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
-                if opcion==1:
-                    dato=str(input('\nDigite el codigo de propietario: '))
-                    if buscarProp(dato,listaProptodo)==None:#Validacion
-                        print('\n ---> El propietario no existe')
-                    else:#Validacion
-                        print('\n ---> El nombre del propietario es: ',buscarProp(dato,listaProptodo))
+                if opcion==1:#Buscar Propietario
+                    registar(diccProptodo,diccMembresias)#Registro
                     if volver()==1:
                         continue
                     else:
                         break
                 elif opcion==2:
-                    dato=str(input('\nDigite el codigo de playlist: '))
-                    if buscarPlaylist(dato,listaPlaylisttodo,listaProptodo)==None:#Validacion
-                        print('\n ---> La playlist no existe')
-                    else:#Validacion
-                        print('\n ---> El nombre de la playlist es: ',buscarPlaylist(dato,listaPlaylisttodo,listaProptodo)[0], 'y el nombre del propietario es:', buscarPlaylist(dato,listaPlaylisttodo,listaProptodo)[1])
-                    if volver()==1:
-                        continue
-                    else:
-                        break
-                elif opcion==3:
-                    dato=str(input('\nDigite el codigo de genero: '))
-                    if buscarGenero(dato,listaGentodo)==None:#Validacion
-                        print('\n ---> El genero no existe')
-                    else:#Validacion
-                        print('\n ---> El genero es: ',buscarGenero(dato,listaGentodo))
-                    if volver()==1:
-                        continue
-                    else:
-                        break
-                elif opcion==4:
-                    dato=str(input('\nDigite el codigo de artista: '))
-                    if buscarArtista(dato,listaArttodo,listaGentodo)==None:#Validacion
-                        print('\n ---> El artista no existe')
-                    else:#Validacion
-                        print('\n ---> El artista es: ',buscarArtista(dato,listaArttodo,listaGentodo)[0],' y el genero es: ',buscarArtista(dato,listaArttodo,listaGentodo)[1])
-                    if volver()==1:
-                        continue
-                    else:
-                        break
-                elif opcion==5:
-                    dato=str(input('\nDigite el codigo de album: '))
-                    if buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)==None:#Validacion
-                        print('\n ---> El album no existe')
-                    else:#Validacion
-                        print(f'\n ---> El album es: {buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)[0]}, el artista es: {buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)[1]} y  el genero es: {buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)[2]}')
-                    if volver()==1:
-                        continue
-                    else:
-                        break
-                elif opcion==6:
-                    dato=str(input('\nDigite el codigo de cancion: '))
-                    if buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)==None:#Validacion
-                        print('\n ---> La cancion no existe')
-                    else:#Validacion
-                        print(f'\n ---> La cancion es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]}, el artista: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1]}, el album es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[2]}, el genero es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[3]} y la playlist es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[4]} ' )
-                    if volver()==1:
-                        continue
-                    else:
-                        break
-                elif opcion==7:
                     continue
-                else:
+                elif opcion==3:
+                    break
+                else: 
                     if opcionNoExiste():
                         continue
                     else:
-                        break
-            elif opcion==2:#Insercion
-                print('\n------------------------------------------------------------------')
+                        break   
+            elif codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='0' and bandera==0:
+                print('\n ---> El  propietario no esta activo! ')
                 print('\nLista de opciones:\n')
-                print('1- Insertar Propietario') 
-                print('2- Insertar Playlist') 
-                print('3- Insertar Genero') 
-                print('4- Insertar Artista') 
-                print('5- Insertar Album') 
-                print('6- Insertar Cancion') 
-                print('7- Volver') 
+                print('1- Activar') 
+                print('2- Salir') 
                 opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
                 if opcion==1:
-                    listaPropcod,listaProptodo=insertProp(listaPropcod,listaProptodo)
+                    factura(diccProptodo,codigo)
+                    print('\nLista de opciones:\n')
+                    print('1- Exportar a .txt') 
+                    print('2- Pagar') 
+                    print('3- Salir') 
+                    opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+                    if opcion==1:
+                        exportarTXT(diccProptodo,codigo,contFacturas)
+                        contFacturas+=1
+                        print('\nLista de opciones:\n')
+                        print('1- Pagar') 
+                        print('2- Salir')
+                        opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+                        if opcion==1:
+                            pagar(diccProptodo,diccMembresias,codigo)
+                    elif opcion==2:
+                        pagar(diccProptodo,diccMembresias,codigo)
+                    else:
+                        continue
                     if volver()==1:
                         continue
                     else:
                         break
                 elif opcion==2:
-                    listaPlaylistcod,listaPlaylisttodo=insertPlaylist(listaPlaylistcod,listaPlaylisttodo,listaPropcod)
-                    if volver()==1:
-                        continue
-                    else:
-                        break
-                elif opcion==3:
-                    listaGencod,listaGentodo=insertGen(listaGencod,listaGentodo)
-                    if volver()==1:
-                        continue
-                    else:
-                        break
-                elif opcion==4:
-                    listaArtcod,listaArttodo=insertArt(listaArtcod,listaArttodo,listaGencod)
-                    if volver()==1:
-                        continue
-                    else:
-                        break
-                elif opcion==5:
-                    listaAlbumcod,listaAlbumtodo=insertAlbum(listaAlbumcod,listaAlbumtodo,listaArtcod)
-                    if volver()==1:
-                        continue
-                    else:
-                        break
-                elif opcion==6:
-                    listaCancionescod,listaCancionestodo=insertCanciones(listaCancionescod,listaCancionestodo,listaArtcod,listaAlbumcod,listaGencod,listaPlaylistcod)
-                    if volver()==1:
-                        continue
-                    else:
-                        break
-                elif opcion==7:
                     continue
-                else:
+                else: 
                     if opcionNoExiste():
                         continue
                     else:
-                        break
-            elif opcion==3:#Reproducir
-                print('\nLista de opciones:\n')
-                print('1- Añadir una cancion a la cola de reproduccion') 
-                print('2- Ver la cola de reproduccion') 
-                print('3- Reproducir cola de reproduccion')
-                print('4- Volver')
-                opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
-                if opcion==1:#Agregar cancion
-                    if len(ColaDeReproduccion)>=5:#Validacion
-                        print('\n ---> La cola de reproduccion ya esta en su limite, no se puede agregar mas canciones')
-                    else:#Validacion
-                        dato=str(input('\nDigite el codigo de la cancion que desea añadir a la cola de reproduccion: ')) #Recibe un codigo de cancion
-                        codArt= str(input('Digite el codigo del artista al que pertenece: '))
-                        codAlb= str(input('Digite el codigo del album al que pertenece: '))
-                        codGen= str(input('Digite el codigo del genero al que pertenece: '))
-                        codPlaylist= str(input('Digite el codigo de la playlist al que pertenece: '))
-                        codprop=str(input('Digite el codigo de propietario: '))
-                        if buscarArtista(codArt,listaArttodo,listaGentodo)!=None and buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)!=None and buscarAlbum(codAlb,listaAlbumtodo,listaArttodo,listaGentodo)!=None and buscarGenero(codGen,listaGentodo)!=None and buscarPlaylist(codPlaylist,listaPlaylisttodo,listaProptodo)!=None:#Validacion para evitar errores en buscar
-                            if dato in listaCancionescod and buscarArtista(codArt,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1] and buscarAlbum(codAlb,listaAlbumtodo,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[2] and buscarGenero(codGen,listaGentodo) == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[3] and buscarPlaylist(codPlaylist,listaPlaylisttodo,listaProptodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[4] and codprop in listaPropcod:#Validacion
-                                ColaDeReproduccion+=[dato]
-                                print ('\n --->Se ha agregado la cancion: ',buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0], ' con el codigo:', dato, "a la cola de reproduccion")
-                                #Se agregan datos para tendencias
-                                modaCancion+=[dato]
-                                modaAlbum2+=[codAlb]
-                                modaGen+=[codGen]
-                                modaPlaylist+=[codPlaylist]
-                            else:#Validacion
-                                print("\n --->Cancion inexsistente o los datos relacionados son incorrectos")
+                        break 
+            elif codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='1' or bandera ==1:
+                bandera=1
+                #Opciones de menu
+                print('Lista de opciones:\n')
+                print('1- Buscar')
+                print('2- Insertar ')
+                print('3- Reproducir')   
+                print('4- Eliminar')  
+                print('5- Modificar')
+                print('6- Reportes')
+                print('7- Consultar factura')
+                print('8- Salir')
+                #print('789- Datos diponibles') 
+                opcion=int(input('\nEscoja un numero: '))
+                if opcion==1:#Busquedas
+                    print('\n------------------------------------------------------------------')
+                    print('\nLista de opciones:\n')
+                    print('1- Buscar Propietario') 
+                    print('2- Buscar Playlist') 
+                    print('3- Buscar Genero') 
+                    print('4- Buscar Artista') 
+                    print('5- Buscar Album') 
+                    print('6- Buscar Cancion') 
+                    print('7- Volver') 
+                    opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+                    if opcion==1:#Buscar Propietario
+                        dato=str(input('\nDigite el codigo de propietario: '))
+                        if buscarProp(dato,diccProptodo)==None:#Validacion
+                            print('\n ---> El propietario no existe')
                         else:#Validacion
-                            print("\n --->Cancion inexsistente o los datos relacionados son incorrectos")
-                    if volver()==1:
+                            print('\n ---> El nombre del propietario es: ',buscarProp(dato,diccProptodo))
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==2:#Buscar Playlist
+                        dato=str(input('\nDigite el codigo de playlist: '))
+                        if buscarPlaylist(dato,diccPlaylisttodo,diccProptodo)==None:#Validacion
+                            print('\n ---> La playlist no existe')
+                        else:#Validacion
+                            print('\n ---> El nombre de la playlist es: ',buscarPlaylist(dato,diccPlaylisttodo,diccProptodo)[0], 'y el nombre del propietario es:', buscarPlaylist(dato,diccPlaylisttodo,diccProptodo)[1])
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==3:#Buscar Genero
+                        dato=str(input('\nDigite el codigo de genero: '))
+                        if buscarGenero(dato,diccGentodo)==None:#Validacion
+                            print('\n ---> El genero no existe')
+                        else:#Validacion
+                            print('\n ---> El genero es: ',buscarGenero(dato,diccGentodo))
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==4:#Buscar Artistas
+                        dato=str(input('\nDigite el codigo de artista: '))
+                        if buscarArtista(dato,diccArttodo,diccGentodo)==None:#Validacion
+                            print('\n ---> El artista no existe')
+                        else:#Validacion
+                            artistaNuncaBuscado+=[dato]
+                            print('\n ---> El artista es: ',buscarArtista(dato,diccArttodo,diccGentodo)[0],' y el genero es: ',buscarArtista(dato,diccArttodo,diccGentodo)[1])
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==5:#Buscar Album
+                        dato=str(input('\nDigite el codigo de album: '))
+                        if buscarAlbum(dato,diccAlbumtodo,diccArttodo)==None:#Validacion
+                            print('\n ---> El album no existe')
+                        else:#Validacion
+                            albumNuncaBuscado+=[dato]
+                            print(f'\n ---> El album es: {buscarAlbum(dato,diccAlbumtodo,diccArttodo)[0]}, el artista es: {buscarAlbum(dato,diccAlbumtodo,diccArttodo)[1]}')
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==6:#Buscar cancion
+                        dato=str(input('\nDigite el codigo de cancion: '))
+                        if buscarCancion(dato,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)==None:#Validacion
+                            print('\n ---> La cancion no existe')
+                        else:#Validacion
+                            print(f'\n ---> La cancion es: {buscarCancion(dato,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}, el artista: {buscarCancion(dato,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[1]}, el album es: {buscarCancion(dato,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[2]}, el genero es: {buscarCancion(dato,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[3]} y la playlist es: {buscarCancion(dato,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[4]} ' )
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==7:#Salir
+                        continue
+                    else:#No existe
+                        if opcionNoExiste():
+                            continue
+                        else:
+                            break
+                elif opcion==2:#Insercion
+                    print('\n------------------------------------------------------------------')
+                    print('\nLista de opciones:\n')
+                    print('1- Insertar Propietario') 
+                    print('2- Insertar Playlist') 
+                    print('3- Insertar Genero') 
+                    print('4- Insertar Artista') 
+                    print('5- Insertar Album') 
+                    print('6- Insertar Cancion') 
+                    print('7- Volver') 
+                    opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+                    if opcion==1:#Insertar Propietario
+                        diccProptodo,diccMembresias=insertProp(diccProptodo,diccMembresias)
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==2:#Insertar Playlist
+                        diccPlaylisttodo=insertPlaylist(diccPlaylisttodo,diccProptodo)
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==3:#Insertar Genero
+                        diccGentodo=insertGen(diccGentodo)
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==4:#Insertar Artista
+                        diccArttodo=insertArt(diccArttodo,diccGentodo)
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==5:#Insertar Album
+                        diccAlbumtodo=insertAlbum(diccAlbumtodo,diccArttodo)
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==6:#Insertar canciones
+                        diccCancionestodo=insertCanciones(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==7:#Salir
+                        continue
+                    else:#INo existe
+                        if opcionNoExiste():
+                            continue
+                        else:
+                            break
+                elif opcion==3:#Reproducir
+                    print('\nLista de opciones:\n')
+                    print('1- Añadir una cancion a la cola de reproduccion') 
+                    print('2- Ver la cola de reproduccion') 
+                    print('3- Reproducir cola de reproduccion')
+                    print('4- Volver')
+                    opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+                    if opcion==1:#Agregar cancion
+                        if len(ColaDeReproduccion)>=5:#Validacion
+                            print('\n ---> La cola de reproduccion ya esta en su limite, no se puede agregar mas canciones')
+                        else:#Validacion
+                            dato=str(input('\nDigite el codigo de la cancion que desea añadir a la cola de reproduccion: ')) #Recibe un codigo de cancion
+                            codArt= str(input('Digite el codigo del artista al que pertenece: '))
+                            codAlb= str(input('Digite el codigo del album al que pertenece: '))
+                            codGen= str(input('Digite el codigo del genero al que pertenece: '))
+                            codPlaylist= str(input('Digite el codigo de la playlist al que pertenece: '))
+                            codprop=str(input('Digite el codigo de propietario: '))
+                            if dato in list(diccCancionestodo.keys()) and diccCancionestodo[dato]['codArt']==codArt and diccCancionestodo[dato]['codAlb']==codAlb and diccCancionestodo[dato]['codGen']==codGen and diccCancionestodo[dato]['codPlaylist']==codPlaylist and codprop in list(diccProptodo.keys()) and diccProptodo[codprop]['estado']=='1':
+                                ColaDeReproduccion+=[dato]
+                                print ('\n --->Se ha agregado la cancion: ',buscarCancion(dato,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0], ' con el codigo:', dato, "a la cola de reproduccion!\n")
+                            else:
+                                print("\n --->Cancion inexsistente o los datos relacionados son incorrectos\n")
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==2:
+                        print('\nLa cola de reproduccion es: ')
+                        i=0
+                        print('\nCodigo   -   Cancion   -   Artista ')
+                        while i < len(ColaDeReproduccion):
+                            print('----------------------------------------------')
+                            if buscarCancion(ColaDeReproduccion[i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)==None:
+                                print('************** Eliminado **************')
+                                ColaDeReproduccion.pop(i)#Elimina de cola de reproduccion lo que ya no existe por haberse eliminado
+                            else:
+                                print(f'{ColaDeReproduccion[i]}  -  {buscarCancion(ColaDeReproduccion[i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}  -  {buscarCancion(ColaDeReproduccion[i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[1]}')
+                                i+=1
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==3:
+                        i=0
+                        for i in ColaDeReproduccion:
+                            print('\n---> Si desea dejar de reproducir la cancion ejecute la tecla Ctrl + C, sin embargo, tenga en cuenta que esta accion detendra todo el programa y tendra que volver a inicializar el programa en caso de quiera seguir haciendo uso del mismo')
+                            CodCancion=ColaDeReproduccion[0]
+                            ruta=f'Canciones Wav\{CodCancion}.wav'
+                            playsound(ruta)
+                            modaMusica+=[CodCancion]
+                            ColaDeReproduccion=ColaDeReproduccion[1:]
+                        print('\n---> La cola de reproduccion ha quedado vacia')
+                        if volver()==1:
+                            continue
+                        else:
+                            break
+                    elif opcion==4:
                         continue
                     else:
-                        break
-                elif opcion==2:
-                    print('\nLa cola de reproduccion es: ')
-                    i=0
-                    print('\nCodigo   -   Cancion   -   Artista ')
-                    while i < len(ColaDeReproduccion):
-                        print('----------------------------------------------')
-                        if buscarCancion(ColaDeReproduccion[i],listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)==None:
-                            print('************** Eliminado **************')
-                            ColaDeReproduccion.pop(i)#Elimina de cola de reproduccion lo que ya no existe por haberse eliminado
+                        if opcionNoExiste():
+                            continue
                         else:
-                            print(f'{ColaDeReproduccion[i]}  -  {buscarCancion(ColaDeReproduccion[i],listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]}  -  {buscarCancion(ColaDeReproduccion[i],listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1]}')
-                            i+=1
-                    if volver()==1:
+                            break
+                elif opcion==4:#Eliminacion
+                    print('\nLista de opciones:\n')
+                    print('1- Eliminar Propietario') 
+                    print('2- Eliminar Playlist') 
+                    print('3- Eliminar Genero') 
+                    print('4- Eliminar Artista') 
+                    print('5- Eliminar Album') 
+                    print('6- Eliminar Cancion') 
+                    print('7- Volver') 
+                    opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+                    if opcion==1: #Eliminar Propietario
+                        dato=str(input('\nDigite el codigo de propietario a eliminar: ')) #Recibe un codigo de propietario
+                        if dato in  list(diccProptodo.keys()): #Si el codigo esta en la lista de codigos de propietraios, entra.
+                            print(f'\nEl propietario "{buscarProp(dato,diccProptodo)}" ha sido eliminado correctamente') #Imprime este mensaje si fue eliminado
+                            #El mensaje se imprime debido a que busca dentro de la mima lista, si se  imprime despues dice 'None'
+                            eliminarProp(dato,diccProptodo,diccMembresias,diccPlaylisttodo,diccCancionestodo)  
+                        else:
+                            print(f'\nEl propietario con el código "{dato}" no existe en la lista de propietarios.') #Imprime esto si no fue eliminado
+                        if volver():
+                            continue
+                        else:
+                            break
+                    elif opcion==2:#Eliminar playlist
+                        dato=str(input('\nDigite el codigo de playlist a eliminar: ')) #Recibe un codigo de playlist
+                        if dato in list(diccPlaylisttodo.keys()):
+                            print(f'\nLa playlist "{buscarPlaylist(dato,diccPlaylisttodo,diccProptodo)[0]}" ha sido eliminado correctamente') #Imprime este mensaje si fue eliminado
+                            #El mensaje se imprime debido a que busca dentro de la misma lista, si se  imprime despues dice 'None'
+                            eliminarPlaylist(dato,diccPlaylisttodo,diccCancionestodo)  
+                        else:
+                            print(f'\nLa playlist  con el código "{dato}" no existe en la lista de playlists.') #Imprime esto si no fue eliminado
+                        if volver():
+                            continue
+                        else:
+                            break
+                    elif opcion==3:
+                        dato=str(input('\nDigite el codigo de genero a eliminar: ')) #Recibe un codigo de genero
+                        if dato in diccGentodo: #Si el codigo esta en la lista de codigos de propietraios, entra. 
+                            print(f'\nEl genero "{buscarGenero(dato,diccGentodo)}" ha sido eliminado correctamente') #Imprime este mensaje si fue eliminado
+                            eliminarGenero(dato,diccGentodo,diccArttodo,diccAlbumtodo,diccCancionestodo)
+                        else:
+                            print(f'\nEl Genero con el codigo "{dato}" no existe en la lista de generos')
+                        if volver():
+                            continue
+                        else:
+                            break
+                    elif opcion==4:
+                        dato=str(input('\nDigite el codigo de artista a eliminar: '))
+                        if dato in diccArttodo:
+                            print(f'\nEl artista "{buscarArtista(dato,diccArttodo,diccGentodo)[0]}" ha sido eliminado correctamente')
+                            eliminarArt(dato,diccArttodo,diccAlbumtodo,diccCancionestodo)
+                        else:
+                            print(f'\nEl artista con el codigo "{dato}" no existe en la lista de artistas')
+                        if volver():
+                            continue
+                        else:
+                            break
+                    elif opcion==5:
+                        dato=str(input('\nDigite el codigo de album a eliminar: '))
+                        if dato in diccAlbumtodo:
+                            print(f'\nEl album "{buscarAlbum(dato,diccAlbumtodo,diccArttodo)[0]}" ha sido eliminado correctamente')
+                            eliminarAlbum(dato,diccAlbumtodo,diccCancionestodo)
+                        else:
+                            print(f'\nEl album con el codigo "{dato}" no exite en la lista de albumes')
+                        if volver():
+                            continue
+                        else:
+                            break
+                    elif opcion==6:#Eliminar Cancion
+                        dato=str(input('\nDigite el codigo de la cancion a eliminar: '))
+                        if dato in list(diccCancionestodo.keys()):
+                            print(f'\nLa cancion "{buscarCancion(dato,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}" ha sido eliminado correctamente') #Imprime este mensaje si fue eliminado
+                            #El mensaje se imprime debido a que busca dentro de la misma lista, si se  imprime despues dice 'None'
+                            eliminarCanciones(dato,diccCancionestodo)  
+                        else:
+                            print(f'\nLa cancion  con el código "{dato}" no existe en la lista de canciones.') #Imprime esto si no fue eliminado
+                        if volver():
+                            continue
+                        else:
+                            break
+                    elif opcion==7:#Salir
                         continue
-                    else:
-                        break
-                elif opcion==3:
-                    i=0
-                    for i in ColaDeReproduccion:
-                        print('\n---> Si desea dejar de reproducir la cancion ejecute la tecla Ctrl + C, sin embargo, tenga en cuenta que esta accion detendra todo el programa y tendra que volver a inicializar el programa en caso de quiera seguir haciendo uso del mismo')
-                        CodCancion=ColaDeReproduccion[0]
-                        ruta = f'Canciones wav\{CodCancion}.wav'
-                        playsound(ruta)
-                        ColaDeReproduccion=ColaDeReproduccion[1:]
-                    print('\n---> La cola de reproduccion ha quedado vacia')
-                elif opcion==4:
-                    continue
-                else:
-                    if opcionNoExiste():
-                        continue
-                    else:
-                        break
-            elif opcion==4:#Eliminaciones
-                print('\nLista de opciones:\n')
-                print('1- Eliminar Propietario') 
-                print('2- Eliminar Playlist') 
-                print('3- Eliminar Genero') 
-                print('4- Eliminar Artista') 
-                print('5- Eliminar Album') 
-                print('6- Eliminar Cancion') 
-                print('7- Volver') 
-                opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
-                if opcion==1: 
-                    dato=str(input('\nDigite el codigo de propietario a eliminar: ')) #Recibe un codigo de propietario
-                    if dato in listaPropcod: #Si el codigo esta en la lista de codigos de propietraios, entra.
-                        # Eliminacion principal
-                        listaPropcod,listaProptodo,nombre=eliminarProp(dato,listaPropcod,listaProptodo) #Elimina el propietario
-                        # Eliminacion de playlists y canciones vinculadas
-                        codigosPlaylistEliminados=[] #Crea nueva lista para los codigos de los propietarios eliminados
-                        i=0 
-                        while i < len(listaPlaylisttodo): #Mientras que i sea menor que el largo de la lista de playlist, entra.
-                            if listaPlaylisttodo[i][2]==dato: #Si el codigo esta asociado a una playlist, sigue.
-                                codigosPlaylistEliminados.append(listaPlaylisttodo[i][0]) #Agrega el codigo que esta vinculado a la playlist a la lista con los codigos eliminados
-                                listaCancionestodo=[cancion for cancion in listaCancionestodo if cancion[5]!=listaPlaylisttodo[i][0]] #Hace que la lista de cancionestodo sea igual a que si hay una cancion dentro de la lista de canciones todo que contenga el codigo de la playlist eliminada en la posicion 5, elimine esa cancion de la lista y guarde la lista sin esa cancion.
-                                listaPlaylisttodo.pop(i) #Corta la lista para volver a entrar al ciclo
-                            else: 
-                                i+=1 #Aumenta el i 
-                        #Elimina los codigos eliminados de la lista de todo
-                        i=0#itera en listaCancionescod
-                        t=0#itera en listaCancionestodo
-                        vuelta=len(listaCancionestodo)#Evita index out range
-                        codigosActualizados=[]#Almacen los codigos nuevos
-                        while len(codigosActualizados)!=len(listaCancionestodo):
-                            if listaCancionescod[i] == listaCancionestodo[t][0]:
-                                t=0
-                                codigosActualizados+=[listaCancionescod[i]]#En caso de que el codigo si este presente
-                                i+=1
-                                continue
-                            else:
-                                t+=1
-                            if t==vuelta:#Si esto pasa, significa que el codigo ya fue eliminado por lo tanto no se almacena
-                                i+=1
-                                t=0
-                        listaCancionescod=codigosActualizados
-                        #Elimina los codigos eliminados de la lista de todo
-                        i=0#itera en listaPlaylistcod
-                        t=0#itera en listaPlaylistTodo
-                        vuelta=len(listaPlaylisttodo)#Evita index out range
-                        codigosActualizados=[]#Almacen los codigos nuevos
-                        while len(codigosActualizados)!=len(listaPlaylisttodo):
-                            if listaPlaylistcod[i] == listaPlaylisttodo[t][0]:
-                                t=0
-                                codigosActualizados+=[listaPlaylistcod[i]]#En caso de que el codigo si este presente
-                                i+=1
-                                continue
-                            else:
-                                t+=1
-                            if t==vuelta:#Si esto pasa, significa que el codigo ya fue eliminado por lo tanto no se almacena
-                                i+=1
-                                t=0
-                        listaPlaylistcod=codigosActualizados
-                        print(f'\nEl propietario "{nombre}" ha sido eliminado correctamente') #Imprime este mensaje si fue eliminado
-                    else:
-                        print(f'\nEl propietario con el código "{dato}" no existe en la lista de propietarios.') #Imprime esto si no fue eliminado
-                    if volver():
-                        continue
-                    else:
-                        break
-                elif opcion==2:
-                    codplaylist=str(input('\nDigite el codigo de playlist a eliminar: '))
-                    codprop=str(input('\nDigite el codigo de propietario al que pertenece la playlist: '))
-                    if codplaylist in listaPlaylistcod and codprop in listaPropcod :
-                        check=0#Para verificar si el prop tiene vinculada la playlist
-                        for i in listaPlaylisttodo:
-                            if i[2]==codprop:
-                                check=1
-                                break
-                        if check==1:#Si el prop si esta vinculado a la playlist
-                            #Eliminacion principal
-                            listaPlaylistcod,listaPlaylisttodo,nombre=eliminarPlaylist(codplaylist,listaPlaylistcod,listaPlaylisttodo)#Actualiza la lista si el codigo no existe, la deja igual
-                            #Eliminacion de vinculos
-                            #Eliminacion de canciones
-                            cont=0#Contador de veces que esta presente el codigo eliminado 
-                            i=0
-                            while i<len(listaCancionestodo):#Obtiene las veces que va a tener que operar el siguiente while, cont hace referecia a la cantidad de elementos que hay que eliminar en la lista vinculada
-                                if listaCancionestodo[i][5]==codplaylist:#codplaylist es el codigo eliminado originalmente
-                                    cont+=1
-                                i+=1
-                            i=0
-                            check=0#Verifica si se elimino un dato de la lista vinculada 
-                            while cont>0:
-                                if listaCancionestodo[i][5] == codplaylist:#2 son codprop
-                                    listaCancionescod,listaCancionestodo,decartar=eliminarCanciones(listaCancionestodo[i][0],listaCancionescod,listaCancionestodo)#Se almacena la nueva lista proporcionada por la funcion de eliminar se almacena y la misma lista, descartar es un dato adicional que aqui no se usa
-                                    check=1#Ya se elimino un elemento 
-                                    cont-=1
-                                if check==1:
-                                    i=0#i debe volver a 0 ya que el elmento 0 es otro, el pasado ya se elimino 
-                                    check=0
-                                else:
-                                    i+=1# i incrementa, la unica forma de que esto pase, es que aun falte un elemento por eliminar, por lo tanto se debe recorrer la lista 
-                            print(f'\n---> La playlist  "{nombre}" ha sido eliminada correctamente')
-                            if volver():
-                                continue
-                            else:
-                                break
-                        else:
-                            print('\n---> El codigo de propietario no tiene relacion con la playlist')
-                            if volver():
-                                continue
-                            else:
-                                break
-                    else:
-                        print(f'\n--->La playlist con el codigo {codplaylist} no existe o los datos no conciden')
-                        if volver():
+                    else:#No existe
+                        if opcionNoExiste():
                             continue
                         else:
-                            break
-                elif opcion==3:
-                    dato=str(input('\nDigite el codigo de genero a eliminar: ')) #Recibe un codigo de genero
-                    if dato in listaGencod: #Si el codigo esta en la lista de codigos de propietraios, entra.
-                        # Eliminacion principal
-                        listaGencod,listaGentodo,nombre=eliminarGenero(dato,listaGencod,listaGentodo) #Elimina el genero
-                        # Eliminacion de artistas y albumes vinculadas
-                        codigosArtistaEliminados=[] #Crea nueva lista para los codigos de los generos eliminados
-                        i=0 
-                        while i < len(listaArttodo): #Mientras que i sea menor que el largo de la lista de Artistas, entra.
-                            if listaArttodo[i][2]==dato: #Si el codigo esta asociado a un artista, sigue.
-                                codigosArtistaEliminados.append(listaArttodo[i][0]) #Agrega el codigo que esta vinculado al artista a la lista con los codigos eliminados
-                                listaAlbumtodo=[Album for Album in listaAlbumtodo if Album[2]!=listaArttodo[i][0]] #Hace que la lista de albumestodo sea igual a que si hay un album dentro de la lista de albumestodo que contenga el codigo del artista eliminada en la posicion 2, elimine ese album, de la lista y guarde la lista sin ese album.
-                                listaArttodo.pop(i) #Corta la lista para volver a entrar al ciclo
-                            else: 
-                                i+=1 #Aumenta el i
-                        
-                        #Elimina los codigos eliminados de la lista de todo en albumes
-                        i=0#itera en listaCancionescod
-                        t=0#itera en listaCancionestodo
-                        vuelta=len(listaAlbumtodo)#Evita index out range
-                        codigosActualizados=[]#Almacen los codigos nuevos
-                        while len(codigosActualizados)!=len(listaAlbumtodo):
-                            if listaAlbumcod[i] == listaAlbumtodo[t][0]:
-                                t=0
-                                codigosActualizados+=[listaAlbumcod[i]]#En caso de que el codigo si este presente
-                                i+=1
-                                continue
-                            else:
-                                t+=1
-                            if t==vuelta:#Si esto pasa, significa que el codigo ya fue eliminado por lo tanto no se almacena
-                                i+=1
-                                t=0
-                        listaAlbumcod=codigosActualizados 
-                        #Elimina los codigos eliminados de la lista de todo en artistas
-                        i=0#itera en listaCancionescod
-                        t=0#itera en listaCancionestodo
-                        vuelta=len(listaArttodo)#Evita index out range
-                        codigosActualizados=[]#Almacen los codigos nuevos
-                        while len(codigosActualizados)!=len(listaArttodo):
-                            if listaArtcod[i] == listaArttodo[t][0]:
-                                t=0
-                                codigosActualizados+=[listaArtcod[i]]#En caso de que el codigo si este presente
-                                i+=1
-                                continue
-                            else:
-                                t+=1
-                            if t==vuelta:#Si esto pasa, significa que el codigo ya fue eliminado por lo tanto no se almacena
-                                i+=1
-                                t=0
-                        listaArtcod=codigosActualizados 
-                        #Elimina Canciones
-                        cont=0#Contador de veces que esta presente el codigo eliminado 
-                        i=0
-                        while i<len(listaCancionestodo):#Obtiene las veces que va a tener que operar el siguiente while, cont hace referecia a la cantidad de elementos que hay que eliminar en la lista vinculada
-                            if listaCancionestodo[i][4]==dato:#Dato es el codigo eliminado originalmente
-                                cont+=1
-                            i+=1
-                        i=0
-                        check=0#Verifica si se elimino un dato de la lista vinculada 
-                        while cont>0:
-                            if listaCancionestodo[i][4] == dato:#Dato es el codigo eliminado originalmente
-                                listaCancionescod,listaCancionestodo,decartar=eliminarCanciones(listaCancionestodo[i][0],listaCancionescod,listaCancionestodo)
-                                check=1#Ya se elimino un elemento 
-                                cont-=1
-                            if check==1:
-                                i=0#i debe volver a 0 ya que el elmento 0 es otro, el pasado ya se elimino 
-                                check=0
-                            else:
-                                i+=1# i incrementa, la unica forma de que esto pase, es que aun falte un elemento por eliminar, por lo tanto se debe recorrer la lista 
-                        print(f'\nEl genero "{nombre}" ha sido eliminado correctamente') #Imprime este mensaje si fue eliminado
-                        if volver():
-                            continue
+                            break     
+                elif opcion==5:#Modificacion
+                    print('\nLista de opciones:\n')
+                    print('1- Modificar Propietario') 
+                    print('2- Modificar Playlist') 
+                    print('3- Modificar Genero') 
+                    print('4- Modificar Artista') 
+                    print('5- Modificar Album') 
+                    print('6- Modificar Cancion') 
+                    print('7- Volver') 
+                    opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+                    if opcion==1:#Modifica propietario
+                        dato=str(input('\nDigite el codigo de propietario a modificar: '))
+                        if dato in list(diccProptodo.keys()):#Revisa una lista de llaves
+                            print(f'\n--->El propietario es: {buscarProp(dato,diccProptodo)}')
+                            modificarProp(dato,diccProptodo)
+                            print('\n--->El nombre de propietario se modifico con exito!')
                         else:
-                            break
-                    else:
-                        print(f'\nEl genero con el código "{dato}" no existe en la lista de generos.') #Imprime esto si no fue eliminado
-                        if volver():
-                            continue
-                        else:
-                            break
-                elif opcion==4:
-                    dato=str(input('\nDigite el codigo de artista a eliminar: '))
-                    if dato in listaArtcod:
-                        #Eliminacion principal
-                        listaArtcod,listaArttodo,nombre=eliminarArt(dato,listaArtcod,listaArttodo)#Actualiza la lista si el codigo no existe, la deja igual
-                        #Elimina vinculos
-                        #Elimina Canciones
-                        cont=0#Contador de veces que esta presente el codigo eliminado 
-                        i=0
-                        while i<len(listaCancionestodo):#Obtiene las veces que va a tener que operar el siguiente while, cont hace referecia a la cantidad de elementos que hay que eliminar en la lista vinculada
-                            if listaCancionestodo[i][2]==dato:#Dato es el codigo eliminado originalmente
-                                cont+=1
-                            i+=1
-                        i=0
-                        check=0#Verifica si se elimino un dato de la lista vinculada 
-                        while cont>0:
-                            if listaCancionestodo[i][2] == dato:#Dato es el codigo eliminado originalmente
-                                listaCancionescod,listaCancionestodo,decartar=eliminarCanciones(listaCancionestodo[i][0],listaCancionescod,listaCancionestodo)
-                                check=1#Ya se elimino un elemento 
-                                cont-=1
-                            if check==1:
-                                i=0#i debe volver a 0 ya que el elmento 0 es otro, el pasado ya se elimino 
-                                check=0
-                            else:
-                                i+=1# i incrementa, la unica forma de que esto pase, es que aun falte un elemento por eliminar, por lo tanto se debe recorrer la lista 
-                        print(f'\nEl artista "{nombre}" ha sido eliminado correctamente')
-                        if volver():
-                            continue
-                        else:
-                            break
-                    else:
-                        print(f'\n--->El artista con el codigo {dato} no exite')
-                        if volver():
-                            continue
-                        else:
-                            break
-                elif opcion==5:
-                    dato=str(input('\nDigite el codigo de album a eliminar: '))
-                    if dato in listaAlbumcod:
-                        #Eliminacion principal
-                        listaAlbumcod,listaAlbumtodo,nombre=eliminarAlbum(dato,listaAlbumcod,listaAlbumtodo)#Actualiza la lista si el codigo no existe, la deja igual
-                        #Elimina vinculos
-                        #Elimina Canciones
-                        cont=0#Contador de veces que esta presente el codigo eliminado 
-                        i=0
-                        while i<len(listaCancionestodo):#Obtiene las veces que va a tener que operar el siguiente while, cont hace referecia a la cantidad de elementos que hay que eliminar en la lista vinculada
-                            if listaCancionestodo[i][3]==dato:#Dato es el codigo eliminado originalmente
-                                cont+=1
-                            i+=1
-                        i=0
-                        check=0#Verifica si se elimino un dato de la lista vinculada 
-                        while cont>0:
-                            if listaCancionestodo[i][3] == dato:#Dato es el codigo eliminado originalmente
-                                listaCancionescod,listaCancionestodo,decartar=eliminarCanciones(listaCancionestodo[i][0],listaCancionescod,listaCancionestodo)
-                                check=1#Ya se elimino un elemento 
-                                cont-=1
-                            if check==1:
-                                i=0#i debe volver a 0 ya que el elmento 0 es otro, el pasado ya se elimino 
-                                check=0
-                            else:
-                                i+=1# i incrementa, la unica forma de que esto pase, es que aun falte un elemento por eliminar, por lo tanto se debe recorrer la lista 
-                        print(f'\nEl album "{nombre}" ha sido eliminado correctamente')
-                        if volver():
-                            continue
-                        else:
-                            break
-                    else:
-                        print(f'\n--->El album con el codigo {dato} no exite')
-                        if volver():
-                            continue
-                        else:
-                            break
-                elif opcion==6:
-                    dato=str(input('\nDigite el codigo de la cancion a eliminar: '))
-                    if dato in listaCancionescod:
-                        #Elimicacion principal
-                        listaCancionescod,listaCancionestodo,nombre=eliminarCanciones(dato,listaCancionescod,listaCancionestodo)#Actualiza la lista si el codigo no existe, la deja igual
-                        print(f'\nLa cancion "{nombre}" ha sido eliminado correctamente')
-                        if volver():
-                            continue
-                        else:
-                            break
-                    else:
-                        print(f'\n--->La cancion con el codigo {dato} no exite')
-                        if volver():
-                            continue
-                        else:
-                            break
-                elif opcion==7:
-                    continue
-                else:
-                    if opcionNoExiste():
-                        continue
-                    else:
-                        break     
-            elif opcion==5:#Modificar
-                print('\nLista de opciones:\n')
-                print('1- Modificar Propietario') 
-                print('2- Modificar Playlist') 
-                print('3- Modificar Genero') 
-                print('4- Modificar Artista') 
-                print('5- Modificar Album') 
-                print('6- Modificar Cancion') 
-                print('7- Volver') 
-                opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
-                if opcion==1:#Modifica propietario
-                    dato=str(input('\nDigite el codigo de propietario a modificar: '))
-                    if dato in listaPropcod:
-                        if buscarProp(dato,listaProptodo)==None:
                             print('\n--->El propietario no existe') 
-                            continue   
-                        else:
-                            print(f'\n--->El propietario es: {buscarProp(dato,listaProptodo)}')
-                        nuevo=str(input('\nDigite el nuevo nombre de propietario: '))
-                        listaProptodo=modificarProp(dato,listaProptodo,nuevo)
-                        print('\n--->El nombre de propietario se modifico con exito!')
                         if volver():
                             continue
                         else:
                             break
-                    else:
-                        print('\n--->El propietario no existe') 
+                    elif opcion==2:#Modifica playlist
+                        dato=str(input('\nDigite el codigo de playlist a modificar: '))
+                        if dato in list(diccPlaylisttodo.keys()):#Revisa una lista de llaves
+                            print(f'\n--->La playlist es: {buscarPlaylist(dato,diccPlaylisttodo,diccProptodo)[0]}')
+                            modificarPlaylist(dato,diccPlaylisttodo)
+                            print('\n--->El nombre de la playlist se modifico con exito!')
+                        else:
+                            print('\n--->La playlist no existe')
                         if volver():
                             continue
                         else:
                             break
-                elif opcion==2:#Modifica playlist
-                    dato=str(input('\nDigite el codigo de playlist a modificar: '))
-                    if dato in listaPlaylistcod:
-                        if buscarPlaylist(dato,listaPlaylisttodo,listaProptodo)==None: 
-                            print('\n--->La playlist no existe') 
-                            continue
+                    elif opcion==3:#Modifica genero
+                        dato=str(input('\nDigite el codigo de genero a modificar: '))
+                        if dato in list(diccGentodo.keys()):
+                            print(f'\n--->El genero es: {buscarGenero(dato,diccGentodo)[0]}')
+                            modificarGen(dato,diccGentodo)
+                            print('\n--->El nombre del genero se modifico con exito!')
                         else:
-                            print(f'\n--->La playlist es: {buscarPlaylist(dato,listaPlaylisttodo,listaProptodo)[0]}')
-                        nuevo=str(input('\nDigite el nuevo nombre de la playlist : '))
-                        listaPlaylisttodo=modificarPlaylist(dato,listaPlaylisttodo,nuevo)
-                        print('\n--->El nombre de la playlist se modifico con exito!')
+                            print('\n--->El genero no existe')
                         if volver():
                             continue
                         else:
                             break
-                    else:
-                        print('\n--->La playlist no existe')
-                        if volver():
-                            continue
+                    elif opcion==4:#Modifica Artistas
+                        dato=str(input('\nDigite el codigo del artista a modificar: '))
+                        if dato in list(diccArttodo.keys()):
+                            print(f'\n--->El artista es: {buscarArtista(dato,diccArttodo,diccGentodo)[0]}')
+                            modificarArt(dato,diccArttodo)
+                            print('\n--->El nombre del artista se modifico con exito!')
                         else:
-                            break
-                elif opcion==3:#Modifica genero
-                    dato=str(input('\nDigite el codigo de genero a modificar: '))
-                    if dato in listaGencod:
-                        if buscarGenero(dato,listaGentodo)==None:
-                            print('\n--->El genero no existe') 
-                            continue
-                        else:
-                            print(f'\n--->El genero es: {buscarGenero(dato,listaGentodo)}')
-                        nuevo=str(input('\nDigite el nuevo nombre del genero : '))
-                        listaGentodo=modificarGen(dato,listaGentodo,nuevo)
-                        print('\n--->El nombre del genero se modifico con exito!')
-                        if volver():
-                            continue
-                        else:
-                            break
-                    else:
-                        print('\n--->El genero no existe')
-                        if volver():
-                            continue
-                        else:
-                            break
-                elif opcion==4:#Modifica Artistas
-                    dato=str(input('\nDigite el codigo del artista a modificar: '))
-                    if dato in listaArtcod:
-                        if buscarArtista(dato,listaArttodo,listaGentodo)==None:
                             print('\n--->El artista no existe ')
-                            continue
-                        else:
-                            print(f'\n--->El artista es: {buscarArtista(dato,listaArttodo,listaGentodo)[0]}')
-                        nuevo=str(input('\nDigite el nuevo nombre del artista : '))
-                        listaArttodo=modificarArt(dato,listaArttodo,nuevo)
-                        print('\n--->El nombre del artista se modifico con exito!')
                         if volver():
                             continue
                         else:
                             break
-                    else:
-                        print('\n--->El artista no existe ')
-                        if volver():
-                            continue
+                    elif opcion==5:#Modifica Albumes
+                        dato=str(input('\nDigite el codigo del album a modificar: '))
+                        if dato in list(diccAlbumtodo.keys()):
+                            print(f'\n--->El Album es: {buscarAlbum(dato,diccAlbumtodo,diccArttodo)[0]}')
+                            modificarAlbum(dato,diccAlbumtodo)
+                            print('\n--->El nombre del album se modifico con exito!')
                         else:
-                            break
-                elif opcion==5:#Modifica Albumes
-                    dato=str(input('\nDigite el codigo del album a modificar: '))
-                    if dato in listaAlbumcod:
-                        if buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)==None:
                             print('\n--->El album no existe') 
-                            continue
-                        else:
-                            print(f'\n--->El album es: {buscarAlbum(dato,listaAlbumtodo,listaArttodo,listaGentodo)[0]}')
-                        nuevo=str(input('\nDigite el nuevo nombre del album : '))
-                        listaAlbumtodo=modificarAlbum(dato,listaAlbumtodo,nuevo)
-                        print('\n--->El nombre del album se modifico con exito!')
                         if volver():
                             continue
                         else:
                             break
+                    elif opcion==6:#Modifica Cancion
+                        dato=str(input('\nDigite el codigo de cancion a modificar: '))
+                        codArt=str(input('\nDigite el codigo del artista ligado a la cancion a modificar: '))
+                        codAlb=str(input('\nDigite el codigo de album ligado a la cancion a modificar: '))
+                        codGen=str(input('\nDigite el codigo del genero ligado a la cancion a modificar: '))
+                        codPlaylist=str(input('\nDigite el codigo de la playlist ligada a la cancion a modificar: '))
+                        if dato in list(diccCancionestodo.keys()) and diccCancionestodo[dato]['codArt']==codArt and diccCancionestodo[dato]['codAlb']==codAlb and diccCancionestodo[dato]['codGen']==codGen and diccCancionestodo[dato]['codPlaylist']==codPlaylist:  ##Revisa una lista de llaves de canciones y ademas valida que los demas datos existan
+                            print(f'\n--->La cancion es: {buscarCancion(dato,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
+                            modificarCancion(dato,diccCancionestodo)
+                            print('\n--->El nombre la cancion se modifico con exito!')
+                            if volver():
+                                continue
+                            else:
+                                break
+                        else:
+                            print('\n--->La cancion no exite o los datos no coinciden')
+                            if volver():
+                                continue
+                            else:
+                                break
+                    elif opcion==7:#Salir
+                        continue
+                    else:#No existe
+                        if opcionNoExiste():
+                            continue
+                        else:
+                            break
+                elif opcion==6:#Reportes
+
+                    from statistics import mode
+                    print('\nLista de opciones:\n')
+                    print('1- Reporte de Propietario')
+                    print('2- Reporte de Playlist') 
+                    print('3- Reporte de Genero') 
+                    print('4- Reporte de Artista') 
+                    print('5- Reporte de Album') 
+                    print('6- Reporte de Cancion')
+                    print('7- Reporte de Canción más reproducida')
+                    print('8- Reporte de Artista con más canciones')
+                    print('9- Reporte de Álbum con más canciones')
+                    print('10- Reporte de Genero más solicitado')
+                    print('11- Reporte de Propietario con más playlist')
+                    print('12- Reporte de Álbum más solicitado')
+                    print('13- Playlist con más canciones')
+                    print('14- Genero con más artistas')
+                    print('15- Genero con más álbumes')
+                    print('16- Artista con más álbumes')
+                    print('17- Canción que mas se repite en una playlist')
+                    print('18- Album nunca buscado')
+                    print('19- Artista nunca buscado')
+                    print('20- Propietario sin playlist')
+                    print('21- Canción nunca reproducida')
+                    print('22- Volver')
+                    opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+                    if opcion==1:#Reporte propietarios
+                        reportesProp(diccProptodo,cont)
+                        cont=cont+'.'
+                    elif opcion==2:#Reporte playlist
+                        reportesPlaylist(diccPlaylisttodo,diccProptodo,cont)
+                        cont=cont+'.'
+                    elif opcion==3:#Reporte Genero
+                        reporteGeneros(diccGentodo,cont)
+                        cont=cont+'.'
+                    elif opcion==4:#Reporte Artistas
+                        reporteArt(diccArttodo,diccGentodo,cont)
+                        cont=cont+'.'
+                    elif opcion==5:#Reporte Album
+                        reporteAlbumes(diccAlbumtodo,diccArttodo,diccGentodo,cont)
+                        cont=cont+'.'
+                    elif opcion==6:#Reporte Cancion
+                        reporteCancion(diccCancionestodo,diccArttodo,diccGentodo,cont)
+                        cont=cont+'.'
+                    elif opcion==7:#Reporte Cancion mas reproducida
+                        reportemodacanciones(diccCancionestodo,modaMusica,cont)
+                        cont=cont+'.'
+                    elif opcion==8:#Reporte de Artista con más canciones
+                        artistaConMasCanciones(diccCancionestodo,temp,cont,diccArttodo,diccGentodo)
+                        cont=cont+'.'
+                    elif opcion==9:#Reporte de Álbum con más canciones
+                        albumConMasCanciones(diccCancionestodo,temp,cont,diccAlbumtodo,diccArttodo)
+                        cont=cont+'.'
+                    elif opcion==10:#Reporte de Genero más solicitado
+                        reportemodagenero(diccCancionestodo,diccGentodo,modaMusica,cont)
+                        cont=cont+'.'
+                    elif opcion==11:# Reporte de Propietario con más playlist
+                        propietarioConMasPlaylist(diccProptodo,temp,cont,diccPlaylisttodo)
+                        cont=cont+'.'
+                    elif opcion==12:# Reporte de Álbum más solicitad
+                        reportemodaalbum(diccCancionestodo,diccAlbumtodo,modaMusica,cont)
+                        cont=cont+'.'
+                    elif opcion==13:# Playlist con más canciones
+                        playlistConMasCanciones(diccCancionestodo,temp,cont,diccPlaylisttodo,diccProptodo)
+                        cont=cont+'.'
+                    elif opcion==14:# Genero con más artistas
+                        generoConMasArtistas(diccGentodo,temp,cont,diccArttodo)
+                        cont=cont+'.'
+                    elif opcion==15:# Genero con más álbumes
+                        generoConMasAlbumes(diccGentodo,temp,cont,diccArttodo,diccAlbumtodo)
+                        cont=cont+'.'
+                    elif opcion==16:# Artista con más álbumes
+                        artistaConMasAlbumes(temp,cont,diccArttodo,diccAlbumtodo,diccGentodo)
+                        cont=cont+'.'
+                    elif opcion==17:# Canción que mas se repite en una playlist
+                        print('En proceso')
+                    elif opcion==18:# Album nunca buscado
+                        albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,cont,diccArttodo)
+                        cont=cont+'.'
+                    elif opcion==19:# Artista nunca buscado
+                        artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,temp,cont,diccArttodo)
+                        cont=cont+'.'
+                    elif opcion==20:#  Propietario sin playlist
+                        propietarioSinPlayList(diccProptodo,diccPlaylisttodo,temp,cont)
+                        cont=cont+'.'
+                    elif opcion==21:# Canción nunca reproducida
+                        cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,temp,cont,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)
+                        cont=cont+'.'
+                    elif opcion==22:# Salir
+                        continue
+                    else:#No existe
+                        if opcionNoExiste():
+                            continue
+                        else:
+                            break 
+                elif opcion==789:#Consultas
+                    print('\nLista de opciones:\n')
+                    print('1- Ver Propietario') 
+                    print('2- Ver Playlist') 
+                    print('3- Ver Genero') 
+                    print('4- Ver Artista') 
+                    print('5- Ver Album') 
+                    print('6- Ver Cancion') 
+                    print('7- Volver') 
+                    opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+                    if opcion==1:
+                        print('\nLos propietarios registrados: \n')
+                        i=0
+                        print('Codigo - Nombre - Mebresia - Estado ')
+                        claves = list(diccProptodo.keys())
+                        while i < len(diccProptodo):
+                            temp=list(diccProptodo[claves[i]].keys())#Almacena todas las llaves que pertenecena el diccionario con la llave
+                            print('-----------------------------------------')
+                            print(f'{claves[i]} - {diccProptodo[claves[i]][temp[0]]} - {diccProptodo[claves[i]][temp[1]]} - {diccProptodo[claves[i]][temp[2]]}')
+                            i+=1
+                    elif opcion==2:
+                        print('\nLas playlists registradas: ')
+                        i=0
+                        print('Codigo - Nombre - Codigo del Propietario \n')
+                        claves = list(diccPlaylisttodo.keys())
+                        while i < len(diccPlaylisttodo):
+                            temp=list(diccPlaylisttodo[claves[i]].keys())#Almacena todas las llaves que pertenecena el diccionario con la llave
+                            print('-----------------------------------------')
+                            print(f'{claves[i]} - {diccPlaylisttodo[claves[i]][temp[0]]} - {diccPlaylisttodo[claves[i]][temp[1]]} ')
+                            i+=1
+                    elif opcion==3:
+                        print('\nLos generos registrados: \n')
+                        i=0
+                        print('Codigo - Nombre ')
+                        claves = list(diccGentodo.keys())
+                        while i < len(diccGentodo):
+                            temp=list(diccGentodo[claves[i]].keys())#Almacena todas las llaves que pertenecena el diccionario con la llave
+                            print('-----------------------------------------')
+                            print(f'{claves[i]} - {diccGentodo[claves[i]][temp[0]]} ')
+                            i+=1
+                    elif opcion==4:
+                        print('\nLos artista registrados: \n')
+                        i=0
+                        claves = list(diccArttodo.keys())
+                        print('Codigo - Nombre - Codigo del Genero ')
+                        while i < len(diccArttodo):
+                            temp=list(diccArttodo[claves[i]].keys())#Almacena todas las llaves que pertenecena el diccionario con la llave
+                            print('-----------------------------------------')
+                            print(f'{claves[i]} - {diccArttodo[claves[i]][temp[0]]} - {diccArttodo[claves[i]][temp[1]]} ')
+                            i+=1
+                    elif opcion==5:
+                        print('\nLos albumes registrados: \n')
+                        i=0
+                        claves = list(diccAlbumtodo.keys())
+                        print('Codigo - Nombre - Codigo del Artista ')
+                        while i < len(diccAlbumtodo):
+                            temp=list(diccAlbumtodo[claves[i]].keys())#Almacena todas las llaves que pertenecena el diccionario con la llave
+                            print('-----------------------------------------')
+                            print(f'{claves[i]} - {diccAlbumtodo[claves[i]][temp[0]]} - {diccAlbumtodo[claves[i]][temp[1]]} ')
+                            i+=1
+                    elif opcion==6:
+                        print('\nLas canciones registrados: \n')
+                        i=0
+                        claves = list(diccCancionestodo.keys())
+                        print('Codigo - Nombre - Codigo del Artista - Codigo del Album - Codigo de Genero - Codigo de Playlist ')
+                        while i < len(diccCancionestodo):
+                            temp=list(diccCancionestodo[claves[i]].keys())#Almacena todas las llaves que pertenecena el diccionario con la llave
+                            print('----------------------------------------------------------------------------------------------------')
+                            print(f'{claves[i]} - {diccCancionestodo[claves[i]][temp[0]]} - {diccCancionestodo[claves[i]][temp[1]]} - {diccCancionestodo[claves[i]][temp[2]]} - {diccCancionestodo[claves[i]][temp[3]]} - {diccCancionestodo[claves[i]][temp[4]]}')
+                            
+                            i+=1
+                    if volver():
+                        continue
                     else:
-                        print('\n--->El album no existe') 
-                        if volver():
-                            continue
-                        else:
-                            break
-                elif opcion==6:#Modifica Cancion
-                    dato=str(input('\nDigite el codigo de cancion a modificar: '))
-                    codArt=str(input('\nDigite el codigo del artista ligado a la cancion a modificar: '))
-                    codAlb=str(input('\nDigite el codigo de album ligado a la cancion a modificar: '))
-                    codGen=str(input('\nDigite el codigo del genero ligado a la cancion a modificar: '))
-                    codPlaylist=str(input('\nDigite el codigo de la playlist ligada a la cancion a modificar: '))
-                    if dato in listaCancionescod and buscarArtista(codArt,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[1] and buscarAlbum(codAlb,listaAlbumtodo,listaArttodo,listaGentodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[2] and buscarGenero(codGen,listaGentodo) == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[3] and buscarPlaylist(codPlaylist,listaPlaylisttodo,listaProptodo)[0] == buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[4]:#Valida que la cancion coincida con todos los datos
-                        if buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)==None:
-                            print('\n--->La cancion no existe') 
-                            continue
-                        else:
-                            print(f'\n--->La cancion es: {buscarCancion(dato,listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]}')
-                        nuevo=str(input('\nDigite el nuevo nombre de la cancion: '))
-                        listaCancionestodo=modificarCancion(dato,listaCancionestodo,nuevo)
-                        print('\n--->El nombre la cancion se modifico con exito!')
-                        if volver():
-                            continue
-                        else:
-                            break
+                        break
+                elif opcion==7:#Factura
+                    factura(diccProptodo,codigo)
+                    print('\nLista de opciones:\n')
+                    print('1- Exportar factura a .txt') 
+                    print('2- Salir')  
+                    opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
+                    if opcion==1:
+                        exportarTXT(diccProptodo,codigo,contFacturas)
+                        contFacturas+=1
+                    elif opcion==2:
+                        continue
                     else:
-                        print('\n--->La cancion no exite o los datos no coinciden')
-                        if volver():
+                        if opcionNoExiste():
                             continue
                         else:
                             break
-                elif opcion==7:
+                    if volver():
+                        continue
+                    else:
+                        break
+                elif opcion==8:#Salir
+                    bandera=0
                     continue
-                else:
+                else:#No existe
                     if opcionNoExiste():
                         continue
                     else:
                         break
-            elif opcion == 6:#Reportes
-                from statistics import mode
-                print('\nLista de opciones:\n')
-                print('1- Reporte de Propietario') 
-                print('2- Reporte de Playlist') 
-                print('3- Reporte de Genero') 
-                print('4- Reporte de Artista') 
-                print('5- Reporte de Album') 
-                print('6- Reporte de Cancion')
-                print('7- Reporte de Canción más reproducida')
-                print('8- Reporte de Artista con más canciones')
-                print('9- Reporte de Álbum con más canciones')
-                print('10- Reporte de Genero más solicitado')
-                print('11- Reporte de Propietario con más playlist')
-                print('12- Reporte de Álbum más solicitado')
-                print('13- Volver')
-                opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
-                if opcion==1:#Reportes propietarios
-                    print('\n ---> El reporte de propietarios se ha creado correctamente')#Mensaje
-                    reporte = open(f"reportePropietario{contPropR}.txt", "a")#Crea un nuevo archivo .txt
-                    reporte.write('\nLos propietarios registrados son: \n')#Agerga datos al archivo
-                    i=0
-                    reporte.write('\nCodigo - Nombre ')#Agerga datos al archivo
-                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                    while i < len(listaProptodo):
-                        if i>=1:
-                            reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                        reporte.write(f'\n{listaProptodo[i][0]} - {listaProptodo[i][1]}')#Agerga datos al archivo
-                        i+=1
-                    contPropR+=1#Contador para nombrar reporte
-                    reporte.close()#Cierra archivo
-                    if volver():
-                        continue
-                    else:
-                        break
-                elif opcion==2:#Reportes playlist
-                    dato=str(input('\nDigite el codigo de propietario para mostrar las playlist vinculadas: '))
-                    if dato in listaPropcod:
-                        print(f'\n ---> El reporte de playlist del propietario {buscarProp(dato,listaProptodo)} se ha creado correctamente')
-                        reporte = open(f"reportePlaylist{contPlaylistR}.txt", "a")#Crea un nuevo archivo .txt
-                        reporte.write(f'\n ---> Las playlist del propietario {buscarProp(dato,listaProptodo)} son: \n')#Agerga datos al archivo
-                        reporte.write('\nCodigo - Nombre - Codigo del Propietario ')#Agerga datos al archivo
-                        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                        temp=0#Verifica las playlist y guiones
-                        for i in listaPlaylisttodo:
-                            if i[2] == dato:
-                                if temp==1:
-                                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                                reporte.write(f'\n{i[0]} - {i[1]} - {i[2]}')#Agerga datos al archivo
-                                temp=1
-                        if temp ==0:#Si no hay playlist
-                            reporte.write(f'\nVacio  -  Vacio  -   {dato}\n')#Agrega al archivo
-                            reporte.write('\n ---> No hay playlist vinculadas a este propietario')#Agrega al archivo
-                        contPlaylistR+=1 #Contador para nombrar reporte
-                        reporte.close()#Cierra el archivo
-                        if volver():
-                            continue
-                        else:
-                            break
-                    else:
-                        print('\n --->El propietario no existe')
-                        if volver():
-                            continue
-                        else:
-                            break
-                elif opcion==3:#Reportes genero
-                    print('\n ---> El reporte de generos se ha creado correctamente')#Mensaje
-                    reporte = open(f"reporteGenero{contGenR}.txt", "a")#Crea un nuevo archivo .txt
-                    reporte.write('\nLos generos registrados son: \n')#Agerga datos al archivo
-                    i=0
-                    reporte.write('\nCodigo - Nombre ')#Agerga datos al archivo
-                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                    while i < len(listaGentodo):
-                        if i>=1:
-                            reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                        reporte.write(f'\n{listaGentodo[i][0]} - {listaGentodo[i][1]}')#Agerga datos al archivo
-                        i+=1
-                    contGenR+=1#Contador para nombrar reporte
-                    reporte.close()#Cierra archivo
-                    if volver():
-                        continue
-                    else:
-                        break
-                elif opcion==4:#Reportes Artistas
-                    dato=str(input('\nDigite el codigo de genero para mostrar los artistas vinculadas: '))
-                    if dato in listaGencod:
-                        print(f'\n ---> El reporte de artista del genero {buscarGenero(dato,listaGentodo)} se ha creado correctamente')
-                        reporte = open(f"reporteArtista{contArtR}.txt", "a")#Crea un nuevo archivo .txt
-                        reporte.write(f'\n ---> Los artistas del genero {buscarGenero(dato,listaGentodo)} son: \n')#Agerga datos al archivo
-                        reporte.write('\nCodigo - Nombre - Codigo del Genero ')#Agerga datos al archivo
-                        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                        temp=0#Verifica los artistas y guiones
-                        for i in listaArttodo:
-                            if i[2] == dato:
-                                if temp==1:
-                                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                                reporte.write(f'\n{i[0]} - {i[1]} - {i[2]}')#Agerga datos al archivo
-                                temp=1
-                        if temp ==0:#Si no hay artistas
-                            reporte.write(f'\nVacio  -  Vacio  -   {dato}\n')#Agrega al archivo
-                            reporte.write('\n ---> No hay artistas vinculadas a este genero')#Agrega al archivo
-                        contArtR+=1 #Contador para nombrar reporte
-                        reporte.close()#Cierra el archivo
-                        if volver():
-                            continue
-                        else:
-                            break
-                    else:
-                        print('\n --->El genero no existe')
-                        if volver():
-                            continue
-                        else:
-                            break
-                elif opcion==5:#Reportes albumes
-                    dato=str(input('\nDigite el codigo de artistas para mostrar los albumes vinculadas: '))
-                    if dato in listaArtcod:
-                        print(f'\n ---> El reporte de album del artista {buscarArtista(dato,listaArttodo,listaGentodo)[0]} se ha creado correctamente')
-                        reporte = open(f"reporteAlbum{contAlbumR}.txt", "a")#Crea un nuevo archivo .txt
-                        reporte.write(f'\n ---> Los albumes del artista {buscarArtista(dato,listaArttodo,listaGentodo)[0]} son: \n')#Agerga datos al archivo
-                        reporte.write('\nCodigo - Nombre - Codigo del Artista ')#Agerga datos al archivo
-                        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                        temp=0#Verifica los albumes y guiones
-                        for i in listaAlbumtodo:
-                            if i[2] == dato:
-                                if temp==1:
-                                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                                reporte.write(f'\n{i[0]} - {i[1]} - {i[2]}')#Agerga datos al archivo
-                                temp=1
-                        if temp ==0:#Si no hay albumes
-                            reporte.write(f'\nVacio  -  Vacio  -   {dato}\n')#Agrega al archivo
-                            reporte.write('\n ---> No hay artistas vinculadas a este genero')#Agrega al archivo
-                        contAlbumR+=1 #Contador para nombrar reporte
-                        reporte.close()#Cierra el archivo
-                        if volver():
-                            continue
-                        else:
-                            break
-                    else:
-                        print('\n --->El artista no existe')
-                        if volver():
-                            continue
-                        else:
-                            break
-                elif opcion==6:#Reportes Cancion
-                    dato=str(input('\nDigite el codigo de artista para mostrar las canciones vinculadas: '))
-                    if dato in listaArtcod:
-                        print(f'\n ---> El reporte de canciones del artista {buscarArtista(dato,listaArttodo,listaGentodo)[0]} se ha creado correctamente')
-                        reporte = open(f"reporteCanciones{contCancionesR}.txt", "a")#Crea un nuevo archivo .txt
-                        reporte.write(f'\n ---> Las canciones del artista {buscarArtista(dato,listaArttodo,listaGentodo)[0]} son: \n')#Agerga datos al archivo
-                        reporte.write('\nCodigo - Nombre - Codigo del artista ')#Agerga datos al archivo
-                        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                        temp=0#Verifica las canciones y guiones
-                        for i in listaCancionestodo:
-                            if i[2] == dato:
-                                if temp==1:
-                                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                                reporte.write(f'\n{i[0]} - {i[1]} - {i[2]}')#Agerga datos al archivo
-                                temp=1
-                        if temp ==0:#Si no hay canciones
-                            reporte.write(f'\nVacio  -  Vacio  -   {dato}\n')#Agrega al archivo
-                            reporte.write('\n ---> No hay canciones vinculadas a este artista')#Agrega al archivo
-                        contCancionesR+=1 #Contador para nombrar reporte
-                        reporte.close()#Cierra el archivo
-                        if volver():
-                            continue
-                        else:
-                            break
-                    else:
-                        print('\n --->El artista no existe')
-                        if volver():
-                            continue
-                        else:
-                            break
-                elif opcion==7:#Reporte cancion mas escuchada
-                    print(f'\n ---> El reporte de la cancion mas escuchada se ha creado correctamente')
-                    reporte = open(f"reporteCancionMasEscuchada{contCancionTenR}.txt", "a")#Crea un nuevo archivo .txt
-                    contCancionTenR+=1
-                    reporte.write(f'\n ---> Reporte de la cancion mas escuchada: \n')#Agerga datos al archivo
-                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                    if modaCancion==[]:
-                        reporte.write(f'\n No se ha reproducido ninguna cancion \n')#Agerga datos al archivo
-                    else: 
-                        if buscarCancion(mode(modaCancion),listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)==None:
-                            reporte.write(f'\nHas eliminado la cancion mas escuchada!')
-                        else:
-                            reporte.write(f'\n La cancion mas reproducida: {buscarCancion(mode(modaCancion),listaCancionestodo,listaArttodo,listaAlbumtodo,listaGentodo,listaPlaylisttodo)[0]} \n')#Agerga datos al archivo
-                    reporte.close()#Cierra el archivo
-                    if volver():
-                        continue
-                    else:
-                        break 
-                elif opcion==8:#Reporte Artista con más canciones
-                    print(f'\n ---> El reporte del artista con mas canciones se ha creado correctamente')
-                    reporte = open(f"reporteArtistaMasCanciones{contArtMasR}.txt", "a")#Crea un nuevo archivo .txt
-                    contArtMasR+=1
-                    reporte.write(f'\n ---> Reporte del  artista con mas canciones: \n')#Agerga datos al archivo
-                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                    for i in listaCancionestodo:
-                        if i[2] in listaArtcod:
-                            modaArt+=[i[2]]
-                    reporte.write(f'\n El artistas con mas canciones: {buscarArtista(mode(modaArt),listaArttodo,listaGentodo)[0]} \n')#Agerga datos al archivo
-                    reporte.close()#Cierra el archivo
-                    if volver():
-                        continue
-                    else:
-                        break 
-                elif opcion==9:
-                    print(f'\n ---> El reporte del album con mas canciones se ha creado correctamente')
-                    reporte = open(f"reporteAlbumMasCanciones{contAlbumMasR}.txt", "a")#Crea un nuevo archivo .txt
-                    contAlbumMasR+=1
-                    reporte.write(f'\n ---> Reporte del album con mas canciones: \n')#Agerga datos al archivo
-                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                    for i in listaCancionestodo:
-                        if i[3] in listaAlbumcod:
-                            modaAlbum1+=[i[3]]
-                    reporte.write(f'\n El album  con mas canciones: {buscarAlbum(mode(modaAlbum1),listaAlbumtodo,listaArttodo,listaGentodo)[0]} \n')#Agerga datos al archivo
-                    reporte.close()#Cierra el archivo
-                    if volver():
-                        continue
-                    else:
-                        break 
-                elif opcion==10:
-                    print(f'\n ---> El reporte del genero  mas solicitado se ha creado correctamente')
-                    reporte = open(f"reporteGeneroMasSolicitado{contGeneroTenR}.txt", "a")#Crea un nuevo archivo .txt
-                    contGeneroTenR+=1
-                    reporte.write(f'\n ---> Reporte del  genero  mas solicitado: \n')#Agerga datos al archivo
-                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                    if modaGen==[]:
-                        reporte.write(f'\n No se ha solicitado ninguna cancion relacionada con un genero \n')#Agerga datos al archivo
-                    else:
-                        reporte.write(f'\n El genero mas solicitado : {buscarGenero(mode(modaGen),listaGentodo)} \n')#Agerga datos al archivo
-                    reporte.close()#Cierra el archivo
-                    if volver():
-                        continue
-                    else:
-                        break 
-                elif opcion==11:
-                    print(f'\n ---> El reporte del propietario con  mas playlists se ha creado correctamente')
-                    reporte = open(f"reportePropietarioMasPlaylist{contPropMasR}.txt", "a")#Crea un nuevo archivo .txt
-                    contPropMasR+=1
-                    reporte.write(f'\n ---> Reporte del propietario con  mas playlists: \n')#Agerga datos al archivo
-                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                    for i in listaPlaylisttodo:
-                        if i[2] in listaPropcod:
-                            modaProp+=[i[2]]
-                    reporte.write(f'\n El propietario con mas playlists: {buscarProp(mode(modaProp),listaProptodo)} \n')#Agerga datos al archivo
-                    reporte.close()#Cierra el archivo
-                    if volver():
-                        continue
-                    else:
-                        break 
-                elif opcion==12:
-                    print(f'\n ---> El reporte del album   mas solicitado se ha creado correctamente')
-                    reporte = open(f"reporteAlbumMasSolicitado{contAlbumTenR}.txt", "a")#Crea un nuevo archivo .txt
-                    contAlbumTenR+=1
-                    reporte.write(f'\n ---> Reporte del album   mas solicitado: \n')#Agerga datos al archivo
-                    reporte.write('\n-----------------------------------------')#Agerga datos al archivo
-                    if modaGen==[]:
-                        reporte.write(f'\n No se ha solicitado ninguna cancion relacionada con un album \n')#Agerga datos al archivo
-                    else:
-                        reporte.write(f'\n El album mas solicitado: {buscarAlbum(mode(modaAlbum2),listaAlbumtodo,listaArttodo,listaGentodo)[0]} \n')#Agerga datos al archivo
-                    reporte.close()#Cierra el archivo
-                    if volver():
-                        continue
-                    else:
-                        break         
-                elif opcion==13:
-                    continue
-                else:
-                    if opcionNoExiste():
-                        continue
-                    else:
-                        break
-            elif opcion==789:#Consultas
-                print('\nLista de opciones:\n')
-                print('1- Ver Propietario') 
-                print('2- Ver Playlist') 
-                print('3- Ver Genero') 
-                print('4- Ver Artista') 
-                print('5- Ver Album') 
-                print('6- Ver Cancion') 
-                print('7- Volver') 
-                opcion=int(input('\nEscoja un numero segun la accion que desea realizar: '))
-                if opcion==1:
-                    print('\nLos propietarios registrados: \n')
-                    i=0
-                    print('Codigo - Nombre - Mebresia - Estado ')
-                    claves = list(diccProptodo.keys())
-                    while i < len(diccProptodo):
-                        print('-----------------------------------------')
-                        print(f'{claves[i]} - {diccProptodo[claves[i]][0]} - {diccProptodo[claves[i]][1]} - {diccProptodo[claves[i]][2]}')
-                        i+=1
-                elif opcion==2:
-                    print('\nLas playlists registradas: ')
-                    i=0
-                    print('Codigo - Nombre - Codigo del Propietario \n')
-                    claves = list(diccPlaylisttodo.keys())
-                    while i < len(diccPlaylisttodo):
-                        print('-----------------------------------------')
-                        print(f'{claves[i]} - {diccPlaylisttodo[claves[i]][0]}- {diccPlaylisttodo[claves[i]][1]}')
-                        i+=1
-                elif opcion==3:
-                    print('\nLos generos registrados: \n')
-                    i=0
-                    print('Codigo - Nombre ')
-                    claves = list(diccGentodo.keys())
-                    while i < len(diccGentodo):
-                        print('-----------------------------------------')
-                        print(f'{claves[i]} - {diccGentodo[claves[i]][0]}')
-                        i+=1
-                elif opcion==4:
-                    print('\nLos artista registrados: \n')
-                    i=0
-                    claves = list(diccArttodo.keys())
-                    print('Codigo - Nombre - Codigo del Genero ')
-                    while i < len(diccArttodo):
-                        print('-----------------------------------------')
-                        print(f'{claves[i]} - {diccArttodo[claves[i]][0]} - {diccArttodo[claves[i]][1]}')
-                        i+=1
-                elif opcion==5:
-                    print('\nLos albumes registrados: \n')
-                    i=0
-                    claves = list(diccAlbumtodo.keys())
-                    print('Codigo - Nombre - Codigo del Artista ')
-                    while i < len(diccAlbumtodo):
-                        print('-----------------------------------------')
-                        print(f'{claves[i]} - {diccAlbumtodo[claves[i]][0]} - {diccAlbumtodo[claves[i]][1]}')
-                        i+=1
-                elif opcion==6:
-                    print('\nLas canciones registrados: \n')
-                    i=0
-                    claves = list(diccCancionestodo.keys())
-                    print('Codigo - Nombre - Codigo del Artista - Codigo del Album - Codigo de Genero - Codigo de Playlist ')
-                    while i < len(diccCancionestodo):
-                        print('----------------------------------------------------------------------------------------------------')
-                        print(f'{claves[i]} - {diccCancionestodo[claves[i]][0]} - {diccCancionestodo[claves[i]][1]} - {diccCancionestodo[claves[i]][2]} - {diccCancionestodo[claves[i]][3]} - {diccCancionestodo[claves[i]][4]}  ')
-                       
-                        i+=1
-                if volver():
-                    continue
-                else:
-                    break
-            elif opcion==7:#Salir
-                break
-            else:#No existe
-                if opcionNoExiste():
-                    continue
-                else:
-                    break
-    except ValueError:
-        print( "\n---> Debes digitar un numero entero para escojer una opcion\n")
+    #except ValueError:
+    #    print( "\n---> Debes digitar un numero entero para escojer una opcion\n")       
+    #except NameError:
+    #    print( "\n---> El programa ha tenido incovenientes\n")
         
-    except NameError:
-        print( "\n---> El programa ha tenido incovenientes\n")
+    #except TypeError:
+    #    print( "\n---> El programa ha tenido incovenientes\n")
+    #except IndexError:
+    #    print( "\n---> El programa ha tenido incovenientes\n")
+    #except KeyboardInterrupt:
+    #    print( "\n---> El programa ha tenido incovenientes\n")
+    #finally:
+    #    print( "\n---> Vuelva a cargar el programa\n")  
         
-    except TypeError:
-        print( "\n---> El programa ha tenido incovenientes\n")
-    except IndexError:
-        print( "\n---> El programa ha tenido incovenientes\n")
-    except KeyboardInterrupt:
-        print( "\n---> El programa ha tenido incovenientes\n")
-    finally:
-        print( "\n---> Vuelva a cargar el programa\n")             
 menu()
