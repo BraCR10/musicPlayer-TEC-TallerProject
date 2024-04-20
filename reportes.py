@@ -116,7 +116,7 @@ def albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,cont,diccArttodo):
         reporte.write('\n-----------------------------------------')#Agerga datos al archivo
         for i in temp:
             reporte.write(f'\n -->  {buscarAlbum(i,diccAlbumtodo,diccArttodo)[0]} \n')#Agerga datos al archivo
-            reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+            reporte.write('\n-----------------------------------------\n')#Agerga datos al archivo
         reporte.close()#Cierra el archivo
         print('\n ---> El reporte de los albumes nunca buscados se ha creado correctamente\n')#Mensaje
     else:
@@ -226,18 +226,18 @@ def reporteArt(diccArttodo,diccGentodo,cont):
     else:
         print(f'\n -->El genero con el codigo {codGen} no existe\n')
 
-def resporteAlbumes(diccAlbumtodo,diccArttodo,cont):
+def resporteAlbumes(diccAlbumtodo,diccArttodo,diccGentodo,cont):
     codArt=str(input('\nDigite el codigo de artista para mostrar los albumes vinculados: '))
     if codArt in list(diccArttodo.keys()):
         reporte = open(f"reporteAlbumes{cont}.txt", "a")#Crea un nuevo archivo .txt
-        reporte.write(f'\n ---> Los albumes del artista {buscarArtista(codArt,diccArttodo)} son: \n')#Agerga datos al archivo
+        reporte.write(f'\n ---> Los albumes del artista {buscarArtista(codArt,diccArttodo,diccGentodo)[0]} son: \n')#Agerga datos al archivo
         reporte.write('\nCodigo - Nombre - Codigo del Artista ')#Agerga datos al archivo
         reporte.write('\n-----------------------------------------')#Agerga datos al archivo
         for i in list(diccAlbumtodo.keys()):
             if diccAlbumtodo[i]['codArt']==codArt:
                 reporte.write(f"\n{i} - {diccAlbumtodo[i]['nombre']} - {diccAlbumtodo[i]['codArt']}")#Agerga datos al archivo
         reporte.close()#Cierra archivo
-        print(f'\n ---> El reporte de albumes del artista {buscarArtista(codArt,diccArttodo)} se ha creado correctamente')
+        print(f'\n ---> El reporte de albumes del artista {buscarArtista(codArt,diccArttodo,diccGentodo)[0]} se ha creado correctamente')
     else:
         print(f'\n -->El genero con el codigo {codArt} no existe\n')
 

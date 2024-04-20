@@ -547,7 +547,7 @@ def menu():
                         reporteArt(diccArttodo,diccGentodo,cont)
                         cont=cont+'.'
                     elif opcion==5:#Reporte Album
-                        resporteAlbumes(diccAlbumtodo,diccArttodo,cont)
+                        resporteAlbumes(diccAlbumtodo,diccArttodo,diccGentodo,cont)
                         cont=cont+'.'
                     elif opcion==6:#Reporte Cancion
                         reporteCancion(diccCancionestodo,diccArttodo,cont)
