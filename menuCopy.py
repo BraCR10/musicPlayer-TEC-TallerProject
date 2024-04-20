@@ -550,7 +550,7 @@ def menu():
                         resporteAlbumes(diccAlbumtodo,diccArttodo,diccGentodo,cont)
                         cont=cont+'.'
                     elif opcion==6:#Reporte Cancion
-                        reporteCancion(diccCancionestodo,diccArttodo,cont)
+                        reporteCancion(diccCancionestodo,diccArttodo,diccGentodo,cont)
                         cont=cont+'.'
                     elif opcion==7:#Reporte Cancion mas reproducida
                         reportemodacanciones(diccCancionestodo,modaMusica,cont)
