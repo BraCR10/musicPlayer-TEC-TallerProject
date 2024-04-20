@@ -1,161 +1,5 @@
 from busqueda import *
 from statistics import mode
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def playlistConMasCanciones(diccCancionestodo,temp,cont,diccPlaylisttodo,diccProptodo):
     temp=[]
     for i in list(diccCancionestodo.keys()):
@@ -277,6 +121,23 @@ def albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,cont,diccArttodo):
         print('\n ---> El reporte de los albumes nunca buscados se ha creado correctamente\n')#Mensaje
     else:
         print('\n --->El reporte no se puede crear pues todos los albumes han sido  buscados')
+        
+def albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,cont,diccArttodo):
+    temp=[]
+    for i in list(diccAlbumtodo.keys()):
+        if i not in albumNuncaBuscado:
+            temp+=[i]
+    if temp!=[]:
+        reporte = open(f"Reporte_Album_Nunca_Buscado{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> Reporte de los albumes nunca buscados : \n')#Agerga datos al archivo
+        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        for i in temp:
+            reporte.write(f'\n -->  {buscarAlbum(i,diccAlbumtodo,diccArttodo)[0]} \n')#Agerga datos al archivo
+            reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        reporte.close()#Cierra el archivo
+        print('\n ---> El reporte de los albumes nunca buscados se ha creado correctamente\n')#Mensaje
+    else:
+        print('\n --->El reporte no se puede crear pues todos los albumes han sido  buscados')
 
 def reportesProp(diccProptodo,cont):
     reporte = open(f"reportePropietario{cont}.txt", "a")#Crea un nuevo archivo .txt
@@ -368,7 +229,7 @@ def reportemodacanciones(diccCancionestodo,lista,cont):
         reporte=open(f"reporteCancionMasReproducida{cont}.txt", "a")#Crea un nuevo archivo .txt
         reporte.write(f'\n ---> La cancion mas reproducida es: \n')#Agerga datos al archivo
         reporte.write('\n-----------------------------------------\n')
-        reporte.write(f'\n {diccCancionestodo[cancionmasreproducida]['nombre']}')#Agerga datos al archivo
+        reporte.write(f'\n {diccCancionestodo[cancionmasreproducida]["nombre"]}')#Agerga datos al archivo
         reporte.close()#Cierra archivo
         print(f'\n ---> El reporte de la cancion mas reproducida se ha creado correctamente')
 
@@ -383,7 +244,7 @@ def reportemodagenero(diccCancionestodo,diccGentodo,lista,cont):
         reporte=open(f"reporteGeneroMasSolicitado{cont}.txt", "a")#Crea un nuevo archivo .txt
         reporte.write(f'\n ---> El genero mas solicitado es: \n')#Agerga datos al archivo
         reporte.write('\n-----------------------------------------\n')
-        reporte.write(f'\n {diccGentodo[generomassolicitado]['nombre']}')#Agerga datos al archivo
+        reporte.write(f'\n {diccGentodo[generomassolicitado]["nombre"]}')#Agerga datos al archivo
         reporte.close()#Cierra archivo
         print(f'\n ---> El reporte del genero mas solicitado se ha creado correctamente')
 
@@ -398,6 +259,6 @@ def reportemodaalbum(diccCancionestodo,diccAlbumtodo,lista,cont):
         reporte=open(f"reporteAlbumMasSolicitado{cont}.txt", "a")#Crea un nuevo archivo .txt
         reporte.write(f'\n ---> El Album mas solicitado es: \n')#Agerga datos al archivo
         reporte.write('\n-----------------------------------------\n')
-        reporte.write(f'\n {diccAlbumtodo[albummassolicitado]['nombre']}')#Agerga datos al archivo
+        reporte.write(f'\n {diccAlbumtodo[albummassolicitado]["nombre"]}')#Agerga datos al archivo
         reporte.close()#Cierra archivo
         print(f'\n ---> El reporte del genero mas solicitado se ha creado correctamente')
