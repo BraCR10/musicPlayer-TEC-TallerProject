@@ -42,8 +42,13 @@ def menu():
         bandera=0
         #Contador de facturas al mismo usuario
         contFacturas=1
-        #Contadores para los reportes 
+        #Contadores para crear los reportes 
         cont=''
+        #Listas para crear reportes
+        temp=[]
+        #Listas para nunca buscados
+        albumNuncaBuscado=[]
+        artistaNuncaBuscado=[]
         modaMusica=[]
         while True:
             if bandera==0:
@@ -153,7 +158,7 @@ def menu():
                             continue
                         else:
                             break
-                    elif opcion==3:
+                    elif opcion==3:#Buscar Genero
                         dato=str(input('\nDigite el codigo de genero: '))
                         if buscarGenero(dato,diccGentodo)==None:#Validacion
                             print('\n ---> El genero no existe')
@@ -163,21 +168,23 @@ def menu():
                             continue
                         else:
                             break
-                    elif opcion==4:
+                    elif opcion==4:#Buscar Artistas
                         dato=str(input('\nDigite el codigo de artista: '))
                         if buscarArtista(dato,diccArttodo,diccGentodo)==None:#Validacion
                             print('\n ---> El artista no existe')
                         else:#Validacion
+                            artistaNuncaBuscado+=[dato]
                             print('\n ---> El artista es: ',buscarArtista(dato,diccArttodo,diccGentodo)[0],' y el genero es: ',buscarArtista(dato,diccArttodo,diccGentodo)[1])
                         if volver()==1:
                             continue
                         else:
                             break
-                    elif opcion==5:
+                    elif opcion==5:#Buscar Album
                         dato=str(input('\nDigite el codigo de album: '))
                         if buscarAlbum(dato,diccAlbumtodo,diccArttodo)==None:#Validacion
                             print('\n ---> El album no existe')
                         else:#Validacion
+                            albumNuncaBuscado+=[dato]
                             print(f'\n ---> El album es: {buscarAlbum(dato,diccAlbumtodo,diccArttodo)[0]}, el artista es: {buscarAlbum(dato,diccAlbumtodo,diccArttodo)[1]}')
                         if volver()==1:
                             continue
@@ -549,29 +556,37 @@ def menu():
                         reportemodacanciones(diccCancionestodo,modaMusica,cont)
                         cont=cont+'.'
                     elif opcion==8:#Reporte de Artista con más canciones
-                        print('En proceso')
+                        artistaConMasCanciones(diccCancionestodo,temp,cont,diccArttodo,diccGentodo)
+                        cont=cont+'.'
                     elif opcion==9:#Reporte de Álbum con más canciones
-                        print('En proceso')
+                        albumConMasCanciones(diccCancionestodo,temp,cont,diccAlbumtodo,diccArttodo)
+                        cont=cont+'.'
                     elif opcion==10:#Reporte de Genero más solicitado
                         reportemodagenero(diccCancionestodo,diccGentodo,modaMusica,cont)
                         cont=cont+'.'
                     elif opcion==11:# Reporte de Propietario con más playlist
-                        print('En proceso')
+                        propietarioConMasPlaylist(diccProptodo,temp,cont,diccPlaylisttodo)
+                        cont=cont+'.'
                     elif opcion==12:# Reporte de Álbum más solicitad
                         reportemodaalbum(diccCancionestodo,diccAlbumtodo,modaMusica,cont)
                         cont=cont+'.'
                     elif opcion==13:# Playlist con más canciones
-                        print('En proceso')
+                        playlistConMasCanciones(diccCancionestodo,temp,cont,diccPlaylisttodo,diccProptodo)
+                        cont=cont+'.'
                     elif opcion==14:# Genero con más artistas
-                        print('En proceso')
+                        generoConMasArtistas(diccGentodo,temp,cont,diccArttodo)
+                        cont=cont+'.'
                     elif opcion==15:# Genero con más álbumes
-                        print('En proceso')
+                        generoConMasAlbumes(diccGentodo,temp,cont,diccArttodo,diccAlbumtodo)
+                        cont=cont+'.'
                     elif opcion==16:# Artista con más álbumes
-                        print('En proceso')
+                        artistaConMasAlbumes(temp,cont,diccArttodo,diccAlbumtodo,diccGentodo)
+                        cont=cont+'.'
                     elif opcion==17:# Canción que mas se repite en una playlist
                         print('En proceso')
                     elif opcion==18:# Album nunca buscado
-                        print('En proceso')
+                        albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,cont,diccArttodo)
+                        cont=cont+'.'
                     elif opcion==19:# Artista nunca buscado
                         print('En proceso')
                     elif opcion==20:#  Propietario sin playlist

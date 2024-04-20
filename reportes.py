@@ -156,6 +156,127 @@ from statistics import mode
 
 
 
+def playlistConMasCanciones(diccCancionestodo,temp,cont,diccPlaylisttodo,diccProptodo):
+    temp=[]
+    for i in list(diccCancionestodo.keys()):
+        temp+=[diccCancionestodo[i]['codPlaylist']]
+    if temp!=[]:
+        var=mode(temp)#Almacena el codigo de playlist con mas tendencia
+        reporte = open(f"Reporte_Playlist_Con_Mas_Canciones{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> Reporte de la  playlist con mas canciones: \n')#Agerga datos al archivo
+        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        reporte.write(f'\n La playlist con mas canciones es : {buscarPlaylist(var,diccPlaylisttodo,diccProptodo)[0]} con {temp.count(var)} cancion(es) relacionadas\n')#Agerga datos al archivo
+        reporte.close()#Cierra el archivo
+        print('\n ---> El reporte de la playlist con mas canciones se ha creado correctamente\n')#Mensaje
+    else:
+        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+
+def artistaConMasCanciones(diccCancionestodo,temp,cont,diccArttodo,diccGentodo):
+    temp=[]
+    for i in list(diccCancionestodo.keys()):
+        temp+=[diccCancionestodo[i]['codArt']]
+    if temp!=[]:
+        var=mode(temp)#Almacena el codigo de playlist con mas tendencia
+        reporte = open(f"Reporte_Artistas_Con_Mas_Canciones{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> Reporte de la  artistas con mas canciones: \n')#Agerga datos al archivo
+        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        reporte.write(f'\n El artista con mas canciones es : {buscarArtista(var,diccArttodo,diccGentodo)} con {temp.count(var)} cancion(es) relacionadas\n')#Agerga datos al archivo
+        reporte.close()#Cierra el archivo
+        print('\n ---> El reporte del artista con mas canciones se ha creado correctamente\n')#Mensaje
+    else:
+        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+        
+def albumConMasCanciones(diccCancionestodo,temp,cont,diccAlbumtodo,diccArttodo):
+    temp=[]
+    for i in list(diccCancionestodo.keys()):
+        temp+=[diccCancionestodo[i]['codAlb']]
+    if temp!=[]:
+        var=mode(temp)#Almacena el codigo de playlist con mas tendencia
+        reporte = open(f"Reporte_Albumes_Con_Mas_Canciones{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> Reporte de album con mas canciones: \n')#Agerga datos al archivo
+        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        reporte.write(f'\n El album con mas canciones es : {buscarAlbum(var,diccAlbumtodo,diccArttodo)} con {temp.count(var)} cancion(es) relacionadas\n')#Agerga datos al archivo
+        reporte.close()#Cierra el archivo
+        print('\n ---> El reporte del album con mas canciones se ha creado correctamente\n')#Mensaje
+    else:
+        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+
+def propietarioConMasPlaylist(diccProptodo,temp,cont,diccPlaylisttodo):
+    temp=[]
+    for i in list(diccPlaylisttodo.keys()):
+        temp+=[diccPlaylisttodo[i]['codProp']]
+    if temp!=[]:
+        var=mode(temp)#Almacena el codigo de playlist con mas tendencia
+        reporte = open(f"Reporte_Propietario_Con_Mas_Playlist{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> Reporte de propietario con mas playlist: \n')#Agerga datos al archivo
+        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        reporte.write(f'\n El propietario con mas playlist es : {buscarProp(var,diccProptodo)} con {temp.count(var)} playlist(s) relacionadas\n')#Agerga datos al archivo
+        reporte.close()#Cierra el archivo
+        print('\n ---> El reporte de propietario con mas playlist se ha creado correctamente\n')#Mensaje
+    else:
+        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+        
+def generoConMasArtistas(diccGentodo,temp,cont,diccArttodo):
+    temp=[]
+    for i in list(diccArttodo.keys()):
+        temp+=[diccArttodo[i]['codGen']]
+    if temp!=[]:
+        var=mode(temp)#Almacena el codigo de playlist con mas tendencia
+        reporte = open(f"Reporte_Genero_Con_Mas_Artistas{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> Reporte de del genero con mas artistas: \n')#Agerga datos al archivo
+        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        reporte.write(f'\n El genero con mas artistas es :  {buscarGenero(var,diccGentodo)} con {temp.count(var)} artista(s) relacionados \n')#Agerga datos al archivo
+        reporte.close()#Cierra el archivo
+        print('\n ---> El reporte del genero con mas artistas se ha creado correctamente\n')#Mensaje
+    else:
+        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+
+def generoConMasAlbumes(diccGentodo,temp,cont,diccArttodo,diccAlbumtodo):
+    temp=[]
+    for i in list(diccAlbumtodo.keys()):
+        temp+=[diccArttodo[diccAlbumtodo[i]['codArt']]['codGen']]#Almacena todos los codigos de genero de todos los artistas vinculados a un album
+    if temp!=[]:
+        var=mode(temp)#Almacena el codigo de playlist con mas tendencia
+        reporte = open(f"Reporte_Genero_Con_Mas_Albumes{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> Reporte de del genero con mas albumes : \n')#Agerga datos al archivo
+        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        reporte.write(f'\n El genero con mas albumes es :  {buscarGenero(var,diccGentodo)} con {temp.count(var)} album(es) relacionados \n')#Agerga datos al archivo
+        reporte.close()#Cierra el archivo
+        print('\n ---> El reporte del genero con mas albumes se ha creado correctamente\n')#Mensaje
+    else:
+        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+    
+def artistaConMasAlbumes(temp,cont,diccArttodo,diccAlbumtodo,diccGentodo):
+    temp=[]
+    for i in list(diccAlbumtodo.keys()):
+        temp+=[diccAlbumtodo[i]['codArt']]
+    if temp!=[]:
+        var=mode(temp)#Almacena el codigo de playlist con mas tendencia
+        reporte = open(f"Reporte_Artista_Con_Mas_Albumes{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> Reporte de el artista con mas albumes : \n')#Agerga datos al archivo
+        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        reporte.write(f'\n El artista con mas albumes es :  {buscarArtista(var,diccArttodo,diccGentodo)[0]} con {temp.count(var)} album(es) relacionados \n')#Agerga datos al archivo
+        reporte.close()#Cierra el archivo
+        print('\n ---> El reporte el artista con mas albumes se ha creado correctamente\n')#Mensaje
+    else:
+        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+        
+def albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,cont,diccArttodo):
+    temp=[]
+    for i in list(diccAlbumtodo.keys()):
+        if i not in albumNuncaBuscado:
+            temp+=[i]
+    if temp!=[]:
+        reporte = open(f"Reporte_Album_Nunca_Buscado{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write(f'\n ---> Reporte de los albumes nunca buscados : \n')#Agerga datos al archivo
+        reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        for i in temp:
+            reporte.write(f'\n -->  {buscarAlbum(i,diccAlbumtodo,diccArttodo)[0]} \n')#Agerga datos al archivo
+            reporte.write('\n-----------------------------------------')#Agerga datos al archivo
+        reporte.close()#Cierra el archivo
+        print('\n ---> El reporte de los albumes nunca buscados se ha creado correctamente\n')#Mensaje
+    else:
+        print('\n --->El reporte no se puede crear pues todos los albumes han sido  buscados')
 
 def reportesProp(diccProptodo,cont):
     reporte = open(f"reportePropietario{cont}.txt", "a")#Crea un nuevo archivo .txt

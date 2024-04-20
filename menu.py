@@ -28,7 +28,6 @@ def volver():
 #Menu principal
 def menu():
     try :
-        
         #Listas principales, se original de leer
         listaPropcod,diccProptodo=leerProp()
         listaGencod,diccGentodo=leerGen()
