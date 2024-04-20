@@ -124,7 +124,6 @@ def albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,cont,diccArttodo):
         
 def cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,temp,cont,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo):
     temp=[]
-    print(diccCancionestodo)
     for i in list(diccCancionestodo.keys()):
         if i not in modaMusica:
             temp+=[i]
