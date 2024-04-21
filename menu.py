@@ -324,7 +324,7 @@ def menu():
                                 print(f'\n>>> Se esta reproduciendo {buscarCancion(i,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
                                 print('\n---> Si desea dejar de reproducir la cancion ejecute la tecla Ctrl + C, sin embargo, tenga en cuenta que esta accion detendra todo el programa y tendra que volver a inicializar el programa en caso de quiera seguir haciendo uso del mismo')
                                 CodCancion=ColasDeReproduccion[codigo][0]
-                                ruta=f'Canciones Wav\{CodCancion}.wav'
+                                ruta=f"{CodCancion}.wav"
                                 playsound(ruta)
                                 modaMusica+=[CodCancion]
                                 ColasDeReproduccion[codigo]=ColasDeReproduccion[codigo][1:]
