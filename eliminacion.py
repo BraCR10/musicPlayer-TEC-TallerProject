@@ -36,9 +36,9 @@ def eliminarGenero(codGen,diccGentodo,diccArttodo,diccAlbumtodo,diccCancionestod
             for codAlbum in list(diccAlbumtodo.keys()):#codCanciones itera en una lista de llaves de canciones
                 if diccAlbumtodo[codAlbum]['codArt']==i:#si la playlist ligada a esa cancion se elimina
                     for codCancion in list(diccCancionestodo.keys()):#codCanciones itera en una lista de llaves de canciones
-                        if diccCancionestodo[codCancion]['codAlb']==i:#si la playlist ligada a esa cancion se elimina
+                        if diccCancionestodo[codCancion]['codAlb']==codAlbum or diccCancionestodo[codCancion]['codArt']==i or diccCancionestodo[codCancion]['codGen']==codGen:#si la playlist ligada a esa cancion se elimina
                             diccCancionestodo.pop(codCancion)#
-                    diccAlbumtodo.pop(codAlbum)#
+                    diccAlbumtodo.pop(codAlbum)
             diccArttodo.pop(i)
     #Eliminacion principal
     diccGentodo.pop(codGen)

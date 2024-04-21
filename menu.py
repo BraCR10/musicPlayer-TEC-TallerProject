@@ -28,7 +28,7 @@ def volver():
         return True
 #Menu principal
 def menu():
-    #try:
+    try:
         #Listas principales, se original de leer
         diccProptodo=leerProp()[0]#Devuelve una lista con membresias
         diccMembresias=leerProp()[1]
@@ -282,8 +282,11 @@ def menu():
                             codPlaylist= str(input('Digite el codigo de la playlist al que pertenece: '))
                             codprop=str(input('Digite el codigo de propietario: '))
                             if dato in list(diccCancionestodo.keys()) and diccCancionestodo[dato]['codArt']==codArt and diccCancionestodo[dato]['codAlb']==codAlb and diccCancionestodo[dato]['codGen']==codGen and diccCancionestodo[dato]['codPlaylist']==codPlaylist and codprop in list(diccProptodo.keys()) and diccProptodo[codprop]['estado']=='1':
-                                ColasDeReproduccion[codigo]+=[dato]#Agrega a la lista
-                                print ('\n --->Se ha agregado la cancion: ',buscarCancion(dato,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0], ' con el codigo:', dato, "a la cola de reproduccion!\n")
+                                if codprop==codigo:
+                                    ColasDeReproduccion[codigo]+=[dato]#Agrega a la lista
+                                    print ('\n --->Se ha agregado la cancion: ',buscarCancion(dato,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0], ' con el codigo:', dato, "a la cola de reproduccion!\n")
+                                else:
+                                   print("\n --->El codigo del propietario que digito no es el mismo que inicio sesion, por favor ingrese el codigo del propietario actual\n") 
                             else:
                                 print("\n --->Cancion inexsistente o los datos relacionados son incorrectos\n")
                         if volver()==1:
@@ -297,9 +300,9 @@ def menu():
                             print('\nCodigo   -   Cancion   -   Artista ')
                             while i < len(ColasDeReproduccion[codigo]):
                                 print('----------------------------------------------')
-                                if buscarCancion(ColasDeReproduccion[codigo][i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)==None:
+                                if ColasDeReproduccion[codigo][i] not in list(diccCancionestodo.keys()):
                                     print('************** Eliminado **************')
-                                    ColasDeReproduccion.pop(i)#Elimina de cola de reproduccion lo que ya no existe por haberse eliminado
+                                    ColasDeReproduccion[codigo].pop(i)#Elimina de cola de reproduccion lo que ya no existe por haberse eliminado
                                 else:
                                     print(f'{ColasDeReproduccion[codigo][i]}  -  {buscarCancion(ColasDeReproduccion[codigo][i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}  -  {buscarCancion(ColasDeReproduccion[codigo][i],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[1]}')
                                     i+=1
@@ -312,13 +315,19 @@ def menu():
                     elif opcion==3:#Reproducir
                         if codigo  in list(ColasDeReproduccion.keys()):#Si ya agrego algo a cola
                             i=0
+                            while i < len(ColasDeReproduccion[codigo]):
+                                if ColasDeReproduccion[codigo][i] not in list(diccCancionestodo.keys()):
+                                    ColasDeReproduccion[codigo].pop(i)#Elimina de cola de reproduccion lo que ya no existe por haberse eliminado
+                                else:
+                                    i+=1
                             for i in ColasDeReproduccion[codigo]:
+                                print(f'\n>>> Se esta reproduciendo {buscarCancion(i,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
                                 print('\n---> Si desea dejar de reproducir la cancion ejecute la tecla Ctrl + C, sin embargo, tenga en cuenta que esta accion detendra todo el programa y tendra que volver a inicializar el programa en caso de quiera seguir haciendo uso del mismo')
                                 CodCancion=ColasDeReproduccion[codigo][0]
                                 ruta=f'Canciones Wav\{CodCancion}.wav'
                                 playsound(ruta)
                                 modaMusica+=[CodCancion]
-                                ColasDeReproduccion=ColasDeReproduccion[codigo][1:]
+                                ColasDeReproduccion[codigo]=ColasDeReproduccion[codigo][1:]
                                 if len(ColasDeReproduccion[codigo])==0:#Si se reprodujo todo, se elimina de la cola el registro asociado a ese usuario
                                     ColasDeReproduccion.pop(codigo)
                             print('\n---> La cola de reproduccion ha quedado vacia')
@@ -712,19 +721,18 @@ def menu():
                         continue
                     else:
                         break
-    #except ValueError:
-    #    print( "\n---> Debes digitar un numero entero para escojer una opcion\n")       
-    #except NameError:
-    #    print( "\n---> El programa ha tenido incovenientes\n")
-        
-    #except TypeError:
-    #    print( "\n---> El programa ha tenido incovenientes\n")
-    #except IndexError:
-    #    print( "\n---> El programa ha tenido incovenientes\n")
-    #except KeyboardInterrupt:
-    #    print( "\n---> El programa ha tenido incovenientes\n")
-    #finally:
-    #    print( "\n---> Vuelva a cargar el programa\n")  
-        
+    except ValueError:
+        print( "\n---> Debes digitar un numero entero para escojer una opcion\n") 
+        menu()     
+    except NameError:
+        print( "\n---> El programa ha tenido incovenientes\n")
+    except TypeError:
+       print( "\n---> El programa ha tenido incovenientes\n")
+    except IndexError:
+        print( "\n---> El programa ha tenido incovenientes\n")
+    except KeyboardInterrupt:
+        print( "\n---> El programa ha tenido incovenientes\n")
+    finally:
+        print( "\n---> Vuelva a cargar el programa\n")         
 menu()
 
