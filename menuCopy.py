@@ -25,13 +25,17 @@ def menu():
         ventanaLogin.attributes('-topmost', True)  # Mantiene la ventana en la parte superior
         #Para seleccion
         tipoUsuario= ttk.Combobox(ventanaLogin, values=["Administrador", "Usuario"])
-        tipoUsuario.current(0)
+        tipoUsuario.current(1)
         tipoUsuario.pack(pady=30)
+        if tipoUsuario=="Administrador":
+                bandera=True
+        else:
+                bandera=False
         #Codigo de usuario
         codigo=tk.Entry(ventanaLogin,font="Arial")
         codigo.pack(pady=10)
         # Botón en la ventana login para ir a menu
-        iniciarSesion = tk.Button(ventanaLogin, text="Iniciar sesion", command= lambda:[login(tipoUsuario.get(),codigo.get(),diccProptodo,diccAdmintodo,ventanaLogin,VentanaMenu)])
+        iniciarSesion = tk.Button(ventanaLogin, text="Iniciar sesion", command= lambda:login(tipoUsuario.get(),codigo.get(),diccProptodo,diccAdmintodo,ventanaLogin,VentanaMenu))
         iniciarSesion.pack(pady=20)
         
         

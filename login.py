@@ -10,9 +10,9 @@ def login(tipoUsuario,codigo,diccProptodo,diccAdminTodo,ventanaLogin,VentanaMenu
     elif  tipoUsuario=='Usuario' and codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='0':
         print('pAGAR')
     elif  tipoUsuario=='Usuario'and codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='1':
-        return navegacionVentanas(VentanaMenu,ventanaLogin,obtenerDimenciones(ventanaLogin))
+        return irVentana(ventanaLogin,VentanaMenu,obtenerDimenciones(ventanaLogin))
     elif  tipoUsuario=='Administrador' and codigo in list(diccAdminTodo.keys()):
-        return navegacionVentanas(VentanaMenu,ventanaLogin,obtenerDimenciones(ventanaLogin))
+        return irVentana(ventanaLogin,VentanaMenu,obtenerDimenciones(ventanaLogin))
     
     
 def registar(diccTodo,diccMembresias):
