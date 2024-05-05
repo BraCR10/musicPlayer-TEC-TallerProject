@@ -43,11 +43,6 @@ def menu():
         #Creamos menubar
         menubar = tk.Menu(VentanaMenu)
         #Insercion 
-        if tipoUsuario.get()=="Administrador":
-                bandera=True
-        else:
-                bandera=False
-
         if bandera==True:
                 menuinsercion = tk.Menu(menubar,tearoff=0)
                 menuinsercion.configure(bg='#C1B2A6')
@@ -58,10 +53,10 @@ def menu():
                 menuinsercion.add_command(label="Album")
                 menuinsercion.add_command(label="Cancion")
                 menubar.add_cascade(label="Insercion", menu=menuinsercion)
-                #Buscar
+        #Buscar
                 menubusqueda = tk.Menu(menubar,tearoff=0)
                 menubusqueda.configure(bg='#C1B2A6')
-                menubusqueda.add_command(label="Propietario",command=lambda:navegacionVentanas(VentanaBusquedaPropietario,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menubusqueda.add_command(label="Propietario")
                 menubusqueda.add_command(label="Playlist")
                 menubusqueda.add_command(label="Genero")
                 menubusqueda.add_command(label="Artista")
@@ -89,26 +84,19 @@ def menu():
                 menubusqueda.add_command(label="Cancion")
                 menubar.add_cascade(label="Busqueda", menu=menubusqueda)
         VentanaMenu.config(menu=menubar)
-        # Botón en la ventana menu para volver a login
-        botonCerrarSesion = tk.Button(VentanaMenu, text="Cerrar sesion", command=lambda:navegacionVentanas(ventanaLogin,VentanaMenu,obtenerDimenciones(VentanaMenu)))
-        botonCerrarSesion.pack(pady=20)
         
         # Configuración de la ventana de busquedas
-        VentanaBusquedaPropietario = tk.Toplevel(ventanaLogin)
-        VentanaBusquedaPropietario.title("Busqueda")
-        VentanaBusquedaPropietario.configure(bg='#E4E4E4')
-        VentanaBusquedaPropietario.withdraw()  # Oculta la ventana secundaria inicialmente
-        #Codigo de usuario
-        codigoBusqueda=tk.Entry(VentanaBusquedaPropietario,font="Arial")
-        codigoBusqueda.pack(pady=10)
-        botonDeBusqueda= tk.Button(VentanaBusquedaPropietario, text="Buscar", command=lambda:buscarProp(codigoBusqueda.get(),diccProptodo))
-        botonDeBusquedaAMenu = tk.Button(VentanaBusquedaPropietario, text="Volver a menu", command=lambda:navegacionVentanas(VentanaMenu,VentanaBusquedaPropietario,obtenerDimenciones(VentanaMenu)))
-        botonDeBusquedaAMenu.pack(pady=20)
+        VentanaBusqueda = tk.Toplevel(ventanaLogin)
+        VentanaBusqueda.title("Busqueda")
+        VentanaBusqueda.configure(bg='#E4E4E4')
+        VentanaMenu.withdraw()  # Oculta la ventana secundaria inicialmente
         
         
         
         
-
+        # Botón en la ventana menu para volver a login
+        botonVolverMenuPrincipal = tk.Button(VentanaMenu, text="Volver a login", command=lambda:volverVentana(ventanaLogin,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+        botonVolverMenuPrincipal.pack(pady=20)
 
         ventanaLogin.mainloop()
 
