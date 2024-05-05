@@ -21,7 +21,7 @@ def menu():
         # Configuración de la ventana login
         ventanaLogin = tk.Tk()
         ventanaLogin.title("Login")
-        ventanaLogin.geometry("700x200+500+100")
+        ventanaLogin.geometry("900x600+170+100")
         ventanaLogin.attributes('-topmost', True)  # Mantiene la ventana en la parte superior
         #Para seleccion
         tipoUsuario= ttk.Combobox(ventanaLogin, values=["Administrador", "Usuario"])
@@ -39,16 +39,14 @@ def menu():
         iniciarSesion.pack(pady=20)
         
         
-        
-
         # Configuración de la ventana menu
         VentanaMenu = tk.Toplevel(ventanaLogin)
         VentanaMenu.title("Menu")
         VentanaMenu.configure(bg='#E4E4E4')
-        VentanaMenu.geometry('700x200+500+100')
         VentanaMenu.withdraw()  # Oculta la ventana secundaria inicialmente
         #Creamos menubar
         menubar = tk.Menu(VentanaMenu)
+        #Insercion 
         if bandera==True:
                 menuinsercion = tk.Menu(menubar,tearoff=0)
                 menuinsercion.configure(bg='#C1B2A6')
@@ -59,7 +57,7 @@ def menu():
                 menuinsercion.add_command(label="Album")
                 menuinsercion.add_command(label="Cancion")
                 menubar.add_cascade(label="Insercion", menu=menuinsercion)
-
+        #Buscar
                 menubusqueda = tk.Menu(menubar,tearoff=0)
                 menubusqueda.configure(bg='#C1B2A6')
                 menubusqueda.add_command(label="Propietario")
@@ -90,6 +88,16 @@ def menu():
                 menubusqueda.add_command(label="Cancion")
                 menubar.add_cascade(label="Busqueda", menu=menubusqueda)
         VentanaMenu.config(menu=menubar)
+        
+        # Configuración de la ventana de busquedas
+        VentanaBusqueda = tk.Toplevel(ventanaLogin)
+        VentanaBusqueda.title("Busqueda")
+        VentanaBusqueda.configure(bg='#E4E4E4')
+        VentanaMenu.withdraw()  # Oculta la ventana secundaria inicialmente
+        
+        
+        
+        
         # Botón en la ventana menu para volver a login
         botonVolverMenuPrincipal = tk.Button(VentanaMenu, text="Volver a login", command=lambda:volverVentana(ventanaLogin,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         botonVolverMenuPrincipal.pack(pady=20)
