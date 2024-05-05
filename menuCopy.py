@@ -11,6 +11,7 @@ from tkinter import ttk
 from acciones import * 
 def menu():
         diccProptodo=leerProp()[0]#Devuelve una lista con membresias
+        diccAdmintodo=leerAdmin()
         diccMembresias=leerProp()[1]
         diccGentodo=leerGen()
         diccArttodo=leerArt()
@@ -30,7 +31,7 @@ def menu():
         codigo=tk.Entry(ventanaLogin,font="Arial")
         codigo.pack(pady=10)
         # Botón en la ventana login para ir a menu
-        iniciarSesion = tk.Button(ventanaLogin, text="Iniciar sesion", command= lambda:login(tipoUsuario,codigo.get(),diccProptodo,ventanaLogin,VentanaMenu))
+        iniciarSesion = tk.Button(ventanaLogin, text="Iniciar sesion", command= lambda:login(tipoUsuario.get(),codigo.get(),diccProptodo,diccAdmintodo,ventanaLogin,VentanaMenu))
         iniciarSesion.pack(pady=20)
         
         

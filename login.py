@@ -4,13 +4,15 @@
 #Brian Ramirez Arias 
 from busqueda import buscarProp #buscarProp
 from acciones import *
-def login(tipoUsuario,codigo,diccTodo,ventanaLogin,VentanaMenu):
-    if codigo not in list(diccTodo.keys()) :
+def login(tipoUsuario,codigo,diccProptodo,diccAdminTodo,ventanaLogin,VentanaMenu):
+    if  tipoUsuario=='Usuario' and codigo not in list(diccProptodo.keys()) :
         print('RegiSTRARSE')
-    elif codigo in list(diccTodo.keys()) and diccTodo[codigo]['estado']=='0':
+    elif  tipoUsuario=='Usuario' and codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='0':
         print('pAGAR')
-    else:
-         return irVentana(ventanaLogin,VentanaMenu,obtenerDimenciones(ventanaLogin))
+    elif  tipoUsuario=='Usuario'and codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='1':
+        return irVentana(ventanaLogin,VentanaMenu,obtenerDimenciones(ventanaLogin))
+    elif  tipoUsuario=='Administrador' and codigo in list(diccAdminTodo.keys()):
+        return irVentana(ventanaLogin,VentanaMenu,obtenerDimenciones(ventanaLogin))
 def registar(diccTodo,diccMembresias):
     estado='0'
     nombre= str(input('\n-->Digite el nombre de propiertario: '))

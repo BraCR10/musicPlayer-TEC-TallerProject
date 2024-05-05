@@ -18,9 +18,20 @@ def leerProp():
                     estado = columnas[3]
                     dicc[cod]={'nombre':nombre,'codMem':codMem,'estado':estado}
                     membresias[columnas[0]]=columnas[2]
-      
-    
+
     return dicc,membresias
+#Esta funcion lee un fichero llamado Genero.txt y retorna cada linea en una lista dentro de otra lista
+def leerAdmin(): 
+    archivo=open('Administrador.txt', 'r',encoding="utf8")
+    dicc={}
+    for linea in archivo:
+            linea = linea.rstrip("\n")  # Quitar salto de línea
+            columnas = linea.split(';')
+            if columnas[0] not in list(dicc.keys()) and (len(columnas)==2 or len(columnas)==3 ):
+                cod = columnas[0]
+                nombre = columnas[1]
+                dicc[cod]={'nombre':nombre}
+    return dicc  
 
 #Esta funcion lee un fichero llamado Genero.txt y retorna cada linea en una lista dentro de otra lista
 def leerGen(): 
