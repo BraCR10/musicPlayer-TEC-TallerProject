@@ -13,6 +13,8 @@ def login(tipoUsuario,codigo,diccProptodo,diccAdminTodo,ventanaLogin,VentanaMenu
         return irVentana(ventanaLogin,VentanaMenu,obtenerDimenciones(ventanaLogin))
     elif  tipoUsuario=='Administrador' and codigo in list(diccAdminTodo.keys()):
         return irVentana(ventanaLogin,VentanaMenu,obtenerDimenciones(ventanaLogin))
+    
+    
 def registar(diccTodo,diccMembresias):
     estado='0'
     nombre= str(input('\n-->Digite el nombre de propiertario: '))
