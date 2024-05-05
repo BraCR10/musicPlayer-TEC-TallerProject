@@ -25,3 +25,4 @@ def mostrarEnPantalla(etiqueta,dato):
     else:
         texto = dato 
     etiqueta.config(text=texto)  # Actualiza el texto de la etiqueta con el texto ingresado
+    
