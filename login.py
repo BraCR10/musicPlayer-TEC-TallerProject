@@ -4,32 +4,32 @@
 #Brian Ramirez Arias 
 from busqueda import buscarProp #buscarProp
 from acciones import *
-def login(tipoUsuario,codigo,diccProptodo,diccAdminTodo,ventanaLogin,VentanaMenu):
+def login(tipoUsuario,codigo,diccProptodo,ventanaRegistro,diccAdminTodo,ventanaLogin,VentanaMenu):
     if  tipoUsuario=='Usuario' and codigo not in list(diccProptodo.keys()) :
-        print('RegiSTRARSE')
+        return navegacionVentanas(ventanaRegistro,ventanaLogin,obtenerDimenciones(ventanaLogin))
     elif  tipoUsuario=='Usuario' and codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='0':
         print('pAGAR')
     elif  tipoUsuario=='Usuario'and codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='1':
         return navegacionVentanas(VentanaMenu,ventanaLogin,obtenerDimenciones(ventanaLogin))
     elif  tipoUsuario=='Administrador' and codigo in list(diccAdminTodo.keys()):
         return navegacionVentanas(VentanaMenu,ventanaLogin,obtenerDimenciones(ventanaLogin))
+
     
     
-def registar(diccTodo,diccMembresias):
+def registar(diccTodo,diccMembresias,nombre,etiqueta):
+    print(list(diccMembresias.values()))
     estado='0'
-    nombre= str(input('\n-->Digite el nombre de propiertario: '))
     cod=1
     codMem=1
     while str(cod) in list(diccTodo.keys()):
         cod+=1
     while str(codMem) in list(diccMembresias.values()):
         codMem+=1
+        #print(list(diccMembresias.values()))
     diccTodo[str(cod)]={'nombre':nombre,'codMem':str(codMem),'estado':estado}#Añade  un propietario al dict
-    diccMembresias[cod]=codMem
-    print(f'\n---> El nuevo propietario se ha registrado')
-    print('\nIMPORTANTE:\n')
-    print(f'>>>Su codigo de propietario es: {cod}')
-    print(f'\n>>>Su codigo de membresia es: {codMem}')
+    diccMembresias[str(cod)]=str(codMem)
+    mostrarEnPantalla(etiqueta,f"Registrado, su codigo{cod} y su membresia{codMem}")
+    
 
 def factura(diccTodo,codigo):
     print('\n--- Factura ---\n')
