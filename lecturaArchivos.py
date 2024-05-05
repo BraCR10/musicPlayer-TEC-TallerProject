@@ -10,7 +10,8 @@ def leerProp():
     for linea in archivo:
             linea = linea.rstrip("\n")  # Quitar salto de línea
             columnas = linea.split(';')
-            if columnas[0] not in list(dicc.keys())   and (columnas[3]=='1'or columnas[3]=='0' ) and columnas[2] not in list(membresias.values()):
+            
+            if  (len(columnas)==4 or len(columnas)==5 ) and columnas[0] not in list(dicc.keys())   and (columnas[3]=='1'or columnas[3]=='0' ) and columnas[2] not in list(membresias.values()):
                 if len(columnas)==4 or len(columnas)==5 :
                     cod = columnas[0]
                     nombre = columnas[1]
