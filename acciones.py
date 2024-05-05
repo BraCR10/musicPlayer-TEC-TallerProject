@@ -19,9 +19,5 @@ def verificadorUsuario(tipoUsuario):
     else:
         tipoUsuario= "Usuario" 
         
-def mostrarEnPantalla(etiqueta,dato):
-    if dato==None:
-        texto='No existe'
-    else:
-        texto = dato 
-    etiqueta.config(text=texto)  # Actualiza el texto de la etiqueta con el texto ingresado
+def mostrarEnPantalla(etiqueta):
+    

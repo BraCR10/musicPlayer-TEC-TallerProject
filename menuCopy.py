@@ -18,7 +18,6 @@ def menu():
         diccAlbumtodo=leerAlbum()
         diccPlaylisttodo=leerPlaylist()
         diccCancionestodo=leerCanciones()
-##########################################################################################################################################################################################
         # Configuración de la ventana login
         ventanaLogin = tk.Tk()
         ventanaLogin.title("Login")
@@ -36,38 +35,10 @@ def menu():
         codigo=tk.Entry(ventanaLogin,font="Arial")
         codigo.pack(pady=10)
         # Botón en la ventana login para ir a menu
-        iniciarSesion = tk.Button(ventanaLogin, text="Iniciar sesion", command= lambda:[login(tipoUsuario.get(),codigo.get(),diccProptodo,ventanaRegistro,diccAdmintodo,ventanaLogin,VentanaMenu)])
+        iniciarSesion = tk.Button(ventanaLogin, text="Iniciar sesion", command= lambda:[login(tipoUsuario.get(),codigo.get(),diccProptodo,diccAdmintodo,ventanaLogin,VentanaMenu)])
         iniciarSesion.pack(pady=20)
-##########################################################################################################################################################################################
-        #Configuracion de ventana de registro
-        ventanaRegistro=tk.Toplevel(ventanaLogin)
-        ventanaRegistro.title("Registro")
-        ventanaRegistro.configure(bg='#E4E4E4')
-        ventanaRegistro.withdraw()
-        #ventanaRegistro.resizable(0, 0)
-        #Grid
-        ventanaRegistro.columnconfigure(0, weight=3)
-        #Etiqueta de instruccion
-        Registarse=tk.Label(ventanaRegistro,text="Registrarse",font=("Arial",25),bg="#C1B2A6")
-        Registarse.grid(sticky=tk.N,pady=20)
-        #Etiqueta de instruccion
-        IngresarCodigo=tk.Label(ventanaRegistro,text="Ingrese su nombre",font=("Arial",16),bg="#C1B2A6")
-        IngresarCodigo.grid(sticky=tk.W,padx=35,pady=12)
-        #Nombre de usuario
-        nombre=tk.Entry(ventanaRegistro,font="Arial")
-        nombre.grid(sticky=tk.W,padx=40,pady=56)
-        #Etiqueta display
-        etiquetaRegistro=tk.Label(ventanaRegistro, text="  ")
-        etiquetaRegistro.grid(sticky=tk.W,padx=44,pady=30)
-        #Boton de registrar
         
-        accionRegistro = tk.Button(ventanaRegistro, text="Registrarse", command=lambda:registar(diccProptodo,diccMembresias,nombre.get(),etiquetaRegistro))
-        print(diccMembresias)
-        accionRegistro.grid(sticky=tk.W,padx=42,pady=20)
-        #Boton de Volver
-        botonDeRegistroALogin = tk.Button(ventanaRegistro, text="Volver a menu", command=lambda:navegacionVentanas(ventanaLogin,ventanaRegistro,obtenerDimenciones(ventanaRegistro)))
-        botonDeRegistroALogin.grid(sticky=tk.W,padx=46,pady=10)
-##########################################################################################################################################################################################       
+        
         # Configuración de la ventana menu
         VentanaMenu = tk.Toplevel(ventanaLogin)
         VentanaMenu.title("Menu")
@@ -120,7 +91,7 @@ def menu():
         # Botón en la ventana menu para volver a login
         botonCerrarSesion = tk.Button(VentanaMenu, text="Cerrar sesion", command=lambda:navegacionVentanas(ventanaLogin,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         botonCerrarSesion.pack(pady=20)
-##########################################################################################################################################################################################
+        
         # Configuración de la ventana de busquedas
         VentanaBusquedaPropietario = tk.Toplevel(ventanaLogin)
         VentanaBusquedaPropietario.title("Busqueda")
@@ -129,16 +100,10 @@ def menu():
         #Codigo de usuario
         codigoBusqueda=tk.Entry(VentanaBusquedaPropietario,font="Arial")
         codigoBusqueda.pack(pady=10)
-        #Etiqueta display
-        etiqueta=tk.Label(VentanaBusquedaPropietario, text="")
-        etiqueta.pack(pady=20)
-        #Boton de buscar
-        botonDeBusqueda= tk.Button(VentanaBusquedaPropietario, text="Buscar", command=lambda:mostrarEnPantalla(etiqueta,buscarProp(codigoBusqueda.get(),diccProptodo)))
-        botonDeBusqueda.pack(pady=20)
-        #Boton de volver
+        botonDeBusqueda= tk.Button(VentanaBusquedaPropietario, text="Buscar", command=lambda:buscarProp(codigoBusqueda.get(),diccProptodo))
         botonDeBusquedaAMenu = tk.Button(VentanaBusquedaPropietario, text="Volver a menu", command=lambda:navegacionVentanas(VentanaMenu,VentanaBusquedaPropietario,obtenerDimenciones(VentanaMenu)))
         botonDeBusquedaAMenu.pack(pady=20)
-##############################################################################################################################################
+        
         
         
         
