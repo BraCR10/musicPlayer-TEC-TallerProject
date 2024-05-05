@@ -3,6 +3,14 @@
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
 from busqueda import buscarProp #buscarProp
+from acciones import *
+def login(tipoUsuario,codigo,diccTodo,ventanaLogin,VentanaMenu):
+    if codigo not in list(diccTodo.keys()) :
+        print('RegiSTRARSE')
+    elif codigo in list(diccTodo.keys()) and diccTodo[codigo]['estado']=='0':
+        print('pAGAR')
+    else:
+         return irVentana(ventanaLogin,VentanaMenu,obtenerDimenciones(ventanaLogin))
 def registar(diccTodo,diccMembresias):
     estado='0'
     nombre= str(input('\n-->Digite el nombre de propiertario: '))
