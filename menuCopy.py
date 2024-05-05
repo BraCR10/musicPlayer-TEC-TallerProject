@@ -39,11 +39,37 @@ def menu():
         # Configuración de la ventana menu
         VentanaMenu = tk.Toplevel(ventanaLogin)
         VentanaMenu.title("Menu")
+        VentanaMenu.configure(bg='#E4E4E4')
+        VentanaMenu.geometry('700x200+500+100')
         VentanaMenu.withdraw()  # Oculta la ventana secundaria inicialmente
+        #Creamos menubar
+        menubar = tk.Menu(VentanaMenu)
+
+        menuinsercion = tk.Menu(menubar,tearoff=0)
+        menuinsercion.configure(bg='#C1B2A6')
+        menuinsercion.add_command(label="Propietario")
+        menuinsercion.add_command(label="Playlist")
+        menuinsercion.add_command(label="Genero")
+        menuinsercion.add_command(label="Artista")
+        menuinsercion.add_command(label="Album")
+        menuinsercion.add_command(label="Cancion")
+        menubar.add_cascade(label="Insercion", menu=menuinsercion)
+
+        menubusqueda = tk.Menu(menubar,tearoff=0)
+        menubusqueda.configure(bg='#C1B2A6')
+        menubusqueda.add_command(label="Propietario")
+        menubusqueda.add_command(label="Playlist")
+        menubusqueda.add_command(label="Genero")
+        menubusqueda.add_command(label="Artista")
+        menubusqueda.add_command(label="Album")
+        menubusqueda.add_command(label="Cancion")
+        menubar.add_cascade(label="Busqueda", menu=menubusqueda)
+        
+        VentanaMenu.config(menu=menubar)
         # Botón en la ventana menu para volver a login
         botonVolverMenuPrincipal = tk.Button(VentanaMenu, text="Volver a login", command=lambda:volverVentana(ventanaLogin,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         botonVolverMenuPrincipal.pack(pady=20)
 
         ventanaLogin.mainloop()
-    
+
 menu()
