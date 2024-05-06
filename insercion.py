@@ -3,27 +3,34 @@
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
 from lecturaArchivos import *
-
-def insertProp(diccTodo,diccMembresias):
-    cod =str(input('Digite el codigo de propiertario: '))
-    nombre= str(input('Digite el nombre de propiertario: '))
-    codMem =str(input('Digite el codigo de la membresia: '))
-    estado= str(input('Digite 0 para membresia inactiva o 1 para membresia activa : '))
-    if estado== '1' or estado== '0' :
-        if cod  not in list(diccTodo.keys()) and codMem not in list(diccMembresias.values()):#Validacion si codigo esta repetido
-            diccTodo[cod]={'nombre':nombre,'codMem':codMem,'estado':estado}#Añade  un propietario al dict
-            diccMembresias[cod]=codMem
-            print('\n---> El nuevo propietario se ha incluido!')
+from acciones import *
+from tkinter import messagebox
+def insertProp(diccTodo,diccMembresias,cod,nombre,codMem,estado,etiquetaConfirmacionInsercionProp):
+    
+    if estado.get()== '1' or estado.get()== '0' :
+        if cod.get()  not in list(diccTodo.keys()) :#Validacion si codigo esta repetido
+            if codMem.get() not in list(diccMembresias.values()):
+                diccTodo[cod.get()]={'nombre':nombre.get(),'codMem':codMem.get(),'estado':estado.get()}#Añade  un propietario al dict
+                diccMembresias[cod.get()]=codMem.get()
+                mostrarEnPantalla(etiquetaConfirmacionInsercionProp,"El propietario se ha insertado correctamente",)
+                limpiar_texto(nombre)
+                limpiar_texto(cod)
+                limpiar_texto(estado)
+                limpiar_texto(codMem)
+            else:
+                messagebox.showinfo("Alerta", "El codigo digitado de membresia ya existe, digite otro!")
+                limpiar_texto(codMem)
         else:
-            print('\n---> El codigo de propietario o de membresia ya esta en uso ') 
+            messagebox.showinfo("Alerta", "El codigo de propietario digitado ya existe, digite otro!")
+            limpiar_texto(cod)
+
     else:
-        print('\n--->El estado de la membresia debe ser 1 o 0, vuelva a insertar el usuario')
+        messagebox.showinfo("Alerta", "El estado de la membresia debe ser 1 o 0")
+        limpiar_texto(estado)
     return diccTodo,diccMembresias
 
-def insertPlaylist(diccTodo,diccTodoProp):
-    cod =str(input('Digite el codigo de la playlist: '))
-    nombre= str(input('Digite el nombre de la playlist: '))
-    codProp= str(input('Digite el codigo del propietario al que pertenece: '))
+def insertPlaylist(diccTodo,diccTodoProp,cod,nombre,codProp):
+
     if cod not in list(diccTodo.keys()) and codProp in list(diccTodoProp.keys()):#Validacion si codigo esta repetido
         if diccTodoProp[codProp]['estado']=="1":#Busca en el diccionario de Propietarios la key para ver si esta activo
             diccTodo[cod]={'nombre':nombre,'codProp':codProp}#Añade  una playlist al dict

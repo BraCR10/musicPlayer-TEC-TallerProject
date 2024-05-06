@@ -117,7 +117,7 @@ def menu():
         if bandera==True:
                 menuinsercion = tk.Menu(menubar,tearoff=0)
                 menuinsercion.configure(bg='#C1B2A6')
-                menuinsercion.add_command(label="Propietario")
+                menuinsercion.add_command(label="Propietario",command=lambda:navegacionVentanas(VentanaInsercionProp,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 menuinsercion.add_command(label="Playlist")
                 menuinsercion.add_command(label="Genero")
                 menuinsercion.add_command(label="Artista")
@@ -265,6 +265,57 @@ def menu():
         botonDeBusqueda.pack(pady=20)
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaBusquedaCancion, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaBusquedaCancion,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoBusquedaCancion),mostrarEnPantalla(etiquetaCancion,"")])
+        botonDeBusquedaAMenu.pack(pady=20)
+##############################################################################################################################################
+        # Configuración de la ventana de busquedas
+        VentanaInsercionProp= tk.Toplevel(ventanaLogin)
+        VentanaInsercionProp.title("Busqueda")
+        VentanaInsercionProp.configure(bg='#E4E4E4')
+        VentanaInsercionProp.withdraw()  # Oculta la ventana secundaria inicialmente
+        #Codigo de Propietario
+        codigoInsericionProp=tk.Entry(VentanaInsercionProp,font="Arial")
+        codigoInsericionProp.pack(pady=10)
+        #nombre de Prop
+        nombreInsercionProp=tk.Entry(VentanaInsercionProp,font="Arial")
+        nombreInsercionProp.pack(pady=10)
+        #Codigo de membresia
+        codigoInsercionMem=tk.Entry(VentanaInsercionProp,font="Arial")
+        codigoInsercionMem.pack(pady=10)
+        #estado
+        estadoInsercionMem=tk.Entry(VentanaInsercionProp,font="Arial")
+        estadoInsercionMem.pack(pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionInsercionProp=tk.Label(VentanaInsercionProp, text="")
+        etiquetaConfirmacionInsercionProp.pack(pady=20)
+        #Boton de buscar
+        botonDeinsercion= tk.Button(VentanaInsercionProp, text="Buscar", command=lambda:insertProp(diccProptodo,diccMembresias,codigoInsericionProp,nombreInsercionProp,codigoInsercionMem,estadoInsercionMem,etiquetaConfirmacionInsercionProp))
+        botonDeinsercion.pack(pady=20)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaInsercionProp, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaInsercionProp,obtenerDimenciones(VentanaMenu)),limpiar_texto(nombreInsercionProp),limpiar_texto(codigoInsercionMem),limpiar_texto(estadoInsercionMem),limpiar_texto(codigoInsericionProp),mostrarEnPantalla(etiquetaConfirmacionInsercionProp,"")])
+        botonDeBusquedaAMenu.pack(pady=20)
+##############################################################################################################################################
+        # Configuración de la ventana de busquedas
+        VentanaInsercionPlaylist= tk.Toplevel(ventanaLogin)
+        VentanaInsercionPlaylist.title("Busqueda")
+        VentanaInsercionPlaylist.configure(bg='#E4E4E4')
+        VentanaInsercionPlaylist.withdraw()  # Oculta la ventana secundaria inicialmente
+        #Codigo de Playlist
+        codigoInsericionPlaylist=tk.Entry(VentanaInsercionPlaylist,font="Arial")
+        codigoInsericionPlaylist.pack(pady=10)
+        #Nombre de Playlist
+        nombreInsercionPlaylist=tk.Entry(VentanaInsercionPlaylist,font="Arial")
+        nombreInsercionPlaylist.pack(pady=10)
+        #Codigo Prop
+        codigoPropInsercionPlaylist=tk.Entry(VentanaInsercionPlaylist,font="Arial")
+        codigoPropInsercionPlaylist.pack(pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionInsercionPlaylist=tk.Label(VentanaInsercionPlaylist, text="")
+        etiquetaConfirmacionInsercionPlaylist.pack(pady=20)
+        #Boton de buscar
+        botonDeinsercion= tk.Button(VentanaInsercionPlaylist, text="Buscar", command=lambda:insertPlaylist(diccPlaylisttodo,diccProptodo,codigoInsericionPlaylist,nombreInsercionPlaylist,codigoPropInsercionPlaylist))
+        botonDeinsercion.pack(pady=20)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaInsercionPlaylist, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaInsercionPlaylist,obtenerDimenciones(VentanaMenu)),limpiar_texto(nombreInsercionPlaylist),limpiar_texto(codigoInsericionPlaylist),limpiar_texto(codigoPropInsercionPlaylist),mostrarEnPantalla(etiquetaConfirmacionInsercionPlaylist,"")])
         botonDeBusquedaAMenu.pack(pady=20)
 ##############################################################################################################################################
         
