@@ -55,7 +55,7 @@ def loginVentana():
         tipoUsuario.current(1)
         tipoUsuario.grid(pady=0,sticky=tk.N)
         #Codigo de usuario
-        codigolabel=tk.Label(ventanaLogin,text="Digite su código de propietario:",font=("Sitka Text Semibold",15),bg="#28342C", foreground='#E4E4E4')
+        codigolabel=tk.Label(ventanaLogin,text="Digite su código de propietario o administrador:",font=("Sitka Text Semibold",15),bg="#28342C", foreground='#E4E4E4')
         codigolabel.grid(pady=50,sticky=tk.N)
         codigo=tk.Entry(ventanaLogin,font=("Times New Roman",15),background='#E4E4E4')
         codigo.grid(pady=0,sticky=tk.N)
