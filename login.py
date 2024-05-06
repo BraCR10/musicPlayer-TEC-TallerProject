@@ -4,20 +4,24 @@
 #Brian Ramirez Arias 
 from busqueda import buscarProp #buscarProp
 from acciones import *
-def login(tipoUsuario,codigo,diccProptodo,ventanaRegistro,diccAdminTodo,ventanaLogin,VentanaMenu):
+from tkinter import messagebox
+
+
+def login(tipoUsuario,codigo,diccProptodo,ventanaPago,ventanaRegistro,diccAdminTodo,ventanaLogin,VentanaMenu):
     if  tipoUsuario=='Usuario' and codigo not in list(diccProptodo.keys()) :
         return navegacionVentanas(ventanaRegistro,ventanaLogin,obtenerDimenciones(ventanaLogin))
     elif  tipoUsuario=='Usuario' and codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='0':
-        print('pAGAR')
+        return navegacionVentanas(ventanaPago,ventanaLogin,obtenerDimenciones(ventanaLogin))
     elif  tipoUsuario=='Usuario'and codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='1':
         return navegacionVentanas(VentanaMenu,ventanaLogin,obtenerDimenciones(ventanaLogin))
     elif  tipoUsuario=='Administrador' and codigo in list(diccAdminTodo.keys()):
         return navegacionVentanas(VentanaMenu,ventanaLogin,obtenerDimenciones(ventanaLogin))
+    elif tipoUsuario=='Administrador' and codigo not in list(diccAdminTodo.keys()):
+        messagebox.showinfo("Alerta", "El codigo no pertenece a ningun administrador")
 
     
     
 def registar(diccTodo,diccMembresias,nombre,etiqueta):
-    print(list(diccMembresias.values()))
     estado='0'
     cod=1
     codMem=1
@@ -25,7 +29,6 @@ def registar(diccTodo,diccMembresias,nombre,etiqueta):
         cod+=1
     while str(codMem) in list(diccMembresias.values()):
         codMem+=1
-        #print(list(diccMembresias.values()))
     diccTodo[str(cod)]={'nombre':nombre,'codMem':str(codMem),'estado':estado}#Añade  un propietario al dict
     diccMembresias[str(cod)]=str(codMem)
     mostrarEnPantalla(etiqueta,f"Registrado, su codigo{cod} y su membresia{codMem}")
@@ -68,15 +71,15 @@ def exportarTXT(diccTodo,codigo,contFacturas):
     reporte.close()#Cierra el archivo
     print(f'\n ---> La factura  se ha creado correctamente')
     
-def pagar(diccTodo,diccMembresias,codigo):
-    print('\n--- Pago ---\n')
-    print('-----------------------------------------------')
-    temp=str(input('Digite los ultimos cuatro digitos de su tarjeta: '))
-    print('-----------------------------------------------')
-    temp=str(input('\nDigite la fecha de vencimiento de su tarjeta(mes/año): '))
-    print('-----------------------------------------------')
-    temp=str(input('\nDigite sus 3 digitos de seguridad en su tarjeta: '))
-    print('-----------------------------------------------')
-    print('\n -->La cuenta a sido activada, disfrute del reproductor!')
+def pagar(diccTodo,diccMembresias,codigo,etiqueta):
     diccTodo[codigo]['estado']='1'
-    diccMembresias[codigo]='1'
+    mostrarEnPantalla(etiqueta,"Su usuario a sido activado vuelva al login")
+    #diccMembresias[codigo]='1'
+    
+    
+    
+
+    
+
+
+    

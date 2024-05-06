@@ -26,3 +26,5 @@ def mostrarEnPantalla(etiqueta,dato):
         texto = dato 
     etiqueta.config(text=texto)  # Actualiza el texto de la etiqueta con el texto ingresado
     
+def limpiar_texto(caja):
+    caja.delete(0, tk.END)  # Borra todo el contenido del cuadro de texto
