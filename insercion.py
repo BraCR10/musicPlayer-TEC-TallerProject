@@ -89,19 +89,32 @@ def insertAlbum(diccTodo,diccTodoArt,cod,nombre,codArt,etiquetaConfirmacionInser
     return diccTodo
 
 def insertCanciones(diccTodo,diccTodoArt,diccTodoAlbum,diccTodoGen,diccTodoPlaylist,cod,nombre,codArt,codAlb,codGen,codPlaylist,etiquetaConfirmacionInsercionCancion):
-    if cod not in list(diccTodo.keys()):
-        if codArt in list(diccTodoArt.keys()):
-            if codAlb in list(diccTodoAlbum.keys()) :
-                if codGen in list(diccTodoGen.keys()) :
-                    if codPlaylist in list(diccTodoPlaylist.keys()):#Validacion si codigo esta repetido
-                        diccTodo[cod]={'nombre':nombre,'codArt':codArt,'codAlb':codAlb,'codGen':codGen,'codPlaylist':codPlaylist}#Añade  una playlist al dict
-                        mostrarEnPantalla(etiquetaConfirmacionInsercionCancion,"El album se ha insertado correctamente",)
+    if cod.get() not in list(diccTodo.keys()):
+        if codArt.get() in list(diccTodoArt.keys()):
+            if codAlb.get() in list(diccTodoAlbum.keys()) :
+                if codGen.get() in list(diccTodoGen.keys()) :
+                    if codPlaylist.get() in list(diccTodoPlaylist.keys()):#Validacion si codigo esta repetido
+                        diccTodo[cod.get()]={'nombre':nombre.get(),'codArt':codArt.get(),'codAlb':codAlb.get(),'codGen':codGen.get(),'codPlaylist':codPlaylist.get()}#Añade  una playlist al dict
+                        mostrarEnPantalla(etiquetaConfirmacionInsercionCancion,"La cancion se ha insertado correctamente",)
                         limpiar_texto(nombre)
                         limpiar_texto(cod)
                         limpiar_texto(codArt)
+                        limpiar_texto(codGen)
+                        limpiar_texto(codAlb)
+                        limpiar_texto(codPlaylist)
                     else:
-                        messagebox.showinfo("Alerta", "El codigo digitado de artista no existe, digite otro existente!")
-                        limpiar_texto(codArt)
+                        messagebox.showinfo("Alerta", "El codigo digitado de playlist no existe, digite otro existente!")
+                        limpiar_texto(codPlaylist)
+                else:
+                    messagebox.showinfo("Alerta", "El codigo digitado de genero no existe, digite otro existente!")
+                    limpiar_texto(codGen)
+            else:
+                messagebox.showinfo("Alerta", "El codigo digitado de album no existe, digite otro existente!")
+                limpiar_texto(codAlb)
+        else:
+            messagebox.showinfo("Alerta", "El codigo digitado de artista no existe, digite otro existente!")
+            limpiar_texto(codArt)
     else:
-        print('\n---> El codigo de cancion ya esta en uso o alguno de los codigos de los requerimientos asociados no existe')    
+        messagebox.showinfo("Alerta", "El codigo digitado de cancion ya existe, digite otro!")
+        limpiar_texto(cod)
     return diccTodo
