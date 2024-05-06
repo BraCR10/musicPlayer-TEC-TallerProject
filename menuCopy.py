@@ -5,24 +5,44 @@
 from lecturaArchivos import *#leerAlbum,leerArt,leerCanciones,leerGen,leerPlaylist,leerProp
 from insercion import *#insertAlbum,insertArt,insertCanciones,insertGen,insertPlaylist,insertProp
 from busqueda import * #buscarAlbum,buscarArtista,buscarCancion,buscarGenero,buscarPlaylist,buscarProp
-from login import *#registar,pagar,exportarTXT,factura
 import tkinter as tk
 from tkinter import ttk
 from acciones import * 
-def menu():
-        diccProptodo=leerProp()[0]#Devuelve una lista con membresias
-        diccAdmintodo=leerAdmin()
-        diccMembresias=leerProp()[1]
-        diccGentodo=leerGen()
-        diccArttodo=leerArt()
-        diccAlbumtodo=leerAlbum()
-        diccPlaylisttodo=leerPlaylist()
-        diccCancionestodo=leerCanciones()
+
+
+diccProptodo=leerProp()[0]#Devuelve una lista con membresias
+diccAdmintodo=leerAdmin()
+diccMembresias=leerProp()[1]
+diccGentodo=leerGen()
+diccArttodo=leerArt()
+diccAlbumtodo=leerAlbum()
+diccPlaylisttodo=leerPlaylist()
+diccCancionestodo=leerCanciones()
+######################################################################################################################################
+ventanaLogin = tk.Tk()
+VentanaMenu = tk.Toplevel(ventanaLogin)
+VentanaMenu.withdraw()  # Oculta la ventana secundaria inicialmente
+verificadorElementosMenu=False
+#######################################################################################################################################################################################
+def login(tipoUsuario,codigo,diccProptodo,ventanaPago,ventanaRegistro,diccAdminTodo,ventanaLogin,VentanaMenu):
+    if  tipoUsuario=='Usuario' and codigo not in list(diccProptodo.keys()) :
+        return navegacionVentanas(ventanaRegistro,ventanaLogin,obtenerDimenciones(ventanaLogin))
+    elif  tipoUsuario=='Usuario' and codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='0':
+        return navegacionVentanas(ventanaPago,ventanaLogin,obtenerDimenciones(ventanaLogin))
+    elif  tipoUsuario=='Usuario'and codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='1':
+        menu(tipoUsuario,codigo)
+        return navegacionVentanas(VentanaMenu,ventanaLogin,obtenerDimenciones(ventanaLogin))
+    elif  tipoUsuario=='Administrador' and codigo in list(diccAdminTodo.keys()):
+        menu(tipoUsuario,codigo)
+        return navegacionVentanas(VentanaMenu,ventanaLogin,obtenerDimenciones(ventanaLogin))
+    elif tipoUsuario=='Administrador' and codigo not in list(diccAdminTodo.keys()):
+        messagebox.showinfo("Alerta", "El codigo no pertenece a ningun administrador")
+#######################################################################################################################################################################################
+def loginVentana():
         ##########################################################################################################################################################################################
         # Configuración de la ventana login
-        ventanaLogin = tk.Tk()
         ventanaLogin.title("Login")
-        ventanaLogin.geometry("600x600+170+100")
+        ventanaLogin.geometry(f"{ventanaLogin.winfo_screenwidth()}x{ventanaLogin.winfo_screenheight()}")
         ventanaLogin.columnconfigure(0,weight=3)
         ventanaLogin.configure(bg='#D5CEC1')
         ventanaLogin.attributes('-topmost', True)  # Mantiene la ventana en la parte superior
@@ -34,15 +54,13 @@ def menu():
         tipoUsuario= ttk.Combobox(ventanaLogin,values=["Administrador", "Usuario"],font=("Times New Roman",15))
         tipoUsuario.current(1)
         tipoUsuario.grid(pady=0,sticky=tk.N)
-
         #Codigo de usuario
-        codigolabel=tk.Label(ventanaLogin,text="Digite su código:",font=("Sitka Text Semibold",15),bg="#28342C", foreground='#E4E4E4')
+        codigolabel=tk.Label(ventanaLogin,text="Digite su código de propietario:",font=("Sitka Text Semibold",15),bg="#28342C", foreground='#E4E4E4')
         codigolabel.grid(pady=50,sticky=tk.N)
-
         codigo=tk.Entry(ventanaLogin,font=("Times New Roman",15),background='#E4E4E4')
         codigo.grid(pady=0,sticky=tk.N)
         # Botón en la ventana login para ir a menu
-        iniciarSesion = tk.Button(ventanaLogin, text="Iniciar sesion", command= lambda:[login(tipoUsuario.get(),codigo.get(),diccProptodo,ventanaPago,ventanaRegistro,diccAdmintodo,ventanaLogin,VentanaMenu),mostrarEnPantalla(confg,tipoUsuario.get())], font=("Times New Roman",15),bg='#102512',fg='#E4E4E4')
+        iniciarSesion = tk.Button(ventanaLogin, text="Iniciar sesion", command= lambda:[login(tipoUsuario.get(),codigo.get(),diccProptodo,ventanaPago,ventanaRegistro,diccAdmintodo,ventanaLogin,VentanaMenu)], font=("Times New Roman",15),bg='#102512',fg='#E4E4E4')
         iniciarSesion.grid(pady=20,sticky=tk.N)
         confg=tk.Label(ventanaLogin,text="Digite su código:",bg="#D5CEC1", foreground='#D5CEC1')
         confg.grid(pady=60,sticky=tk.N)
@@ -85,9 +103,6 @@ def menu():
         #Etiqueta de instruccion
         pago=tk.Label(ventanaPago,text="Pago",font=("Sitka Text Semibold",25),bg="#28342C",fg="#E4E4E4")
         pago.grid(sticky=tk.N,pady=20)
-        #Etiqueta de instruccion
-        #IngresarCodigo=tk.Label(ventanaPago,text="Ingrese su nombre",font=("Arial",16),bg="#C1B2A6")
-        #IngresarCodigo.grid(sticky=tk.W,padx=35,pady=12)
         #Nombre de usuario
         NumTrabLabel1=tk.Label(ventanaPago,text="Digite su numero de tarjeta:",font=("Sitka Text Semibold",15),bg="#28342C",fg="#E4E4E4")
         NumTrabLabel1.grid(sticky=tk.N,pady=15)
@@ -110,12 +125,22 @@ def menu():
         #Boton de Volver
         botonDeRegistroALogin = tk.Button(ventanaPago, text="Volver a menu", command=lambda:navegacionVentanas(ventanaLogin,ventanaPago,obtenerDimenciones(ventanaPago)),font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
         botonDeRegistroALogin.grid(sticky=tk.N,pady=15)
+        ventanaLogin.mainloop()
+def menu(tipoUsuario,codigoUsuario):
         ##########################################################################################################################################################################################       
+        global verificadorElementosMenu
+        if not verificadorElementosMenu:
+                #Bienvenida
+                etiquetaBienvenida=tk.Label(VentanaMenu, text=f"Bienvenid@ {buscarProp(codigoUsuario,diccProptodo)}!",font=("Times New Roman",15),background='#D5CEC1')
+                etiquetaBienvenida.pack(pady=10)
+                # Botón en la ventana menu para volver a login
+                botonCerrarSesion = tk.Button(VentanaMenu, text="Cerrar sesion", command=lambda:navegacionVentanas(ventanaLogin,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                botonCerrarSesion.pack(pady=20)
+                verificadorElementosMenu=True
+        
         # Configuración de la ventana menu
-        VentanaMenu = tk.Toplevel(ventanaLogin)
         VentanaMenu.title("Menu")
         VentanaMenu.configure(bg='#E4E4E4')
-        VentanaMenu.withdraw()  # Oculta la ventana secundaria inicialmente
         #Creamos menubar
         menubar = tk.Menu(VentanaMenu)
         #PopUp globales para usuarios y admins
@@ -130,7 +155,10 @@ def menu():
         menubusqueda.add_command(label="Cancion",command=lambda:navegacionVentanas(VentanaBusquedaCancion,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         menubar.add_cascade(label="Busqueda", menu=menubusqueda)
 
-        if tipoUsuario.get()=="Administrador":
+        if tipoUsuario=="Administrador":
+                #Busqueda
+                menubusqueda.add_command(label="Administrador",command=lambda:navegacionVentanas(VentanaBusquedaAdm,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                #Insertar
                 menuinsercion = tk.Menu(menubar,tearoff=0)
                 menuinsercion.configure(bg='#C1B2A6')
                 menuinsercion.add_command(label="Propietario",command=lambda:navegacionVentanas(VentanaInsercionProp,VentanaMenu,obtenerDimenciones(VentanaMenu)))
@@ -139,22 +167,25 @@ def menu():
                 menuinsercion.add_command(label="Artista",command=lambda:navegacionVentanas(VentanaInsercionArtista,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 menuinsercion.add_command(label="Album",command=lambda:navegacionVentanas(VentanaInsercionAlbum,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 menuinsercion.add_command(label="Cancion",command=lambda:navegacionVentanas(VentanaInsercionCancion,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menuinsercion.add_command(label="Administrador",command=lambda:navegacionVentanas(VentanaInsercionAdm,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 menubar.add_cascade(label="Insercion", menu=menuinsercion)
-        elif tipoUsuario.get()=="Usuario":
+        elif tipoUsuario=="Usuario":
+                #Busqueda
+                menubusqueda.add_command(label="Administrador",foreground='#E4E4E4')
+                #Insercion
                 menuinsercion = tk.Menu(menubar,tearoff=0)
                 menuinsercion.configure(bg='#C1B2A6')
-                menuinsercion.add_command(label="Propietario",background='#A6A6A6')
-                menuinsercion.add_command(label="Playlist",background='#A6A6A6')
-                menuinsercion.add_command(label="Genero",background='#A6A6A6')
-                menuinsercion.add_command(label="Artista",background='#A6A6A6')
-                menuinsercion.add_command(label="Album",background='#A6A6A6')
-                menuinsercion.add_command(label="Cancion",background='#A6A6A6')
+                menuinsercion.add_command(label="Propietario",foreground='#E4E4E4')
+                menuinsercion.add_command(label="Playlist",foreground='#E4E4E4')
+                menuinsercion.add_command(label="Genero",foreground='#E4E4E4')
+                menuinsercion.add_command(label="Artista",foreground='#E4E4E4')
+                menuinsercion.add_command(label="Album",foreground='#E4E4E4')
+                menuinsercion.add_command(label="Cancion",foreground='#E4E4E4')
+                menuinsercion.add_command(label="Administrador",foreground='#E4E4E4')
                 menubar.add_cascade(label="Insercion", background='#A6A6A6', menu=menuinsercion)
 
         VentanaMenu.config(menu=menubar)
-        # Botón en la ventana menu para volver a login
-        botonCerrarSesion = tk.Button(VentanaMenu, text="Cerrar sesion", command=lambda:navegacionVentanas(ventanaLogin,VentanaMenu,obtenerDimenciones(VentanaMenu)))
-        botonCerrarSesion.pack(pady=20)
+
         ##########################################################################################################################################################################################
 # Configuración de la ventana de busquedas
         VentanaBusquedaPropietario = tk.Toplevel(ventanaLogin)
@@ -227,6 +258,32 @@ def menu():
         botonDeBusqueda.grid(sticky=tk.N,pady=10)
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaBusquedaGenero, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaBusquedaGenero,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoBusquedaGenero),mostrarEnPantalla(etiquetaGenero,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+##############################################################################################################################################
+# Configuración de la ventana de busquedas
+        VentanaBusquedaAdm= tk.Toplevel(ventanaLogin)
+        VentanaBusquedaAdm.title("Busqueda")
+        VentanaBusquedaAdm.configure(bg='#D5CEC1')
+        VentanaBusquedaAdm.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaBusquedaAdm.columnconfigure(0,weight=3)
+
+        TituloBusAdm=tk.Label(VentanaBusquedaAdm,text='Busqueda de administrador', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloBusAdm.grid(sticky=tk.N,pady=10)
+        DigitecodAdm=tk.Label(VentanaBusquedaAdm,text='Digite el codigo de administrador:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigitecodAdm.grid(sticky=tk.N,pady=10)
+
+        #Codigo de usuario
+        codigoBusquedaAdm=tk.Entry(VentanaBusquedaAdm,font=("Times New Roman",15),background='#E4E4E4')
+        codigoBusquedaAdm.grid(sticky=tk.N,pady=10)
+        
+        #Etiqueta display
+        etiquetaAdm=tk.Label(VentanaBusquedaAdm, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaAdm.grid(sticky=tk.N,pady=10)
+        #Boton de buscar
+        botonDeBusqueda= tk.Button(VentanaBusquedaAdm, text="Buscar", command=lambda:mostrarEnPantalla(etiquetaAdm, buscarGenero(codigoBusquedaAdm.get(),diccAdmintodo)),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusqueda.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaBusquedaAdm, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaBusquedaAdm,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoBusquedaAdm),mostrarEnPantalla(etiquetaAdm,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
 ##############################################################################################################################################
         # Configuración de la ventana de busquedas
@@ -454,11 +511,32 @@ def menu():
         botonDeBusquedaAMenu = tk.Button(VentanaInsercionCancion, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaInsercionCancion,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoInsericionCancion),limpiar_texto(nombreInsercionCancion),limpiar_texto(codigoArtInsercionCancion),limpiar_texto(codigoAlbInsercionCancion),limpiar_texto(codigoGenInsercionCancion),limpiar_texto(codigoPlaylistInsercionCancion),mostrarEnPantalla(etiquetaConfirmacionInsercionCancion,"")])
         botonDeBusquedaAMenu.pack(pady=20)
         ##############################################################################################################################################
+         # Configuración de la ventana de insercion
+        VentanaInsercionAdm= tk.Toplevel(ventanaLogin)
+        VentanaInsercionAdm.title("Insercion")
+        VentanaInsercionAdm.configure(bg='#E4E4E4')
+        VentanaInsercionAdm.withdraw()  # Oculta la ventana secundaria inicialmente
+        #Codigo de Genero
+        codigoInsericionAdm=tk.Entry(VentanaInsercionAdm,font="Arial")
+        codigoInsericionAdm.pack(pady=10)
+        #Nombre de Genero
+        nombreInsercionAdm=tk.Entry(VentanaInsercionAdm,font="Arial")
+        nombreInsercionAdm.pack(pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionInsercionAdm=tk.Label(VentanaInsercionAdm, text="")
+        etiquetaConfirmacionInsercionAdm.pack(pady=20)
+        #Boton de buscar
+        botonDeinsercion= tk.Button(VentanaInsercionAdm, text="Insertar", command=lambda:insertAdm(diccAdmintodo,codigoInsericionAdm,nombreInsercionAdm,etiquetaConfirmacionInsercionAdm))
+        botonDeinsercion.pack(pady=20)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaInsercionAdm, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaInsercionAdm,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoInsericionAdm),limpiar_texto(nombreInsercionAdm),mostrarEnPantalla(etiquetaConfirmacionInsercionAdm,"")])
+        botonDeBusquedaAMenu.pack(pady=20)
+        ##############################################################################################################################################
 
 
 
 
+        
+loginVentana()
 
-        ventanaLogin.mainloop()
-menu()
 

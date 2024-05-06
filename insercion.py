@@ -56,6 +56,17 @@ def insertGen(diccTodo,cod,nombre,etiquetaConfirmacionInsercionGen):
         limpiar_texto(cod)      
     return diccTodo
 
+def insertAdm(diccTodo,cod,nombre,etiquetaConfirmacionInsercionAdm):
+    if cod.get() not in  list(diccTodo.keys()):#Validacion si codigo esta repetido
+        diccTodo[cod.get()]={'nombre':nombre.get()}#Añade  un administrador al dict
+        mostrarEnPantalla(etiquetaConfirmacionInsercionAdm,"El administrador se ha insertado correctamente",)
+        limpiar_texto(nombre)
+        limpiar_texto(cod)
+    else:
+        messagebox.showinfo("Alerta", "El codigo digitado de administrador  ya existe, digite otro!")
+        limpiar_texto(cod)      
+    return diccTodo
+
 def insertArt(diccTodo,diccTodoGen,cod,nombre,codGen,etiquetaConfirmacionInsercionArt):
     if cod.get() not in list(diccTodo.keys()):
         if codGen.get() in list(diccTodoGen.keys()):#Validacion si codigo esta repetido

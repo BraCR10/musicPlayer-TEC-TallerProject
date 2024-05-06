@@ -25,6 +25,11 @@ def buscarGenero(codGenero,diccGentodo):
     for i in list(diccGentodo.keys()):
         if i==codGenero:
             return diccGentodo[i]['nombre']
+        
+def buscarAdministrador(codAdm,diccAdmtodo):
+    for i in list(diccAdmtodo.keys()):
+        if i==codAdm:
+            return diccAdmtodo[i]['nombre']
 
 def buscarArtista(codArt,diccArttodo,diccGentodo):
     for i in list(diccArttodo.keys()):
