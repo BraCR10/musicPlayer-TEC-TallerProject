@@ -29,60 +29,79 @@ def insertProp(diccTodo,diccMembresias,cod,nombre,codMem,estado,etiquetaConfirma
         limpiar_texto(estado)
     return diccTodo,diccMembresias
 
-def insertPlaylist(diccTodo,diccTodoProp,cod,nombre,codProp):
-
-    if cod not in list(diccTodo.keys()) and codProp in list(diccTodoProp.keys()):#Validacion si codigo esta repetido
-        if diccTodoProp[codProp]['estado']=="1":#Busca en el diccionario de Propietarios la key para ver si esta activo
-            diccTodo[cod]={'nombre':nombre,'codProp':codProp}#Añade  una playlist al dict
-            print('\n---> La nueva playlist se ha incluido!')
+def insertPlaylist(diccTodo,diccTodoProp,cod,nombre,codProp,etiquetaConfirmacionInsercionPlaylist):
+    if cod.get() not in list(diccTodo.keys()) :#Validacion si codigo esta repetido
+        if codProp.get() in list(diccTodoProp.keys()):
+            diccTodo[cod.get()]={'nombre':nombre.get(),'codProp':codProp.get()}#Añade  una playlist al dict
+            mostrarEnPantalla(etiquetaConfirmacionInsercionPlaylist,"La playlist se ha insertado correctamente",)
+            limpiar_texto(nombre)
+            limpiar_texto(cod)
+            limpiar_texto(codProp)
         else:
-            print('\n---> No se puede insertar la playlist debido a que el propietario no esta activo!')
+            messagebox.showinfo("Alerta", "El codigo digitado de propietario no existe, digite otro existente!")
+            limpiar_texto(codProp)
     else:
-        print('\n---> El codigo de playlist ya esta en uso o el codigo de propietario no existe')    
+        messagebox.showinfo("Alerta", "El codigo digitado de playlist ya existe, digite otro!")
+        limpiar_texto(cod)  
     return diccTodo
 
-def insertGen(diccTodo):
-    cod =str(input('Digite el codigo del genero: '))
-    nombre= str(input('Digite el nombre del genero: '))
-    if cod not in  list(diccTodo.keys()):#Validacion si codigo esta repetido
-        diccTodo[cod]={'nombre':nombre}#Añade  un genero al dict
-        print('\n---> El nuevo genero se ha incluido!')
+def insertGen(diccTodo,cod,nombre,etiquetaConfirmacionInsercionGen):
+    if cod.get() not in  list(diccTodo.keys()):#Validacion si codigo esta repetido
+        diccTodo[cod.get()]={'nombre':nombre.get()}#Añade  un genero al dict
+        mostrarEnPantalla(etiquetaConfirmacionInsercionGen,"El genero se ha insertado correctamente",)
+        limpiar_texto(nombre)
+        limpiar_texto(cod)
     else:
-        print('\n---> El codigo del genero ya esta en uso')       
+        messagebox.showinfo("Alerta", "El codigo digitado de genero  ya existe, digite otro!")
+        limpiar_texto(cod)      
     return diccTodo
 
-def insertArt(diccTodo,diccTodoGen):
-    cod =str(input('Digite el codigo del artista: '))
-    nombre= str(input('Digite el nombre del artista: '))
-    codGen= str(input('Digite el codigo del genero al que pertenece: '))
-    if cod not in list(diccTodo.keys()) and codGen in list(diccTodoGen.keys()):#Validacion si codigo esta repetido
-        diccTodo[cod]={'nombre':nombre,'codGen':codGen}#Añade  una playlist al dict
-        print('\n---> El nuevo artista se ha incluido!')
+def insertArt(diccTodo,diccTodoGen,cod,nombre,codGen,etiquetaConfirmacionInsercionArt):
+    if cod.get() not in list(diccTodo.keys()):
+        if codGen.get() in list(diccTodoGen.keys()):#Validacion si codigo esta repetido
+            diccTodo[cod.get()]={'nombre':nombre.get(),'codGen':codGen.get()}#Añade  una playlist al dict
+            mostrarEnPantalla(etiquetaConfirmacionInsercionArt,"El artista se ha insertado correctamente",)
+            limpiar_texto(nombre)
+            limpiar_texto(cod)
+            limpiar_texto(codGen)
+        else:
+            messagebox.showinfo("Alerta", "El codigo digitado de genero no existe, digite otro existente!")
+            limpiar_texto(codGen)
     else:
-        print('\n---> El codigo de artista ya esta en uso o el codigo de genero no existe')    
+        messagebox.showinfo("Alerta", "El codigo digitado de artista ya existe, digite otro!")
+        limpiar_texto(cod)     
     return diccTodo
 
-def insertAlbum(diccTodo,diccTodoArt):
-    cod =str(input('Digite el codigo del album: '))
-    nombre= str(input('Digite el nombre del album: '))
-    codArt= str(input('Digite el codigo del artista al que pertenece: '))
-    if cod not in list(diccTodo.keys()) and codArt in list(diccTodoArt.keys()):#Validacion si codigo esta repetido
-        diccTodo[cod]={'nombre':nombre,'codArt':codArt}#Añade  una playlist al dict
-        print('\n---> El nuevo album se ha incluido!')
+def insertAlbum(diccTodo,diccTodoArt,cod,nombre,codArt,etiquetaConfirmacionInsercionAlb):
+    if cod.get() not in list(diccTodo.keys()) :
+        if codArt.get() in list(diccTodoArt.keys()):#Validacion si codigo esta repetido
+            diccTodo[cod.get()]={'nombre':nombre.get(),'codArt':codArt.get()}#Añade  una playlist al dict
+            mostrarEnPantalla(etiquetaConfirmacionInsercionAlb,"El album se ha insertado correctamente",)
+            limpiar_texto(nombre)
+            limpiar_texto(cod)
+            limpiar_texto(codArt)
+        else:
+            messagebox.showinfo("Alerta", "El codigo digitado de artista no existe, digite otro existente!")
+            limpiar_texto(codArt)
     else:
-        print('\n---> El codigo de album ya esta en uso o el codigo de artista no existe')    
+        messagebox.showinfo("Alerta", "El codigo digitado de album ya existe, digite otro!")
+        limpiar_texto(cod)     
     return diccTodo
 
-def insertCanciones(diccTodo,diccTodoArt,diccTodoAlbum,diccTodoGen,diccTodoPlaylist):
-    cod =str(input('Digite el codigo de la cancion: '))
-    nombre= str(input('Digite el nombre de la cancion: '))
-    codArt= str(input('Digite el codigo del artista al que pertenece: '))
-    codAlb= str(input('Digite el codigo del album al que pertenece: '))
-    codGen= str(input('Digite el codigo del genero al que pertenece: '))
-    codPlaylist= str(input('Digite el codigo de la playlist al que pertenece: '))
-    if cod not in list(diccTodo.keys()) and codArt in list(diccTodoArt.keys()) and codAlb in list(diccTodoAlbum.keys()) and codGen in list(diccTodoGen.keys()) and codPlaylist in list(diccTodoPlaylist.keys()):#Validacion si codigo esta repetido
-        diccTodo[cod]={'nombre':nombre,'codArt':codArt,'codAlb':codAlb,'codGen':codGen,'codPlaylist':codPlaylist}#Añade  una playlist al dict
-        print('\n---> La nueva cancion se ha incluido!')
+def insertCanciones(diccTodo,diccTodoArt,diccTodoAlbum,diccTodoGen,diccTodoPlaylist,cod,nombre,codArt,codAlb,codGen,codPlaylist,etiquetaConfirmacionInsercionCancion):
+    if cod not in list(diccTodo.keys()):
+        if codArt in list(diccTodoArt.keys()):
+            if codAlb in list(diccTodoAlbum.keys()) :
+                if codGen in list(diccTodoGen.keys()) :
+                    if codPlaylist in list(diccTodoPlaylist.keys()):#Validacion si codigo esta repetido
+                        diccTodo[cod]={'nombre':nombre,'codArt':codArt,'codAlb':codAlb,'codGen':codGen,'codPlaylist':codPlaylist}#Añade  una playlist al dict
+                        mostrarEnPantalla(etiquetaConfirmacionInsercionCancion,"El album se ha insertado correctamente",)
+                        limpiar_texto(nombre)
+                        limpiar_texto(cod)
+                        limpiar_texto(codArt)
+                    else:
+                        messagebox.showinfo("Alerta", "El codigo digitado de artista no existe, digite otro existente!")
+                        limpiar_texto(codArt)
     else:
         print('\n---> El codigo de cancion ya esta en uso o alguno de los codigos de los requerimientos asociados no existe')    
     return diccTodo

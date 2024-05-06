@@ -43,63 +43,69 @@ def menu():
         iniciarSesion = tk.Button(ventanaLogin, text="Iniciar sesion", command= lambda:[login(tipoUsuario.get(),codigo.get(),diccProptodo,ventanaPago,ventanaRegistro,diccAdmintodo,ventanaLogin,VentanaMenu)], font=("Times New Roman",15),bg='#102512',fg='#E4E4E4')
         iniciarSesion.grid(pady=20,sticky=tk.N)
 ##########################################################################################################################################################################################
-        #Configuracion de ventana de registro
+#Configuracion de ventana de registro
         ventanaRegistro=tk.Toplevel(ventanaLogin)
         ventanaRegistro.title("Registro")
-        ventanaRegistro.configure(bg='#E4E4E4')
+        ventanaRegistro.configure(bg='#28342C')
         ventanaRegistro.withdraw()
         #ventanaRegistro.resizable(0, 0)
         #Grid
         ventanaRegistro.columnconfigure(0, weight=3)
         #Etiqueta de instruccion
-        Registarse=tk.Label(ventanaRegistro,text="Registrarse",font=("Arial",25),bg="#C1B2A6")
-        Registarse.grid(sticky=tk.N,pady=20)
+        Registarse=tk.Label(ventanaRegistro,text="Registrarse",font=("Sitka Text Semibold",25),bg="#E4E4E4",foreground='#28342C')
+        Registarse.grid(sticky=tk.N,pady=30)
         #Etiqueta de instruccion
-        IngresarCodigo=tk.Label(ventanaRegistro,text="Ingrese su nombre",font=("Arial",16),bg="#C1B2A6")
-        IngresarCodigo.grid(sticky=tk.W,padx=35,pady=12)
+        IngresarCodigo=tk.Label(ventanaRegistro,text="Ingrese su nombre:",font=("Sitka Text Semibold",15),bg="#E4E4E4",foreground='#28342C')
+        IngresarCodigo.grid(sticky=tk.N,pady=35)
         #Nombre de usuario
-        nombre=tk.Entry(ventanaRegistro,font="Arial")
-        nombre.grid(sticky=tk.W,padx=40,pady=56)
+        nombre=tk.Entry(ventanaRegistro,font=("Times New Roman",15),background='#E4E4E4')
+        nombre.grid(sticky=tk.N,pady=0)
         #Etiqueta display
-        etiquetaRegistro=tk.Label(ventanaRegistro, text="  ")
-        etiquetaRegistro.grid(sticky=tk.W,padx=44,pady=30)
+        etiquetaRegistro=tk.Label(ventanaRegistro, text="  ",font=("Times New Roman",15),background='#28342C',fg="#E4E4E4")
+        etiquetaRegistro.grid(sticky=tk.N,pady=25)
         #Boton de registrar
-        accionRegistro = tk.Button(ventanaRegistro, text="Registrarse", command=lambda:[registar(diccProptodo,diccMembresias,nombre.get(),etiquetaRegistro),limpiar_texto(nombre)])
-        accionRegistro.grid(sticky=tk.W,padx=42,pady=20)
+        accionRegistro = tk.Button(ventanaRegistro, text="Registrarse", command=lambda:[registar(diccProptodo,diccMembresias,nombre.get(),etiquetaRegistro),limpiar_texto(nombre)],font=("Times New Roman",15),background='#C1B2A6',fg="#102512")
+        accionRegistro.grid(sticky=tk.N,pady=10)
         #Boton de Volver
-        botonDeRegistroALogin = tk.Button(ventanaRegistro, text="Volver a menu", command=lambda:navegacionVentanas(ventanaLogin,ventanaRegistro,obtenerDimenciones(ventanaRegistro)))
-        botonDeRegistroALogin.grid(sticky=tk.W,padx=46,pady=10)
+        botonDeRegistroALogin = tk.Button(ventanaRegistro, text="Volver a menu", command=lambda:[navegacionVentanas(ventanaLogin,ventanaRegistro,obtenerDimenciones(ventanaRegistro)),mostrarEnPantalla(etiquetaRegistro,"")],font=("Times New Roman",15),background='#C1B2A6',fg="#102512")
+        botonDeRegistroALogin.grid(sticky=tk.N,pady=30)
 ##########################################################################################################################################################################################
-        #Configuracion de ventana de pago
+       #Configuracion de ventana de pago
         ventanaPago=tk.Toplevel(ventanaLogin)
         ventanaPago.title("Pago")
-        ventanaPago.configure(bg='#E4E4E4')
+        ventanaPago.configure(bg='#D5CEC1')
         ventanaPago.withdraw()
         #ventanaRegistro.resizable(0, 0)
         #Grid
         ventanaPago.columnconfigure(0, weight=3)
         #Etiqueta de instruccion
-        pago=tk.Label(ventanaPago,text="Pago",font=("Arial",25),bg="#C1B2A6")
+        pago=tk.Label(ventanaPago,text="Pago",font=("Sitka Text Semibold",25),bg="#28342C",fg="#E4E4E4")
         pago.grid(sticky=tk.N,pady=20)
         #Etiqueta de instruccion
         #IngresarCodigo=tk.Label(ventanaPago,text="Ingrese su nombre",font=("Arial",16),bg="#C1B2A6")
         #IngresarCodigo.grid(sticky=tk.W,padx=35,pady=12)
         #Nombre de usuario
-        numTarjeta=tk.Entry(ventanaPago,font="Arial")
-        numTarjeta.grid(sticky=tk.W,padx=40,pady=56)
-        fecha=tk.Entry(ventanaPago,font="Arial")
-        fecha.grid(sticky=tk.W,padx=40,pady=56)
-        codigoSeguridad=tk.Entry(ventanaPago,font="Arial")
-        codigoSeguridad.grid(sticky=tk.W,padx=40,pady=56)
+        NumTrabLabel1=tk.Label(ventanaPago,text="Digite su numero de tarjeta:",font=("Sitka Text Semibold",15),bg="#28342C",fg="#E4E4E4")
+        NumTrabLabel1.grid(sticky=tk.N,pady=15)
+        numTarjeta=tk.Entry(ventanaPago,font=("Times New Roman",15),background='#E4E4E4')
+        numTarjeta.grid(sticky=tk.N,pady=0)
+        NumTrabLabel2=tk.Label(ventanaPago,text="Digite la fecha de expiración:",font=("Sitka Text Semibold",15),bg="#28342C",fg="#E4E4E4")
+        NumTrabLabel2.grid(sticky=tk.N,pady=15)
+        fecha=tk.Entry(ventanaPago,font=("Times New Roman",15),background='#E4E4E4')
+        fecha.grid(sticky=tk.N,pady=0)
+        NumTrabLabel3=tk.Label(ventanaPago,text="Digite su pin:",font=("Sitka Text Semibold",15),bg="#28342C",fg="#E4E4E4")
+        NumTrabLabel3.grid(sticky=tk.N,pady=15)
+        codigoSeguridad=tk.Entry(ventanaPago,font=("Times New Roman",15),background='#E4E4E4')
+        codigoSeguridad.grid(sticky=tk.N,pady=0)
         #Etiqueta display
-        etiquetaPago=tk.Label(ventanaPago, text="  ")
-        etiquetaPago.grid(sticky=tk.W,padx=44,pady=30)
+        etiquetaPago=tk.Label(ventanaPago, text="  ",bg='#D5CEC1',fg='#28342C',font=("Times New Roman",15))
+        etiquetaPago.grid(sticky=tk.N,pady=20)
         #Boton de pagar
-        accionPagar = tk.Button(ventanaPago, text="Pagar", command=lambda:[pagar(diccProptodo,diccMembresias,codigo.get(),etiquetaPago),limpiar_texto(numTarjeta),limpiar_texto(fecha),limpiar_texto(codigoSeguridad)])
-        accionPagar.grid(sticky=tk.W,padx=42,pady=20)
+        accionPagar = tk.Button(ventanaPago, text="Pagar", command=lambda:[pagar(diccProptodo,diccMembresias,codigo.get(),etiquetaPago),limpiar_texto(numTarjeta),limpiar_texto(fecha),limpiar_texto(codigoSeguridad)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+        accionPagar.grid(sticky=tk.N,pady=15)
         #Boton de Volver
-        botonDeRegistroALogin = tk.Button(ventanaPago, text="Volver a menu", command=lambda:navegacionVentanas(ventanaLogin,ventanaPago,obtenerDimenciones(ventanaRegistro)))
-        botonDeRegistroALogin.grid(sticky=tk.W,padx=46,pady=10)
+        botonDeRegistroALogin = tk.Button(ventanaPago, text="Volver a menu", command=lambda:navegacionVentanas(ventanaLogin,ventanaPago,obtenerDimenciones(ventanaPago)),font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+        botonDeRegistroALogin.grid(sticky=tk.N,pady=15)
 ##########################################################################################################################################################################################       
         # Configuración de la ventana menu
         VentanaMenu = tk.Toplevel(ventanaLogin)
@@ -118,10 +124,10 @@ def menu():
                 menuinsercion = tk.Menu(menubar,tearoff=0)
                 menuinsercion.configure(bg='#C1B2A6')
                 menuinsercion.add_command(label="Propietario",command=lambda:navegacionVentanas(VentanaInsercionProp,VentanaMenu,obtenerDimenciones(VentanaMenu)))
-                menuinsercion.add_command(label="Playlist")
-                menuinsercion.add_command(label="Genero")
-                menuinsercion.add_command(label="Artista")
-                menuinsercion.add_command(label="Album")
+                menuinsercion.add_command(label="Playlist",command=lambda:navegacionVentanas(VentanaInsercionPlaylist,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menuinsercion.add_command(label="Genero",command=lambda:navegacionVentanas(VentanaInsercionGen,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menuinsercion.add_command(label="Artista",command=lambda:navegacionVentanas(VentanaInsercionArtista,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menuinsercion.add_command(label="Album",command=lambda:navegacionVentanas(VentanaInsercionAlbum,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 menuinsercion.add_command(label="Cancion")
                 menubar.add_cascade(label="Insercion", menu=menuinsercion)
                 #Buscar
@@ -267,9 +273,9 @@ def menu():
         botonDeBusquedaAMenu = tk.Button(VentanaBusquedaCancion, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaBusquedaCancion,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoBusquedaCancion),mostrarEnPantalla(etiquetaCancion,"")])
         botonDeBusquedaAMenu.pack(pady=20)
 ##############################################################################################################################################
-        # Configuración de la ventana de busquedas
+        # Configuración de la ventana de insercion
         VentanaInsercionProp= tk.Toplevel(ventanaLogin)
-        VentanaInsercionProp.title("Busqueda")
+        VentanaInsercionProp.title("Insercion")
         VentanaInsercionProp.configure(bg='#E4E4E4')
         VentanaInsercionProp.withdraw()  # Oculta la ventana secundaria inicialmente
         #Codigo de Propietario
@@ -288,15 +294,15 @@ def menu():
         etiquetaConfirmacionInsercionProp=tk.Label(VentanaInsercionProp, text="")
         etiquetaConfirmacionInsercionProp.pack(pady=20)
         #Boton de buscar
-        botonDeinsercion= tk.Button(VentanaInsercionProp, text="Buscar", command=lambda:insertProp(diccProptodo,diccMembresias,codigoInsericionProp,nombreInsercionProp,codigoInsercionMem,estadoInsercionMem,etiquetaConfirmacionInsercionProp))
+        botonDeinsercion= tk.Button(VentanaInsercionProp, text="Insertar", command=lambda:insertProp(diccProptodo,diccMembresias,codigoInsericionProp,nombreInsercionProp,codigoInsercionMem,estadoInsercionMem,etiquetaConfirmacionInsercionProp))
         botonDeinsercion.pack(pady=20)
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaInsercionProp, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaInsercionProp,obtenerDimenciones(VentanaMenu)),limpiar_texto(nombreInsercionProp),limpiar_texto(codigoInsercionMem),limpiar_texto(estadoInsercionMem),limpiar_texto(codigoInsericionProp),mostrarEnPantalla(etiquetaConfirmacionInsercionProp,"")])
         botonDeBusquedaAMenu.pack(pady=20)
 ##############################################################################################################################################
-        # Configuración de la ventana de busquedas
+        # Configuración de la ventana de insercion
         VentanaInsercionPlaylist= tk.Toplevel(ventanaLogin)
-        VentanaInsercionPlaylist.title("Busqueda")
+        VentanaInsercionPlaylist.title("Insercion")
         VentanaInsercionPlaylist.configure(bg='#E4E4E4')
         VentanaInsercionPlaylist.withdraw()  # Oculta la ventana secundaria inicialmente
         #Codigo de Playlist
@@ -312,10 +318,112 @@ def menu():
         etiquetaConfirmacionInsercionPlaylist=tk.Label(VentanaInsercionPlaylist, text="")
         etiquetaConfirmacionInsercionPlaylist.pack(pady=20)
         #Boton de buscar
-        botonDeinsercion= tk.Button(VentanaInsercionPlaylist, text="Buscar", command=lambda:insertPlaylist(diccPlaylisttodo,diccProptodo,codigoInsericionPlaylist,nombreInsercionPlaylist,codigoPropInsercionPlaylist))
+        botonDeinsercion= tk.Button(VentanaInsercionPlaylist, text="Insertar", command=lambda:insertPlaylist(diccPlaylisttodo,diccProptodo,codigoInsericionPlaylist,nombreInsercionPlaylist,codigoPropInsercionPlaylist,etiquetaConfirmacionInsercionPlaylist))
         botonDeinsercion.pack(pady=20)
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaInsercionPlaylist, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaInsercionPlaylist,obtenerDimenciones(VentanaMenu)),limpiar_texto(nombreInsercionPlaylist),limpiar_texto(codigoInsericionPlaylist),limpiar_texto(codigoPropInsercionPlaylist),mostrarEnPantalla(etiquetaConfirmacionInsercionPlaylist,"")])
+        botonDeBusquedaAMenu.pack(pady=20)
+##############################################################################################################################################
+        # Configuración de la ventana de insercion
+        VentanaInsercionGen= tk.Toplevel(ventanaLogin)
+        VentanaInsercionGen.title("Insercion")
+        VentanaInsercionGen.configure(bg='#E4E4E4')
+        VentanaInsercionGen.withdraw()  # Oculta la ventana secundaria inicialmente
+        #Codigo de Genero
+        codigoInsericionGen=tk.Entry(VentanaInsercionGen,font="Arial")
+        codigoInsericionGen.pack(pady=10)
+        #Nombre de Genero
+        nombreInsercionGenero=tk.Entry(VentanaInsercionGen,font="Arial")
+        nombreInsercionGenero.pack(pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionInsercionGen=tk.Label(VentanaInsercionGen, text="")
+        etiquetaConfirmacionInsercionGen.pack(pady=20)
+        #Boton de buscar
+        botonDeinsercion= tk.Button(VentanaInsercionGen, text="Insertar", command=lambda:insertGen(diccGentodo,codigoInsericionGen,nombreInsercionGenero,etiquetaConfirmacionInsercionGen))
+        botonDeinsercion.pack(pady=20)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaInsercionGen, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaInsercionGen,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoInsericionGen),limpiar_texto(nombreInsercionGenero),mostrarEnPantalla(etiquetaConfirmacionInsercionGen,"")])
+        botonDeBusquedaAMenu.pack(pady=20)
+##############################################################################################################################################
+        # Configuración de la ventana de insercion
+        VentanaInsercionArtista= tk.Toplevel(ventanaLogin)
+        VentanaInsercionArtista.title("Insercion")
+        VentanaInsercionArtista.configure(bg='#E4E4E4')
+        VentanaInsercionArtista.withdraw()  # Oculta la ventana secundaria inicialmente
+        #Codigo de Artista
+        codigoInsericionArt=tk.Entry(VentanaInsercionArtista,font="Arial")
+        codigoInsericionArt.pack(pady=10)
+        #Nombre de Artista
+        nombreInsercionArt=tk.Entry(VentanaInsercionArtista,font="Arial")
+        nombreInsercionArt.pack(pady=10)
+        #Codigo Gen
+        codigoGenInsercionArt=tk.Entry(VentanaInsercionArtista,font="Arial")
+        codigoGenInsercionArt.pack(pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionInsercionArt=tk.Label(VentanaInsercionArtista, text="")
+        etiquetaConfirmacionInsercionArt.pack(pady=20)
+        #Boton de buscar
+        botonDeinsercion= tk.Button(VentanaInsercionArtista, text="Insertar", command=lambda:insertArt(diccArttodo,diccGentodo,codigoInsericionArt,nombreInsercionArt,codigoGenInsercionArt,etiquetaConfirmacionInsercionArt))
+        botonDeinsercion.pack(pady=20)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaInsercionArtista, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaInsercionArtista,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoInsericionArt),limpiar_texto(codigoGenInsercionArt),limpiar_texto(nombreInsercionArt),mostrarEnPantalla(etiquetaConfirmacionInsercionArt,"")])
+        botonDeBusquedaAMenu.pack(pady=20)
+##############################################################################################################################################
+        # Configuración de la ventana de insercion
+        VentanaInsercionAlbum= tk.Toplevel(ventanaLogin)
+        VentanaInsercionAlbum.title("Insercion")
+        VentanaInsercionAlbum.configure(bg='#E4E4E4')
+        VentanaInsercionAlbum.withdraw()  # Oculta la ventana secundaria inicialmente
+        #Codigo de Album
+        codigoInsericionAlb=tk.Entry(VentanaInsercionAlbum,font="Arial")
+        codigoInsericionAlb.pack(pady=10)
+        #Nombre de Album
+        nombreInsercionAlb=tk.Entry(VentanaInsercionAlbum,font="Arial")
+        nombreInsercionAlb.pack(pady=10)
+        #Codigo Art
+        codigoArtInsercionAlb=tk.Entry(VentanaInsercionAlbum,font="Arial")
+        codigoArtInsercionAlb.pack(pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionInsercionAlb=tk.Label(VentanaInsercionAlbum, text="")
+        etiquetaConfirmacionInsercionAlb.pack(pady=20)
+        #Boton de buscar
+        botonDeinsercion= tk.Button(VentanaInsercionAlbum, text="Insertar", command=lambda:insertAlbum(diccAlbumtodo,diccArttodo,codigoInsericionAlb,nombreInsercionAlb,codigoArtInsercionAlb,etiquetaConfirmacionInsercionAlb))
+        botonDeinsercion.pack(pady=20)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaInsercionAlbum, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaInsercionAlbum,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoInsericionAlb),limpiar_texto(nombreInsercionAlb),limpiar_texto(codigoArtInsercionAlb),mostrarEnPantalla(etiquetaConfirmacionInsercionAlb,"")])
+        botonDeBusquedaAMenu.pack(pady=20)
+##############################################################################################################################################
+        # Configuración de la ventana de insercion
+        VentanaInsercionCancion= tk.Toplevel(ventanaLogin)
+        VentanaInsercionCancion.title("Insercion")
+        VentanaInsercionCancion.configure(bg='#E4E4E4')
+        VentanaInsercionCancion.withdraw()  # Oculta la ventana secundaria inicialmente
+        #Codigo de Cancion
+        codigoInsericionCancion=tk.Entry(VentanaInsercionCancion,font="Arial")
+        codigoInsericionCancion.pack(pady=10)
+        #Nombre de Cancion
+        nombreInsercionCancion=tk.Entry(VentanaInsercionCancion,font="Arial")
+        nombreInsercionCancion.pack(pady=10)
+        #Codigo Art
+        codigoArtInsercionCancion=tk.Entry(VentanaInsercionCancion,font="Arial")
+        codigoArtInsercionCancion.pack(pady=10)
+        #Codigo Alb
+        codigoAlbInsercionCancion=tk.Entry(VentanaInsercionCancion,font="Arial")
+        codigoAlbInsercionCancion.pack(pady=10)
+        #Codigo Gen
+        codigoGenInsercionCancion=tk.Entry(VentanaInsercionCancion,font="Arial")
+        codigoGenInsercionCancion.pack(pady=10)
+        #Codigo Playlist
+        codigoPlaylistInsercionCancion=tk.Entry(VentanaInsercionCancion,font="Arial")
+        codigoPlaylistInsercionCancion.pack(pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionInsercionCancion=tk.Label(VentanaInsercionCancion, text="")
+        etiquetaConfirmacionInsercionCancion.pack(pady=20)
+        #Boton de buscar
+        botonDeinsercion= tk.Button(VentanaInsercionCancion, text="Insertar", command=lambda:insertCanciones(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoInsericionCancion,nombreInsercionCancion,codigoArtInsercionCancion,codigoAlbInsercionCancion,codigoGenInsercionCancion,codigoPlaylistInsercionCancion,etiquetaConfirmacionInsercionCancion))
+        botonDeinsercion.pack(pady=20)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaInsercionCancion, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaInsercionCancion,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoInsericionAlb),limpiar_texto(nombreInsercionAlb),limpiar_texto(codigoArtInsercionAlb),mostrarEnPantalla(etiquetaConfirmacionInsercionAlb,"")])
         botonDeBusquedaAMenu.pack(pady=20)
 ##############################################################################################################################################
         

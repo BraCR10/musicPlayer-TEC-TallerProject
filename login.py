@@ -73,7 +73,7 @@ def exportarTXT(diccTodo,codigo,contFacturas):
     
 def pagar(diccTodo,diccMembresias,codigo,etiqueta):
     diccTodo[codigo]['estado']='1'
-    mostrarEnPantalla(etiqueta,"Su usuario a sido activado vuelva al login")
+    mostrarEnPantalla(etiqueta,"Su usuario ha sido activado, por favor vuelva al login")
     #diccMembresias[codigo]='1'
     
     
