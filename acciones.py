@@ -28,3 +28,13 @@ def mostrarEnPantalla(etiqueta,dato):
     
 def limpiar_texto(caja):
     caja.delete(0, tk.END)  # Borra todo el contenido del cuadro de texto
+    
+def verTipoUsuario(permisos,tipoUsuario):
+    permisos.set(tipoUsuario.get())
+
+def mostrarEnPantallaBusqueda(etiqueta,dato):
+    if dato==None:
+        texto='No existe'
+    else:
+        texto = dato[0]
+    etiqueta.config(text=texto)
