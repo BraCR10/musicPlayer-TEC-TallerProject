@@ -198,7 +198,6 @@ def menu(tipoUsuario,codigoUsuario):
         image_label = ttk.Label(VentanaMenu,image=pagospng)
         image_label.pack()
         VentanaMenu.config(menu=menubar)
-
         ##########################################################################################################################################################################################
 # Configuración de la ventana de busquedas
         VentanaBusquedaPropietario = tk.Toplevel(ventanaLogin)

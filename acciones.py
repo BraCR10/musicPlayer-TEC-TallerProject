@@ -40,7 +40,7 @@ def mostrarEnPantallaBusqueda(etiqueta,dato):
         texto='No existe'
     else:
         texto = dato[0]
-    etiqueta.config(text=texto)
+    etiqueta.config(text=texto,bg="#D5CEC1")
     
   
 def registar(diccTodo,diccMembresias,nombre,etiqueta):
