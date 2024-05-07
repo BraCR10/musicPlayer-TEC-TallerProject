@@ -133,9 +133,19 @@ def menu(tipoUsuario,codigoUsuario):
         global verificadorElementosMenu
         global etiquetaBienvenida
         global botonCerrarSesion
+        global MusicaLabel
+        global Usuarioslabel
+        global Reproductorlabel
+        global Albumlabel
+        global Pagolabel
         if verificadorElementosMenu==True:
                 etiquetaBienvenida.destroy()
                 botonCerrarSesion.destroy()
+                MusicaLabel.destroy()
+                Usuarioslabel.destroy()
+                Reproductorlabel.destroy()
+                Albumlabel.destroy()
+                Pagolabel.destroy()
                 verificadorElementosMenu=False
         if not verificadorElementosMenu:
                 if  tipoUsuario=="Usuario":
@@ -147,7 +157,8 @@ def menu(tipoUsuario,codigoUsuario):
                 # Botón en la ventana menu para volver a login
                 botonCerrarSesion = tk.Button(VentanaMenu, text="Cerrar sesion", command=lambda:navegacionVentanas(ventanaLogin,VentanaMenu,obtenerDimenciones(VentanaMenu)),font=("Times New Roman",15),background='#28342C',fg='#E4E4E4')
                 botonCerrarSesion.pack(side="bottom",pady=80)
-                verificadorElementosMenu=True      
+                verificadorElementosMenu=True  
+        
         # Configuración de la ventana menu
         VentanaMenu.title("Menu")
         VentanaMenu.configure(bg='#D5CeC1')
@@ -194,8 +205,8 @@ def menu(tipoUsuario,codigoUsuario):
                 menuinsercion.add_command(label="Cancion",foreground='#E4E4E4')
                 menuinsercion.add_command(label="Administrador",foreground='#E4E4E4')
                 menubar.add_cascade(label="Insercion", background='#A6A6A6', menu=menuinsercion)
+        VentanaMenu.config(menu=menubar)
         #Creamos imagenes
-        
         Musicapng = tk.PhotoImage(file='./Musica.png')
         MusicaLabel=tk.Label(VentanaMenu,image=Musicapng)
         VentanaMenu.Musicapng = tk.PhotoImage(file='./Musica.png')
@@ -225,13 +236,12 @@ def menu(tipoUsuario,codigoUsuario):
         Albumlabel.pack(side='left',padx=50)
         
         pagospng = tk.PhotoImage(file='./Pagos.png')
-        image_label = tk.Label(VentanaMenu, image=pagospng)
+        Pagolabel = tk.Label(VentanaMenu, image=pagospng)
         VentanaMenu.pagospng = tk.PhotoImage(file='./Pagos.png')
-        image_label = tk.Label(VentanaMenu, image=VentanaMenu.pagospng)
-        image_label.configure(width=190, height=190)
-        image_label.pack(side="right",padx=50)
+        Pagolabel = tk.Label(VentanaMenu, image=VentanaMenu.pagospng)
+        Pagolabel.configure(width=190, height=190)
+        Pagolabel.pack(side="right",padx=50)    
         
-        VentanaMenu.config(menu=menubar)
         ##########################################################################################################################################################################################
 # Configuración de la ventana de busquedas
         VentanaBusquedaPropietario = tk.Toplevel(ventanaLogin)
