@@ -145,8 +145,8 @@ def menu(tipoUsuario,codigoUsuario):
                 #Bienvenida
                 etiquetaBienvenida.pack(pady=10)
                 # Botón en la ventana menu para volver a login
-                botonCerrarSesion = tk.Button(VentanaMenu, text="Cerrar sesion", command=lambda:navegacionVentanas(ventanaLogin,VentanaMenu,obtenerDimenciones(VentanaMenu)))
-                botonCerrarSesion.pack(pady=20)
+                botonCerrarSesion = tk.Button(VentanaMenu, text="Cerrar sesion", command=lambda:navegacionVentanas(ventanaLogin,VentanaMenu,obtenerDimenciones(VentanaMenu)),font=("Times New Roman",15),background='#28342C',fg='#E4E4E4')
+                botonCerrarSesion.pack(side="bottom",pady=100)
                 verificadorElementosMenu=True      
         # Configuración de la ventana menu
         VentanaMenu.title("Menu")
