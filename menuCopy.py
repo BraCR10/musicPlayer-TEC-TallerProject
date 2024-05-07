@@ -37,6 +37,7 @@ def login(tipoUsuario,codigo,diccProptodo,ventanaPago,ventanaRegistro,diccAdminT
         return navegacionVentanas(VentanaMenu,ventanaLogin,obtenerDimenciones(ventanaLogin))
     elif tipoUsuario=='Administrador' and codigo not in list(diccAdminTodo.keys()):
         messagebox.showinfo("Alerta", "El codigo no pertenece a ningun administrador")
+    
 #######################################################################################################################################################################################
 def loginVentana():
         ##########################################################################################################################################################################################
@@ -128,16 +129,25 @@ def loginVentana():
         ventanaLogin.mainloop()
 def menu(tipoUsuario,codigoUsuario):
         ##########################################################################################################################################################################################       
+        #Proceso para dar bienvenida
         global verificadorElementosMenu
+        global etiquetaBienvenida
+        global botonCerrarSesion
+        if verificadorElementosMenu==True:
+                etiquetaBienvenida.destroy()
+                botonCerrarSesion.destroy()
+                verificadorElementosMenu=False
         if not verificadorElementosMenu:
+                if  tipoUsuario=="Usuario":
+                        etiquetaBienvenida=tk.Label(VentanaMenu, text=f"Bienvenid@ {buscarProp(codigoUsuario,diccProptodo)}!",font=("Times New Roman",15),background='#D5CEC1')
+                else:
+                        etiquetaBienvenida=tk.Label(VentanaMenu, text=f"Bienvenid@ {buscarAdministrador(codigoUsuario,diccAdmintodo)}!",font=("Times New Roman",15),background='#D5CEC1')
                 #Bienvenida
-                etiquetaBienvenida=tk.Label(VentanaMenu, text=f"Bienvenid@ {buscarProp(codigoUsuario,diccProptodo)}!",font=("Times New Roman",15),background='#D5CEC1')
                 etiquetaBienvenida.pack(pady=10)
                 # Botón en la ventana menu para volver a login
                 botonCerrarSesion = tk.Button(VentanaMenu, text="Cerrar sesion", command=lambda:navegacionVentanas(ventanaLogin,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 botonCerrarSesion.pack(pady=20)
-                verificadorElementosMenu=True
-        
+                verificadorElementosMenu=True      
         # Configuración de la ventana menu
         VentanaMenu.title("Menu")
         VentanaMenu.configure(bg='#E4E4E4')
