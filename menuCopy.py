@@ -648,10 +648,10 @@ def menu(tipoUsuario,codigoUsuario):
         etiquetaConfirmacionInsercionCancion.grid(sticky=tk.N,pady=10)
         #Boton de buscar
         botonDeinsercion= tk.Button(VentanaInsercionCancion, text="Insertar", command=lambda:insertCanciones(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoInsericionCancion,nombreInsercionCancion,codigoArtInsercionCancion,codigoAlbInsercionCancion,codigoGenInsercionCancion,codigoPlaylistInsercionCancion,etiquetaConfirmacionInsercionCancion),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
-        botonDeinsercion.grid(sticky=tk.N,pady=10)
+        botonDeinsercion.grid(row=13,column=0,pady=5)
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaInsercionCancion, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaInsercionCancion,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoInsericionCancion),limpiar_texto(nombreInsercionCancion),limpiar_texto(codigoArtInsercionCancion),limpiar_texto(codigoAlbInsercionCancion),limpiar_texto(codigoGenInsercionCancion),limpiar_texto(codigoPlaylistInsercionCancion),mostrarEnPantalla(etiquetaConfirmacionInsercionCancion,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
-        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+        botonDeBusquedaAMenu.grid(row=14,column=0,pady=5)
         ##############################################################################################################################################
         # Configuración de la ventana de insercion
         VentanaInsercionAdm= tk.Toplevel(ventanaLogin)
