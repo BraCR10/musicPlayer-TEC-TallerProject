@@ -8,7 +8,7 @@ from busqueda import * #buscarAlbum,buscarArtista,buscarCancion,buscarGenero,bus
 import tkinter as tk
 from tkinter import ttk
 from acciones import * 
-
+from modificacion import *#ModificarPlaylist,modificarArt,modificarCancion,modificarGen,modificarProp
 
 diccProptodo=leerProp()[0]#Devuelve una lista con membresias
 diccAdmintodo=leerAdmin()
@@ -673,7 +673,6 @@ def menu(tipoUsuario,codigoUsuario):
         #Nombre de Admin
         nombreInsercionAdm=tk.Entry(VentanaInsercionAdm,font=("Times New Roman",15),background='#E4E4E4')
         nombreInsercionAdm.grid(sticky=tk.N,pady=10)
-
         #Etiqueta display
         etiquetaConfirmacionInsercionAdm=tk.Label(VentanaInsercionAdm, text="",font=("Times New Roman",15),background='#D5CEC1')
         etiquetaConfirmacionInsercionAdm.grid(sticky=tk.N,pady=10)
@@ -684,11 +683,237 @@ def menu(tipoUsuario,codigoUsuario):
         botonDeBusquedaAMenu = tk.Button(VentanaInsercionAdm, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaInsercionAdm,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoInsericionAdm),limpiar_texto(nombreInsercionAdm),mostrarEnPantalla(etiquetaConfirmacionInsercionAdm,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
         ##############################################################################################################################################
+        # Configuración de la ventana de modificacion
+        VentanaModificacionProp= tk.Toplevel(ventanaLogin)
+        VentanaModificacionProp.title("Insercion")
+        VentanaModificacionProp.configure(bg='#D5CEC1')
+        VentanaModificacionProp.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaModificacionProp.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloModProp=tk.Label(VentanaModificacionProp,text='Modificacion de propietarios', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloModProp.grid(sticky=tk.N,pady=10)
+        DigiteModProp=tk.Label(VentanaModificacionProp,text='Digite el código de propietario:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteModProp.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        codigoModificacionProp=tk.Entry(VentanaModificacionProp,font=("Times New Roman",15),background='#E4E4E4')
+        codigoModificacionProp.grid(sticky=tk.N,pady=10)
+        #Instruccion en pantalla
+        DigiteNomModProp=tk.Label(VentanaModificacionProp,text='Digite el nuevo nombre de propietario:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteNomModProp.grid(sticky=tk.N,pady=10)
+        #Nombre de Prop
+        nombreModificacionProp=tk.Entry(VentanaModificacionProp,font=("Times New Roman",15),background='#E4E4E4')
+        nombreModificacionProp.grid(sticky=tk.N,pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionModificacionProp=tk.Label(VentanaModificacionProp, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaConfirmacionModificacionProp.grid(sticky=tk.N,pady=10)
+        #Boton de buscar
+        botonDeModificacion= tk.Button(VentanaModificacionProp, text="Modificar", command=lambda:modificarProp(codigoModificacionProp,diccProptodo,nombreModificacionProp,etiquetaConfirmacionModificacionProp),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeModificacion.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaModificacionProp, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaModificacionProp,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoModificacionProp),limpiar_texto(nombreModificacionProp),mostrarEnPantalla(etiquetaConfirmacionModificacionProp,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+        ##############################################################################################################################################
+        # Configuración de la ventana de modificacion
+        VentanaModificacionGen= tk.Toplevel(ventanaLogin)
+        VentanaModificacionGen.title("Insercion")
+        VentanaModificacionGen.configure(bg='#D5CEC1')
+        VentanaModificacionGen.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaModificacionGen.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloModGen=tk.Label(VentanaModificacionGen,text='Modificacion de genero', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloModGen.grid(sticky=tk.N,pady=10)
+        DigiteModGen=tk.Label(VentanaModificacionGen,text='Digite el código de genero:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteModGen.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        codigoModificacionGen=tk.Entry(VentanaModificacionGen,font=("Times New Roman",15),background='#E4E4E4')
+        codigoModificacionGen.grid(sticky=tk.N,pady=10)
+        #Instruccion en pantalla
+        DigiteNomModGen=tk.Label(VentanaModificacionGen,text='Digite el nuevo nombre de genero:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteNomModGen.grid(sticky=tk.N,pady=10)
+        #Nombre de Gen
+        nombreModificacionGen=tk.Entry(VentanaModificacionGen,font=("Times New Roman",15),background='#E4E4E4')
+        nombreModificacionGen.grid(sticky=tk.N,pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionModificacionGen=tk.Label(VentanaModificacionGen, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaConfirmacionModificacionGen.grid(sticky=tk.N,pady=10)
+        #Boton de buscar
+        botonDeModificacion= tk.Button(VentanaModificacionGen, text="Modificar", command=lambda:modificarGen(codigoModificacionGen,diccGentodo,nombreModificacionGen,etiquetaConfirmacionModificacionGen),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeModificacion.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaModificacionGen, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaModificacionGen,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoModificacionGen),limpiar_texto(nombreModificacionGen),mostrarEnPantalla(etiquetaConfirmacionModificacionGen,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+        ##############################################################################################################################################
+        # Configuración de la ventana de modificacion
+        VentanaModificacionPlaylist= tk.Toplevel(ventanaLogin)
+        VentanaModificacionPlaylist.title("Insercion")
+        VentanaModificacionPlaylist.configure(bg='#D5CEC1')
+        VentanaModificacionPlaylist.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaModificacionPlaylist.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloModPlaylist=tk.Label(VentanaModificacionPlaylist,text='Modificacion de playlist', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloModPlaylist.grid(sticky=tk.N,pady=10)
+        DigiteModPlaylist=tk.Label(VentanaModificacionPlaylist,text='Digite el código de playlist:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteModPlaylist.grid(sticky=tk.N,pady=10)
+        #Codigo de Playlist
+        codigoModificacionPlaylist=tk.Entry(VentanaModificacionPlaylist,font=("Times New Roman",15),background='#E4E4E4')
+        codigoModificacionPlaylist.grid(sticky=tk.N,pady=10)
+        #Instruccion en pantalla
+        DigiteNomModPlaylist=tk.Label(VentanaModificacionPlaylist,text='Digite el nuevo nombre de playlist:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteNomModPlaylist.grid(sticky=tk.N,pady=10)
+        #Nombre de Playlist
+        nombreModificacionPlaylist=tk.Entry(VentanaModificacionPlaylist,font=("Times New Roman",15),background='#E4E4E4')
+        nombreModificacionPlaylist.grid(sticky=tk.N,pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionModificacionPlaylist=tk.Label(VentanaModificacionPlaylist, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaConfirmacionModificacionPlaylist.grid(sticky=tk.N,pady=10)
+        #Boton de buscar
+        botonDeModificacion= tk.Button(VentanaModificacionPlaylist, text="Modificar", command=lambda:modificarPlaylist(codigoModificacionPlaylist,diccPlaylisttodo,nombreModificacionPlaylist,etiquetaConfirmacionModificacionPlaylist),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeModificacion.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaModificacionPlaylist, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaModificacionPlaylist,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoModificacionPlaylist),limpiar_texto(nombreModificacionPlaylist),mostrarEnPantalla(etiquetaConfirmacionModificacionPlaylist,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+        ##############################################################################################################################################
+        # Configuración de la ventana de modificacion
+        VentanaModificacionArt= tk.Toplevel(ventanaLogin)
+        VentanaModificacionArt.title("Insercion")
+        VentanaModificacionArt.configure(bg='#D5CEC1')
+        VentanaModificacionArt.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaModificacionArt.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloModArt=tk.Label(VentanaModificacionArt,text='Modificacion de artista', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloModArt.grid(sticky=tk.N,pady=10)
+        DigiteModArt=tk.Label(VentanaModificacionArt,text='Digite el código de artista:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteModArt.grid(sticky=tk.N,pady=10)
+        #Codigo de Art
+        codigoModificacionArt=tk.Entry(VentanaModificacionArt,font=("Times New Roman",15),background='#E4E4E4')
+        codigoModificacionArt.grid(sticky=tk.N,pady=10)
+        #Instruccion en pantalla
+        DigiteNomModArt=tk.Label(VentanaModificacionArt,text='Digite el nuevo nombre de artista:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteNomModArt.grid(sticky=tk.N,pady=10)
+        #Nombre de Art
+        nombreModificacionArt=tk.Entry(VentanaModificacionArt,font=("Times New Roman",15),background='#E4E4E4')
+        nombreModificacionArt.grid(sticky=tk.N,pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionModificacionArt=tk.Label(VentanaModificacionArt, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaConfirmacionModificacionArt.grid(sticky=tk.N,pady=10)
+        #Boton de modificar
+        botonDeModificacion= tk.Button(VentanaModificacionArt, text="Modificar", command=lambda:modificarArt(codigoModificacionArt,diccArttodo,nombreModificacionArt,etiquetaConfirmacionModificacionArt),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeModificacion.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaModificacionArt, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaModificacionArt,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoModificacionArt),limpiar_texto(nombreModificacionArt),mostrarEnPantalla(etiquetaConfirmacionModificacionArt,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+        ##############################################################################################################################################
+        # Configuración de la ventana de modificacion
+        VentanaModificacionAlb= tk.Toplevel(ventanaLogin)
+        VentanaModificacionAlb.title("Insercion")
+        VentanaModificacionAlb.configure(bg='#D5CEC1')
+        VentanaModificacionAlb.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaModificacionAlb.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloModAlb=tk.Label(VentanaModificacionAlb,text='Modificacion de album', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloModAlb.grid(sticky=tk.N,pady=10)
+        DigiteModAlb=tk.Label(VentanaModificacionAlb,text='Digite el código de album:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteModAlb.grid(sticky=tk.N,pady=10)
+        #Codigo de Album
+        codigoModificacionAlb=tk.Entry(VentanaModificacionAlb,font=("Times New Roman",15),background='#E4E4E4')
+        codigoModificacionAlb.grid(sticky=tk.N,pady=10)
+        #Instruccion en pantalla
+        DigiteNomModAlb=tk.Label(VentanaModificacionAlb,text='Digite el nuevo nombre de album:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteNomModAlb.grid(sticky=tk.N,pady=10)
+        #Nombre de Album
+        nombreModificacionAlb=tk.Entry(VentanaModificacionAlb,font=("Times New Roman",15),background='#E4E4E4')
+        nombreModificacionAlb.grid(sticky=tk.N,pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionModificacionAlb=tk.Label(VentanaModificacionAlb, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaConfirmacionModificacionAlb.grid(sticky=tk.N,pady=10)
+        #Boton de buscar
+        botonDeModificacion= tk.Button(VentanaModificacionAlb, text="Modificar", command=lambda: modificarAlbum(codigoModificacionAlb,diccAlbumtodo,nombreModificacionAlb,etiquetaConfirmacionModificacionAlb),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeModificacion.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaModificacionAlb, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaModificacionAlb,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoModificacionAlb),limpiar_texto(nombreModificacionAlb),mostrarEnPantalla(etiquetaConfirmacionInsercionAlb,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+        ##############################################################################################################################################
+        # Configuración de la ventana de modificacion
+        VentanaModificacionCancion= tk.Toplevel(ventanaLogin)
+        VentanaModificacionCancion.title("Insercion")
+        VentanaModificacionCancion.configure(bg='#D5CEC1')
+        VentanaModificacionCancion.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaModificacionCancion.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloModCan=tk.Label(VentanaModificacionCancion,text='Modificacion de Cancion', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloModCan.grid(sticky=tk.N,pady=10)
+        #Codigo de Cancion
+        DigiteModCan=tk.Label(VentanaModificacionCancion,text='Digite el código de cancion:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteModCan.grid(sticky=tk.N,pady=10)
+        codigoModCancion=tk.Entry(VentanaModificacionCancion,font=("Times New Roman",15),background='#E4E4E4')
+        codigoModCancion.grid(sticky=tk.N,pady=10)
+        #Nombre de Cancion
+        DigiteNomCan=tk.Label(VentanaModificacionCancion,text='Digite el nombre de la canción:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteNomCan.grid(sticky=tk.N,pady=10)
+        nombreModCancion=tk.Entry(VentanaModificacionCancion,font=("Times New Roman",15),background='#E4E4E4')
+        nombreModCancion.grid(sticky=tk.N,pady=10)
+        #Codigo Art
+        DigiteModCodArt=tk.Label(VentanaModificacionCancion,text='Digite el código del artista al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteModCodArt.grid(sticky=tk.N,pady=10)
+        codigoArtModificacionCancion=tk.Entry(VentanaModificacionCancion,font=("Times New Roman",15),background='#E4E4E4')
+        codigoArtModificacionCancion.grid(sticky=tk.N,pady=10)
+        #Codigo Alb
+        DigiteModCodAlb=tk.Label(VentanaModificacionCancion,text='Digite el código del album al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteModCodAlb.grid(sticky=tk.N,pady=10)
+        codigoAlbModificacionCancion=tk.Entry(VentanaModificacionCancion,font=("Times New Roman",15),background='#E4E4E4')
+        codigoAlbModificacionCancion.grid(sticky=tk.N,pady=10)
+        #Codigo Gen
+        DigiteModCodGen=tk.Label(VentanaModificacionCancion,text='Digite el código del género al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteModCodGen.grid(sticky=tk.N,pady=10)
+        codigoGenModificacionCancion=tk.Entry(VentanaModificacionCancion,font=("Times New Roman",15),background='#E4E4E4')
+        codigoGenModificacionCancion.grid(sticky=tk.N,pady=10)
+        #Codigo Playlist
+        DigiteModCodPlaylist=tk.Label(VentanaModificacionCancion,text='Digite el código de la playlist al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteModCodPlaylist.grid(sticky=tk.N,pady=10)
+        codigoPlaylistModificacionCancion=tk.Entry(VentanaModificacionCancion,font=("Times New Roman",15),background='#E4E4E4')
+        codigoPlaylistModificacionCancion.grid(sticky=tk.N,pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionMoficacionCancion=tk.Label(VentanaModificacionCancion, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaConfirmacionMoficacionCancion.grid(sticky=tk.N,pady=10)
+        #Boton de buscar
+        botonDeModificacion= tk.Button(VentanaModificacionCancion, text="Modificar", command=lambda:modificarCancion(codigoModCancion,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,nombreModCancion,codigoArtModificacionCancion,codigoAlbModificacionCancion,codigoGenModificacionCancion,codigoPlaylistModificacionCancion,etiquetaConfirmacionMoficacionCancion),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeModificacion.grid(row=13,column=0,pady=5)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaModificacionCancion, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaModificacionCancion,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoArtModificacionCancion),limpiar_texto(nombreModCancion),limpiar_texto(codigoAlbModificacionCancion),limpiar_texto(codigoGenModificacionCancion),limpiar_texto(codigoPlaylistModificacionCancion),limpiar_texto(codigoModCancion),mostrarEnPantalla(etiquetaConfirmacionMoficacionCancion,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(row=14,column=0,pady=5)
+         ##############################################################################################################################################
+        # Configuración de la ventana de modificacion
+        VentanaModificacionAdm= tk.Toplevel(ventanaLogin)
+        VentanaModificacionAdm.title("Insercion")
+        VentanaModificacionAdm.configure(bg='#D5CEC1')
+        VentanaModificacionAdm.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaModificacionAdm.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloModAdm=tk.Label(VentanaModificacionAdm,text='Modificacion de administrador', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloModAdm.grid(sticky=tk.N,pady=10)
+        TituloModAdm=tk.Label(VentanaModificacionAdm,text='Digite el código de administrador:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        TituloModAdm.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        codigoModificacionAdm=tk.Entry(VentanaModificacionAdm,font=("Times New Roman",15),background='#E4E4E4')
+        codigoModificacionAdm.grid(sticky=tk.N,pady=10)
+        #Instruccion en pantalla
+        DigiteNomModAdm=tk.Label(VentanaModificacionAdm,text='Digite el nuevo nombre de administrador:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteNomModAdm.grid(sticky=tk.N,pady=10)
+        #Nombre de Gen
+        nombreModificacionAdm=tk.Entry(VentanaModificacionAdm,font=("Times New Roman",15),background='#E4E4E4')
+        nombreModificacionAdm.grid(sticky=tk.N,pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionModificacionAdm=tk.Label(VentanaModificacionAdm, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaConfirmacionModificacionAdm.grid(sticky=tk.N,pady=10)
+        #Boton de buscar
+        botonDeModificacion= tk.Button(VentanaModificacionAdm, text="Modificar", command=lambda:modificarAdm(codigoModificacionAdm,diccAdmintodo,nombreModificacionAdm,etiquetaConfirmacionModificacionAdm),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeModificacion.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaModificacionAdm, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaModificacionAdm,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoModificacionAdm),limpiar_texto(nombreModificacionAdm),mostrarEnPantalla(etiquetaConfirmacionModificacionAdm,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+###########################################################################################################################################################################33
 
-
-
-
-        
+   
 loginVentana()
 
 

@@ -2,7 +2,6 @@
 #Estudiantes:
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
-from lecturaArchivos import *
 from acciones import *
 from tkinter import messagebox
 def insertProp(diccTodo,diccMembresias,cod,nombre,codMem,estado,etiquetaConfirmacionInsercionProp):
@@ -12,7 +11,7 @@ def insertProp(diccTodo,diccMembresias,cod,nombre,codMem,estado,etiquetaConfirma
             if codMem.get() not in list(diccMembresias.values()):
                 diccTodo[cod.get()]={'nombre':nombre.get(),'codMem':codMem.get(),'estado':estado.get()}#Añade  un propietario al dict
                 diccMembresias[cod.get()]=codMem.get()
-                mostrarEnPantalla(etiquetaConfirmacionInsercionProp,"El propietario se ha insertado correctamente",)
+                mostrarEnPantalla(etiquetaConfirmacionInsercionProp,"El propietario se ha insertado correctamente")
                 limpiar_texto(nombre)
                 limpiar_texto(cod)
                 limpiar_texto(estado)
