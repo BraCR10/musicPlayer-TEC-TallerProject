@@ -19,6 +19,7 @@ diccArttodo=leerArt()
 diccAlbumtodo=leerAlbum()
 diccPlaylisttodo=leerPlaylist()
 diccCancionestodo=leerCanciones()
+
 ######################################################################################################################################
 ventanaLogin = tk.Tk()
 VentanaMenu = tk.Toplevel(ventanaLogin)
@@ -28,9 +29,9 @@ verificadorElementosMenu=False
 def login(tipoUsuario,codigo,diccProptodo,ventanaPago,ventanaRegistro,diccAdminTodo,ventanaLogin,VentanaMenu):
     if  tipoUsuario=='Usuario' and codigo not in list(diccProptodo.keys()) :
         return navegacionVentanas(ventanaRegistro,ventanaLogin,obtenerDimenciones(ventanaLogin))
-    elif  tipoUsuario=='Usuario' and codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='0':
+    elif  tipoUsuario=='Usuario' and codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado'][0]=='0':
         return navegacionVentanas(ventanaPago,ventanaLogin,obtenerDimenciones(ventanaLogin))
-    elif  tipoUsuario=='Usuario'and codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado']=='1':
+    elif  tipoUsuario=='Usuario'and codigo in list(diccProptodo.keys()) and diccProptodo[codigo]['estado'][0]=='1':
         menu(tipoUsuario,codigo)
         return navegacionVentanas(VentanaMenu,ventanaLogin,obtenerDimenciones(ventanaLogin))
     elif  tipoUsuario=='Administrador' and codigo in list(diccAdminTodo.keys()):
@@ -121,6 +122,9 @@ def loginVentana():
         #Etiqueta display
         etiquetaPago=tk.Label(ventanaPago, text="  ",bg='#D5CEC1',fg='#28342C',font=("Times New Roman",15))
         etiquetaPago.grid(sticky=tk.N,pady=20)
+        #Boton de ver factura
+        verFactura = tk.Button(ventanaPago, text="Ver Facturas", command=lambda:[mostrarFactura(diccProptodo,codigo.get())],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+        verFactura.grid(sticky=tk.N,pady=15)
         #Boton de pagar
         accionPagar = tk.Button(ventanaPago, text="Pagar", command=lambda:[pagar(diccProptodo,diccMembresias,codigo.get(),etiquetaPago),limpiar_texto(numTarjeta),limpiar_texto(fecha),limpiar_texto(codigoSeguridad)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
         accionPagar.grid(sticky=tk.N,pady=15)

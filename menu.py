@@ -7,7 +7,7 @@ from insercion import *#insertAlbum,insertArt,insertCanciones,insertGen,insertPl
 from busqueda import * #buscarAlbum,buscarArtista,buscarCancion,buscarGenero,buscarPlaylist,buscarProp
 from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,eliminarAlbum,eliminarGenero,eliminarArtistas
 from modificacion import *#ModificarPlaylist,modificarArt,modificarCancion,modificarGen,modificarProp
-from login import *#registar,pagar,exportarTXT,factura
+#from login import *#registar,pagar,exportarTXT,factura
 from playsound import *
 from reportes import *
 #Funciones auxiliares

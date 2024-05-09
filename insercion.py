@@ -5,11 +5,10 @@
 from acciones import *
 from tkinter import messagebox
 def insertProp(diccTodo,diccMembresias,cod,nombre,codMem,estado,etiquetaConfirmacionInsercionProp):
-    
     if estado.get()== '1' or estado.get()== '0' :
         if cod.get()  not in list(diccTodo.keys()) :#Validacion si codigo esta repetido
             if codMem.get() not in list(diccMembresias.values()):
-                diccTodo[cod.get()]={'nombre':nombre.get(),'codMem':codMem.get(),'estado':estado.get()}#Añade  un propietario al dict
+                diccTodo[cod.get()]={'nombre':nombre.get(),'codMem':codMem.get(),'estado':f'{estado.get()}Nuevo'}#Añade  un propietario al dict
                 diccMembresias[cod.get()]=codMem.get()
                 mostrarEnPantalla(etiquetaConfirmacionInsercionProp,"El propietario se ha insertado correctamente")
                 limpiar_texto(nombre)
