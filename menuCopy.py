@@ -9,6 +9,7 @@ import tkinter as tk
 from tkinter import ttk
 from acciones import * 
 from modificacion import *#ModificarPlaylist,modificarArt,modificarCancion,modificarGen,modificarProp
+from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,eliminarAlbum,eliminarGenero,eliminarArtistas
 
 diccProptodo=leerProp()[0]#Devuelve una lista con membresias
 diccAdmintodo=leerAdmin()
@@ -685,7 +686,7 @@ def menu(tipoUsuario,codigoUsuario):
         ##############################################################################################################################################
         # Configuración de la ventana de modificacion
         VentanaModificacionProp= tk.Toplevel(ventanaLogin)
-        VentanaModificacionProp.title("Insercion")
+        VentanaModificacionProp.title("Modificacion")
         VentanaModificacionProp.configure(bg='#D5CEC1')
         VentanaModificacionProp.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaModificacionProp.columnconfigure(0,weight=3)
@@ -715,7 +716,7 @@ def menu(tipoUsuario,codigoUsuario):
         ##############################################################################################################################################
         # Configuración de la ventana de modificacion
         VentanaModificacionGen= tk.Toplevel(ventanaLogin)
-        VentanaModificacionGen.title("Insercion")
+        VentanaModificacionGen.title("Modificacion")
         VentanaModificacionGen.configure(bg='#D5CEC1')
         VentanaModificacionGen.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaModificacionGen.columnconfigure(0,weight=3)
@@ -745,7 +746,7 @@ def menu(tipoUsuario,codigoUsuario):
         ##############################################################################################################################################
         # Configuración de la ventana de modificacion
         VentanaModificacionPlaylist= tk.Toplevel(ventanaLogin)
-        VentanaModificacionPlaylist.title("Insercion")
+        VentanaModificacionPlaylist.title("Modificacion")
         VentanaModificacionPlaylist.configure(bg='#D5CEC1')
         VentanaModificacionPlaylist.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaModificacionPlaylist.columnconfigure(0,weight=3)
@@ -775,7 +776,7 @@ def menu(tipoUsuario,codigoUsuario):
         ##############################################################################################################################################
         # Configuración de la ventana de modificacion
         VentanaModificacionArt= tk.Toplevel(ventanaLogin)
-        VentanaModificacionArt.title("Insercion")
+        VentanaModificacionArt.title("Modificacion")
         VentanaModificacionArt.configure(bg='#D5CEC1')
         VentanaModificacionArt.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaModificacionArt.columnconfigure(0,weight=3)
@@ -805,7 +806,7 @@ def menu(tipoUsuario,codigoUsuario):
         ##############################################################################################################################################
         # Configuración de la ventana de modificacion
         VentanaModificacionAlb= tk.Toplevel(ventanaLogin)
-        VentanaModificacionAlb.title("Insercion")
+        VentanaModificacionAlb.title("Modificacion")
         VentanaModificacionAlb.configure(bg='#D5CEC1')
         VentanaModificacionAlb.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaModificacionAlb.columnconfigure(0,weight=3)
@@ -835,7 +836,7 @@ def menu(tipoUsuario,codigoUsuario):
         ##############################################################################################################################################
         # Configuración de la ventana de modificacion
         VentanaModificacionCancion= tk.Toplevel(ventanaLogin)
-        VentanaModificacionCancion.title("Insercion")
+        VentanaModificacionCancion.title("Modificacion")
         VentanaModificacionCancion.configure(bg='#D5CEC1')
         VentanaModificacionCancion.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaModificacionCancion.columnconfigure(0,weight=3)
@@ -876,7 +877,7 @@ def menu(tipoUsuario,codigoUsuario):
         etiquetaConfirmacionMoficacionCancion=tk.Label(VentanaModificacionCancion, text="",font=("Times New Roman",15),background='#D5CEC1')
         etiquetaConfirmacionMoficacionCancion.grid(sticky=tk.N,pady=10)
         #Boton de buscar
-        botonDeModificacion= tk.Button(VentanaModificacionCancion, text="Modificar", command=lambda:modificarCancion(codigoModCancion,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,nombreModCancion,codigoArtModificacionCancion,codigoAlbModificacionCancion,codigoGenModificacionCancion,codigoPlaylistModificacionCancion,etiquetaConfirmacionMoficacionCancion),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeModificacion= tk.Button(VentanaModificacionCancion, text="Modificar", command=lambda:modificarCancion(codigoModCancion,diccCancionestodo,nombreModCancion,codigoArtModificacionCancion,codigoAlbModificacionCancion,codigoGenModificacionCancion,codigoPlaylistModificacionCancion,etiquetaConfirmacionMoficacionCancion),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeModificacion.grid(row=13,column=0,pady=5)
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaModificacionCancion, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaModificacionCancion,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoArtModificacionCancion),limpiar_texto(nombreModCancion),limpiar_texto(codigoAlbModificacionCancion),limpiar_texto(codigoGenModificacionCancion),limpiar_texto(codigoPlaylistModificacionCancion),limpiar_texto(codigoModCancion),mostrarEnPantalla(etiquetaConfirmacionMoficacionCancion,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
@@ -884,7 +885,7 @@ def menu(tipoUsuario,codigoUsuario):
          ##############################################################################################################################################
         # Configuración de la ventana de modificacion
         VentanaModificacionAdm= tk.Toplevel(ventanaLogin)
-        VentanaModificacionAdm.title("Insercion")
+        VentanaModificacionAdm.title("Modificacion")
         VentanaModificacionAdm.configure(bg='#D5CEC1')
         VentanaModificacionAdm.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaModificacionAdm.columnconfigure(0,weight=3)
@@ -911,7 +912,176 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaModificacionAdm, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaModificacionAdm,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoModificacionAdm),limpiar_texto(nombreModificacionAdm),mostrarEnPantalla(etiquetaConfirmacionModificacionAdm,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-###########################################################################################################################################################################33
+###########################################################################################################################################################################
+        # Configuración de la ventana de eliminacion
+        VentanaEliminacionProp= tk.Toplevel(ventanaLogin)
+        VentanaEliminacionProp.title("Eliminacion")
+        VentanaEliminacionProp.configure(bg='#D5CEC1')
+        VentanaEliminacionProp.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaEliminacionProp.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloEliminacionProp=tk.Label(VentanaEliminacionProp,text='Eliminacion de Propietario', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloEliminacionProp.grid(sticky=tk.N,pady=10)
+        DigiteEliminacionProp=tk.Label(VentanaEliminacionProp,text='Digite el código de propietarion:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteEliminacionProp.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        codigoEliminacionProp=tk.Entry(VentanaEliminacionProp,font=("Times New Roman",15),background='#E4E4E4')
+        codigoEliminacionProp.grid(sticky=tk.N,pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionEliminacionProp=tk.Label(VentanaEliminacionProp, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaConfirmacionEliminacionProp.grid(sticky=tk.N,pady=10)
+        #Boton de eliminacion
+        botonDeEliminacion= tk.Button(VentanaEliminacionProp, text="Eliminar", command=lambda: eliminarProp(codigoEliminacionProp,diccProptodo,diccMembresias,diccPlaylisttodo,diccCancionestodo,etiquetaConfirmacionEliminacionProp),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeEliminacion.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaEliminacionProp, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionProp,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionProp),mostrarEnPantalla(etiquetaConfirmacionEliminacionProp,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+###########################################################################################################################################################################
+        # Configuración de la ventana de eliminacion
+        VentanaEliminacionPlaylist= tk.Toplevel(ventanaLogin)
+        VentanaEliminacionPlaylist.title("Eliminacion")
+        VentanaEliminacionPlaylist.configure(bg='#D5CEC1')
+        VentanaEliminacionPlaylist.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaEliminacionPlaylist.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloEliminacionPlaylist=tk.Label(VentanaEliminacionPlaylist,text='Eliminacion de Playlist', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloEliminacionPlaylist.grid(sticky=tk.N,pady=10)
+        DigiteEliminacionPlaylist=tk.Label(VentanaEliminacionPlaylist,text='Digite el código de Playlist:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteEliminacionPlaylist.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        codigoEliminacionPlaylist=tk.Entry(VentanaEliminacionPlaylist,font=("Times New Roman",15),background='#E4E4E4')
+        codigoEliminacionPlaylist.grid(sticky=tk.N,pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionEliminacionPlaylist=tk.Label(VentanaEliminacionPlaylist, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaConfirmacionEliminacionPlaylist.grid(sticky=tk.N,pady=10)
+        #Boton de eliminacion
+        botonDeEliminacion= tk.Button(VentanaEliminacionPlaylist, text="Eliminar", command=lambda: eliminarPlaylist(codigoEliminacionPlaylist,diccPlaylisttodo,diccCancionestodo,etiquetaConfirmacionEliminacionPlaylist),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeEliminacion.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaEliminacionPlaylist, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionPlaylist,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionPlaylist),mostrarEnPantalla(etiquetaConfirmacionEliminacionPlaylist,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+###########################################################################################################################################################################
+        # Configuración de la ventana de eliminacion
+        VentanaEliminacionGen= tk.Toplevel(ventanaLogin)
+        VentanaEliminacionGen.title("Eliminacion")
+        VentanaEliminacionGen.configure(bg='#D5CEC1')
+        VentanaEliminacionGen.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaEliminacionGen.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloEliminacionGen=tk.Label(VentanaEliminacionGen,text='Eliminacion de Genero', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloEliminacionGen.grid(sticky=tk.N,pady=10)
+        DigiteEliminacionGen=tk.Label(VentanaEliminacionGen,text='Digite el código de Genero:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteEliminacionGen.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        codigoEliminacionGen=tk.Entry(VentanaEliminacionGen,font=("Times New Roman",15),background='#E4E4E4')
+        codigoEliminacionGen.grid(sticky=tk.N,pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionEliminacionGen=tk.Label(VentanaEliminacionGen, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaConfirmacionEliminacionGen.grid(sticky=tk.N,pady=10)
+        #Boton de eliminacion
+        botonDeEliminacion= tk.Button(VentanaEliminacionGen, text="Eliminar", command=lambda:eliminarGenero(codigoEliminacionGen,diccGentodo,diccArttodo,diccAlbumtodo,diccCancionestodo,etiquetaConfirmacionEliminacionGen),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeEliminacion.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaEliminacionGen, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionGen,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionGen),mostrarEnPantalla(etiquetaConfirmacionEliminacionGen,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+###########################################################################################################################################################################
+        # Configuración de la ventana de eliminacion
+        VentanaEliminacionArt= tk.Toplevel(ventanaLogin)
+        VentanaEliminacionArt.title("Eliminacion")
+        VentanaEliminacionArt.configure(bg='#D5CEC1')
+        VentanaEliminacionArt.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaEliminacionArt.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloEliminacionArt=tk.Label(VentanaEliminacionArt,text='Eliminacion de Artista', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloEliminacionArt.grid(sticky=tk.N,pady=10)
+        DigiteEliminacionArt=tk.Label(VentanaEliminacionArt,text='Digite el código de Artista:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteEliminacionArt.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        codigoEliminacionArt=tk.Entry(VentanaEliminacionArt,font=("Times New Roman",15),background='#E4E4E4')
+        codigoEliminacionArt.grid(sticky=tk.N,pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionEliminacionArt=tk.Label(VentanaEliminacionArt, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaConfirmacionEliminacionArt.grid(sticky=tk.N,pady=10)
+        #Boton de eliminacion
+        botonDeEliminacion= tk.Button(VentanaEliminacionArt, text="Eliminar", command=lambda:eliminarArt(codigoEliminacionArt,diccArttodo,diccAlbumtodo,diccCancionestodo,etiquetaConfirmacionEliminacionArt),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeEliminacion.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaEliminacionArt, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionArt,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionArt),mostrarEnPantalla(etiquetaConfirmacionEliminacionArt,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+###########################################################################################################################################################################
+        # Configuración de la ventana de eliminacion
+        VentanaEliminacionAlb= tk.Toplevel(ventanaLogin)
+        VentanaEliminacionAlb.title("Eliminacion")
+        VentanaEliminacionAlb.configure(bg='#D5CEC1')
+        VentanaEliminacionAlb.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaEliminacionAlb.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloEliminacionAlb=tk.Label(VentanaEliminacionAlb,text='Eliminacion de Album', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloEliminacionAlb.grid(sticky=tk.N,pady=10)
+        DigiteEliminacionAlb=tk.Label(VentanaEliminacionAlb,text='Digite el código de Album:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteEliminacionAlb.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        codigoEliminacionAlb=tk.Entry(VentanaEliminacionAlb,font=("Times New Roman",15),background='#E4E4E4')
+        codigoEliminacionAlb.grid(sticky=tk.N,pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionEliminacionAlb=tk.Label(VentanaEliminacionAlb, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaConfirmacionEliminacionAlb.grid(sticky=tk.N,pady=10)
+        #Boton de eliminacion
+        botonDeEliminacion= tk.Button(VentanaEliminacionAlb, text="Eliminar", command=lambda:eliminarAlbum(codigoEliminacionAlb,diccAlbumtodo,diccCancionestodo,etiquetaConfirmacionEliminacionAlb),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeEliminacion.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaEliminacionAlb, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionAlb,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionAlb),mostrarEnPantalla(etiquetaConfirmacionEliminacionAlb,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+###########################################################################################################################################################################
+        # Configuración de la ventana de eliminacion
+        VentanaEliminacionCancion= tk.Toplevel(ventanaLogin)
+        VentanaEliminacionCancion.title("Eliminacion")
+        VentanaEliminacionCancion.configure(bg='#D5CEC1')
+        VentanaEliminacionCancion.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaEliminacionCancion.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloEliminacionCancion=tk.Label(VentanaEliminacionCancion,text='Eliminacion de Cancion', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloEliminacionCancion.grid(sticky=tk.N,pady=10)
+        DigiteEliminacionCancion=tk.Label(VentanaEliminacionCancion,text='Digite el código de Cancion:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteEliminacionCancion.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        codigoEliminacionCancion=tk.Entry(VentanaEliminacionCancion,font=("Times New Roman",15),background='#E4E4E4')
+        codigoEliminacionCancion.grid(sticky=tk.N,pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionEliminacionCancion=tk.Label(VentanaEliminacionCancion, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaConfirmacionEliminacionCancion.grid(sticky=tk.N,pady=10)
+        #Boton de eliminacion
+        botonDeEliminacion= tk.Button(VentanaEliminacionCancion, text="Eliminar", command=lambda:eliminarCanciones(codigoEliminacionCancion,diccCancionestodo,etiquetaConfirmacionEliminacionCancion),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeEliminacion.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaEliminacionCancion, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionCancion,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionCancion),mostrarEnPantalla(etiquetaConfirmacionEliminacionCancion,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+###########################################################################################################################################################################
+        # Configuración de la ventana de eliminacion
+        VentanaEliminacionAdm= tk.Toplevel(ventanaLogin)
+        VentanaEliminacionAdm.title("Eliminacion")
+        VentanaEliminacionAdm.configure(bg='#D5CEC1')
+        VentanaEliminacionAdm.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaEliminacionAdm.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloEliminacionAdm=tk.Label(VentanaEliminacionAdm,text='Eliminacion de Administrador', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloEliminacionAdm.grid(sticky=tk.N,pady=10)
+        DigiteEliminacionAdm=tk.Label(VentanaEliminacionAdm,text='Digite el código de Administrador:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteEliminacionAdm.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        codigoEliminacionAdm=tk.Entry(VentanaEliminacionAdm,font=("Times New Roman",15),background='#E4E4E4')
+        codigoEliminacionAdm.grid(sticky=tk.N,pady=10)
+        #Etiqueta display
+        etiquetaConfirmacionEliminacionAdm=tk.Label(VentanaEliminacionAdm, text="",font=("Times New Roman",15),background='#D5CEC1')
+        etiquetaConfirmacionEliminacionAdm.grid(sticky=tk.N,pady=10)
+        #Boton de eliminacion
+        botonDeEliminacion= tk.Button(VentanaEliminacionAdm, text="Eliminar", command=lambda: eliminarAdministrador(codigoEliminacionAdm,diccAdmintodo,etiquetaConfirmacionEliminacionAdm),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeEliminacion.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaEliminacionAdm, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionAdm,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionAdm),mostrarEnPantalla(etiquetaConfirmacionEliminacionAdm,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+###########################################################################################################################################################################
+        menubusqueda.add_command(label="Prueba",command=lambda:navegacionVentanas(VentanaModificacionPlaylist,VentanaMenu,obtenerDimenciones(VentanaMenu)))
 
    
 loginVentana()
