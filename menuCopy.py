@@ -612,51 +612,51 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaInsercionCancion.columnconfigure(0,weight=3)
 
         TituloInsCan=tk.Label(VentanaInsercionCancion,text='Inserción de canciones', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
-        TituloInsCan.grid(sticky=tk.N,pady=10)
+        TituloInsCan.grid(sticky=tk.N,pady=2)
         DigiteCan1=tk.Label(VentanaInsercionCancion,text='Digite el código de la canción:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
-        DigiteCan1.grid(sticky=tk.N,pady=10)
+        DigiteCan1.grid(sticky=tk.N,pady=2)
         #Codigo de Cancion
         codigoInsericionCancion=tk.Entry(VentanaInsercionCancion,font=("Times New Roman",15),background='#E4E4E4')
-        codigoInsericionCancion.grid(sticky=tk.N,pady=10)
+        codigoInsericionCancion.grid(sticky=tk.N,pady=2)
 
         DigiteNomCan1=tk.Label(VentanaInsercionCancion,text='Digite el nombre de la canción:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
-        DigiteNomCan1.grid(sticky=tk.N,pady=10)
+        DigiteNomCan1.grid(sticky=tk.N,pady=2)
         #Nombre de Cancion
         nombreInsercionCancion=tk.Entry(VentanaInsercionCancion,font=("Times New Roman",15),background='#E4E4E4')
-        nombreInsercionCancion.grid(sticky=tk.N,pady=10)
+        nombreInsercionCancion.grid(sticky=tk.N,pady=2)
 
         DigitecodArt2=tk.Label(VentanaInsercionCancion,text='Digite el código del artista al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
-        DigitecodArt2.grid(sticky=tk.N,pady=10)
+        DigitecodArt2.grid(sticky=tk.N,pady=2)
         #Codigo Art
         codigoArtInsercionCancion=tk.Entry(VentanaInsercionCancion,font=("Times New Roman",15),background='#E4E4E4')
-        codigoArtInsercionCancion.grid(sticky=tk.N,pady=10)
+        codigoArtInsercionCancion.grid(sticky=tk.N,pady=2)
 
         DigitecodAlb2=tk.Label(VentanaInsercionCancion,text='Digite el código del album al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
-        DigitecodAlb2.grid(sticky=tk.N,pady=10)
+        DigitecodAlb2.grid(sticky=tk.N,pady=2)
         #Codigo Alb
         codigoAlbInsercionCancion=tk.Entry(VentanaInsercionCancion,font=("Times New Roman",15),background='#E4E4E4')
-        codigoAlbInsercionCancion.grid(sticky=tk.N,pady=10)
+        codigoAlbInsercionCancion.grid(sticky=tk.N,pady=2)
 
         DigitecodGen2=tk.Label(VentanaInsercionCancion,text='Digite el código del género al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
-        DigitecodGen2.grid(sticky=tk.N,pady=10)
+        DigitecodGen2.grid(sticky=tk.N,pady=2)
         #Codigo Gen
         codigoGenInsercionCancion=tk.Entry(VentanaInsercionCancion,font=("Times New Roman",15),background='#E4E4E4')
-        codigoGenInsercionCancion.grid(sticky=tk.N,pady=10)
+        codigoGenInsercionCancion.grid(sticky=tk.N,pady=2)
 
         DigitecodPlay2=tk.Label(VentanaInsercionCancion,text='Digite el código de la playlist al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
-        DigitecodPlay2.grid(sticky=tk.N,pady=10)
+        DigitecodPlay2.grid(sticky=tk.N,pady=2)
         #Codigo Playlist
         codigoPlaylistInsercionCancion=tk.Entry(VentanaInsercionCancion,font=("Times New Roman",15),background='#E4E4E4')
-        codigoPlaylistInsercionCancion.grid(sticky=tk.N,pady=10)
+        codigoPlaylistInsercionCancion.grid(sticky=tk.N,pady=2)
         #Etiqueta display
         etiquetaConfirmacionInsercionCancion=tk.Label(VentanaInsercionCancion, text="",font=("Times New Roman",15),background='#D5CEC1')
-        etiquetaConfirmacionInsercionCancion.grid(sticky=tk.N,pady=10)
+        etiquetaConfirmacionInsercionCancion.grid(sticky=tk.N,pady=2)
         #Boton de buscar
         botonDeinsercion= tk.Button(VentanaInsercionCancion, text="Insertar", command=lambda:insertCanciones(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoInsericionCancion,nombreInsercionCancion,codigoArtInsercionCancion,codigoAlbInsercionCancion,codigoGenInsercionCancion,codigoPlaylistInsercionCancion,etiquetaConfirmacionInsercionCancion),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
-        botonDeinsercion.grid(row=13,column=0,pady=5)
+        botonDeinsercion.grid(row=13,column=0,pady=3)
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaInsercionCancion, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaInsercionCancion,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoInsericionCancion),limpiar_texto(nombreInsercionCancion),limpiar_texto(codigoArtInsercionCancion),limpiar_texto(codigoAlbInsercionCancion),limpiar_texto(codigoGenInsercionCancion),limpiar_texto(codigoPlaylistInsercionCancion),mostrarEnPantalla(etiquetaConfirmacionInsercionCancion,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
-        botonDeBusquedaAMenu.grid(row=14,column=0,pady=5)
+        botonDeBusquedaAMenu.grid(row=14,column=0,pady=3)
         ##############################################################################################################################################
         # Configuración de la ventana de insercion
         VentanaInsercionAdm= tk.Toplevel(ventanaLogin)
@@ -846,46 +846,46 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaModificacionCancion.columnconfigure(0,weight=3)
         #Instruccion en pantalla
         TituloModCan=tk.Label(VentanaModificacionCancion,text='Modificacion de Cancion', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
-        TituloModCan.grid(sticky=tk.N,pady=10)
+        TituloModCan.grid(sticky=tk.N,pady=2)
         #Codigo de Cancion
         DigiteModCan=tk.Label(VentanaModificacionCancion,text='Digite el código de cancion:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
-        DigiteModCan.grid(sticky=tk.N,pady=10)
+        DigiteModCan.grid(sticky=tk.N,pady=2)
         codigoModCancion=tk.Entry(VentanaModificacionCancion,font=("Times New Roman",15),background='#E4E4E4')
-        codigoModCancion.grid(sticky=tk.N,pady=10)
+        codigoModCancion.grid(sticky=tk.N,pady=2)
         #Nombre de Cancion
         DigiteNomCan=tk.Label(VentanaModificacionCancion,text='Digite el nombre de la canción:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
-        DigiteNomCan.grid(sticky=tk.N,pady=10)
+        DigiteNomCan.grid(sticky=tk.N,pady=2)
         nombreModCancion=tk.Entry(VentanaModificacionCancion,font=("Times New Roman",15),background='#E4E4E4')
-        nombreModCancion.grid(sticky=tk.N,pady=10)
+        nombreModCancion.grid(sticky=tk.N,pady=2)
         #Codigo Art
         DigiteModCodArt=tk.Label(VentanaModificacionCancion,text='Digite el código del artista al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
-        DigiteModCodArt.grid(sticky=tk.N,pady=10)
+        DigiteModCodArt.grid(sticky=tk.N,pady=2)
         codigoArtModificacionCancion=tk.Entry(VentanaModificacionCancion,font=("Times New Roman",15),background='#E4E4E4')
-        codigoArtModificacionCancion.grid(sticky=tk.N,pady=10)
+        codigoArtModificacionCancion.grid(sticky=tk.N,pady=2)
         #Codigo Alb
         DigiteModCodAlb=tk.Label(VentanaModificacionCancion,text='Digite el código del album al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
-        DigiteModCodAlb.grid(sticky=tk.N,pady=10)
+        DigiteModCodAlb.grid(sticky=tk.N,pady=2)
         codigoAlbModificacionCancion=tk.Entry(VentanaModificacionCancion,font=("Times New Roman",15),background='#E4E4E4')
-        codigoAlbModificacionCancion.grid(sticky=tk.N,pady=10)
+        codigoAlbModificacionCancion.grid(sticky=tk.N,pady=2)
         #Codigo Gen
         DigiteModCodGen=tk.Label(VentanaModificacionCancion,text='Digite el código del género al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
-        DigiteModCodGen.grid(sticky=tk.N,pady=10)
+        DigiteModCodGen.grid(sticky=tk.N,pady=2)
         codigoGenModificacionCancion=tk.Entry(VentanaModificacionCancion,font=("Times New Roman",15),background='#E4E4E4')
-        codigoGenModificacionCancion.grid(sticky=tk.N,pady=10)
+        codigoGenModificacionCancion.grid(sticky=tk.N,pady=2)
         #Codigo Playlist
         DigiteModCodPlaylist=tk.Label(VentanaModificacionCancion,text='Digite el código de la playlist al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
-        DigiteModCodPlaylist.grid(sticky=tk.N,pady=10)
+        DigiteModCodPlaylist.grid(sticky=tk.N,pady=2)
         codigoPlaylistModificacionCancion=tk.Entry(VentanaModificacionCancion,font=("Times New Roman",15),background='#E4E4E4')
-        codigoPlaylistModificacionCancion.grid(sticky=tk.N,pady=10)
+        codigoPlaylistModificacionCancion.grid(sticky=tk.N,pady=2)
         #Etiqueta display
         etiquetaConfirmacionMoficacionCancion=tk.Label(VentanaModificacionCancion, text="",font=("Times New Roman",15),background='#D5CEC1')
-        etiquetaConfirmacionMoficacionCancion.grid(sticky=tk.N,pady=10)
+        etiquetaConfirmacionMoficacionCancion.grid(sticky=tk.N,pady=2)
         #Boton de buscar
         botonDeModificacion= tk.Button(VentanaModificacionCancion, text="Modificar", command=lambda:modificarCancion(codigoModCancion,diccCancionestodo,nombreModCancion,codigoArtModificacionCancion,codigoAlbModificacionCancion,codigoGenModificacionCancion,codigoPlaylistModificacionCancion,etiquetaConfirmacionMoficacionCancion),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
-        botonDeModificacion.grid(row=13,column=0,pady=5)
+        botonDeModificacion.grid(row=13,column=0,pady=3)
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaModificacionCancion, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaModificacionCancion,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoArtModificacionCancion),limpiar_texto(nombreModCancion),limpiar_texto(codigoAlbModificacionCancion),limpiar_texto(codigoGenModificacionCancion),limpiar_texto(codigoPlaylistModificacionCancion),limpiar_texto(codigoModCancion),mostrarEnPantalla(etiquetaConfirmacionMoficacionCancion,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
-        botonDeBusquedaAMenu.grid(row=14,column=0,pady=5)
+        botonDeBusquedaAMenu.grid(row=14,column=0,pady=3)
          ##############################################################################################################################################
         # Configuración de la ventana de modificacion
         VentanaModificacionAdm= tk.Toplevel(ventanaLogin)
