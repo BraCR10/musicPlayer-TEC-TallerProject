@@ -10,7 +10,7 @@ from tkinter import ttk
 from acciones import * 
 from modificacion import *#ModificarPlaylist,modificarArt,modificarCancion,modificarGen,modificarProp
 from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,eliminarAlbum,eliminarGenero,eliminarArtistas
-
+from reproducir import *
 diccProptodo=leerProp()[0]#Devuelve una lista con membresias
 diccAdmintodo=leerAdmin()
 diccMembresias=leerProp()[1]
@@ -19,7 +19,7 @@ diccArttodo=leerArt()
 diccAlbumtodo=leerAlbum()
 diccPlaylisttodo=leerPlaylist()
 diccCancionestodo=leerCanciones()
-
+ColasDeReproduccion={}#Cada propietarion tiene su propia cola
 ######################################################################################################################################
 ventanaLogin = tk.Tk()
 VentanaMenu = tk.Toplevel(ventanaLogin)
@@ -1085,6 +1085,7 @@ def menu(tipoUsuario,codigoUsuario):
         botonDeBusquedaAMenu = tk.Button(VentanaEliminacionAdm, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionAdm,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionAdm),mostrarEnPantalla(etiquetaConfirmacionEliminacionAdm,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
 ###########################################################################################################################################################################
+        menuinsercion.add_command(label="Prueba",command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo))
 
 
    
