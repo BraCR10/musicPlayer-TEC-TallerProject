@@ -26,35 +26,161 @@ def agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCanc
         limpiar_texto(codigoCancion)
         
 def actualizarCola(ColasDeReproduccion,et1,et2,et3,et4,et5,prop,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo):
+    
     if prop  in list(ColasDeReproduccion.keys()):
+        cont=0
         if len(ColasDeReproduccion[prop])==1:
-            mostrarEnPantalla(et1,f'1-{buscarCancion(ColasDeReproduccion[prop][0],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
+            temp=''
+            for i in buscarCancion(ColasDeReproduccion[prop][0],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            mostrarEnPantalla(et1,f'1-{temp}')
+            mostrarEnPantalla(et2,f'Espacio vacio')
+            mostrarEnPantalla(et3,f'Espacio vacio')
+            mostrarEnPantalla(et4,f'Espacio vacio')
+            mostrarEnPantalla(et5,f'Espacio vacio')
         elif len(ColasDeReproduccion[prop])==2:
-            mostrarEnPantalla(et1,f'1-{buscarCancion(ColasDeReproduccion[prop][0],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
-            mostrarEnPantalla(et2,f'2-{buscarCancion(ColasDeReproduccion[prop][1],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
+            temp=''
+            for i in buscarCancion(ColasDeReproduccion[prop][0],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            temp2=''
+            for i in buscarCancion(ColasDeReproduccion[prop][1],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp2+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            mostrarEnPantalla(et1,f'1-{temp}')
+            mostrarEnPantalla(et2,f'2-{temp2}')
+            mostrarEnPantalla(et3,f'Espacio vacio')
+            mostrarEnPantalla(et4,f'Espacio vacio')
+            mostrarEnPantalla(et5,f'Espacio vacio')
         elif len(ColasDeReproduccion[prop])==3:
-            mostrarEnPantalla(et1,f'1-{buscarCancion(ColasDeReproduccion[prop][0],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
-            mostrarEnPantalla(et2,f'2-{buscarCancion(ColasDeReproduccion[prop][1],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
-            mostrarEnPantalla(et3,f'3-{buscarCancion(ColasDeReproduccion[prop][2],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
+            temp=''
+            for i in buscarCancion(ColasDeReproduccion[prop][0],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            temp2=''
+            for i in buscarCancion(ColasDeReproduccion[prop][1],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp2+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            temp3=''
+            for i in buscarCancion(ColasDeReproduccion[prop][2],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp3+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            mostrarEnPantalla(et1,f'1-{temp}')
+            mostrarEnPantalla(et2,f'2-{temp2}')
+            mostrarEnPantalla(et3,f'3-{temp3}')
+            mostrarEnPantalla(et4,f'Espacio vacio')
+            mostrarEnPantalla(et5,f'Espacio vacio')
         elif len(ColasDeReproduccion[prop])==4:
-            mostrarEnPantalla(et1,f'1-{buscarCancion(ColasDeReproduccion[prop][0],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
-            mostrarEnPantalla(et2,f'2-{buscarCancion(ColasDeReproduccion[prop][1],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
-            mostrarEnPantalla(et3,f'3-{buscarCancion(ColasDeReproduccion[prop][2],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
-            mostrarEnPantalla(et4,f'4-{buscarCancion(ColasDeReproduccion[prop][3],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
+            temp=''
+            for i in buscarCancion(ColasDeReproduccion[prop][0],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            temp2=''
+            for i in buscarCancion(ColasDeReproduccion[prop][1],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp2+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            temp3=''
+            for i in buscarCancion(ColasDeReproduccion[prop][2],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp3+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            temp4=''
+            for i in buscarCancion(ColasDeReproduccion[prop][3],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp4+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            mostrarEnPantalla(et1,f'1-{temp}')
+            mostrarEnPantalla(et2,f'2-{temp2}')
+            mostrarEnPantalla(et3,f'3-{temp3}')
+            mostrarEnPantalla(et4,f'4-{temp4}')
+            mostrarEnPantalla(et5,f'Espacio vacio')
         elif len(ColasDeReproduccion[prop])==5:
-            mostrarEnPantalla(et1,f'1-{buscarCancion(ColasDeReproduccion[prop][0],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
-            mostrarEnPantalla(et2,f'2-{buscarCancion(ColasDeReproduccion[prop][1],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
-            mostrarEnPantalla(et3,f'3-{buscarCancion(ColasDeReproduccion[prop][2],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
-            mostrarEnPantalla(et4,f'4-{buscarCancion(ColasDeReproduccion[prop][3],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
-            mostrarEnPantalla(et5,f'5-{buscarCancion(ColasDeReproduccion[prop][4],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]}')
+            temp=''
+            for i in buscarCancion(ColasDeReproduccion[prop][0],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            temp2=''
+            for i in buscarCancion(ColasDeReproduccion[prop][1],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp2+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            temp3=''
+            for i in buscarCancion(ColasDeReproduccion[prop][2],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp3+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            temp4=''
+            for i in buscarCancion(ColasDeReproduccion[prop][3],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp4+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            temp5=''
+            for i in buscarCancion(ColasDeReproduccion[prop][4],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]:
+                temp5+=i
+                cont+=1
+                if cont==10:
+                    cont=0
+                    break
+            mostrarEnPantalla(et1,f'1-{temp}')
+            mostrarEnPantalla(et2,f'2-{temp2}')
+            mostrarEnPantalla(et3,f'3-{temp3}')
+            mostrarEnPantalla(et4,f'4-{temp4}')
+            mostrarEnPantalla(et5,f'5-{temp5}')
         else:
             mostrarEnPantalla(et1,f'Espacio vacio')
             mostrarEnPantalla(et2,f'Espacio vacio')
             mostrarEnPantalla(et3,f'Espacio vacio')
             mostrarEnPantalla(et4,f'Espacio vacio')
             mostrarEnPantalla(et5,f'Espacio vacio')
-def vaciarCola(ColasDeReproduccion,usuarioActual):
-    ColasDeReproduccion[usuarioActual]=[]
+def vaciarCola(ColasDeReproduccion,usuarioActual,numCancion):
+    if numCancion==1 and len(ColasDeReproduccion[usuarioActual])>=1:
+        ColasDeReproduccion[usuarioActual].pop(0)
+    if numCancion==2 and len(ColasDeReproduccion[usuarioActual])>=2:
+        ColasDeReproduccion[usuarioActual].pop(1)
+    if numCancion==3 and len(ColasDeReproduccion[usuarioActual])>=3:
+        ColasDeReproduccion[usuarioActual].pop(2)
+    if numCancion==4 and len(ColasDeReproduccion[usuarioActual])>=4:
+        ColasDeReproduccion[usuarioActual].pop(3)
+    if numCancion==5 and len(ColasDeReproduccion[usuarioActual])>=5:
+        ColasDeReproduccion[usuarioActual].pop(4)
 def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,usuarioActual,ColasDeReproduccion,diccProptodo):
     # Crear la ventana principal
     ventana = tk.Tk()
@@ -100,23 +226,38 @@ def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlay
     titulo=tk.Label(cola, text="La cola es:",font=("Times New Roman",15),background='#D5CEC1')
     titulo.pack(pady=(int(f'{cola.winfo_screenheight()}')//100,0))
     #Etiquetas para mostrara canciones en cola
-    cancion1=tk.Label(cola, text="---Espacio vacio---",font=("Times New Roman",15),background='#D5CEC1')
-    cancion1.pack(pady=(int(f'{cola.winfo_screenheight()}')//30,0))
-    cancion2=tk.Label(cola, text="---Espacio vacio---",font=("Times New Roman",15),background='#D5CEC1')
-    cancion2.pack(pady=(int(f'{cola.winfo_screenheight()}')//30,0))
-    cancion3=tk.Label(cola, text="---Espacio vacio---",font=("Times New Roman",15),background='#D5CEC1')
-    cancion3.pack(pady=(int(f'{cola.winfo_screenheight()}')//30,0))
-    cancion4=tk.Label(cola, text="---Espacio vacio---",font=("Times New Roman",15),background='#D5CEC1')
-    cancion4.pack(pady=(int(f'{cola.winfo_screenheight()}')//30,0))
-    cancion5=tk.Label(cola, text="---Espacio vacio---",font=("Times New Roman",15),background='#D5CEC1')
-    cancion5.pack(pady=(int(f'{cola.winfo_screenheight()}')//30,int(f'{cola.winfo_screenheight()}')//3000))
+    cancion1=tk.Label(cola, text="Espacio vacio",font=("Times New Roman",15),background='#D5CEC1')
+    cancion1.pack(pady=(int(f'{cola.winfo_screenheight()}')//50,0),padx=20)
+    eliminarCancion1 = tk.Button(cola, text="Del",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,1),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    eliminarCancion1.pack(side='left')
+    eliminarCancion1.place(x=0, y=int(f'{cola.winfo_screenheight()}')-612)
+    cancion2=tk.Label(cola, text="Espacio vacio",font=("Times New Roman",15),background='#D5CEC1')
+    cancion2.pack(pady=(int(f'{cola.winfo_screenheight()}')//50,0),padx=20)
+    eliminarCancion2 = tk.Button(cola, text="Del",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,2),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    eliminarCancion2.pack(side='left')
+    eliminarCancion2.place(x=0, y=int(f'{cola.winfo_screenheight()}')-562)
+    cancion3=tk.Label(cola, text="Espacio vacio",font=("Times New Roman",15),background='#D5CEC1')
+    cancion3.pack(pady=(int(f'{cola.winfo_screenheight()}')//45,0),padx=20)
+    eliminarCancion3 = tk.Button(cola, text="Del",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,3),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    eliminarCancion3.pack(side='left')
+    eliminarCancion3.place(x=0, y=int(f'{cola.winfo_screenheight()}')-512)
+    cancion4=tk.Label(cola, text="Espacio vacio",font=("Times New Roman",15),background='#D5CEC1')
+    cancion4.pack(pady=(int(f'{cola.winfo_screenheight()}')//30,0),padx=20)
+    eliminarCancion4 = tk.Button(cola, text="Del",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,4),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    eliminarCancion4.pack(side='left')
+    eliminarCancion4.place(x=0, y=int(f'{cola.winfo_screenheight()}')-462)
+    cancion5=tk.Label(cola, text="Espacio vacio",font=("Times New Roman",15),background='#D5CEC1')
+    cancion5.pack(pady=(int(f'{cola.winfo_screenheight()}')//30,0),padx=20)
+    eliminarCancion5 = tk.Button(cola, text="Del",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,5),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    eliminarCancion5.pack(side='left')
+    eliminarCancion5.place(x=0, y=int(f'{cola.winfo_screenheight()}')-402)
     #Boton para refrescar la cola
     actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)
     #boton agregar
     botonAgregar = tk.Button(cola, text="Insertar cancion a cola",command=lambda:[agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCancionestodo,usuarioActual,ColasDeReproduccion,diccProptodo),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-    botonAgregar.pack(pady=(int(f'{cola.winfo_screenheight()}')//50,0))
-    eliminarCola = tk.Button(cola, text="Vaciar cola",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-    eliminarCola.pack(pady=int(f'{cola.winfo_screenheight()}')//150)
+    botonAgregar.pack(pady=(int(f'{cola.winfo_screenheight()}')//10,0))
+    #eliminarCola = tk.Button(cola, text="Vaciar cola",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    #eliminarCola.pack(pady=int(f'{cola.winfo_screenheight()}')//150)
 
     # Iniciar el bucle de la ventana
     ventana.mainloop()
