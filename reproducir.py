@@ -2,7 +2,7 @@ import tkinter as tk
 from acciones import mostrarEnPantalla,limpiar_texto
 from tkinter import messagebox
 from busqueda import buscarCancion
-from acciones import obtenerDimenciones
+#Agrega un cancion a cola y hace validaciones
 def agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCancionestodo,usuarioActual,ColasDeReproduccion,diccProptodo):
     if usuarioActual not in list(ColasDeReproduccion.keys()):
         ColasDeReproduccion[usuarioActual]=[]
@@ -24,9 +24,8 @@ def agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCanc
     else:
         messagebox.showinfo("Alerta", "Cancion inexsistente o los datos relacionados son incorrectos!")
         limpiar_texto(codigoCancion)
-        
+#Presenta un max de 10 caracteres en pantalla 
 def actualizarCola(ColasDeReproduccion,et1,et2,et3,et4,et5,prop,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo):
-    
     if prop  in list(ColasDeReproduccion.keys()):
         cont=0
         if len(ColasDeReproduccion[prop])==1:
@@ -170,6 +169,7 @@ def actualizarCola(ColasDeReproduccion,et1,et2,et3,et4,et5,prop,diccCancionestod
             mostrarEnPantalla(et3,f'Espacio vacio')
             mostrarEnPantalla(et4,f'Espacio vacio')
             mostrarEnPantalla(et5,f'Espacio vacio')
+#Vacia cola deacuerdo a la cancion que el usaurio quiera
 def vaciarCola(ColasDeReproduccion,usuarioActual,numCancion):
     if numCancion==1 and len(ColasDeReproduccion[usuarioActual])>=1:
         ColasDeReproduccion[usuarioActual].pop(0)
@@ -264,3 +264,55 @@ def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlay
 
 
 
+import pygame
+from pygame import mixer
+
+# Inicializar Pygame mixer
+mixer.init()
+
+# Listado de canciones
+ColasDeReproduccion = ["1.wav", "2.wav", "3.wav"]  # Puedes añadir más canciones si lo deseas
+
+# Índice de la canción actual y anterior
+cancionActual = 0
+cancionAnterior = 0
+
+# Función para avanzar rápidamente el archivo de música
+def adelantar(seconds):
+    tiempoActual = mixer.music.get_pos() / 1000  # Obtener la posición actual de reproducción en segundos
+    tiempoNuevo = tiempoActual + seconds  # Calcular la nueva posición después de avanzar rápidamente
+    mixer.music.set_pos(tiempoNuevo)  # Establecer la nueva posición
+
+# Función para pausar la música
+def pausar():
+    mixer.music.pause()
+
+# Función para reanudar la música
+def continuar():
+    mixer.music.unpause()
+
+# Función para detener la música
+def parar():
+    mixer.music.stop()
+
+# Función para reproducir una canción específica
+def reproducir(song_number):
+    global cancionActual, cancionAnterior
+    cancionAnterior = cancionActual
+    cancionActual = song_number - 1  # Restar 1 porque las listas comienzan desde el índice 0
+    mixer.music.load(ColasDeReproduccion[cancionActual])
+    mixer.music.play()
+
+# Función para reproducir la siguiente canción
+def siguienteCancion():
+    global cancionActual
+    cancionActual = (cancionActual + 1) % len(ColasDeReproduccion)
+    mixer.music.load(ColasDeReproduccion[cancionActual])
+    mixer.music.play()
+
+# Función para reproducir la canción anterior
+def previaCancion():
+    global cancionActual
+    cancionActual = cancionAnterior
+    mixer.music.load(ColasDeReproduccion[cancionActual])
+    mixer.music.play()
