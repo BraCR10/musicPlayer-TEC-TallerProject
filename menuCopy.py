@@ -138,19 +138,19 @@ def menu(tipoUsuario,codigoUsuario):
         global verificadorElementosMenu
         global etiquetaBienvenida
         global botonCerrarSesion
-        global MusicaLabel
-        global Usuarioslabel
-        global Reproductorlabel
-        global Albumlabel
-        global Pagolabel
+        global MusicaBoton
+        global UsuariosBoton
+        global ReproductorBoton
+        global AlbumBoton
+        global PagoBoton
         if verificadorElementosMenu==True:
                 etiquetaBienvenida.destroy()
                 botonCerrarSesion.destroy()
-                MusicaLabel.destroy()
-                Usuarioslabel.destroy()
-                Reproductorlabel.destroy()
-                Albumlabel.destroy()
-                Pagolabel.destroy()
+                MusicaBoton.destroy()
+                UsuariosBoton.destroy()
+                ReproductorBoton.destroy()
+                AlbumBoton.destroy()
+                PagoBoton.destroy()
                 verificadorElementosMenu=False
         if not verificadorElementosMenu:
                 if  tipoUsuario=="Usuario":
@@ -196,6 +196,28 @@ def menu(tipoUsuario,codigoUsuario):
                 menuinsercion.add_command(label="Cancion",command=lambda:navegacionVentanas(VentanaInsercionCancion,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 menuinsercion.add_command(label="Administrador",command=lambda:navegacionVentanas(VentanaInsercionAdm,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 menubar.add_cascade(label="Insercion", menu=menuinsercion)
+                #Eliminacion
+                menueliminacion = tk.Menu(menubar,tearoff=0)
+                menueliminacion.configure(bg='#C1B2A6')
+                menueliminacion.add_command(label="Propietario",command=lambda:navegacionVentanas(VentanaEliminacionProp,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menueliminacion.add_command(label="Playlist",command=lambda:navegacionVentanas(VentanaEliminacionPlaylist,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menueliminacion.add_command(label="Genero",command=lambda:navegacionVentanas(VentanaEliminacionGen,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menueliminacion.add_command(label="Artista",command=lambda:navegacionVentanas(VentanaEliminacionCancion,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menueliminacion.add_command(label="Album",command=lambda:navegacionVentanas(VentanaEliminacionAlb,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menueliminacion.add_command(label="Cancion",command=lambda:navegacionVentanas(VentanaEliminacionCancion,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menueliminacion.add_command(label="Administrador",command=lambda:navegacionVentanas(VentanaEliminacionAdm,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menubar.add_cascade(label="Eliminación", menu=menueliminacion)
+                #Modificacion
+                menumodificacion = tk.Menu(menubar,tearoff=0)
+                menumodificacion.configure(bg='#C1B2A6')
+                menumodificacion.add_command(label="Propietario",command=lambda:navegacionVentanas(VentanaModificacionProp,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menumodificacion.add_command(label="Playlist",command=lambda:navegacionVentanas(VentanaModificacionPlaylist,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menumodificacion.add_command(label="Genero",command=lambda:navegacionVentanas(VentanaModificacionGen,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menumodificacion.add_command(label="Artista",command=lambda:navegacionVentanas(VentanaModificacionArt,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menumodificacion.add_command(label="Album",command=lambda:navegacionVentanas(VentanaModificacionAlb,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menumodificacion.add_command(label="Cancion",command=lambda:navegacionVentanas(VentanaModificacionCancion,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menumodificacion.add_command(label="Administrador",command=lambda:navegacionVentanas(VentanaModificacionAdm,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menubar.add_cascade(label="Modificación", menu=menumodificacion)
         elif tipoUsuario=="Usuario":
                 #Busqueda
                 menubusqueda.add_command(label="Administrador",foreground='#E4E4E4')
@@ -210,42 +232,59 @@ def menu(tipoUsuario,codigoUsuario):
                 menuinsercion.add_command(label="Cancion",foreground='#E4E4E4')
                 menuinsercion.add_command(label="Administrador",foreground='#E4E4E4')
                 menubar.add_cascade(label="Insercion", background='#A6A6A6', menu=menuinsercion)
+                #Eliminacion
+                menueliminacion = tk.Menu(menubar,tearoff=0)
+                menueliminacion.configure(bg='#C1B2A6')
+                menueliminacion.add_command(label="Propietario",foreground='#E4E4E4')
+                menueliminacion.add_command(label="Playlist",foreground='#E4E4E4')
+                menueliminacion.add_command(label="Genero",foreground='#E4E4E4')
+                menueliminacion.add_command(label="Artista",foreground='#E4E4E4')
+                menueliminacion.add_command(label="Album",foreground='#E4E4E4')
+                menueliminacion.add_command(label="Cancion",foreground='#E4E4E4')
+                menueliminacion.add_command(label="Administrador",foreground='#E4E4E4')
+                menubar.add_cascade(label="Eliminación", background='#A6A6A6', menu=menueliminacion)
+                #Modificacion
+                menumodificacion = tk.Menu(menubar,tearoff=0)
+                menumodificacion.configure(bg='#C1B2A6')
+                menumodificacion.add_command(label="Propietario",foreground='#E4E4E4')
+                menumodificacion.add_command(label="Playlist",foreground='#E4E4E4')
+                menumodificacion.add_command(label="Genero",foreground='#E4E4E4')
+                menumodificacion.add_command(label="Artista",foreground='#E4E4E4')
+                menumodificacion.add_command(label="Album",foreground='#E4E4E4')
+                menumodificacion.add_command(label="Cancion",foreground='#E4E4E4')
+                menumodificacion.add_command(label="Administrador",foreground='#E4E4E4')
+                menubar.add_cascade(label="Modificación", background='#A6A6A6', menu=menumodificacion)
         VentanaMenu.config(menu=menubar)
         #Creamos imagenes
         Musicapng = tk.PhotoImage(file='./Musica.png')
-        MusicaLabel=tk.Label(VentanaMenu,image=Musicapng)
         VentanaMenu.Musicapng = tk.PhotoImage(file='./Musica.png')
-        MusicaLabel = tk.Label(VentanaMenu, image=VentanaMenu.Musicapng)
-        MusicaLabel.configure(width=190, height=190)
-        MusicaLabel.pack(side="left",pady=40,padx=50)
+        MusicaBoton = tk.Button(VentanaMenu, image=VentanaMenu.Musicapng)
+        MusicaBoton.configure(width=190, height=190)
+        MusicaBoton.pack(side="left",pady=40,padx=50)
         
         Usuariospng = tk.PhotoImage(file='./Usuarios.png')
-        Usuarioslabel = tk.Label(VentanaMenu, image=Usuariospng)
         VentanaMenu.Usuariospng = tk.PhotoImage(file='./Usuarios.png')
-        Usuarioslabel = tk.Label(VentanaMenu, image=VentanaMenu.Usuariospng)
-        Usuarioslabel.configure(width=190, height=190)
-        Usuarioslabel.pack(side='right',padx=50)
+        UsuariosBoton = tk.Button(VentanaMenu, image=VentanaMenu.Usuariospng)
+        UsuariosBoton.configure(width=190, height=190)
+        UsuariosBoton.pack(side='right',padx=50)
         
         Reproductorpng = tk.PhotoImage(file='./Reproductor.png')
-        Reproductorlabel = tk.Label(VentanaMenu, image=Reproductorpng)
         VentanaMenu.Reproductorpng = tk.PhotoImage(file='./Reproductor.png')
-        Reproductorlabel = tk.Label(VentanaMenu, image=VentanaMenu.Reproductorpng)
-        Reproductorlabel.configure(width=190, height=190)
-        Reproductorlabel.pack(pady=100)
+        ReproductorBoton = tk.Button(VentanaMenu, image=VentanaMenu.Reproductorpng)
+        ReproductorBoton.configure(width=190, height=190)
+        ReproductorBoton.pack(pady=100)
         
         Albumpng = tk.PhotoImage(file='./Album.png')
-        Albumlabel = tk.Label(VentanaMenu, image=Albumpng)
         VentanaMenu.Albumpng = tk.PhotoImage(file='./Album.png')
-        Albumlabel = tk.Label(VentanaMenu, image=VentanaMenu.Albumpng)
-        Albumlabel.configure(width=190, height=190)
-        Albumlabel.pack(side='left',padx=50)
+        AlbumBoton = tk.Button(VentanaMenu, image=VentanaMenu.Albumpng)
+        AlbumBoton.configure(width=190, height=190)
+        AlbumBoton.pack(side='left',padx=50)
         
         pagospng = tk.PhotoImage(file='./Pagos.png')
-        Pagolabel = tk.Label(VentanaMenu, image=pagospng)
         VentanaMenu.pagospng = tk.PhotoImage(file='./Pagos.png')
-        Pagolabel = tk.Label(VentanaMenu, image=VentanaMenu.pagospng)
-        Pagolabel.configure(width=190, height=190)
-        Pagolabel.pack(side="right",padx=50)    
+        PagoBoton = tk.Button(VentanaMenu, image=VentanaMenu.pagospng)
+        PagoBoton.configure(width=190, height=190)
+        PagoBoton.pack(side="right",padx=50)    
         
         ##########################################################################################################################################################################################
 # Configuración de la ventana de busquedas

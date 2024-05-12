@@ -83,11 +83,11 @@ def mostrarFactura(diccTodo,codigo):
         #Instruccion en pantalla
         Titulo=tk.Label(VentanaFacturas,text='Factura', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         Titulo.grid(sticky=tk.N,pady=10)
-        usuario=tk.Label(VentanaFacturas,text=f'Usuario: {diccTodo[codigo]['nombre']}', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        usuario=tk.Label(VentanaFacturas,text=f"Usuario: {diccTodo[codigo]['nombre']}", font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         usuario.grid(sticky=tk.N,pady=10)
         id=tk.Label(VentanaFacturas,text=f'Identificacion: {codigo}', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         id.grid(sticky=tk.N,pady=10)
-        membresia=tk.Label(VentanaFacturas,text=f'Membresia: {diccTodo[codigo]['codMem']}', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        membresia=tk.Label(VentanaFacturas,text=f"Membresia: {diccTodo[codigo]['codMem']}", font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         membresia.grid(sticky=tk.N,pady=10)
         if diccTodo[codigo]['estado']=='0' or diccTodo[codigo]['estado']=='0Nuevo':#Estado
             estado=tk.Label(VentanaFacturas,text=f'>>>Estado de membresia: INACTIVA', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')  
@@ -105,7 +105,7 @@ def mostrarFactura(diccTodo,codigo):
         botonDeExportar= tk.Button(VentanaFacturas, text="Exportar", command=lambda:exportarFactura(diccTodo,codigo),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeExportar.grid(sticky=tk.N,pady=10)
         #Boton de volver
-        botonDeBusquedaAMenu = tk.Button(VentanaFacturas, text="Cerrar", command=lambda:[VentanaFacturas.withdraw(),estado.destroy(),membresia.destroy(),id.destroy,usuario.destroy(),Titulo.destroy,descuento.destroy()],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu = tk.Button(VentanaFacturas, text="Cerrar", command=lambda:[VentanaFacturas.withdraw(),estado.destroy(),membresia.destroy(),id.destroy,Titulo.destroy,descuento.destroy()],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
         
 def exportarFactura(diccTodo,codigo):
