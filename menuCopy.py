@@ -202,7 +202,7 @@ def menu(tipoUsuario,codigoUsuario):
                 menueliminacion.add_command(label="Propietario",command=lambda:navegacionVentanas(VentanaEliminacionProp,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 menueliminacion.add_command(label="Playlist",command=lambda:navegacionVentanas(VentanaEliminacionPlaylist,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 menueliminacion.add_command(label="Genero",command=lambda:navegacionVentanas(VentanaEliminacionGen,VentanaMenu,obtenerDimenciones(VentanaMenu)))
-                menueliminacion.add_command(label="Artista",command=lambda:navegacionVentanas(VentanaEliminacionCancion,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+                menueliminacion.add_command(label="Artista",command=lambda:navegacionVentanas(VentanaEliminacionArt,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 menueliminacion.add_command(label="Album",command=lambda:navegacionVentanas(VentanaEliminacionAlb,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 menueliminacion.add_command(label="Cancion",command=lambda:navegacionVentanas(VentanaEliminacionCancion,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 menueliminacion.add_command(label="Administrador",command=lambda:navegacionVentanas(VentanaEliminacionAdm,VentanaMenu,obtenerDimenciones(VentanaMenu)))
