@@ -42,7 +42,7 @@ def mostrarEnPantallaBusqueda(etiqueta,dato):
         texto = dato[0]
     etiqueta.config(text=texto,bg="#D5CEC1")
     
-  
+
 def registar(diccTodo,diccMembresias,nombre,etiqueta):
     estado='0Nuevo'
     cod=1
@@ -141,3 +141,19 @@ def pagar(diccTodo,diccMembresias,codigo,etiqueta):
     diccTodo[codigo]['estado']='1'
     mostrarEnPantalla(etiqueta,"Su usuario ha sido activado, por favor vuelva al login")
     #diccMembresias[codigo]='1'
+"""
+ArtistasBoton = tk.Button()
+GenerosBoton= tk.Button()
+def create_additional_buttons(window):
+        # Create and display two additional buttons
+        global GenerosBoton,ArtistasBoton
+        GenerosBoton.destroy()
+        ArtistasBoton.destory()
+        Generospng = tk.PhotoImage(file='./Generos.png')
+        window.Generospng = tk.PhotoImage(file='./Generos.png')
+        GenerosBoton= tk.Button(window, image=window.Generospng)
+        GenerosBoton.pack(side="top", pady=10)
+        Artistaspng = tk.PhotoImage(file='./Artistas.png')
+        window.Artistaspng = tk.PhotoImage(file='./Artistas.png')
+        ArtistasBoton = tk.Button(window, image=window.Artistaspng)
+        ArtistasBoton.pack(side="top", pady=10)"""
