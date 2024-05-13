@@ -694,7 +694,7 @@ def menu(tipoUsuario,codigoUsuario):
         codigoPlaylistInsercionCancion.grid(sticky=tk.N,pady=2)
         #Etiqueta display
         etiquetaConfirmacionInsercionCancion=tk.Label(VentanaInsercionCancion, text="",font=("Times New Roman",15),background='#D5CEC1')
-        etiquetaConfirmacionInsercionCancion.grid(sticky=tk.N,pady=2)
+        etiquetaConfirmacionInsercionCancion.grid(row=15,column=0,pady=3)
         #Boton de buscar
         botonDeinsercion= tk.Button(VentanaInsercionCancion, text="Insertar", command=lambda:insertCanciones(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoInsericionCancion,nombreInsercionCancion,codigoArtInsercionCancion,codigoAlbInsercionCancion,codigoGenInsercionCancion,codigoPlaylistInsercionCancion,etiquetaConfirmacionInsercionCancion),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeinsercion.grid(row=13,column=0,pady=3)
@@ -923,7 +923,7 @@ def menu(tipoUsuario,codigoUsuario):
         codigoPlaylistModificacionCancion.grid(sticky=tk.N,pady=2)
         #Etiqueta display
         etiquetaConfirmacionMoficacionCancion=tk.Label(VentanaModificacionCancion, text="",font=("Times New Roman",15),background='#D5CEC1')
-        etiquetaConfirmacionMoficacionCancion.grid(sticky=tk.N,pady=2)
+        etiquetaConfirmacionMoficacionCancion.grid(row=15,column=0,pady=3)
         #Boton de buscar
         botonDeModificacion= tk.Button(VentanaModificacionCancion, text="Modificar", command=lambda:modificarCancion(codigoModCancion,diccCancionestodo,nombreModCancion,codigoArtModificacionCancion,codigoAlbModificacionCancion,codigoGenModificacionCancion,codigoPlaylistModificacionCancion,etiquetaConfirmacionMoficacionCancion),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeModificacion.grid(row=13,column=0,pady=3)
