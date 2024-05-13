@@ -547,31 +547,30 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaInsercionGen.title("Insercion")
         VentanaInsercionGen.configure(bg='#D5CEC1')
         VentanaInsercionGen.withdraw()  # Oculta la ventana secundaria inicialmente
-        VentanaInsercionPlaylist.columnconfigure(0,weight=3)
 
         TituloInsGen=tk.Label(VentanaInsercionGen,text='Inserción de género', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
-        TituloInsGen.grid(sticky=tk.N,pady=10)
+        TituloInsGen.pack(side="top",pady=10)
         DigiteGen1=tk.Label(VentanaInsercionGen,text='Digite el código del género:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
-        DigiteGen1.grid(sticky=tk.N,pady=10)
+        DigiteGen1.pack(side="top",pady=10)
         #Codigo de Genero
         codigoInsericionGen=tk.Entry(VentanaInsercionGen,font=("Times New Roman",15),background='#E4E4E4')
-        codigoInsericionGen.grid(sticky=tk.N,pady=10)
+        codigoInsericionGen.pack(side="top",pady=10)
 
         DigiteNomGen1=tk.Label(VentanaInsercionGen,text='Digite el nombre del género:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
-        DigiteNomGen1.grid(sticky=tk.N,pady=10)
+        DigiteNomGen1.pack(side="top",pady=10)
         #Nombre de Genero
         nombreInsercionGenero=tk.Entry(VentanaInsercionGen,font=("Times New Roman",15),background='#E4E4E4')
-        nombreInsercionGenero.grid(sticky=tk.N,pady=10)
+        nombreInsercionGenero.pack(side="top",pady=10)
         
         #Etiqueta display
         etiquetaConfirmacionInsercionGen=tk.Label(VentanaInsercionGen, text="",font=("Times New Roman",15),background='#D5CEC1')
-        etiquetaConfirmacionInsercionGen.grid(sticky=tk.N,pady=10)
+        etiquetaConfirmacionInsercionGen.pack(side="top",pady=10)
         #Boton de buscar
         botonDeinsercion= tk.Button(VentanaInsercionGen, text="Insertar", command=lambda:insertGen(diccGentodo,codigoInsericionGen,nombreInsercionGenero,etiquetaConfirmacionInsercionGen),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
-        botonDeinsercion.grid(sticky=tk.N,pady=10)
+        botonDeinsercion.pack(side="top",pady=10)
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaInsercionGen, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaInsercionGen,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoInsericionGen),limpiar_texto(nombreInsercionGenero),mostrarEnPantalla(etiquetaConfirmacionInsercionGen,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
-        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+        botonDeBusquedaAMenu.pack(side="top",pady=10)
         ##############################################################################################################################################
         # Configuración de la ventana de insercion
         VentanaInsercionArtista= tk.Toplevel(ventanaLogin)
