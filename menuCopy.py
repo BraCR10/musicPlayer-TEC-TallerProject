@@ -25,6 +25,8 @@ ventanaLogin = tk.Tk()
 VentanaMenu = tk.Toplevel(ventanaLogin)
 VentanaMenu.withdraw()  # Oculta la ventana secundaria inicialmente
 verificadorElementosMenu=False
+GenerosBoton=tk.Button()
+ArtistasBoton=tk.Button()
 #######################################################################################################################################################################################
 def login(tipoUsuario,codigo,diccProptodo,ventanaPago,ventanaRegistro,diccAdminTodo,ventanaLogin,VentanaMenu):
     if  tipoUsuario=='Usuario' and codigo not in list(diccProptodo.keys()) :
@@ -159,9 +161,6 @@ def menu(tipoUsuario,codigoUsuario):
                         etiquetaBienvenida=tk.Label(VentanaMenu, text=f"Bienvenid@ {buscarAdministrador(codigoUsuario,diccAdmintodo)}!",font=("Times New Roman",15),background='#D5CEC1')
                 #Bienvenida
                 etiquetaBienvenida.pack(pady=10)
-                # Botón en la ventana menu para volver a login
-                botonCerrarSesion = tk.Button(VentanaMenu, text="Cerrar sesion", command=lambda:navegacionVentanas(ventanaLogin,VentanaMenu,obtenerDimenciones(VentanaMenu)),font=("Times New Roman",15),background='#28342C',fg='#E4E4E4')
-                botonCerrarSesion.pack(side="bottom",pady=80)
                 verificadorElementosMenu=True  
         
         # Configuración de la ventana menu
@@ -258,25 +257,25 @@ def menu(tipoUsuario,codigoUsuario):
         #Creamos imagenes
         Musicapng = tk.PhotoImage(file='./Musica.png')
         VentanaMenu.Musicapng = tk.PhotoImage(file='./Musica.png')
-        MusicaBoton = tk.Button(VentanaMenu, image=VentanaMenu.Musicapng)
+        MusicaBoton = tk.Button(VentanaMenu, image=VentanaMenu.Musicapng,command=lambda:BotonesMusica(VentanaMenu))
         MusicaBoton.configure(width=190, height=190)
-        MusicaBoton.pack(side="left",pady=40,padx=50)
+        MusicaBoton.pack(side="left",pady=1,padx=50)
         
         Usuariospng = tk.PhotoImage(file='./Usuarios.png')
         VentanaMenu.Usuariospng = tk.PhotoImage(file='./Usuarios.png')
-        UsuariosBoton = tk.Button(VentanaMenu, image=VentanaMenu.Usuariospng)
+        UsuariosBoton = tk.Button(VentanaMenu, image=VentanaMenu.Usuariospng,command=lambda:BotonesUsuarios(VentanaMenu))
         UsuariosBoton.configure(width=190, height=190)
         UsuariosBoton.pack(side='right',padx=50)
         
         Reproductorpng = tk.PhotoImage(file='./Reproductor.png')
         VentanaMenu.Reproductorpng = tk.PhotoImage(file='./Reproductor.png')
-        ReproductorBoton = tk.Button(VentanaMenu, image=VentanaMenu.Reproductorpng)
+        ReproductorBoton = tk.Button(VentanaMenu, image=VentanaMenu.Reproductorpng,command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo))
         ReproductorBoton.configure(width=190, height=190)
-        ReproductorBoton.pack(pady=100)
+        ReproductorBoton.pack(pady=15)
         
         Albumpng = tk.PhotoImage(file='./Album.png')
         VentanaMenu.Albumpng = tk.PhotoImage(file='./Album.png')
-        AlbumBoton = tk.Button(VentanaMenu, image=VentanaMenu.Albumpng)
+        AlbumBoton = tk.Button(VentanaMenu, image=VentanaMenu.Albumpng,command=lambda:BotonesAlbumes(VentanaMenu))
         AlbumBoton.configure(width=190, height=190)
         AlbumBoton.pack(side='left',padx=50)
         
@@ -286,6 +285,9 @@ def menu(tipoUsuario,codigoUsuario):
         PagoBoton.configure(width=190, height=190)
         PagoBoton.pack(side="right",padx=50)    
         
+        # Botón en la ventana menu para volver a login
+        botonCerrarSesion = tk.Button(VentanaMenu, text="Cerrar sesion", command=lambda:navegacionVentanas(ventanaLogin,VentanaMenu,obtenerDimenciones(VentanaMenu)),font=("Times New Roman",15),background='#28342C',fg='#E4E4E4')
+        botonCerrarSesion.pack(pady=100)
         ##########################################################################################################################################################################################
 # Configuración de la ventana de busquedas
         VentanaBusquedaPropietario = tk.Toplevel(ventanaLogin)
@@ -1125,9 +1127,59 @@ def menu(tipoUsuario,codigoUsuario):
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
 ###########################################################################################################################################################################
         menuinsercion.add_command(label="Prueba",command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo))
+def BotonesMusica(window):
+        global GenerosBoton, ArtistasBoton, AlbumesBoton, CancionesBoton, AdministradorBoton, PropietarioBoton
+        # Create and display two additional buttons
+        GenerosBoton.destroy()
+        ArtistasBoton.destroy()
+        #CancionesBoton.destroy()
+        #AlbumesBoton.destroy()
+        #AdministradorBoton.destroy()
+        #PropietarioBoton.destroy()
+        Generospng = tk.PhotoImage(file='./Generos.png')
+        window.Generospng = tk.PhotoImage(file='./Generos.png')
+        GenerosBoton = tk.Button(window, image=window.Generospng)
+        GenerosBoton.pack(side="top", pady=10)
+        Artistaspng = tk.PhotoImage(file='./Artistas.png')
+        window.Artistaspng = tk.PhotoImage(file='./Artistas.png')
+        ArtistasBoton = tk.Button(window, image=window.Artistaspng)
+        ArtistasBoton.pack(side="top", pady=10)
 
+def BotonesAlbumes(window):
+        global GenerosBoton, ArtistasBoton, AlbumesBoton, CancionesBoton, AdministradorBoton, PropietarioBoton
+        # Create and display two additional buttons
+        #GenerosBoton.destroy()
+        #ArtistasBoton.destroy()
+        CancionesBoton.destroy()
+        AlbumesBoton.destroy()
+        #AdministradorBoton.destroy()
+        #PropietarioBoton.destroy()
+        Albumespng = tk.PhotoImage(file='./Albumes.png')
+        window.Albumespng = tk.PhotoImage(file='./Albumes.png')
+        AlbumesBoton = tk.Button(window, image=window.Albumespng)
+        AlbumesBoton.pack(side="top", pady=10)
+        Cancionespng = tk.PhotoImage(file='./Canciones.png')
+        window.Cancionespng = tk.PhotoImage(file='./Canciones.png')
+        CancionesBoton = tk.Button(window, image=window.Cancionespng)
+        CancionesBoton.pack(side="top", pady=10)
 
-   
+def BotonesUsuarios(window):
+        global GenerosBoton, ArtistasBoton, AlbumesBoton, CancionesBoton, AdministradorBoton, PropietarioBoton
+        # Create and display two additional buttons
+        #GenerosBoton.destroy()
+        #ArtistasBoton.destroy()
+        #CancionesBoton.destroy()
+        #AlbumesBoton.destroy()
+        AdministradorBoton.destroy()
+        PropietarioBoton.destroy()
+        Administradorpng = tk.PhotoImage(file='./Administrador.png')
+        window.Administradorpng = tk.PhotoImage(file='./Administrador.png')
+        AdministradorBoton = tk.Button(window, image=window.Administradorpng)
+        AdministradorBoton.pack(side="top", pady=10)
+        Propietariopng = tk.PhotoImage(file='./Propietario.png')
+        window.Propietariopng = tk.PhotoImage(file='./Propietario.png')
+        PropietarioBoton = tk.Button(window, image=window.Propietariopng)
+        PropietarioBoton.pack(side="top", pady=10)
 loginVentana()
 
 
