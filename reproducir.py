@@ -217,15 +217,18 @@ def atrasar():
 
 # Función para pausar la música
 def pausar():
-    mixer.music.pause()
+    if pygame.mixer.music.get_busy():
+        mixer.music.pause()
 
 # Función para reanudar la música
 def continuar():
-    mixer.music.unpause()
+    if pygame.mixer.music.get_busy():
+        mixer.music.unpause()
 
 # Función para detener la música
 def parar():
-    mixer.quit()
+    if pygame.mixer.music.get_busy():
+        mixer.quit()
 
 # Función para reproducir una canción específica
 def reproducir(numeroCancion,ColasDeReproduccion):

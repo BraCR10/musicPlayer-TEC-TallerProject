@@ -180,7 +180,6 @@ def menu(tipoUsuario,codigoUsuario):
         menubusqueda.add_command(label="Album",command=lambda:navegacionVentanas(VentanaBusquedaAlbum,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         menubusqueda.add_command(label="Cancion",command=lambda:navegacionVentanas(VentanaBusquedaCancion,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         menubar.add_cascade(label="Busqueda", menu=menubusqueda)
-
         if tipoUsuario=="Administrador":
                 #Busqueda
                 menubusqueda.add_command(label="Administrador",command=lambda:navegacionVentanas(VentanaBusquedaAdm,VentanaMenu,obtenerDimenciones(VentanaMenu)))
@@ -253,6 +252,10 @@ def menu(tipoUsuario,codigoUsuario):
                 menumodificacion.add_command(label="Cancion",foreground='#E4E4E4')
                 menumodificacion.add_command(label="Administrador",foreground='#E4E4E4')
                 menubar.add_cascade(label="Modificación", background='#A6A6A6', menu=menumodificacion)
+        #Pop up de reproductor
+        menuReproductor=tk.Menu(menubar,tearoff=0)
+        menuReproductor.add_command(label="Ventana de reproductor",command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
+        menubar.add_cascade(label="Reproductor", menu=menuReproductor)
         VentanaMenu.config(menu=menubar)
         #Creamos imagenes
         Musicapng = tk.PhotoImage(file='./Musica.png')
@@ -1126,7 +1129,6 @@ def menu(tipoUsuario,codigoUsuario):
         botonDeBusquedaAMenu = tk.Button(VentanaEliminacionAdm, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionAdm,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionAdm),mostrarEnPantalla(etiquetaConfirmacionEliminacionAdm,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
 ###########################################################################################################################################################################
-        menuinsercion.add_command(label="Prueba",command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
 def BotonesMusica(window):
         global GenerosBoton, ArtistasBoton, AlbumesBoton, CancionesBoton, AdministradorBoton, PropietarioBoton
         # Create and display two additional buttons
