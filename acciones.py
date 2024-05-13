@@ -141,19 +141,23 @@ def pagar(diccTodo,diccMembresias,codigo,etiqueta):
     diccTodo[codigo]['estado']='1'
     mostrarEnPantalla(etiqueta,"Su usuario ha sido activado, por favor vuelva al login")
     #diccMembresias[codigo]='1'
-"""
-ArtistasBoton = tk.Button()
-GenerosBoton= tk.Button()
-def create_additional_buttons(window):
-        # Create and display two additional buttons
-        global GenerosBoton,ArtistasBoton
-        GenerosBoton.destroy()
-        ArtistasBoton.destory()
-        Generospng = tk.PhotoImage(file='./Generos.png')
-        window.Generospng = tk.PhotoImage(file='./Generos.png')
-        GenerosBoton= tk.Button(window, image=window.Generospng)
-        GenerosBoton.pack(side="top", pady=10)
-        Artistaspng = tk.PhotoImage(file='./Artistas.png')
-        window.Artistaspng = tk.PhotoImage(file='./Artistas.png')
-        ArtistasBoton = tk.Button(window, image=window.Artistaspng)
-        ArtistasBoton.pack(side="top", pady=10)"""
+    
+def mostrarEmergenteMenu(emergente,ventana,id):
+    # Eliminar el menú anterior, si existe
+    try:
+        emergente.delete(0, tk.END)
+    except tk.TclError:
+        pass
+    # Crear el menú emergente con otra imagen
+    if id==1:
+        imagenGeneros = tk.PhotoImage(file="generos.png") 
+        emergente.add_command(image=imagenGeneros, command=lambda: None)
+        emergente.image = imagenGeneros  
+        imagenAlbumes = tk.PhotoImage(file="albumes.png") 
+        emergente.add_command(image=imagenAlbumes, command=lambda: None)
+        emergente.image = imagenAlbumes  
+    
+    # Mostrar el menú emergente
+    emergente.post(ventana.winfo_pointerx(), ventana.winfo_pointery())
+    
+
