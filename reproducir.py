@@ -2,13 +2,15 @@ import tkinter as tk
 from acciones import mostrarEnPantalla,limpiar_texto
 from tkinter import messagebox
 from busqueda import buscarCancion
+import os#Se utiliza para ver si existe el archivo
+
 #Agrega un cancion a cola y hace validaciones
-def agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCancionestodo,usuarioActual,ColasDeReproduccion,diccProptodo):
-    if usuarioActual not in list(ColasDeReproduccion.keys()):
+def agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCancionestodo,usuarioActual,ColasDeReproduccion,diccProptodo,diccAdmintodo):
+    if usuarioActual not in list(ColasDeReproduccion.keys()) :
         ColasDeReproduccion[usuarioActual]=[]
     if len(ColasDeReproduccion[usuarioActual])>=5:#Validacion,--El codigo es el codProp que se logio--
         messagebox.showinfo("Alerta",'La cola de reproduccion ya esta en su limite, no se puede agregar mas canciones')
-    elif codigoCancion.get() in list(diccCancionestodo.keys()) and diccCancionestodo[codigoCancion.get()]['codArt']==codArt.get() and diccCancionestodo[codigoCancion.get()]['codAlb']==codAlb.get() and diccCancionestodo[codigoCancion.get()]['codGen']==codGen.get() and diccCancionestodo[codigoCancion.get()]['codPlaylist']==codPlaylist.get() and codProp.get() in list(diccProptodo.keys()) and diccProptodo[codProp.get()]['estado']=='1':
+    elif codigoCancion.get() in list(diccCancionestodo.keys()) and diccCancionestodo[codigoCancion.get()]['codArt']==codArt.get() and diccCancionestodo[codigoCancion.get()]['codAlb']==codAlb.get() and diccCancionestodo[codigoCancion.get()]['codGen']==codGen.get() and diccCancionestodo[codigoCancion.get()]['codPlaylist']==codPlaylist.get() and ((codProp.get() in list(diccProptodo.keys()) and diccProptodo[codProp.get()]['estado']=='1')or codProp.get() in list(diccAdmintodo.keys()) ):
         if codProp.get()==usuarioActual:
             ColasDeReproduccion[usuarioActual]+=[codigoCancion.get()]#Agrega a la lista
             messagebox.showinfo("Confirmacion",f'Se ha agregado la cancion con el codigo: {codigoCancion.get()} a la cola de reproduccion, actualize para ver cambios!')
@@ -181,10 +183,10 @@ def vaciarCola(ColasDeReproduccion,usuarioActual,numCancion):
         ColasDeReproduccion[usuarioActual].pop(3)
     if numCancion==5 and len(ColasDeReproduccion[usuarioActual])>=5:
         ColasDeReproduccion[usuarioActual].pop(4)
-def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,usuarioActual,ColasDeReproduccion,diccProptodo):
+def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,usuarioActual,ColasDeReproduccion,diccProptodo,diccAdmintodo):
     # Crear la ventana principal
     ventana = tk.Tk()
-    ventana.title("Barra de Navegación")
+    ventana.title("Reproductor")
     ventana.configure(bg="#D5CEC1")
     ventana.geometry(f"{ventana.winfo_screenwidth()-200}x{ventana.winfo_screenheight()-200}")
     ventana.resizable(False, False)
@@ -221,44 +223,58 @@ def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlay
     reproductor.grid(row=5,column=90)
     temp=tk.Label(reproductor, text="Aqui va todo para reproducirr\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",font=("Times New Roman",15),background='#D5CEC1')
     temp.pack(side='right',pady=(int(f'{cola.winfo_screenheight()}')//30,0))
-    
     #Iniciar Etiquetas
     titulo=tk.Label(cola, text="La cola es:",font=("Times New Roman",15),background='#D5CEC1')
     titulo.pack(pady=(int(f'{cola.winfo_screenheight()}')//100,0))
-    #Etiquetas para mostrara canciones en cola
+    #Etiquetas para mostrara canciones en cola y botones para eliminar
     cancion1=tk.Label(cola, text="Espacio vacio",font=("Times New Roman",15),background='#D5CEC1')
     cancion1.pack(pady=(int(f'{cola.winfo_screenheight()}')//50,0),padx=20)
-    eliminarCancion1 = tk.Button(cola, text="Del",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,1),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    eliminarCancion1 = tk.Button(cola, text="-",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,1),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     eliminarCancion1.pack(side='left')
     eliminarCancion1.place(x=0, y=int(f'{cola.winfo_screenheight()}')-612)
     cancion2=tk.Label(cola, text="Espacio vacio",font=("Times New Roman",15),background='#D5CEC1')
     cancion2.pack(pady=(int(f'{cola.winfo_screenheight()}')//50,0),padx=20)
-    eliminarCancion2 = tk.Button(cola, text="Del",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,2),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    eliminarCancion2 = tk.Button(cola, text="-",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,2),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     eliminarCancion2.pack(side='left')
     eliminarCancion2.place(x=0, y=int(f'{cola.winfo_screenheight()}')-562)
     cancion3=tk.Label(cola, text="Espacio vacio",font=("Times New Roman",15),background='#D5CEC1')
     cancion3.pack(pady=(int(f'{cola.winfo_screenheight()}')//45,0),padx=20)
-    eliminarCancion3 = tk.Button(cola, text="Del",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,3),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    eliminarCancion3 = tk.Button(cola, text="-",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,3),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     eliminarCancion3.pack(side='left')
     eliminarCancion3.place(x=0, y=int(f'{cola.winfo_screenheight()}')-512)
     cancion4=tk.Label(cola, text="Espacio vacio",font=("Times New Roman",15),background='#D5CEC1')
     cancion4.pack(pady=(int(f'{cola.winfo_screenheight()}')//30,0),padx=20)
-    eliminarCancion4 = tk.Button(cola, text="Del",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,4),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    eliminarCancion4 = tk.Button(cola, text="-",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,4),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     eliminarCancion4.pack(side='left')
     eliminarCancion4.place(x=0, y=int(f'{cola.winfo_screenheight()}')-462)
     cancion5=tk.Label(cola, text="Espacio vacio",font=("Times New Roman",15),background='#D5CEC1')
     cancion5.pack(pady=(int(f'{cola.winfo_screenheight()}')//30,0),padx=20)
-    eliminarCancion5 = tk.Button(cola, text="Del",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,5),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    eliminarCancion5 = tk.Button(cola, text="-",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual,5),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     eliminarCancion5.pack(side='left')
     eliminarCancion5.place(x=0, y=int(f'{cola.winfo_screenheight()}')-402)
     #Boton para refrescar la cola
     actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)
     #boton agregar
-    botonAgregar = tk.Button(cola, text="Insertar cancion a cola",command=lambda:[agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCancionestodo,usuarioActual,ColasDeReproduccion,diccProptodo),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    botonAgregar = tk.Button(cola, text="Insertar cancion a cola",command=lambda:[agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCancionestodo,usuarioActual,ColasDeReproduccion,diccProptodo,diccAdmintodo),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonAgregar.pack(pady=(int(f'{cola.winfo_screenheight()}')//10,0))
-    #eliminarCola = tk.Button(cola, text="Vaciar cola",command=lambda:[vaciarCola(ColasDeReproduccion,usuarioActual),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-    #eliminarCola.pack(pady=int(f'{cola.winfo_screenheight()}')//150)
-
+    botonEmpezar = tk.Button(reproductor, text="empezar",command=lambda:[reproducirCancion('1',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    botonEmpezar.pack()
+    botonPausar = tk.Button(reproductor, text="pausar",command=lambda:[reproducirCancion('pausar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    botonPausar.pack()
+    botonContinuar = tk.Button(reproductor, text="continuar",command=lambda:[reproducirCancion('continuar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    botonContinuar.pack()
+    botonSiguiente = tk.Button(reproductor, text="adelantar",command=lambda:[reproducirCancion('siguiente',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    botonSiguiente.pack()
+    botonAtras = tk.Button(reproductor, text="atras",command=lambda:[reproducirCancion('atras',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    botonAtras.pack()
+    botonPista3 = tk.Button(reproductor, text="pasar a 3",command=lambda:[reproducirCancion('3',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    botonPista3.pack()
+    botonAdelantar = tk.Button(reproductor, text="adelanta10segs",command=lambda:[reproducirCancion('adelantar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    botonAdelantar.pack()
+    botonAtrasar = tk.Button(reproductor, text="atrasar10segs",command=lambda:[reproducirCancion('atrasar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    botonAtrasar.pack()
+    botonFinalizar = tk.Button(reproductor, text="Parar",command=lambda:[reproducirCancion('parar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    botonFinalizar.pack()
     # Iniciar el bucle de la ventana
     ventana.mainloop()
 
@@ -266,21 +282,18 @@ def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlay
 
 import pygame
 from pygame import mixer
-
-# Inicializar Pygame mixer
-mixer.init()
-
-# Listado de canciones
-ColasDeReproduccion = ["1.wav", "2.wav", "3.wav"]  # Puedes añadir más canciones si lo deseas
-
 # Índice de la canción actual y anterior
 cancionActual = 0
 cancionAnterior = 0
 
 # Función para avanzar rápidamente el archivo de música
-def adelantar(seconds):
-    tiempoActual = mixer.music.get_pos() / 1000  # Obtener la posición actual de reproducción en segundos
-    tiempoNuevo = tiempoActual + seconds  # Calcular la nueva posición después de avanzar rápidamente
+def adelantar():
+    tiempoActual = mixer.music.get_pos() /500 # Obtener la posición actual de reproducción en segundos
+    tiempoNuevo = tiempoActual + 10  # Calcular la nueva posición después de avanzar rápidamente
+    mixer.music.set_pos(tiempoNuevo)  # Establecer la nueva posición
+def atrasar():
+    tiempoActual = mixer.music.get_pos() /700 # Obtener la posición actual de reproducción en segundos
+    tiempoNuevo = max(0, tiempoActual - 10)
     mixer.music.set_pos(tiempoNuevo)  # Establecer la nueva posición
 
 # Función para pausar la música
@@ -293,26 +306,61 @@ def continuar():
 
 # Función para detener la música
 def parar():
-    mixer.music.stop()
+    mixer.quit()
 
 # Función para reproducir una canción específica
-def reproducir(song_number):
+def reproducir(numeroCancion,ColasDeReproduccion):
     global cancionActual, cancionAnterior
     cancionAnterior = cancionActual
-    cancionActual = song_number - 1  # Restar 1 porque las listas comienzan desde el índice 0
-    mixer.music.load(ColasDeReproduccion[cancionActual])
+    cancionActual = numeroCancion - 1  # Restar 1 porque las listas comienzan desde el índice 0
+    if os.path.exists(ColasDeReproduccion[cancionActual]+'.wav'):
+        mixer.music.load(ColasDeReproduccion[cancionActual]+'.wav')
+    else:
+        mixer.music.load(ColasDeReproduccion[cancionActual]+'.mp3')
     mixer.music.play()
 
 # Función para reproducir la siguiente canción
-def siguienteCancion():
+def siguienteCancion(ColasDeReproduccion):
     global cancionActual
     cancionActual = (cancionActual + 1) % len(ColasDeReproduccion)
-    mixer.music.load(ColasDeReproduccion[cancionActual])
+    if os.path.exists(ColasDeReproduccion[cancionActual]+'.wav'):
+        mixer.music.load(ColasDeReproduccion[cancionActual]+'.wav')
+    else:
+        mixer.music.load(ColasDeReproduccion[cancionActual]+'.mp3')
     mixer.music.play()
 
 # Función para reproducir la canción anterior
-def previaCancion():
+def previaCancion(ColasDeReproduccion):
     global cancionActual
     cancionActual = cancionAnterior
-    mixer.music.load(ColasDeReproduccion[cancionActual])
+    if os.path.exists(ColasDeReproduccion[cancionActual]+'.wav'):
+        mixer.music.load(ColasDeReproduccion[cancionActual]+'.wav')
+    else:
+        mixer.music.load(ColasDeReproduccion[cancionActual]+'.mp3')
     mixer.music.play()
+    
+def reproducirCancion(accion,ColasDeReproduccion,prop):
+    mixer.init()
+    if accion == 'adelantar':
+        adelantar()  
+    elif accion == 'atrasar':
+        atrasar() 
+    elif accion == 'pausar':
+        pausar()
+    elif accion == 'continuar':
+        continuar()
+    elif accion == 'parar':
+        parar()
+    elif accion == 'siguiente':
+        siguienteCancion(ColasDeReproduccion[prop])
+    elif accion == 'atras':
+        previaCancion(ColasDeReproduccion[prop])
+    elif accion.isdigit():
+        numeroCancion = int(accion)
+        if  numeroCancion <= len(ColasDeReproduccion[prop]):
+            reproducir(numeroCancion,ColasDeReproduccion[prop])
+
+
+
+
+    
