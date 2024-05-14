@@ -277,13 +277,13 @@ def menu(tipoUsuario,codigoUsuario):
         
         Albumpng = tk.PhotoImage(file='./Album.png')
         VentanaMenu.Albumpng = tk.PhotoImage(file='./Album.png')
-        AlbumBoton = tk.Button(VentanaMenu, image=VentanaMenu.Albumpng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,2))#,command=lambda:BotonesAlbumes(VentanaMenu))
+        AlbumBoton = tk.Button(VentanaMenu, image=VentanaMenu.Albumpng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,2))
         AlbumBoton.configure(width=190, height=190)
         AlbumBoton.pack(side='left',padx=50)
         
         pagospng = tk.PhotoImage(file='./Pagos.png')
         VentanaMenu.pagospng = tk.PhotoImage(file='./Pagos.png')
-        PagoBoton = tk.Button(VentanaMenu, image=VentanaMenu.pagospng)
+        PagoBoton = tk.Button(VentanaMenu, image=VentanaMenu.pagospng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,4))
         PagoBoton.configure(width=190, height=190)
         PagoBoton.pack(side="right",padx=50)    
         

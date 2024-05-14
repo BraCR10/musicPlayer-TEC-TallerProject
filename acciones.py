@@ -164,7 +164,7 @@ def mostrarEmergenteMenu(emergente,ventana,id):
         emergente.add_command(image=imagenAlbumes, command=lambda:mostrarEmergenteMenu2(emergente,ventana,tipousuario,3))
         emergente.image = imagenAlbumes  
         imagenCanciones = tk.PhotoImage(file="Canciones.png") 
-        emergente.add_command(image=imagenCanciones, command=mostrarEmergenteMenu2(emergente,ventana,tipousuario,4))
+        emergente.add_command(image=imagenCanciones, command=lambda:mostrarEmergenteMenu2(emergente,ventana,tipousuario,4))
         emergente.image = imagenCanciones 
     if id==3:
         imagenAdministrador = tk.PhotoImage(file="Administrador.png") 
@@ -175,7 +175,7 @@ def mostrarEmergenteMenu(emergente,ventana,id):
         emergente.image = imagenPropietario
     if id==4:
         imagenFacturas = tk.PhotoImage(file="Facturacion.png") 
-        emergente.add_command(image=imagenFacturas, command=lambda: None)#[mostrarFactura(diccProptodo,codigo.get())])
+        emergente.add_command(image=imagenFacturas, command=lambda:None)#[mostrarFactura(diccProptodo,codigo.get())])
         emergente.image = imagenFacturas
     # Mostrar el menú emergente
     emergente.post(ventana.winfo_pointerx(), ventana.winfo_pointery())
