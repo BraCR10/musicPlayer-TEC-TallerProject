@@ -222,8 +222,7 @@ def pausar():
 
 # Función para reanudar la música
 def continuar():
-    if pygame.mixer.music.get_busy():
-        mixer.music.unpause()
+    mixer.music.unpause()
 
 # Función para detener la música
 def parar():
