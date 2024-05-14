@@ -259,13 +259,13 @@ def menu(tipoUsuario,codigoUsuario):
         #Creamos imagenes
         Musicapng = tk.PhotoImage(file='./Musica.png')
         VentanaMenu.Musicapng = tk.PhotoImage(file='./Musica.png')
-        MusicaBoton = tk.Button(VentanaMenu, image=VentanaMenu.Musicapng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,1))#,command=lambda:)
+        MusicaBoton = tk.Button(VentanaMenu, image=VentanaMenu.Musicapng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,1,tipoUsuario,VentanaBusquedaGenero))#,command=lambda:)
         MusicaBoton.configure(width=190, height=190)
         MusicaBoton.pack(side="left",pady=1,padx=50)
         
         Usuariospng = tk.PhotoImage(file='./Usuarios.png')
         VentanaMenu.Usuariospng = tk.PhotoImage(file='./Usuarios.png')
-        UsuariosBoton = tk.Button(VentanaMenu, image=VentanaMenu.Usuariospng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,3))#,command=lambda:)
+        UsuariosBoton = tk.Button(VentanaMenu, image=VentanaMenu.Usuariospng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,3,tipoUsuario))#,command=lambda:)
         UsuariosBoton.configure(width=190, height=190)
         UsuariosBoton.pack(side='right',padx=50)
         
@@ -277,13 +277,13 @@ def menu(tipoUsuario,codigoUsuario):
         
         Albumpng = tk.PhotoImage(file='./Album.png')
         VentanaMenu.Albumpng = tk.PhotoImage(file='./Album.png')
-        AlbumBoton = tk.Button(VentanaMenu, image=VentanaMenu.Albumpng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,2))
+        AlbumBoton = tk.Button(VentanaMenu, image=VentanaMenu.Albumpng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,2,tipoUsuario))
         AlbumBoton.configure(width=190, height=190)
         AlbumBoton.pack(side='left',padx=50)
         
         pagospng = tk.PhotoImage(file='./Pagos.png')
         VentanaMenu.pagospng = tk.PhotoImage(file='./Pagos.png')
-        PagoBoton = tk.Button(VentanaMenu, image=VentanaMenu.pagospng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,4))
+        PagoBoton = tk.Button(VentanaMenu, image=VentanaMenu.pagospng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,4,tipoUsuario))
         PagoBoton.configure(width=190, height=190)
         PagoBoton.pack(side="right",padx=50)    
         
