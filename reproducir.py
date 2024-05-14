@@ -2,6 +2,8 @@ import tkinter as tk
 from acciones import mostrarEnPantalla,limpiar_texto
 from tkinter import messagebox
 from busqueda import buscarCancion
+import pygame
+from pygame import mixer
 import os#Se utiliza para ver si existe el archivo
 def cortadorTexto(numerador,numCola,ColasDeReproduccion,prop,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo):#Se utiliza para mostrar solo 14 cracteres en la pantalla
     if type(buscarCancion(ColasDeReproduccion[prop][numCola],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo))==tuple:
@@ -93,7 +95,6 @@ def vaciarCola(ColasDeReproduccion,usuarioActual,numCancion):
     if numCancion==5 and len(ColasDeReproduccion[usuarioActual])>=5:
         ColasDeReproduccion[usuarioActual].pop(4)
 def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,usuarioActual,ColasDeReproduccion,diccProptodo,diccAdmintodo):
-    
     # Crear la ventana principal
     ventana = tk.Tk()
     ventana.title("Reproductor")
@@ -199,8 +200,7 @@ def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlay
 
 
 
-import pygame
-from pygame import mixer
+
 # Índice de la canción actual y anterior
 cancionActual = 0
 cancionAnterior = 0

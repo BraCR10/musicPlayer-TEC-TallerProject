@@ -1,7 +1,8 @@
 import tkinter as tk
 from busqueda import buscarProp #buscarProp
 from lecturaArchivos import *
-#from menuCopy import *
+from tkinter import messagebox
+
 diccProptodo=leerProp()[0]
 contFacturas=0
 def navegacionVentanas(ventana_principal,ventana_secundaria,tamaño):
@@ -59,21 +60,6 @@ def registar(diccTodo,diccMembresias,nombre,etiqueta):
     mostrarEnPantalla(etiqueta,f"Registrado! \nSu codigo de propietario es: {cod}\nSu codigo de membresia membresia es: {codMem}")
     
 
-def factura(diccTodo,codigo):
-    print('\n--- Factura ---\n')
-    print('-----------------------------------------------')
-    print('-->Identificacion propietario : ',codigo)
-    print('-----------------------------------------------')
-    print('-->Nombre propietario : ',diccTodo[codigo]['nombre'])
-    print('-----------------------------------------------')
-    print('-->Codigo de membresia: ',diccTodo[codigo]['codMem'])
-    print('-----------------------------------------------')
-    if diccTodo[codigo]['estado']=='0':
-        print('-->Estado de membresia: INACTIVA')
-    elif diccTodo[codigo]['estado']=='1':
-        print('-->Estado de membresia: ACTIVA')
-    print('-----------------------------------------------')
-    print('-->Precio: $5/mes')
         
 def mostrarFactura(diccTodo,codigo):
     # Configuración de la ventana de modificacion
@@ -145,7 +131,7 @@ def pagar(diccTodo,diccMembresias,codigo,etiqueta):
     mostrarEnPantalla(etiqueta,"Su usuario ha sido activado, por favor vuelva al login")
     #diccMembresias[codigo]='1'
 
-def mostrarEmergenteMenu(emergente,VentanaMenu,id,tipousuario,Ventana1):
+def mostrarEmergenteMenu(emergente,VentanaMenu,id,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4,Ventana5,Ventana6,Ventana7,Ventana8):
     # Eliminar el menú anterior, si existe
     try:
         emergente.delete(0, tk.END)
@@ -155,33 +141,37 @@ def mostrarEmergenteMenu(emergente,VentanaMenu,id,tipousuario,Ventana1):
     # Crear el menú emergente con otra imagen
     if id==1:
         imagenGeneros = tk.PhotoImage(file="generos.png") 
-        emergente.add_command(image=imagenGeneros, command=lambda:mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,1,Ventana1))
+        emergente.add_command(image=imagenGeneros, command=lambda:mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4))
         emergente.image = imagenGeneros  
         imagenArtistas = tk.PhotoImage(file="Artistas.png") 
-        emergente.add_command(image=imagenArtistas, command=lambda: mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,2))
+        emergente.add_command(image=imagenArtistas, command=lambda: mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana5,Ventana6,Ventana7,Ventana8))
         emergente.image = imagenArtistas 
     if id==2:
         imagenAlbumes = tk.PhotoImage(file="Albumes.png") 
-        emergente.add_command(image=imagenAlbumes, command=lambda:mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,3))
+        emergente.add_command(image=imagenAlbumes, command=lambda:mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4))
         emergente.image = imagenAlbumes  
         imagenCanciones = tk.PhotoImage(file="Canciones.png") 
-        emergente.add_command(image=imagenCanciones, command=lambda:mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,4))
+        emergente.add_command(image=imagenCanciones, command=lambda:mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana5,Ventana6,Ventana7,Ventana8))
         emergente.image = imagenCanciones 
     if id==3:
         imagenAdministrador = tk.PhotoImage(file="Administrador.png") 
-        emergente.add_command(image=imagenAdministrador, command=lambda:mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,5))
+        emergente.add_command(image=imagenAdministrador, command=lambda:mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4))
         emergente.image = imagenAdministrador
         imagenPropietario = tk.PhotoImage(file="Propietario.png") 
-        emergente.add_command(image=imagenPropietario, command=lambda:mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,6))
+        emergente.add_command(image=imagenPropietario, command=lambda:mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana5,Ventana6,Ventana7,Ventana8))
         emergente.image = imagenPropietario
     if id==4:
-        imagenFacturas = tk.PhotoImage(file="Facturacion.png") 
-        emergente.add_command(image=imagenFacturas, command=lambda:None)#[mostrarFactura(diccProptodo,codigo.get())])
-        emergente.image = imagenFacturas
+        if tipousuario=='Usuario':
+            imagenFacturas = tk.PhotoImage(file="Facturacion.png") 
+            emergente.add_command(image=imagenFacturas, command=lambda:mostrarFactura(Ventana1,Ventana2))#En ventana uno esta diccPropTodo y en ventana2 el codigo de usuario
+            emergente.image = imagenFacturas
+        else:
+            imagenFacturas = tk.PhotoImage(file="Facturacion.png") 
+            emergente.add_command(image=imagenFacturas,command=lambda:messagebox.showinfo("Alerta", "El administrador no cuenta con serivicios de facturacion!"))
     # Mostrar el menú emergente
     emergente.post(VentanaMenu.winfo_pointerx(), VentanaMenu.winfo_pointery())
 
-def mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,id,Ventana1):
+def mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4):
     # Eliminar el menú anterior, si existe
     try:
         emergenteAux.delete(0, tk.END)
@@ -189,100 +179,11 @@ def mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,id,Ventana1):
         pass
     # Crear el menú emergente con otra imagen
     if tipousuario=='Usuario':
-        if id==1:#Buscar genero
-            #botonbusquedaGenero=tk.Button(text='Busqueda')
-            emergenteAux.add_command(label="Busqueda", command=lambda:navegacionVentanas(Ventana1,VentanaMenu,obtenerDimenciones(VentanaMenu)))
-        '''   
-        if id==2:
-            botonbusquedaArtista=tk.Button(text='Busqueda')
-            emergenteAux.add_command(botonbusquedaArtista,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-        if id==3:
-            botonbusquedaAlbum=tk.Button(text='Busqueda')
-            emergenteAux.add_command(botonbusquedaAlbum,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-        if id==4:
-            botonbusquedaCancion=tk.Button(text='Busqueda')
-            emergenteAux.add_command(botonbusquedaCancion,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-        if id==6:
-            botonbusquedaPropietario=tk.Button(text='Busqueda')
-            emergenteAux.add_command(botonbusquedaPropietario,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
+        emergenteAux.add_command(label="Busqueda" ,command=lambda:navegacionVentanas(Ventana3,VentanaMenu,obtenerDimenciones(VentanaMenu)))           
     else:
-        if id==1:
-            botonInsercionGenero=tk.Button(text='Insercion')
-            emergenteAux.add_command(botonInsercionGenero,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonModificacionGenero=tk.Button(text='Modificacion')
-            emergenteAux.add_command(botonModificacionGenero,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonbusquedaGenero=tk.Button(text='Busqueda')
-            emergenteAux.add_command(botonbusquedaGenero,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonEliminacionGenero=tk.Button(text='Eliminacion')
-            emergenteAux.add_command(botonEliminacionGenero,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-        if id==2:
-            botonInsercionArtista=tk.Button(text='Insercion')
-            emergenteAux.add_command(botonInsercionArtista,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonModificacionArtista=tk.Button(text='Modificacion')
-            emergenteAux.add_command(botonModificacionArtista,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonbusquedaArtista.Button(text='Busqueda')
-            emergenteAux.add_command(botonbusquedaArtista,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonEliminacionArtista=tk.Button(text='Eliminacion')
-            emergenteAux.add_command(botonEliminacionArtista,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-        if id==3:
-            botonInsercionAlbum=tk.Button(text='Insercion')
-            emergenteAux.add_command(botonInsercionAlbum,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonModificacionAlbum=tk.Button(text='Modificacion')
-            emergenteAux.add_command(botonModificacionAlbum,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonbusquedaAlbum=tk.Button(text='Busqueda')
-            emergenteAux.add_command(botonbusquedaAlbum,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonEliminacionAlbum=tk.Button(text='Eliminacion')
-            emergenteAux.add_command(botonEliminacionAlbum,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-        if id==4:
-            botonInsercionCancion=tk.Button(text='Insercion')
-            emergenteAux.add_command(botonInsercionCancion,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonModificacionCancion=tk.Button(text='Modificacion')
-            emergenteAux.add_command(botonModificacionCancion,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonbusquedaCancion=tk.Button(text='Busqueda')
-            emergenteAux.add_command(botonbusquedaCancion,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonEliminacionCancion=tk.Button(text='Eliminacion')
-            emergenteAux.add_command(botonEliminacionCancion,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-        if id==5:
-            botonInsercionAdmin=tk.Button(text='Insercion')
-            emergenteAux.add_command(botonInsercionAdmin,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonModificacionAdmin=tk.Button(text='Modificacion')
-            emergenteAux.add_command(botonModificacionAdmin,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonbusquedaAdmin=tk.Button(text='Busqueda')
-            emergenteAux.add_command(botonbusquedaAdmin,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonEliminacionAdmin=tk.Button(text='Eliminacion')
-            emergenteAux.add_command(botonEliminacionAdmin,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-        if id==6:
-            botonInsercionPropietario=tk.Button(text='Insercion')
-            emergenteAux.add_command(botonInsercionPropietario,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonModificacionPropietario=tk.Button(text='Modificacion')
-            emergenteAux.add_command(botonModificacionPropietario,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonbusquedaPropietario=tk.Button(text='Busqueda')
-            emergenteAux.add_command(botonbusquedaPropietario,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))
-
-            botonEliminacionPropietario=tk.Button(text='Eliminacion')
-            emergenteAux.add_command(botonEliminacionPropietario,command=lambda:navegacionVentanas(ventana_principal,ventana_secundaria,tamaño))'''
-
+        emergenteAux.add_command(label="Insercion",command=lambda:navegacionVentanas(Ventana1,VentanaMenu,obtenerDimenciones(VentanaMenu)))           
+        emergenteAux.add_command(label="Modificacion", command=lambda:navegacionVentanas(Ventana2,VentanaMenu,obtenerDimenciones(VentanaMenu)))           
+        emergenteAux.add_command(label="Busqueda" ,command=lambda:navegacionVentanas(Ventana3,VentanaMenu,obtenerDimenciones(VentanaMenu)))           
+        emergenteAux.add_command(label="Eliminacion",command=lambda:navegacionVentanas(Ventana4,VentanaMenu,obtenerDimenciones(VentanaMenu)))           
     emergenteAux.post(VentanaMenu.winfo_pointerx(), VentanaMenu.winfo_pointery())
 

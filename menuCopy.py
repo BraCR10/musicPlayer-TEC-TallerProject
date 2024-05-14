@@ -20,11 +20,22 @@ diccAlbumtodo=leerAlbum()
 diccPlaylisttodo=leerPlaylist()
 diccCancionestodo=leerCanciones()
 ColasDeReproduccion={}#Cada propietarion tiene su propia cola
+
 ######################################################################################################################################
 ventanaLogin = tk.Tk()
 VentanaMenu = tk.Toplevel(ventanaLogin)
 VentanaMenu.withdraw()  # Oculta la ventana secundaria inicialmente
 verificadorElementosMenu=False#Se utiiza para destruir elementos en el menu y que no se repitan
+#######################################################################################################################################################################################
+def emergenteReproduccion(emergentePrincipal,imagenFacturas,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo):
+        imagenReproducir = tk.PhotoImage(file="Facturacion.png") 
+        emergentePrincipal.add_command(image=imagenFacturas, command=lambda:reproductor(emergentePrincipal,VentanaMenu,5,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))#En ventana uno esta diccPropTodo y en ventana2 el codigo de usuario
+        emergentePrincipal.image = imagenReproducir
+        imagenCola = tk.PhotoImage(file="Facturacion.png") 
+        emergentePrincipal.add_command(image=imagenFacturas, command=lambda:reproductor(emergentePrincipal,VentanaMenu,5,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))#En ventana uno esta diccPropTodo y en ventana2 el codigo de usuario
+        emergentePrincipal.image = imagenCola
+        emergentePrincipal.post(VentanaMenu.winfo_pointerx(), VentanaMenu.winfo_pointery())
+
 #######################################################################################################################################################################################
 def login(tipoUsuario,codigo,diccProptodo,ventanaPago,ventanaRegistro,diccAdminTodo,ventanaLogin,VentanaMenu):
     if  tipoUsuario=='Usuario' and codigo not in list(diccProptodo.keys()) :
@@ -39,7 +50,7 @@ def login(tipoUsuario,codigo,diccProptodo,ventanaPago,ventanaRegistro,diccAdminT
         return navegacionVentanas(VentanaMenu,ventanaLogin,obtenerDimenciones(ventanaLogin))
     elif tipoUsuario=='Administrador' and codigo not in list(diccAdminTodo.keys()):
         messagebox.showinfo("Alerta", "El codigo no pertenece a ningun administrador")
-    
+
 #######################################################################################################################################################################################
 def loginVentana():
         ##########################################################################################################################################################################################
@@ -255,35 +266,35 @@ def menu(tipoUsuario,codigoUsuario):
         menubar.add_cascade(label="Reproductor", menu=menuReproductor)
         VentanaMenu.config(menu=menubar)
         #Pop up para imgs de menu
-        emergente1 = tk.Menu(VentanaMenu, tearoff=0)
+        emergentePrincipal = tk.Menu(VentanaMenu, tearoff=0)
         #Creamos imagenes
         Musicapng = tk.PhotoImage(file='./Musica.png')
         VentanaMenu.Musicapng = tk.PhotoImage(file='./Musica.png')
-        MusicaBoton = tk.Button(VentanaMenu, image=VentanaMenu.Musicapng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,1,tipoUsuario,VentanaBusquedaGenero))#,command=lambda:)
+        MusicaBoton = tk.Button(VentanaMenu, image=VentanaMenu.Musicapng,command=lambda:mostrarEmergenteMenu(emergentePrincipal,VentanaMenu,1,tipoUsuario,VentanaInsercionGen,VentanaModificacionGen,VentanaBusquedaGenero,VentanaEliminacionGen,VentanaInsercionArtista,VentanaModificacionArt,VentanaBusquedaArtista,VentanaEliminacionArt))#,command=lambda:)
         MusicaBoton.configure(width=190, height=190)
         MusicaBoton.pack(side="left",pady=1,padx=50)
         
         Usuariospng = tk.PhotoImage(file='./Usuarios.png')
         VentanaMenu.Usuariospng = tk.PhotoImage(file='./Usuarios.png')
-        UsuariosBoton = tk.Button(VentanaMenu, image=VentanaMenu.Usuariospng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,3,tipoUsuario))#,command=lambda:)
+        UsuariosBoton = tk.Button(VentanaMenu, image=VentanaMenu.Usuariospng,command=lambda:mostrarEmergenteMenu(emergentePrincipal,VentanaMenu,3,tipoUsuario,VentanaInsercionAdm,VentanaModificacionAdm,VentanaBusquedaAdm,VentanaEliminacionAdm,VentanaInsercionProp,VentanaModificacionProp,VentanaBusquedaPropietario,VentanaEliminacionProp))
         UsuariosBoton.configure(width=190, height=190)
         UsuariosBoton.pack(side='right',padx=50)
         
         Reproductorpng = tk.PhotoImage(file='./Reproductor.png')
         VentanaMenu.Reproductorpng = tk.PhotoImage(file='./Reproductor.png')
-        ReproductorBoton = tk.Button(VentanaMenu, image=VentanaMenu.Reproductorpng,command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
+        ReproductorBoton = tk.Button(VentanaMenu, image=VentanaMenu.Reproductorpng,command=lambda:emergenteReproduccion(emergentePrincipal,Reproductorpng,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
         ReproductorBoton.configure(width=190, height=190)
         ReproductorBoton.pack(pady=15)
         
         Albumpng = tk.PhotoImage(file='./Album.png')
         VentanaMenu.Albumpng = tk.PhotoImage(file='./Album.png')
-        AlbumBoton = tk.Button(VentanaMenu, image=VentanaMenu.Albumpng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,2,tipoUsuario))
+        AlbumBoton = tk.Button(VentanaMenu, image=VentanaMenu.Albumpng,command=lambda:mostrarEmergenteMenu(emergentePrincipal,VentanaMenu,2,tipoUsuario,VentanaInsercionAlbum,VentanaModificacionAlb,VentanaBusquedaAlbum,VentanaEliminacionAlb,VentanaInsercionCancion,VentanaModificacionCancion,VentanaBusquedaCancion,VentanaEliminacionCancion))
         AlbumBoton.configure(width=190, height=190)
         AlbumBoton.pack(side='left',padx=50)
         
         pagospng = tk.PhotoImage(file='./Pagos.png')
         VentanaMenu.pagospng = tk.PhotoImage(file='./Pagos.png')
-        PagoBoton = tk.Button(VentanaMenu, image=VentanaMenu.pagospng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,4,tipoUsuario))
+        PagoBoton = tk.Button(VentanaMenu, image=VentanaMenu.pagospng,command=lambda:mostrarEmergenteMenu(emergentePrincipal,VentanaMenu,4,tipoUsuario,diccProptodo,codigoUsuario,VentanaMenu,VentanaMenu,VentanaMenu,VentanaMenu,VentanaMenu,VentanaMenu))
         PagoBoton.configure(width=190, height=190)
         PagoBoton.pack(side="right",padx=50)    
         
@@ -1128,5 +1139,4 @@ def menu(tipoUsuario,codigoUsuario):
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
 ###########################################################################################################################################################################
 loginVentana()
-
 
