@@ -265,19 +265,19 @@ def menu(tipoUsuario,codigoUsuario):
         
         Usuariospng = tk.PhotoImage(file='./Usuarios.png')
         VentanaMenu.Usuariospng = tk.PhotoImage(file='./Usuarios.png')
-        UsuariosBoton = tk.Button(VentanaMenu, image=VentanaMenu.Usuariospng)#,command=lambda:)
+        UsuariosBoton = tk.Button(VentanaMenu, image=VentanaMenu.Usuariospng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,3))#,command=lambda:)
         UsuariosBoton.configure(width=190, height=190)
         UsuariosBoton.pack(side='right',padx=50)
         
         Reproductorpng = tk.PhotoImage(file='./Reproductor.png')
         VentanaMenu.Reproductorpng = tk.PhotoImage(file='./Reproductor.png')
-        ReproductorBoton = tk.Button(VentanaMenu, image=VentanaMenu.Reproductorpng,command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo))
+        ReproductorBoton = tk.Button(VentanaMenu, image=VentanaMenu.Reproductorpng,command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
         ReproductorBoton.configure(width=190, height=190)
         ReproductorBoton.pack(pady=15)
         
         Albumpng = tk.PhotoImage(file='./Album.png')
         VentanaMenu.Albumpng = tk.PhotoImage(file='./Album.png')
-        AlbumBoton = tk.Button(VentanaMenu, image=VentanaMenu.Albumpng)#,command=lambda:BotonesAlbumes(VentanaMenu))
+        AlbumBoton = tk.Button(VentanaMenu, image=VentanaMenu.Albumpng,command=lambda:mostrarEmergenteMenu(emergente1,VentanaMenu,2))#,command=lambda:BotonesAlbumes(VentanaMenu))
         AlbumBoton.configure(width=190, height=190)
         AlbumBoton.pack(side='left',padx=50)
         
