@@ -28,6 +28,10 @@ VentanaMenu.withdraw()  # Oculta la ventana secundaria inicialmente
 verificadorElementosMenu=False#Se utiiza para destruir elementos en el menu y que no se repitan
 #######################################################################################################################################################################################
 def emergenteReproduccion(emergentePrincipal,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo):
+        try:
+            emergentePrincipal.delete(0, tk.END)
+        except tk.TclError:
+            pass
         imagenReproducir = tk.PhotoImage(file="./Reproducir.png") 
         emergentePrincipal.add_command(image=imagenReproducir, command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))#En ventana uno esta diccPropTodo y en ventana2 el codigo de usuario
         emergentePrincipal.image = imagenReproducir

@@ -90,6 +90,7 @@ def eliminarAlbum(codigoEliminacionAlb,diccAlbumtodo,diccCancionestodo,etiquetaC
         limpiar_texto(codigoEliminacionAlb)
 
 def eliminarCanciones(codigoEliminacionCancion,diccCancionestodo,etiquetaConfirmacionEliminacionCancion):
+    print(diccCancionestodo.keys())
     if codigoEliminacionCancion.get() in  list(diccCancionestodo.keys()):
         mostrarEnPantalla(etiquetaConfirmacionEliminacionCancion,f"La cancion {diccCancionestodo[codigoEliminacionCancion.get()]['nombre']} con el codigo {codigoEliminacionCancion.get()} se ha eliminado correctamente")
         #Eliminacion principal
@@ -98,6 +99,7 @@ def eliminarCanciones(codigoEliminacionCancion,diccCancionestodo,etiquetaConfirm
     else:
         messagebox.showinfo("Alerta", "El codigo digitado de cancion no existe, digite otro existente!")
         limpiar_texto(codigoEliminacionCancion)
+    print(diccCancionestodo.keys())
         
 def eliminarAdministrador(codigoEliminacionAdm,diccAdmintodo,etiquetaConfirmacionEliminacionAdm):
     if codigoEliminacionAdm.get() in  list(diccAdmintodo.keys()):
