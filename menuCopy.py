@@ -20,7 +20,7 @@ diccAlbumtodo=leerAlbum()
 diccPlaylisttodo=leerPlaylist()
 diccCancionestodo=leerCanciones()
 ColasDeReproduccion={}#Cada propietarion tiene su propia cola
-
+listaFacturas=[]
 ######################################################################################################################################
 ventanaLogin = tk.Tk()
 VentanaMenu = tk.Toplevel(ventanaLogin)
@@ -138,10 +138,10 @@ def loginVentana():
         etiquetaPago=tk.Label(ventanaPago, text="  ",bg='#D5CEC1',fg='#28342C',font=("Times New Roman",15))
         etiquetaPago.grid(sticky=tk.N,pady=20)
         #Boton de ver factura
-        verFactura = tk.Button(ventanaPago, text="Ver Facturas", command=lambda:[mostrarFactura(diccProptodo,codigo.get())],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+        verFactura = tk.Button(ventanaPago, text="Ver Facturas", command=lambda:[mostrarFactura(diccProptodo,codigo.get(),listaFacturas)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
         verFactura.grid(sticky=tk.N,pady=15)
         #Boton de pagar
-        accionPagar = tk.Button(ventanaPago, text="Pagar", command=lambda:[pagar(diccProptodo,diccMembresias,codigo.get(),etiquetaPago),limpiar_texto(numTarjeta),limpiar_texto(fecha),limpiar_texto(codigoSeguridad)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+        accionPagar = tk.Button(ventanaPago, text="Pagar", command=lambda:[pagar(diccProptodo,diccMembresias,codigo.get(),etiquetaPago,listaFacturas),limpiar_texto(numTarjeta),limpiar_texto(fecha),limpiar_texto(codigoSeguridad)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
         accionPagar.grid(sticky=tk.N,pady=15)
         #Boton de Volver
         botonDeRegistroALogin = tk.Button(ventanaPago, text="Volver a menu", command=lambda:navegacionVentanas(ventanaLogin,ventanaPago,obtenerDimenciones(ventanaPago)),font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
@@ -228,6 +228,12 @@ def menu(tipoUsuario,codigoUsuario):
                 menumodificacion.add_command(label="Cancion",command=lambda:navegacionVentanas(VentanaModificacionCancion,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 menumodificacion.add_command(label="Administrador",command=lambda:navegacionVentanas(VentanaModificacionAdm,VentanaMenu,obtenerDimenciones(VentanaMenu)))
                 menubar.add_cascade(label="Modificación", menu=menumodificacion)
+                #Pagos
+                menuPagos = tk.Menu(menubar,tearoff=0)
+                menuPagos.configure(bg='#C1B2A6')
+                menuPagos.add_command(label="Facturacion",command=lambda:administrarFacturas(listaFacturas,diccProptodo))
+                menuPagos.add_command(label="Descuentos",command=lambda:administrarDescuentos())
+                menubar.add_cascade(label="Pagos", menu=menuPagos)
         elif tipoUsuario=="Usuario":
                 #Busqueda
                 menubusqueda.add_command(label="Administrador",foreground='#E4E4E4')
@@ -298,7 +304,7 @@ def menu(tipoUsuario,codigoUsuario):
         
         pagospng = tk.PhotoImage(file='./Pagos.png')
         VentanaMenu.pagospng = tk.PhotoImage(file='./Pagos.png')
-        PagoBoton = tk.Button(VentanaMenu, image=VentanaMenu.pagospng,command=lambda:mostrarEmergenteMenu(emergentePrincipal,VentanaMenu,4,tipoUsuario,diccProptodo,codigoUsuario,VentanaMenu,VentanaMenu,VentanaMenu,VentanaMenu,VentanaMenu,VentanaMenu))
+        PagoBoton = tk.Button(VentanaMenu, image=VentanaMenu.pagospng,command=lambda:mostrarEmergenteMenu(emergentePrincipal,VentanaMenu,4,tipoUsuario,diccProptodo,codigoUsuario,listaFacturas,VentanaMenu,VentanaMenu,VentanaMenu,VentanaMenu,VentanaMenu))
         PagoBoton.configure(width=190, height=190)
         PagoBoton.pack(side="right",padx=50)    
         
