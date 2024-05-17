@@ -157,6 +157,26 @@ def pagar(diccTodo,diccMembresias,codigo,etiqueta,listaFacturas):
     mostrarEnPantalla(etiqueta,"Su usuario ha sido activado, por favor vuelva al login")
     #diccMembresias[codigo]='1'
 
+def mostrarEmergenteMenuTresOpciones(emergente,VentanaMenu,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4,Ventana5,Ventana6,Ventana7,Ventana8,Ventana9,Ventana10,Ventana11,Ventana12):
+    # Eliminar el menú anterior, si existe
+    try:
+        emergente.delete(0, tk.END)
+    except tk.TclError:
+        pass
+    emergenteAux= tk.Menu(VentanaMenu, tearoff=0)
+    # Crear el menú emergente con otra imagen
+
+    imagenGeneros = tk.PhotoImage(file="generos.png") 
+    emergente.add_command(image=imagenGeneros, command=lambda:mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4))
+    emergente.image = imagenGeneros  
+    imagenArtistas = tk.PhotoImage(file="Artistas.png") 
+    emergente.add_command(image=imagenArtistas, command=lambda: mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana5,Ventana6,Ventana7,Ventana8))
+    emergente.image = imagenArtistas 
+    imagenArtistas = tk.PhotoImage(file="Artistas.png") 
+    emergente.add_command(image=imagenArtistas, command=lambda: mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana9,Ventana10,Ventana11,Ventana12))
+    emergente.image = imagenArtistas 
+    # Mostrar el menú emergente
+    emergente.post(VentanaMenu.winfo_pointerx(), VentanaMenu.winfo_pointery())
 def mostrarEmergenteMenu(emergente,VentanaMenu,id,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4,Ventana5,Ventana6,Ventana7,Ventana8):
     # Eliminar el menú anterior, si existe
     try:
@@ -165,13 +185,6 @@ def mostrarEmergenteMenu(emergente,VentanaMenu,id,tipousuario,Ventana1,Ventana2,
         pass
     emergenteAux= tk.Menu(VentanaMenu, tearoff=0)
     # Crear el menú emergente con otra imagen
-    if id==1:
-        imagenGeneros = tk.PhotoImage(file="generos.png") 
-        emergente.add_command(image=imagenGeneros, command=lambda:mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4))
-        emergente.image = imagenGeneros  
-        imagenArtistas = tk.PhotoImage(file="Artistas.png") 
-        emergente.add_command(image=imagenArtistas, command=lambda: mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana5,Ventana6,Ventana7,Ventana8))
-        emergente.image = imagenArtistas 
     if id==2:
         imagenAlbumes = tk.PhotoImage(file="Albumes.png") 
         emergente.add_command(image=imagenAlbumes, command=lambda:mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4))

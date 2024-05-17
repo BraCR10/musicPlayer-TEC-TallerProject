@@ -270,6 +270,11 @@ def menu(tipoUsuario,codigoUsuario):
                 menumodificacion.add_command(label="Cancion",foreground='#E4E4E4')
                 menumodificacion.add_command(label="Administrador",foreground='#E4E4E4')
                 menubar.add_cascade(label="Modificación", background='#A6A6A6', menu=menumodificacion)
+                #Pagos
+                menuPagos = tk.Menu(menubar,tearoff=0)
+                menuPagos.configure(bg='#C1B2A6')
+                menuPagos.add_command(label="Facturacion",command=lambda:mostrarFactura(diccProptodo,codigoUsuario,listaFacturas))
+                menubar.add_cascade(label="Pagos", menu=menuPagos)
         #Pop up de reproductor
         menuReproductor=tk.Menu(menubar,tearoff=0)
         menuReproductor.add_command(label="Ventana de reproductor",command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
@@ -280,7 +285,7 @@ def menu(tipoUsuario,codigoUsuario):
         #Creamos imagenes
         Musicapng = tk.PhotoImage(file='./Musica.png')
         VentanaMenu.Musicapng = tk.PhotoImage(file='./Musica.png')
-        MusicaBoton = tk.Button(VentanaMenu, image=VentanaMenu.Musicapng,command=lambda:mostrarEmergenteMenu(emergentePrincipal,VentanaMenu,1,tipoUsuario,VentanaInsercionGen,VentanaModificacionGen,VentanaBusquedaGenero,VentanaEliminacionGen,VentanaInsercionArtista,VentanaModificacionArt,VentanaBusquedaArtista,VentanaEliminacionArt))#,command=lambda:)
+        MusicaBoton = tk.Button(VentanaMenu, image=VentanaMenu.Musicapng,command=lambda:mostrarEmergenteMenuTresOpciones(emergentePrincipal,VentanaMenu,tipoUsuario,VentanaInsercionGen,VentanaModificacionGen,VentanaBusquedaGenero,VentanaEliminacionGen,VentanaInsercionArtista,VentanaModificacionArt,VentanaBusquedaArtista,VentanaEliminacionArt,VentanaInsercionPlaylist,VentanaModificacionPlaylist,VentanaBusquedaPlaylist,VentanaEliminacionPlaylist))#,command=lambda:)
         MusicaBoton.configure(width=190, height=190)
         MusicaBoton.pack(side="left",pady=1,padx=50)
         
