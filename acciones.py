@@ -172,9 +172,9 @@ def mostrarEmergenteMenuTresOpciones(emergente,VentanaMenu,tipousuario,Ventana1,
     imagenArtistas = tk.PhotoImage(file="Artistas.png") 
     emergente.add_command(image=imagenArtistas, command=lambda: mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana5,Ventana6,Ventana7,Ventana8))
     emergente.image = imagenArtistas 
-    imagenArtistas = tk.PhotoImage(file="Artistas.png") 
-    emergente.add_command(image=imagenArtistas, command=lambda: mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana9,Ventana10,Ventana11,Ventana12))
-    emergente.image = imagenArtistas 
+    imagenPlaylist = tk.PhotoImage(file="Playlist.png") 
+    emergente.add_command(image=imagenPlaylist, command=lambda: mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana9,Ventana10,Ventana11,Ventana12))
+    emergente.image = imagenPlaylist 
     # Mostrar el menú emergente
     emergente.post(VentanaMenu.winfo_pointerx(), VentanaMenu.winfo_pointery())
 def mostrarEmergenteMenu(emergente,VentanaMenu,id,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4,Ventana5,Ventana6,Ventana7,Ventana8):

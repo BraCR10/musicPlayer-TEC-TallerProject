@@ -178,8 +178,8 @@ def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlay
     botonAgregar = tk.Button(cola, text="Insertar cancion a cola",command=lambda:[agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCancionestodo,usuarioActual,ColasDeReproduccion,diccProptodo,diccAdmintodo),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonAgregar.pack(pady=(int(f'{cola.winfo_screenheight()}')-560,0))
 
-    reproductor.Empezarpng = tk.PhotoImage(file='./Empezar.png')
-    botonEmpezar = tk.Button(reproductor, image=reproductor.Empezarpng,command=lambda:[reproducirCancion('1',ColasDeReproduccion,usuarioActual)])
+    imagenEmpezar = tk.PhotoImage(file='./Empezar.png')
+    botonEmpezar = tk.Button(reproductor, image=imagenEmpezar,command=lambda:[reproducirCancion('1',ColasDeReproduccion,usuarioActual)])
     botonEmpezar.pack()
 
     botonPausar = tk.Button(reproductor, text="pausar",command=lambda:[reproducirCancion('pausar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
