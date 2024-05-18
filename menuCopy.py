@@ -11,6 +11,7 @@ from acciones import *
 from modificacion import *#ModificarPlaylist,modificarArt,modificarCancion,modificarGen,modificarProp
 from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,eliminarAlbum,eliminarGenero,eliminarArtistas
 from reproducir import *
+from reportes import *
 diccProptodo=leerProp()[0]#Devuelve una lista con membresias
 diccAdmintodo=leerAdmin()
 diccMembresias=leerProp()[1]
@@ -192,6 +193,29 @@ def menu(tipoUsuario,codigoUsuario):
         menubusqueda.add_command(label="Album",command=lambda:navegacionVentanas(VentanaBusquedaAlbum,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         menubusqueda.add_command(label="Cancion",command=lambda:navegacionVentanas(VentanaBusquedaCancion,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         menubar.add_cascade(label="Busqueda", menu=menubusqueda)
+        #Reportes
+        menureportes = tk.Menu(menubar,tearoff=0)
+        menureportes.configure(bg='#C1B2A6')
+        menureportes.add_command(label="Propietarios",command=lambda:reportesProp(diccProptodo,1))
+        menureportes.add_command(label="Playlist")
+        menureportes.add_command(label="Genero",command=lambda:reporteGeneros(diccGentodo,1))
+        menureportes.add_command(label="Artistas de un genero")
+        menureportes.add_command(label="Album")
+        menureportes.add_command(label="Canciones")
+        menureportes.add_command(label="Artista con mas canciones")
+        menureportes.add_command(label="Album con mas canciones")
+        menureportes.add_command(label="Genero mas solicitado")
+        menureportes.add_command(label="Propietario con más playlist")
+        menureportes.add_command(label="Álbum más solicitado")
+        menureportes.add_command(label="Playlist con más canciones")
+        menureportes.add_command(label="Genero con más artistas")
+        menureportes.add_command(label="Genero con más álbumes")
+        menureportes.add_command(label="Artista con más álbumes")
+        menureportes.add_command(label="Album nunca buscado")
+        menureportes.add_command(label="Artista nunca buscado")
+        menureportes.add_command(label="Propietario sin playlist")
+        menubar.add_cascade(label="Reportes", menu=menureportes)
+
         if tipoUsuario=="Administrador":
                 #Busqueda
                 menubusqueda.add_command(label="Administrador",command=lambda:navegacionVentanas(VentanaBusquedaAdm,VentanaMenu,obtenerDimenciones(VentanaMenu)))
@@ -277,6 +301,7 @@ def menu(tipoUsuario,codigoUsuario):
                 menubar.add_cascade(label="Pagos", menu=menuPagos)
         #Pop up de reproductor
         menuReproductor=tk.Menu(menubar,tearoff=0)
+        menuReproductor.configure(bg='#C1B2A6')
         menuReproductor.add_command(label="Ventana de reproductor",command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
         menubar.add_cascade(label="Reproductor", menu=menuReproductor)
         VentanaMenu.config(menu=menubar)

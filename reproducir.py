@@ -179,6 +179,17 @@ def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlay
     botonAgregar = tk.Button(cola, text="Insertar cancion a cola",command=lambda:[agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCancionestodo,usuarioActual,ColasDeReproduccion,diccProptodo,diccAdmintodo),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonAgregar.pack(pady=(int(f'{cola.winfo_screenheight()}')-560,0))
     
+    try:
+        imagen_boton = tk.PhotoImage(file="Empezar.png")
+        print("Imagen cargada correctamente.")
+    except tk.TclError as e:
+        print(f"Error al cargar la imagen: {e}")
+        ventana.destroy()
+
+    # Crear un botón con la imagen dentro del LabelFrame
+    boton_imagen = tk.Button(reproductor, image=imagen_boton)
+    boton_imagen.pack(pady=20)
+
     botonEmpezar = tk.Button(reproductor, text='Empezar', command=lambda: [reproducirCancion('1', ColasDeReproduccion, usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonEmpezar.pack()
 
