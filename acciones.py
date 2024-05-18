@@ -196,9 +196,10 @@ def mostrarEmergenteMenu(emergente,VentanaMenu,id,tipousuario,Ventana1,Ventana2,
             emergente.add_command(image=imagenFacturas, command=lambda:mostrarFactura(Ventana1,Ventana2,Ventana3))#Ventan3 son la listas de las facturas y 1 diccproptodo y 2 codigo de user
             emergente.image = imagenFacturas
         else:
-            imagenFacturas = tk.PhotoImage(file="Facturacion.png") 
+            imagenFacturas = tk.PhotoImage(file="Facturacion.png")
             emergente.add_command(image=imagenFacturas,command=lambda:administrarFacturas(Ventana3,Ventana1))#Ventan3 son la listas de las facturas y 1 diccproptodo
-            emergente.add_command(image=imagenFacturas,command=lambda:administrarDescuentos())
+            imagenDescuentos = tk.PhotoImage(file="Descuentos.png") 
+            emergente.add_command(image=imagenDescuentos,command=lambda:administrarDescuentos())
     # Mostrar el menú emergente
     emergente.post(VentanaMenu.winfo_pointerx(), VentanaMenu.winfo_pointery())
 
