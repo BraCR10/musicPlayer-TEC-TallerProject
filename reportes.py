@@ -4,6 +4,7 @@
 #Brian Ramirez Arias 
 from busqueda import *
 from statistics import mode
+from tkinter import messagebox
 
 def reportesProp(diccProptodo,cont):
     reporte = open(f"reportePropietario{cont}.txt", "a")#Crea un nuevo archivo .txt
@@ -16,8 +17,7 @@ def reportesProp(diccProptodo,cont):
     reporte.close()#Cierra archivo
     print('\n ---> El reporte de propietarios se ha creado correctamente\n')
     
-def reportesPlaylist(diccPlaylisttodo,diccProptodo,cont):
-    codProp=str(input('\nDigite el codigo de propietario para mostrar las playlist vinculadas: '))
+def reportesPlaylist(diccPlaylisttodo,diccProptodo,codProp,cont):
     temp=[]
     for i in list(diccPlaylisttodo.keys()):
             if diccPlaylisttodo[i]['codProp']==codProp:
@@ -26,7 +26,6 @@ def reportesPlaylist(diccPlaylisttodo,diccProptodo,cont):
                 continue
     if temp!=[]:
         if codProp in list(diccProptodo.keys()):
-            print(f'\n ---> El reporte de playlist del propietario {buscarProp(codProp,diccProptodo)} se ha creado correctamente\n')
             reporte = open(f"reportePlaylist{cont}.txt", "a")#Crea un nuevo archivo .txt
             reporte.write(f'\n ---> Las playlist del propietario {buscarProp(codProp,diccProptodo)} son: \n')#Agerga datos al archivo
             reporte.write('\nCodigo - Nombre - Codigo del Propietario \n')#Agerga datos al archivo
@@ -35,10 +34,11 @@ def reportesPlaylist(diccPlaylisttodo,diccProptodo,cont):
                 if diccPlaylisttodo[i]['codProp']==codProp:
                     reporte.write(f"\n{i} - {diccPlaylisttodo[i]['nombre']} - {diccPlaylisttodo[i]['codProp']}\n")#Agerga datos al archivo
             reporte.close()#Cierra archivo
+            messagebox.showinfo("Alerta", "El reporte se ha creado correctamente!")
         else:
-            print(f'\n -->El propietario con el codigo {codProp} no existe\n')
+            messagebox.showinfo("Alerta", "El codigo digitado de propietario no tiene playlist asociadas, digite otro.")
     else:
-        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+        messagebox.showinfo("Alerta",'El reporte no se puede crear ya que no hay suficientes datos')
 
 def reporteGeneros(diccGentodo,cont):
     reporte = open(f"reporteGeneros{cont}.txt", "a")#Crea un nuevo archivo .txt

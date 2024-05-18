@@ -159,6 +159,7 @@ def menu(tipoUsuario,codigoUsuario):
         global ReproductorBoton
         global AlbumBoton
         global PagoBoton
+        global contador
         if verificadorElementosMenu==True:
                 etiquetaBienvenida.destroy()
                 botonCerrarSesion.destroy()
@@ -197,7 +198,7 @@ def menu(tipoUsuario,codigoUsuario):
         menureportes = tk.Menu(menubar,tearoff=0)
         menureportes.configure(bg='#C1B2A6')
         menureportes.add_command(label="Propietarios",command=lambda:reportesProp(diccProptodo,1))
-        menureportes.add_command(label="Playlist")
+        menureportes.add_command(label="Playlist",command=lambda:navegacionVentanas(VentanaReportesPlaylist,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         menureportes.add_command(label="Genero",command=lambda:reporteGeneros(diccGentodo,1))
         menureportes.add_command(label="Artistas de un genero")
         menureportes.add_command(label="Album")
@@ -974,7 +975,7 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaModificacionCancion, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaModificacionCancion,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoArtModificacionCancion),limpiar_texto(nombreModCancion),limpiar_texto(codigoAlbModificacionCancion),limpiar_texto(codigoGenModificacionCancion),limpiar_texto(codigoPlaylistModificacionCancion),limpiar_texto(codigoModCancion),mostrarEnPantalla(etiquetaConfirmacionMoficacionCancion,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(row=14,column=0,pady=3)
-         ##############################################################################################################################################
+        ##############################################################################################################################################
         # Configuración de la ventana de modificacion
         VentanaModificacionAdm= tk.Toplevel(ventanaLogin)
         VentanaModificacionAdm.title("Modificacion")
@@ -1173,5 +1174,26 @@ def menu(tipoUsuario,codigoUsuario):
         botonDeBusquedaAMenu = tk.Button(VentanaEliminacionAdm, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionAdm,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionAdm),mostrarEnPantalla(etiquetaConfirmacionEliminacionAdm,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
 ###########################################################################################################################################################################
+        #Ventanas de reportes
+        VentanaReportesPlaylist= tk.Toplevel(ventanaLogin)
+        VentanaReportesPlaylist.title("Reporte")
+        VentanaReportesPlaylist.configure(bg='#D5CEC1')
+        VentanaReportesPlaylist.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaReportesPlaylist.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloReportPlaylist=tk.Label(VentanaReportesPlaylist,text='Reporte de Playlist', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloReportPlaylist.grid(sticky=tk.N,pady=10)
+        DigiteReportPlaylist=tk.Label(VentanaReportesPlaylist,text='Digite el código de propietario para reportar sus playlist:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteReportPlaylist.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        codProp=tk.Entry(VentanaReportesPlaylist,font=("Times New Roman",15),background='#E4E4E4')
+        codProp.grid(sticky=tk.N,pady=10)
+        #Boton de reporte
+        botonDeReporte= tk.Button(VentanaReportesPlaylist, text="Crear reporte", command=lambda:reportesPlaylist(diccPlaylisttodo,diccProptodo,codProp.get(),1),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeReporte.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaReportesPlaylist, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionProp,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionProp),mostrarEnPantalla(etiquetaConfirmacionEliminacionProp,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+
 loginVentana()
 
