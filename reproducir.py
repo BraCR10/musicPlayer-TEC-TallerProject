@@ -177,24 +177,35 @@ def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlay
     #boton agregar
     botonAgregar = tk.Button(cola, text="Insertar cancion a cola",command=lambda:[agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCancionestodo,usuarioActual,ColasDeReproduccion,diccProptodo,diccAdmintodo),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonAgregar.pack(pady=(int(f'{cola.winfo_screenheight()}')-560,0))
-    botonEmpezar = tk.Button(reproductor, text="empezar",command=lambda:[reproducirCancion('1',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+
+    reproductor.Empezarpng = tk.PhotoImage(file='./Empezar.png')
+    botonEmpezar = tk.Button(reproductor, image=reproductor.Empezarpng,command=lambda:[reproducirCancion('1',ColasDeReproduccion,usuarioActual)])
     botonEmpezar.pack()
+
     botonPausar = tk.Button(reproductor, text="pausar",command=lambda:[reproducirCancion('pausar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonPausar.pack()
+
     botonContinuar = tk.Button(reproductor, text="continuar",command=lambda:[reproducirCancion('continuar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonContinuar.pack()
+
     botonSiguiente = tk.Button(reproductor, text="adelantar",command=lambda:[reproducirCancion('siguiente',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonSiguiente.pack()
+
     botonAtras = tk.Button(reproductor, text="atras",command=lambda:[reproducirCancion('atras',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonAtras.pack()
+
     botonPista3 = tk.Button(reproductor, text="pasar a 3",command=lambda:[reproducirCancion('3',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonPista3.pack()
+
     botonAdelantar = tk.Button(reproductor, text="adelanta10segs",command=lambda:[reproducirCancion('adelantar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonAdelantar.pack()
+
     botonAtrasar = tk.Button(reproductor, text="atrasar10segs",command=lambda:[reproducirCancion('atrasar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonAtrasar.pack()
+
     botonFinalizar = tk.Button(reproductor, text="Parar",command=lambda:[reproducirCancion('parar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonFinalizar.pack()
+
     # Iniciar el bucle de la ventana
     ventana.mainloop()
 
