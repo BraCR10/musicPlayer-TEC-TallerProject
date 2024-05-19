@@ -221,27 +221,27 @@ def reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGent
     botonRetroceder10png.grid(row=2,column=4, padx=(10,0), pady=10)
     
     reproductor.ir1png = tk.PhotoImage(file='./PasarA1.png')
-    botonIR1 = tk.Button(reproductor, image=reproductor.ir1png,command=lambda:[reproducirCancion('siguiente',ColasDeReproduccion,usuarioActual)])
+    botonIR1 = tk.Button(reproductor, image=reproductor.ir1png,command=lambda:[reproducirCancion('1',ColasDeReproduccion,usuarioActual)])
     botonIR1.configure(width=110,height=110)
     botonIR1.grid(row=3,column=2, padx=(150,10))
 
     reproductor.ir2png = tk.PhotoImage(file='./PasarA2.png')
-    botonIR2 = tk.Button(reproductor, image=reproductor.ir2png,command=lambda:[reproducirCancion('atras',ColasDeReproduccion,usuarioActual)])
+    botonIR2 = tk.Button(reproductor, image=reproductor.ir2png,command=lambda:[reproducirCancion('2',ColasDeReproduccion,usuarioActual)])
     botonIR2.configure(width=110,height=110)
     botonIR2.grid(row=3,column=3,padx=10, pady=20)
 
     reproductor.ir3png = tk.PhotoImage(file='./PasarA3.png')
-    botonIR3 = tk.Button(reproductor, image=reproductor.ir3png ,command=lambda:[reproducirCancion('adelantar',ColasDeReproduccion,usuarioActual)])
+    botonIR3 = tk.Button(reproductor, image=reproductor.ir3png ,command=lambda:[reproducirCancion('3',ColasDeReproduccion,usuarioActual)])
     botonIR3.configure(width=110,height=110)
     botonIR3.grid(row=3,column=4,padx=10, pady=20)
     
     reproductor.ir4png = tk.PhotoImage(file='./PasarA4.png')
-    botonIR4 = tk.Button(reproductor, image=reproductor.ir4png,command=lambda:[reproducirCancion('adelantar',ColasDeReproduccion,usuarioActual)])
+    botonIR4 = tk.Button(reproductor, image=reproductor.ir4png,command=lambda:[reproducirCancion('4',ColasDeReproduccion,usuarioActual)])
     botonIR4.configure(width=110,height=110)
     botonIR4.grid(row=3,column=5,padx=10, pady=20)
 
     reproductor.ir5png = tk.PhotoImage(file='./PasarA5.png')
-    botonIR5 = tk.Button(reproductor, image=reproductor.ir5png,command=lambda:[reproducirCancion('atrasar',ColasDeReproduccion,usuarioActual)])
+    botonIR5 = tk.Button(reproductor, image=reproductor.ir5png,command=lambda:[reproducirCancion('5',ColasDeReproduccion,usuarioActual)])
     botonIR5.configure(width=110,height=110)
     botonIR5.grid(row=3,column=6, padx=(10,(int(f'{cola.winfo_screenwidth()}')-900)), pady=10)
     
