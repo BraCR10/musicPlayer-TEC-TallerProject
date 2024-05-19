@@ -133,8 +133,6 @@ def reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGent
     #Marco reproductor
     reproductor=tk.LabelFrame(ventana,text='Panel de reproduccion',font=("Times New Roman",15),padx=int(f'{cola.winfo_screenwidth()-1000}'),bg="#D5CEC1" )
     reproductor.grid(row=5,column=90)
-    temp=tk.Label(reproductor, text="Aqui va todo para reproducirr\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",font=("Times New Roman",15),background='#D5CEC1')
-    temp.pack(side='right',pady=(int(f'{cola.winfo_screenheight()}')//30,0))
     #Iniciar Etiquetas
     titulo=tk.Label(cola, text="La cola es:",font=("Times New Roman",15),background='#D5CEC1')
     titulo.pack(pady=(int(f'{cola.winfo_screenheight()}')//100,0))
@@ -179,38 +177,45 @@ def reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGent
     botonAgregar = tk.Button(cola, text="Insertar cancion a cola",command=lambda:[agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCancionestodo,usuarioActual,ColasDeReproduccion,diccProptodo,diccAdmintodo),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonAgregar.pack(pady=(int(f'{cola.winfo_screenheight()}')-560,0))
     
-    empezarImg = tk.PhotoImage(file="Empezar.png")
+    reproductor.Empezarpng = tk.PhotoImage(file='./Empezar.png')
+    BotonEmpezar = tk.Button(reproductor, image=reproductor.Empezarpng,command=lambda:reproducirCancion('1', ColasDeReproduccion, usuarioActual))#,command=lambda:)
+    BotonEmpezar.configure(width=110, height=107)
+    BotonEmpezar.pack(side="top", pady=5)
 
-    botonEmpezar = tk.Button(reproductor, image=empezarImg, command=lambda: [reproducirCancion('1', ColasDeReproduccion, usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-    botonEmpezar.pack()
+    reproductor.Pausarpng = tk.PhotoImage(file='./Pausar.png')
+    botonPausar = tk.Button(reproductor, image=reproductor.Pausarpng,command=lambda:reproducirCancion('pausar',ColasDeReproduccion,usuarioActual))#,command=lambda:)
+    botonPausar.configure(width=110, height=110)
+    botonPausar.pack(side="left", padx=10)
 
-    botonPausar = tk.Button(reproductor, text="pausar",command=lambda:[reproducirCancion('pausar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-    botonPausar.pack()
+    reproductor.Continuarpng = tk.PhotoImage(file='./Unpausar.png')
+    botonContinuar = tk.Button(reproductor, image=reproductor.Continuarpng,command=lambda:[reproducirCancion('continuar',ColasDeReproduccion,usuarioActual)])
+    botonContinuar.configure(width=110, height=110)
+    botonContinuar.pack(side="right", padx=10)
 
-    botonContinuar = tk.Button(reproductor, text="continuar",command=lambda:[reproducirCancion('continuar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-    botonContinuar.pack()
+    reproductor.Siguientepng = tk.PhotoImage(file='./Adelantar1.png')
+    botonSiguiente = tk.Button(reproductor, image=reproductor.Siguientepng,command=lambda:[reproducirCancion('siguiente',ColasDeReproduccion,usuarioActual)])
+    botonSiguiente.configure(width=110,height=110)
+    botonSiguiente.pack(side='left',pady=30,padx=10)
 
-    botonSiguiente = tk.Button(reproductor, text="adelantar",command=lambda:[reproducirCancion('siguiente',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-    botonSiguiente.pack()
+    reproductor.atraspng = tk.PhotoImage(file='./Atrasar1.png')
+    botonAtras = tk.Button(reproductor, image=reproductor.atraspng,command=lambda:[reproducirCancion('atras',ColasDeReproduccion,usuarioActual)])
+    botonAtras.configure(width=110,height=110)
+    botonAtras.pack(side='right',padx=10)
 
-    botonAtras = tk.Button(reproductor, text="atras",command=lambda:[reproducirCancion('atras',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-    botonAtras.pack()
+    reproductor.adelantar10png = tk.PhotoImage(file='./Adelantar10.png')
+    botonAdelantar10 = tk.Button(reproductor, image=reproductor.adelantar10png,command=lambda:[reproducirCancion('adelantar',ColasDeReproduccion,usuarioActual)])
+    botonAdelantar10.configure(width=110,height=110)
+    botonAdelantar10.pack(side="left",pady=30,padx=10)
 
-    botonPista3 = tk.Button(reproductor, text="pasar a 3",command=lambda:[reproducirCancion('3',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-    botonPista3.pack()
+    reproductor.Retroceder10png = tk.PhotoImage(file='./Retroceder10.png')
+    botonRetroceder10png = tk.Button(reproductor, image=reproductor.Retroceder10png,command=lambda:[reproducirCancion('atrasar',ColasDeReproduccion,usuarioActual)])
+    botonRetroceder10png.configure(width=110,height=110)
+    botonRetroceder10png.pack(side="right",padx=10)
 
-    botonAdelantar = tk.Button(reproductor, text="adelanta10segs",command=lambda:[reproducirCancion('adelantar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-    botonAdelantar.pack()
-
-    botonAtrasar = tk.Button(reproductor, text="atrasar10segs",command=lambda:[reproducirCancion('atrasar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-    botonAtrasar.pack()
-
-    botonFinalizar = tk.Button(reproductor, text="Parar",command=lambda:[reproducirCancion('parar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-    botonFinalizar.pack()
-
-
-
-
+    reproductor.Pararpng = tk.PhotoImage(file='./Parar.png')
+    botonPararpng = tk.Button(reproductor, image=reproductor.Pararpng,command=lambda:[reproducirCancion('parar',ColasDeReproduccion,usuarioActual)])
+    botonPararpng.configure(width=110,height=110)
+    botonPararpng.pack(side='top',pady=30)
 
 # Índice de la canción actual y anterior
 cancionActual = 0
