@@ -28,16 +28,16 @@ VentanaMenu = tk.Toplevel(ventanaLogin)
 VentanaMenu.withdraw()  # Oculta la ventana secundaria inicialmente
 verificadorElementosMenu=False#Se utiiza para destruir elementos en el menu y que no se repitan
 #######################################################################################################################################################################################
-def emergenteReproduccion(emergentePrincipal,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo):
+def emergenteReproduccion(emergentePrincipal,VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo):
         try:
             emergentePrincipal.delete(0, tk.END)
         except tk.TclError:
             pass
         imagenReproducir = tk.PhotoImage(file="./Reproducir.png") 
-        emergentePrincipal.add_command(image=imagenReproducir, command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))#En ventana uno esta diccPropTodo y en ventana2 el codigo de usuario
+        emergentePrincipal.add_command(image=imagenReproducir, command=lambda:reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))#En ventana uno esta diccPropTodo y en ventana2 el codigo de usuario
         emergentePrincipal.image = imagenReproducir
         imagenCola = tk.PhotoImage(file="./ColaDeReproduccion.png") 
-        emergentePrincipal.add_command(image=imagenCola, command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))#En ventana uno esta diccPropTodo y en ventana2 el codigo de usuario
+        emergentePrincipal.add_command(image=imagenCola, command=lambda:reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))#En ventana uno esta diccPropTodo y en ventana2 el codigo de usuario
         emergentePrincipal.image = imagenCola
         emergentePrincipal.post(VentanaMenu.winfo_pointerx(), VentanaMenu.winfo_pointery())
 
@@ -320,7 +320,7 @@ def menu(tipoUsuario,codigoUsuario):
         UsuariosBoton.pack(side='right',padx=50)
         
         VentanaMenu.Reproductorpng = tk.PhotoImage(file='./Reproductor.png')
-        ReproductorBoton = tk.Button(VentanaMenu, image=VentanaMenu.Reproductorpng,command=lambda:emergenteReproduccion(emergentePrincipal,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
+        ReproductorBoton = tk.Button(VentanaMenu, image=VentanaMenu.Reproductorpng,command=lambda:emergenteReproduccion(emergentePrincipal,VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
         ReproductorBoton.configure(width=190, height=190)
         ReproductorBoton.pack(pady=15)
         

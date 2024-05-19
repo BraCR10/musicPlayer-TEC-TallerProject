@@ -95,9 +95,9 @@ def vaciarCola(ColasDeReproduccion,usuarioActual,numCancion):
     if numCancion==5 and len(ColasDeReproduccion[usuarioActual])>=5:
         ColasDeReproduccion[usuarioActual].pop(4)
 
-def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,usuarioActual,ColasDeReproduccion,diccProptodo,diccAdmintodo):
+def reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,usuarioActual,ColasDeReproduccion,diccProptodo,diccAdmintodo):
     # Crear la ventana principal
-    ventana = tk.Tk()
+    ventana = tk.Toplevel(VentanaMenu)
     ventana.title("Reproductor")
     ventana.configure(bg="#D5CEC1")
     ventana.geometry(f"{ventana.winfo_screenwidth()-200}x{ventana.winfo_screenheight()-200}")
@@ -179,18 +179,9 @@ def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlay
     botonAgregar = tk.Button(cola, text="Insertar cancion a cola",command=lambda:[agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCancionestodo,usuarioActual,ColasDeReproduccion,diccProptodo,diccAdmintodo),actualizarCola(ColasDeReproduccion,cancion1,cancion2,cancion3,cancion4,cancion5,usuarioActual,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonAgregar.pack(pady=(int(f'{cola.winfo_screenheight()}')-560,0))
     
-    try:
-        imagen_boton = tk.PhotoImage(file="Empezar.png")
-        print("Imagen cargada correctamente.")
-    except tk.TclError as e:
-        print(f"Error al cargar la imagen: {e}")
-        ventana.destroy()
+    empezarImg = tk.PhotoImage(file="Empezar.png")
 
-    # Crear un botón con la imagen dentro del LabelFrame
-    boton_imagen = tk.Button(reproductor, image=imagen_boton)
-    boton_imagen.pack(pady=20)
-
-    botonEmpezar = tk.Button(reproductor, text='Empezar', command=lambda: [reproducirCancion('1', ColasDeReproduccion, usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+    botonEmpezar = tk.Button(reproductor, image=empezarImg, command=lambda: [reproducirCancion('1', ColasDeReproduccion, usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonEmpezar.pack()
 
     botonPausar = tk.Button(reproductor, text="pausar",command=lambda:[reproducirCancion('pausar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
@@ -217,8 +208,6 @@ def reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlay
     botonFinalizar = tk.Button(reproductor, text="Parar",command=lambda:[reproducirCancion('parar',ColasDeReproduccion,usuarioActual)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     botonFinalizar.pack()
 
-    # Iniciar el bucle de la ventana
-    ventana.mainloop()
 
 
 
