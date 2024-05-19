@@ -306,7 +306,8 @@ def menu(tipoUsuario,codigoUsuario):
         #Pop up de reproductor
         menuReproductor=tk.Menu(menubar,tearoff=0)
         menuReproductor.configure(bg='#C1B2A6')
-        menuReproductor.add_command(label="Ventana de reproductor",command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
+        menuReproductor.add_command(label="Reproductor",command=lambda:reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
+        menuReproductor.add_command(label="Cola de reproduccion",command=lambda:reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
         menubar.add_cascade(label="Reproductor", menu=menuReproductor)
         VentanaMenu.config(menu=menubar)
         #Acerca de de

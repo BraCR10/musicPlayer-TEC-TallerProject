@@ -45,7 +45,7 @@ def actualizarCola(ColasDeReproduccion,et1,et2,et3,et4,et5,prop,diccCancionestod
         for i in ColasDeReproduccion[prop]:#Elimina canciones de cola que son eliminadas eliminadas
             if i not in list(diccCancionestodo.keys()):
                 ColasDeReproduccion[prop].pop(eliminador)
-                eliminador+=1
+            eliminador+=1
         if len(ColasDeReproduccion[prop])==1:
             mostrarEnPantalla(et1,f'{cortadorTexto(1,0,ColasDeReproduccion,prop,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)}')
             mostrarEnPantalla(et2,f'Espacio vacio')
@@ -283,7 +283,7 @@ def reproducir(numeroCancion,ColasDeReproduccion):
     global cancionActual, cancionAnterior,modaMusica
     cancionAnterior = cancionActual
     cancionActual = numeroCancion - 1  # Restar 1 porque las listas comienzan desde el índice 0
-    modaMusica+=[cancionActual]#Almacena para tendencias
+    modaMusica+=[ColasDeReproduccion[cancionActual]]#Almacena para tendencias
     if os.path.exists(ColasDeReproduccion[cancionActual]+'.wav'):
         mixer.music.load(ColasDeReproduccion[cancionActual]+'.wav')
     else:
