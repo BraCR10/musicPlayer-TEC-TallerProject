@@ -180,25 +180,25 @@ def reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGent
     reproductor.Empezarpng = tk.PhotoImage(file='./Empezar.png')
     BotonEmpezar = tk.Button(reproductor, image=reproductor.Empezarpng,command=lambda:reproducirCancion('1', ColasDeReproduccion, usuarioActual))#,command=lambda:)
     BotonEmpezar.configure(width=110, height=107)
-    BotonEmpezar.grid(row=0,column=2, padx=((int(f'{cola.winfo_screenwidth()}')-1300),10))
+    BotonEmpezar.grid(row=0,column=2, padx=((int(f'{cola.winfo_screenwidth()}')//1300),10))
     
 
     reproductor.Pausarpng = tk.PhotoImage(file='./Pausar.png')
     botonPausar = tk.Button(reproductor, image=reproductor.Pausarpng,command=lambda:reproducirCancion('pausar',ColasDeReproduccion,usuarioActual))#,command=lambda:)
     botonPausar.configure(width=110, height=110)
-    botonPausar.grid(row=0,column=3, padx=10, pady=(int(f'{cola.winfo_screenheight()}')-900,20))
+    botonPausar.grid(row=0,column=3, padx=10, pady=(int(f'{cola.winfo_screenheight()}')//900,20))
     
         
     reproductor.Continuarpng = tk.PhotoImage(file='./Unpausar.png')
     botonContinuar = tk.Button(reproductor, image=reproductor.Continuarpng,command=lambda:[reproducirCancion('continuar',ColasDeReproduccion,usuarioActual)])
     botonContinuar.configure(width=110, height=110)
-    botonContinuar.grid(row=0,column=4, padx=10, pady=(int(f'{cola.winfo_screenheight()}')-900,20))
+    botonContinuar.grid(row=0,column=4, padx=10, pady=(int(f'{cola.winfo_screenheight()}')//900,20))
     
 
     reproductor.Pararpng = tk.PhotoImage(file='./Parar.png')
     botonPararpng = tk.Button(reproductor, image=reproductor.Pararpng,command=lambda:[reproducirCancion('parar',ColasDeReproduccion,usuarioActual)])
     botonPararpng.configure(width=110,height=110)
-    botonPararpng.grid(row=0,column=5, padx=(10), pady=(int(f'{cola.winfo_screenheight()}')-900,20))
+    botonPararpng.grid(row=0,column=5, padx=(10), pady=(int(f'{cola.winfo_screenheight()}')//900,20))
   
     reproductor.Siguientepng = tk.PhotoImage(file='./Adelantar1.png')
     botonSiguiente = tk.Button(reproductor, image=reproductor.Siguientepng,command=lambda:[reproducirCancion('siguiente',ColasDeReproduccion,usuarioActual)])
@@ -243,7 +243,7 @@ def reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGent
     reproductor.ir5png = tk.PhotoImage(file='./PasarA5.png')
     botonIR5 = tk.Button(reproductor, image=reproductor.ir5png,command=lambda:[reproducirCancion('5',ColasDeReproduccion,usuarioActual)])
     botonIR5.configure(width=110,height=110)
-    botonIR5.grid(row=3,column=6, padx=(10,(int(f'{cola.winfo_screenwidth()}')-900)), pady=10)
+    botonIR5.grid(row=3,column=6, padx=(10,(int(f'{cola.winfo_screenwidth()}')//1300)), pady=10)
     
    
     
