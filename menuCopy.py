@@ -197,13 +197,13 @@ def menu(tipoUsuario,codigoUsuario):
         #Reportes
         menureportes = tk.Menu(menubar,tearoff=0)
         menureportes.configure(bg='#C1B2A6')
-        menureportes.add_command(label="Propietarios",command=lambda:reportesProp(diccProptodo,1))
+        menureportes.add_command(label="Propietarios",command=lambda:[reportesProp(diccProptodo),messagebox.showinfo("Alerta","El reporte se ha creado exitosamente!")])
         menureportes.add_command(label="Playlist",command=lambda:navegacionVentanas(VentanaReportesPlaylist,VentanaMenu,obtenerDimenciones(VentanaMenu)))
-        menureportes.add_command(label="Genero",command=lambda:reporteGeneros(diccGentodo,1))
-        menureportes.add_command(label="Artistas de un genero")
-        menureportes.add_command(label="Album")
-        menureportes.add_command(label="Canciones")
-        menureportes.add_command(label="Artista con mas canciones")
+        menureportes.add_command(label="Genero",command=lambda:[reporteGeneros(diccGentodo),messagebox.showinfo("Alerta","El reporte se ha creado exitosamente!")])
+        menureportes.add_command(label="Artistas de un genero",command=lambda:navegacionVentanas(VentanaReportesArtistas,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+        menureportes.add_command(label="Album",command=lambda:navegacionVentanas(VentanaReportesAlbumes,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+        menureportes.add_command(label="Canciones",command=lambda:navegacionVentanas(VentanaReportesCanciones,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+        menureportes.add_command(label="Artista con mas canciones",command=lambda:[artistaConMasCanciones(diccCancionestodo,diccArttodo,diccGentodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
         menureportes.add_command(label="Album con mas canciones")
         menureportes.add_command(label="Genero mas solicitado")
         menureportes.add_command(label="Propietario con más playlist")
@@ -1189,11 +1189,69 @@ def menu(tipoUsuario,codigoUsuario):
         codProp=tk.Entry(VentanaReportesPlaylist,font=("Times New Roman",15),background='#E4E4E4')
         codProp.grid(sticky=tk.N,pady=10)
         #Boton de reporte
-        botonDeReporte= tk.Button(VentanaReportesPlaylist, text="Crear reporte", command=lambda:reportesPlaylist(diccPlaylisttodo,diccProptodo,codProp.get(),1),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeReporte= tk.Button(VentanaReportesPlaylist, text="Crear reporte", command=lambda:reportesPlaylist(diccPlaylisttodo,diccProptodo,codProp.get()),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeReporte.grid(sticky=tk.N,pady=10)
         #Boton de volver
-        botonDeBusquedaAMenu = tk.Button(VentanaReportesPlaylist, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionProp,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionProp),mostrarEnPantalla(etiquetaConfirmacionEliminacionProp,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu = tk.Button(VentanaReportesPlaylist, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaReportesPlaylist,obtenerDimenciones(VentanaMenu)),limpiar_texto(codProp)],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-
+###########################################################################################################################################################################
+        VentanaReportesArtistas= tk.Toplevel(ventanaLogin)
+        VentanaReportesArtistas.title("Reporte")
+        VentanaReportesArtistas.configure(bg='#D5CEC1')
+        VentanaReportesArtistas.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaReportesArtistas.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloReportArt=tk.Label(VentanaReportesArtistas,text='Reporte de Artistas de un genero', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloReportArt.grid(sticky=tk.N,pady=10)
+        DigiteReportArt=tk.Label(VentanaReportesArtistas,text='Digite el código de genero para reportar sus artistas:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteReportArt.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        codGen=tk.Entry(VentanaReportesArtistas,font=("Times New Roman",15),background='#E4E4E4')
+        codGen.grid(sticky=tk.N,pady=10)
+        #Boton de reporte
+        botonDeReporte= tk.Button(VentanaReportesArtistas, text="Crear reporte", command=lambda:reporteArt(diccArttodo,diccGentodo,codGen.get()),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeReporte.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaReportesArtistas, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaReportesArtistas,obtenerDimenciones(VentanaMenu)),limpiar_texto(codGen)],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+###########################################################################################################################################################################
+        VentanaReportesAlbumes= tk.Toplevel(ventanaLogin)
+        VentanaReportesAlbumes.title("Reporte")
+        VentanaReportesAlbumes.configure(bg='#D5CEC1')
+        VentanaReportesAlbumes.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaReportesAlbumes.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloReportAlb=tk.Label(VentanaReportesAlbumes,text='Reporte de albumes de un artista', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloReportAlb.grid(sticky=tk.N,pady=10)
+        DigiteReportAlb=tk.Label(VentanaReportesAlbumes,text='Digite el código de artista para reportar sus albumes:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteReportAlb.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        codArt=tk.Entry(VentanaReportesAlbumes,font=("Times New Roman",15),background='#E4E4E4')
+        codArt.grid(sticky=tk.N,pady=10)
+        #Boton de reporte
+        botonDeReporte= tk.Button(VentanaReportesAlbumes, text="Crear reporte", command=lambda:reporteAlbumes(diccAlbumtodo,diccArttodo,diccGentodo,codArt.get()),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeReporte.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaReportesAlbumes, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaReportesAlbumes,obtenerDimenciones(VentanaMenu)),limpiar_texto(codArt)],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+###########################################################################################################################################################################
+        VentanaReportesCanciones= tk.Toplevel(ventanaLogin)
+        VentanaReportesCanciones.title("Reporte")
+        VentanaReportesCanciones.configure(bg='#D5CEC1')
+        VentanaReportesCanciones.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaReportesCanciones.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloReportCan=tk.Label(VentanaReportesCanciones,text='Reporte de canciones de un artista', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloReportCan.grid(sticky=tk.N,pady=10)
+        DigiteReportCan=tk.Label(VentanaReportesCanciones,text='Digite el código de artista para reportar sus canciones:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteReportCan.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        codArt=tk.Entry(VentanaReportesCanciones,font=("Times New Roman",15),background='#E4E4E4')
+        codArt.grid(sticky=tk.N,pady=10)
+        #Boton de reporte
+        botonDeReporte= tk.Button(VentanaReportesCanciones, text="Crear reporte", command=lambda:reporteCancion(diccCancionestodo,diccArttodo,diccGentodo,codArt.get()),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeReporte.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeBusquedaAMenu = tk.Button(VentanaReportesCanciones, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaReportesCanciones,obtenerDimenciones(VentanaMenu)),limpiar_texto(codArt)],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
 loginVentana()
-

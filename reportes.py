@@ -5,8 +5,10 @@
 from busqueda import *
 from statistics import mode
 from tkinter import messagebox
+cont=0
 
-def reportesProp(diccProptodo,cont):
+def reportesProp(diccProptodo):
+    global cont
     reporte = open(f"reportePropietario{cont}.txt", "a")#Crea un nuevo archivo .txt
     reporte.write('\nLos propietarios registrados son: \n')#Agerga datos al archivo
     i=0
@@ -15,9 +17,10 @@ def reportesProp(diccProptodo,cont):
         reporte.write('\n-----------------------------------------\n')#Agerga datos al archivo
         reporte.write(f"\n {i} -{diccProptodo[i]['nombre']} - {diccProptodo[i]['codMem']} - {diccProptodo[i]['estado']}\n")#Agerga datos al archivo
     reporte.close()#Cierra archivo
-    print('\n ---> El reporte de propietarios se ha creado correctamente\n')
-    
-def reportesPlaylist(diccPlaylisttodo,diccProptodo,codProp,cont):
+    cont+=1
+
+def reportesPlaylist(diccPlaylisttodo,diccProptodo,codProp):
+    global cont
     temp=[]
     for i in list(diccPlaylisttodo.keys()):
             if diccPlaylisttodo[i]['codProp']==codProp:
@@ -39,8 +42,10 @@ def reportesPlaylist(diccPlaylisttodo,diccProptodo,codProp,cont):
             messagebox.showinfo("Alerta", "El codigo digitado de propietario no tiene playlist asociadas, digite otro.")
     else:
         messagebox.showinfo("Alerta",'El reporte no se puede crear ya que no hay suficientes datos')
+    cont+=1
 
-def reporteGeneros(diccGentodo,cont):
+def reporteGeneros(diccGentodo):
+    global cont
     reporte = open(f"reporteGeneros{cont}.txt", "a")#Crea un nuevo archivo .txt
     reporte.write('\nLos generos registrados son: \n')#Agerga datos al archivo
     i=0
@@ -49,10 +54,10 @@ def reporteGeneros(diccGentodo,cont):
         reporte.write('\n-----------------------------------------\n')#Agerga datos al archivo
         reporte.write(f"\n {i} -{diccGentodo[i]['nombre']}\n")#Agerga datos al archivo
     reporte.close()#Cierra archivo
-    print('\n ---> El reporte de generos se ha creado correctamente\n')
+    cont+=1
 
-def reporteArt(diccArttodo,diccGentodo,cont):
-    codGen=str(input('\nDigite el codigo de genero para mostrar los artistas vinculados: '))
+def reporteArt(diccArttodo,diccGentodo,codGen):
+    global cont
     temp=[]
     for i in list(diccArttodo.keys()):
             if diccArttodo[i]['codGen']==codGen:
@@ -69,14 +74,15 @@ def reporteArt(diccArttodo,diccGentodo,cont):
                 if diccArttodo[i]['codGen']==codGen:
                     reporte.write(f"\n{i} - {diccArttodo[i]['nombre']} - {diccArttodo[i]['codGen']}\n")#Agerga datos al archivo
             reporte.close()#Cierra archivo
-            print(f'\n ---> El reporte de artistas del genero {buscarGenero(codGen,diccGentodo)} se ha creado correctamente\n')
+            messagebox.showinfo("Alerta","El reporte de artistas del genero se ha creado correctamente!")
         else:
-            print(f'\n -->El genero con el codigo {codGen} no existe\n')
+            messagebox.showinfo("Aletra","El genero con el codigo dado no existe")
     else:
-        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+        messagebox.showinfo("Alerta",'El reporte no se puede crear ya que no hay suficientes datos')
+    cont+=1
 
-def reporteAlbumes(diccAlbumtodo,diccArttodo,diccGentodo,cont):
-    codArt=str(input('\nDigite el codigo de artista para mostrar los albumes vinculados: '))
+def reporteAlbumes(diccAlbumtodo,diccArttodo,diccGentodo,codArt):
+    global cont
     temp=[]
     for i in list(diccAlbumtodo.keys()):
             if diccAlbumtodo[i]['codArt']==codArt:
@@ -93,14 +99,15 @@ def reporteAlbumes(diccAlbumtodo,diccArttodo,diccGentodo,cont):
                 if diccAlbumtodo[i]['codArt']==codArt:
                     reporte.write(f"\n{i} - {diccAlbumtodo[i]['nombre']} - {diccAlbumtodo[i]['codArt']}\n")#Agerga datos al archivo
             reporte.close()#Cierra archivo
-            print(f'\n ---> El reporte de albumes del artista {buscarArtista(codArt,diccArttodo,diccGentodo)[0]} se ha creado correctamente\n')
+            messagebox.showinfo("Alerta",'El reporte de albumes del artista dado se ha creado correctamente')
         else:
-            print(f'\n -->El genero con el codigo {codArt} no existe\n')
+            messagebox.showinfo("Alerta",'El artista con el codigo dado no existe')
     else:
-        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+        messagebox.showinfo("Alerta",'El reporte no se puede crear ya que no hay suficientes datos')
+    cont+=1
 
-def reporteCancion(diccCancionestodo,diccArttodo,diccGentodo,cont):
-    codArt=str(input('\nDigite el codigo de artista para mostrar las canciones vinculados: '))
+def reporteCancion(diccCancionestodo,diccArttodo,diccGentodo,codArt):
+    global cont
     temp=[]
     for i in list(diccCancionestodo.keys()):
             if diccCancionestodo[i]['codArt']==codArt:
@@ -117,13 +124,15 @@ def reporteCancion(diccCancionestodo,diccArttodo,diccGentodo,cont):
                 if diccCancionestodo[i]['codArt']==codArt:
                     reporte.write(f"\n{i} - {diccCancionestodo[i]['nombre']} - {diccCancionestodo[i]['codArt']}\n")#Agerga datos al archivo
             reporte.close()#Cierra archivo
-            print(f'\n ---> El reporte de canciones del artista {buscarArtista(codArt,diccArttodo,diccGentodo)[0]} se ha creado correctamente\n')
+            messagebox.showinfo("Alerta",'El reporte de canciones del artista dado se ha creado correctamente')
         else:
-            print(f'\n -->El genero con el codigo {codArt} no existe\n')
+            messagebox.showinfo("Alerta",'El artista con el codigo dado no existe')
     else:
-        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+        messagebox.showinfo("Alerta",'El reporte no se puede crear ya que no hay suficientes datos')
+    cont+=1
         
-def artistaConMasCanciones(diccCancionestodo,temp,cont,diccArttodo,diccGentodo):
+def artistaConMasCanciones(diccCancionestodo,diccArttodo,diccGentodo):
+    global cont
     temp=[]
     for i in list(diccCancionestodo.keys()):
         temp+=[diccCancionestodo[i]['codArt']]
@@ -134,11 +143,10 @@ def artistaConMasCanciones(diccCancionestodo,temp,cont,diccArttodo,diccGentodo):
         reporte.write('\n-----------------------------------------\n')#Agerga datos al archivo
         reporte.write(f'\n >>> El artista con mas canciones es : {buscarArtista(var,diccArttodo,diccGentodo)[0]} con {temp.count(var)} cancion(es) relacionadas\n')#Agerga datos al archivo
         reporte.close()#Cierra el archivo
-        print('\n ---> El reporte del artista con mas canciones se ha creado correctamente\n')#Mensaje
-    else:
-        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
-        
-def reportemodacanciones(diccCancionestodo,lista,cont):
+    cont+=1
+
+def reportemodacanciones(diccCancionestodo,lista):
+    global cont
     if lista==[]:
         print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
     else:
@@ -149,8 +157,10 @@ def reportemodacanciones(diccCancionestodo,lista,cont):
         reporte.write(f'\n >>> {diccCancionestodo[cancionmasreproducida]["nombre"]}\n')#Agerga datos al archivo
         reporte.close()#Cierra archivo
         print(f'\n ---> El reporte de la cancion mas reproducida se ha creado correctamente\n')
+    cont+=1
 
-def reportemodagenero(diccCancionestodo,diccGentodo,lista,cont):
+def reportemodagenero(diccCancionestodo,diccGentodo,lista):
+    global cont
     if lista==[]:
         print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
     else:
@@ -164,8 +174,10 @@ def reportemodagenero(diccCancionestodo,diccGentodo,lista,cont):
         reporte.write(f'\n >>> {diccGentodo[generomassolicitado]["nombre"]}\n')#Agerga datos al archivo
         reporte.close()#Cierra archivo
         print(f'\n ---> El reporte del genero mas solicitado se ha creado correctamente\n')
+    cont+=1
         
-def albumConMasCanciones(diccCancionestodo,temp,cont,diccAlbumtodo,diccArttodo):
+def albumConMasCanciones(diccCancionestodo,temp,diccAlbumtodo,diccArttodo):
+    global cont
     temp=[]
     for i in list(diccCancionestodo.keys()):
         temp+=[diccCancionestodo[i]['codAlb']]
@@ -179,8 +191,10 @@ def albumConMasCanciones(diccCancionestodo,temp,cont,diccAlbumtodo,diccArttodo):
         print('\n ---> El reporte del album con mas canciones se ha creado correctamente\n')#Mensaje
     else:
         print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+    cont+=1
 
-def propietarioConMasPlaylist(diccProptodo,temp,cont,diccPlaylisttodo):
+def propietarioConMasPlaylist(diccProptodo,temp,diccPlaylisttodo):
+    global cont
     temp=[]
     for i in list(diccPlaylisttodo.keys()):
         temp+=[diccPlaylisttodo[i]['codProp']]
@@ -194,8 +208,10 @@ def propietarioConMasPlaylist(diccProptodo,temp,cont,diccPlaylisttodo):
         print('\n ---> El reporte de propietario con mas playlist se ha creado correctamente\n')#Mensaje
     else:
         print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+    cont+=1
 
-def reportemodaalbum(diccCancionestodo,diccAlbumtodo,lista,cont):
+def reportemodaalbum(diccCancionestodo,diccAlbumtodo,lista):
+    global cont
     if lista==[]:
         print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
     else:
@@ -209,8 +225,10 @@ def reportemodaalbum(diccCancionestodo,diccAlbumtodo,lista,cont):
         reporte.write(f'\n >>> {diccAlbumtodo[albummassolicitado]["nombre"]}\n')#Agerga datos al archivo
         reporte.close()#Cierra archivo
         print(f'\n ---> El reporte del genero mas solicitado se ha creado correctamente\n')
+    cont+=1
 
-def playlistConMasCanciones(diccCancionestodo,temp,cont,diccPlaylisttodo,diccProptodo):
+def playlistConMasCanciones(diccCancionestodo,temp,diccPlaylisttodo,diccProptodo):
+    global cont
     temp=[]
     for i in list(diccCancionestodo.keys()):
         temp+=[diccCancionestodo[i]['codPlaylist']]
@@ -224,8 +242,10 @@ def playlistConMasCanciones(diccCancionestodo,temp,cont,diccPlaylisttodo,diccPro
         print('\n ---> El reporte de la playlist con mas canciones se ha creado correctamente\n')#Mensaje
     else:
         print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
-   
-def generoConMasArtistas(diccGentodo,temp,cont,diccArttodo):
+    cont+=1
+
+def generoConMasArtistas(diccGentodo,temp,diccArttodo):
+    global cont
     temp=[]
     for i in list(diccArttodo.keys()):
         temp+=[diccArttodo[i]['codGen']]
@@ -239,8 +259,10 @@ def generoConMasArtistas(diccGentodo,temp,cont,diccArttodo):
         print('\n ---> El reporte del genero con mas artistas se ha creado correctamente\n')#Mensaje
     else:
         print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+    cont+=1
 
-def generoConMasAlbumes(diccGentodo,temp,cont,diccArttodo,diccAlbumtodo):
+def generoConMasAlbumes(diccGentodo,temp,diccArttodo,diccAlbumtodo):
+    global cont
     temp=[]
     for i in list(diccAlbumtodo.keys()):
         temp+=[diccArttodo[diccAlbumtodo[i]['codArt']]['codGen']]#Almacena todos los codigos de genero de todos los artistas vinculados a un album
@@ -254,8 +276,10 @@ def generoConMasAlbumes(diccGentodo,temp,cont,diccArttodo,diccAlbumtodo):
         print('\n ---> El reporte del genero con mas albumes se ha creado correctamente\n')#Mensaje
     else:
         print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
-    
-def artistaConMasAlbumes(temp,cont,diccArttodo,diccAlbumtodo,diccGentodo):
+    cont+=1
+
+def artistaConMasAlbumes(temp,diccArttodo,diccAlbumtodo,diccGentodo):
+    global cont
     temp=[]
     for i in list(diccAlbumtodo.keys()):
         temp+=[diccAlbumtodo[i]['codArt']]
@@ -269,8 +293,10 @@ def artistaConMasAlbumes(temp,cont,diccArttodo,diccAlbumtodo,diccGentodo):
         print('\n ---> El reporte el artista con mas albumes se ha creado correctamente\n')#Mensaje
     else:
         print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
-        
-def albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,cont,diccArttodo):
+    cont+=1
+
+def albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,diccArttodo):
+    global cont
     temp=[]
     for i in list(diccAlbumtodo.keys()):
         if i not in albumNuncaBuscado:
@@ -286,8 +312,10 @@ def albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,cont,diccArttodo):
         print('\n ---> El reporte de los albumes nunca buscados se ha creado correctamente\n')#Mensaje
     else:
         print('\n --->El reporte no se puede crear pues todos los albumes han sido  buscados\n')
-        
-def cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,temp,cont,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo):
+    cont+=1
+
+def cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,temp,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo):
+    global cont
     temp=[]
     for i in list(diccCancionestodo.keys()):
         if i not in modaMusica:
@@ -303,8 +331,10 @@ def cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,temp,cont,diccArttod
         print('\n ---> El reporte de las canciones nunca reproducidas se ha creado correctamente\n')#Mensaje
     else:
         print('\n --->El reporte no se puede crear pues todos las canciones han sido  reproducidas o no hay\n')
+    cont+=1
 
-def artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,temp,cont,diccArttodo):
+def artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,temp,diccArttodo):
+    global cont
     temp=[]
     for i in list(diccArttodo.keys()):
         if i not in artistaNuncaBuscado:
@@ -320,8 +350,10 @@ def artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,temp,cont,diccArttodo
         print('\n ---> El reporte de los artistas nunca buscados se ha creado correctamente\n')#Mensaje
     else:
         print('\n --->El reporte no se puede crear pues todos los artistas han sido  buscados\n')
-        
-def propietarioSinPlayList(diccProptodo,diccPlaylisttodo,temp,cont):
+    cont+=1
+
+def propietarioSinPlayList(diccProptodo,diccPlaylisttodo,temp):
+    global cont
     temp=[]
     for i in list(diccPlaylisttodo.keys()):
         temp+=[i]
@@ -337,4 +369,4 @@ def propietarioSinPlayList(diccProptodo,diccPlaylisttodo,temp,cont):
         print('\n ---> El reporte de los propietarios sin playlist se ha creado correctamente\n')#Mensaje
     else:
         print('\n --->El reporte no se puede crear pues todos los artistas han sido  buscados\n')
-    
+    cont+=1
