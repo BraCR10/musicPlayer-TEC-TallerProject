@@ -244,12 +244,14 @@ def continuar():
 def parar():
     if pygame.mixer.music.get_busy():
         mixer.quit()
-
+        
+modaMusica=[]
 # Función para reproducir una canción específica
 def reproducir(numeroCancion,ColasDeReproduccion):
-    global cancionActual, cancionAnterior
+    global cancionActual, cancionAnterior,modaMusica
     cancionAnterior = cancionActual
     cancionActual = numeroCancion - 1  # Restar 1 porque las listas comienzan desde el índice 0
+    modaMusica+=[cancionActual]#Almacena para tendencias
     if os.path.exists(ColasDeReproduccion[cancionActual]+'.wav'):
         mixer.music.load(ColasDeReproduccion[cancionActual]+'.wav')
     else:

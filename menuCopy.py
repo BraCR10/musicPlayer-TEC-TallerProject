@@ -204,17 +204,18 @@ def menu(tipoUsuario,codigoUsuario):
         menureportes.add_command(label="Album",command=lambda:navegacionVentanas(VentanaReportesAlbumes,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         menureportes.add_command(label="Canciones",command=lambda:navegacionVentanas(VentanaReportesCanciones,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         menureportes.add_command(label="Artista con mas canciones",command=lambda:[artistaConMasCanciones(diccCancionestodo,diccArttodo,diccGentodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
-        menureportes.add_command(label="Album con mas canciones")
-        menureportes.add_command(label="Genero mas solicitado")
-        menureportes.add_command(label="Propietario con más playlist")
-        menureportes.add_command(label="Álbum más solicitado")
-        menureportes.add_command(label="Playlist con más canciones")
-        menureportes.add_command(label="Genero con más artistas")
-        menureportes.add_command(label="Genero con más álbumes")
-        menureportes.add_command(label="Artista con más álbumes")
-        menureportes.add_command(label="Album nunca buscado")
-        menureportes.add_command(label="Artista nunca buscado")
-        menureportes.add_command(label="Propietario sin playlist")
+        menureportes.add_command(label="Album con mas canciones",command=lambda:[albumConMasCanciones(diccCancionestodo,diccAlbumtodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Genero mas solicitado",command=lambda:[reportemodagenero(diccCancionestodo,diccGentodo,modaMusica),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Propietario con más playlist",command=lambda:[propietarioConMasPlaylist(diccProptodo,diccPlaylisttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Álbum más solicitado",command=lambda:[reportemodaalbum(diccCancionestodo,diccAlbumtodo,modaMusica),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Playlist con más canciones",command=lambda:[playlistConMasCanciones(diccCancionestodo,diccPlaylisttodo,diccProptodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Genero con más artistas",command=lambda:[generoConMasArtistas(diccGentodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Genero con más álbumes",command=lambda:[generoConMasAlbumes(diccGentodo,diccArttodo,diccAlbumtodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Artista con más álbumes",command=lambda:[artistaConMasAlbumes(diccArttodo,diccAlbumtodo,diccGentodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Album nunca buscado",command=lambda:[albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Cancion nunca reproducida",command=lambda:[cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Artista nunca buscado",command=lambda:[artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Propietario sin playlist",command=lambda:[propietarioSinPlayList(diccProptodo,diccPlaylisttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
         menubar.add_cascade(label="Reportes", menu=menureportes)
 
         if tipoUsuario=="Administrador":
@@ -1254,4 +1255,6 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaReportesCanciones, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaReportesCanciones,obtenerDimenciones(VentanaMenu)),limpiar_texto(codArt)],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
+###########################################################################################################################################################################
+
 loginVentana()
