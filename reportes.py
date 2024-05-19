@@ -176,7 +176,7 @@ def reportemodagenero(diccCancionestodo,diccGentodo,lista):
         print(f'\n ---> El reporte del genero mas solicitado se ha creado correctamente\n')
     cont+=1
         
-def albumConMasCanciones(diccCancionestodo,temp,diccAlbumtodo,diccArttodo):
+def albumConMasCanciones(diccCancionestodo,diccAlbumtodo,diccArttodo):
     global cont
     temp=[]
     for i in list(diccCancionestodo.keys()):
@@ -193,7 +193,7 @@ def albumConMasCanciones(diccCancionestodo,temp,diccAlbumtodo,diccArttodo):
         print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
     cont+=1
 
-def propietarioConMasPlaylist(diccProptodo,temp,diccPlaylisttodo):
+def propietarioConMasPlaylist(diccProptodo,diccPlaylisttodo):
     global cont
     temp=[]
     for i in list(diccPlaylisttodo.keys()):
@@ -227,7 +227,7 @@ def reportemodaalbum(diccCancionestodo,diccAlbumtodo,lista):
         print(f'\n ---> El reporte del genero mas solicitado se ha creado correctamente\n')
     cont+=1
 
-def playlistConMasCanciones(diccCancionestodo,temp,diccPlaylisttodo,diccProptodo):
+def playlistConMasCanciones(diccCancionestodo,diccPlaylisttodo,diccProptodo):
     global cont
     temp=[]
     for i in list(diccCancionestodo.keys()):
@@ -244,7 +244,7 @@ def playlistConMasCanciones(diccCancionestodo,temp,diccPlaylisttodo,diccProptodo
         print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
     cont+=1
 
-def generoConMasArtistas(diccGentodo,temp,diccArttodo):
+def generoConMasArtistas(diccGentodo,diccArttodo):
     global cont
     temp=[]
     for i in list(diccArttodo.keys()):
@@ -261,7 +261,7 @@ def generoConMasArtistas(diccGentodo,temp,diccArttodo):
         print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
     cont+=1
 
-def generoConMasAlbumes(diccGentodo,temp,diccArttodo,diccAlbumtodo):
+def generoConMasAlbumes(diccGentodo,diccArttodo,diccAlbumtodo):
     global cont
     temp=[]
     for i in list(diccAlbumtodo.keys()):
@@ -278,7 +278,7 @@ def generoConMasAlbumes(diccGentodo,temp,diccArttodo,diccAlbumtodo):
         print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
     cont+=1
 
-def artistaConMasAlbumes(temp,diccArttodo,diccAlbumtodo,diccGentodo):
+def artistaConMasAlbumes(diccArttodo,diccAlbumtodo,diccGentodo):
     global cont
     temp=[]
     for i in list(diccAlbumtodo.keys()):
@@ -295,7 +295,7 @@ def artistaConMasAlbumes(temp,diccArttodo,diccAlbumtodo,diccGentodo):
         print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
     cont+=1
 
-def albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,diccArttodo):
+def albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,diccArttodo):
     global cont
     temp=[]
     for i in list(diccAlbumtodo.keys()):
@@ -314,7 +314,7 @@ def albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,temp,diccArttodo):
         print('\n --->El reporte no se puede crear pues todos los albumes han sido  buscados\n')
     cont+=1
 
-def cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,temp,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo):
+def cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo):
     global cont
     temp=[]
     for i in list(diccCancionestodo.keys()):
@@ -333,7 +333,7 @@ def cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,temp,diccArttodo,dic
         print('\n --->El reporte no se puede crear pues todos las canciones han sido  reproducidas o no hay\n')
     cont+=1
 
-def artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,temp,diccArttodo):
+def artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,diccArttodo):
     global cont
     temp=[]
     for i in list(diccArttodo.keys()):
@@ -352,7 +352,7 @@ def artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,temp,diccArttodo):
         print('\n --->El reporte no se puede crear pues todos los artistas han sido  buscados\n')
     cont+=1
 
-def propietarioSinPlayList(diccProptodo,diccPlaylisttodo,temp):
+def propietarioSinPlayList(diccProptodo,diccPlaylisttodo):
     global cont
     temp=[]
     for i in list(diccPlaylisttodo.keys()):

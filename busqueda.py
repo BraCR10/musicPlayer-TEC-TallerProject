@@ -30,13 +30,18 @@ def buscarAdministrador(codAdm,diccAdmtodo):
     for i in list(diccAdmtodo.keys()):
         if i==codAdm:
             return diccAdmtodo[i]['nombre']
-
+        
+artistaNuncaBuscado=[]
 def buscarArtista(codArt,diccArttodo,diccGentodo):
+    global artistaNuncaBuscado
     for i in list(diccArttodo.keys()):
         if i==codArt:
+            artistaNuncaBuscado+=[codArt]
             return diccArttodo[i]['nombre'],diccGentodo[diccArttodo[i]['codGen']]['nombre']
-
+albumNuncaBuscado=[]
 def buscarAlbum(codAlb,diccAlbumtodo,diccArttodo):
+    global albumNuncaBuscado
     for i in list(diccAlbumtodo.keys()):
         if i==codAlb:
+            albumNuncaBuscado+=[codAlb]
             return diccAlbumtodo[i]['nombre'],diccArttodo[diccAlbumtodo[i]['codArt']]['nombre']
