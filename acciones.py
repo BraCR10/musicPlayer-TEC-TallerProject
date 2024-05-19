@@ -305,15 +305,19 @@ verificadorBotones=False
 def botones(ventana,diccPropTodo,usuario,listaFacturas):
     global verificadorBotones
     if usuario in list(diccPropTodo.keys()):
-        if verificadorBotones==False:
-            #Instruccion en pantalla
-            generar = tk.Button(ventana, text="Generar factura",command=lambda:[generarFactura(listaFacturas,usuario,diccPropTodo),messagebox.showinfo("Confirmacion", "Se ha generado la factura!")],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-            generar.grid(sticky=tk.N,pady=10)
-            exportar = tk.Button(ventana, text="Exportar factura",command=lambda:[exportarFactura(diccPropTodo,usuario,listaFacturas),messagebox.showinfo("Confirmacion", "Se ha exportado la factura!")],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-            exportar.grid(sticky=tk.N,pady=10)
-            pagar = tk.Button(ventana, text="Eliminar factura",command=lambda:[eliminarFactura(diccPropTodo,listaFacturas,usuario),messagebox.showinfo("Confirmacion", "Se ha cancelado la factura!")],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-            pagar.grid(sticky=tk.N,pady=10)
+        if verificadorBotones==True:
+            generar.destroy()
+            exportar.destroy()
+            pagar.destroy()
             verificadorBotones=True
+        #Instruccion en pantalla
+        generar = tk.Button(ventana, text="Generar factura",command=lambda:[generarFactura(listaFacturas,usuario,diccPropTodo),messagebox.showinfo("Confirmacion", "Se ha generado la factura!")],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+        generar.grid(sticky=tk.N,pady=10)
+        exportar = tk.Button(ventana, text="Exportar factura",command=lambda:[exportarFactura(diccPropTodo,usuario,listaFacturas),messagebox.showinfo("Confirmacion", "Se ha exportado la factura!")],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+        exportar.grid(sticky=tk.N,pady=10)
+        pagar = tk.Button(ventana, text="Eliminar factura",command=lambda:[eliminarFactura(diccPropTodo,listaFacturas,usuario),messagebox.showinfo("Confirmacion", "Se ha cancelado la factura!")],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+        pagar.grid(sticky=tk.N,pady=10)
+        
     else:
         messagebox.showinfo("Alerta", "El usuario no existe!")
         
