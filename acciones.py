@@ -109,7 +109,7 @@ def mostrarFactura(diccTodo,codigo,listaFacturas):
         botonDeExportar= tk.Button(VentanaFacturas, text="Exportar", command=lambda:[exportarFactura(diccTodo,codigo,listaFacturas),messagebox.showinfo("Confirmacion", "La factura se ha exportado correctamente!")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeExportar.grid(sticky=tk.N,pady=10)
         #Boton de volver
-        botonDeBusquedaAMenu = tk.Button(VentanaFacturas, text="Cerrar", command=lambda:[VentanaFacturas.withdraw(),estado.destroy(),membresia.destroy(),id.destroy,Titulo.destroy,descuento.destroy()],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusquedaAMenu = tk.Button(VentanaFacturas, text="Cerrar", command=lambda:[VentanaFacturas.withdraw(),estado.destroy(),membresia.destroy(),id.destroy,Titulo.destroy(),descuento.destroy()],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
         
 def exportarFactura(diccTodo,codigo,listaFacturas):

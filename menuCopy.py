@@ -194,30 +194,7 @@ def menu(tipoUsuario,codigoUsuario):
         menubusqueda.add_command(label="Album",command=lambda:navegacionVentanas(VentanaBusquedaAlbum,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         menubusqueda.add_command(label="Cancion",command=lambda:navegacionVentanas(VentanaBusquedaCancion,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         menubar.add_cascade(label="Busqueda", menu=menubusqueda)
-        #Reportes
-        menureportes = tk.Menu(menubar,tearoff=0)
-        menureportes.configure(bg='#C1B2A6')
-        menureportes.add_command(label="Propietarios",command=lambda:[reportesProp(diccProptodo),messagebox.showinfo("Alerta","El reporte se ha creado exitosamente!")])
-        menureportes.add_command(label="Playlist",command=lambda:navegacionVentanas(VentanaReportesPlaylist,VentanaMenu,obtenerDimenciones(VentanaMenu)))
-        menureportes.add_command(label="Genero",command=lambda:[reporteGeneros(diccGentodo),messagebox.showinfo("Alerta","El reporte se ha creado exitosamente!")])
-        menureportes.add_command(label="Artistas de un genero",command=lambda:navegacionVentanas(VentanaReportesArtistas,VentanaMenu,obtenerDimenciones(VentanaMenu)))
-        menureportes.add_command(label="Album",command=lambda:navegacionVentanas(VentanaReportesAlbumes,VentanaMenu,obtenerDimenciones(VentanaMenu)))
-        menureportes.add_command(label="Canciones",command=lambda:navegacionVentanas(VentanaReportesCanciones,VentanaMenu,obtenerDimenciones(VentanaMenu)))
-        menureportes.add_command(label="Artista con mas canciones",command=lambda:[artistaConMasCanciones(diccCancionestodo,diccArttodo,diccGentodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
-        menureportes.add_command(label="Album con mas canciones",command=lambda:[albumConMasCanciones(diccCancionestodo,diccAlbumtodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
-        menureportes.add_command(label="Genero mas solicitado",command=lambda:[reportemodagenero(diccCancionestodo,diccGentodo,modaMusica),messagebox.showinfo("Alerta","El reporte se ha creado!")])
-        menureportes.add_command(label="Propietario con más playlist",command=lambda:[propietarioConMasPlaylist(diccProptodo,diccPlaylisttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
-        menureportes.add_command(label="Álbum más solicitado",command=lambda:[reportemodaalbum(diccCancionestodo,diccAlbumtodo,modaMusica),messagebox.showinfo("Alerta","El reporte se ha creado!")])
-        menureportes.add_command(label="Playlist con más canciones",command=lambda:[playlistConMasCanciones(diccCancionestodo,diccPlaylisttodo,diccProptodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
-        menureportes.add_command(label="Genero con más artistas",command=lambda:[generoConMasArtistas(diccGentodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
-        menureportes.add_command(label="Genero con más álbumes",command=lambda:[generoConMasAlbumes(diccGentodo,diccArttodo,diccAlbumtodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
-        menureportes.add_command(label="Artista con más álbumes",command=lambda:[artistaConMasAlbumes(diccArttodo,diccAlbumtodo,diccGentodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
-        menureportes.add_command(label="Album nunca buscado",command=lambda:[albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
-        menureportes.add_command(label="Cancion nunca reproducida",command=lambda:[cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
-        menureportes.add_command(label="Artista nunca buscado",command=lambda:[artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
-        menureportes.add_command(label="Propietario sin playlist",command=lambda:[propietarioSinPlayList(diccProptodo,diccPlaylisttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
-        menubar.add_cascade(label="Reportes", menu=menureportes)
-
+        
         if tipoUsuario=="Administrador":
                 #Busqueda
                 menubusqueda.add_command(label="Administrador",command=lambda:navegacionVentanas(VentanaBusquedaAdm,VentanaMenu,obtenerDimenciones(VentanaMenu)))
@@ -301,12 +278,47 @@ def menu(tipoUsuario,codigoUsuario):
                 menuPagos.configure(bg='#C1B2A6')
                 menuPagos.add_command(label="Facturacion",command=lambda:mostrarFactura(diccProptodo,codigoUsuario,listaFacturas))
                 menubar.add_cascade(label="Pagos", menu=menuPagos)
+        
+        #Reportes
+        menureportes = tk.Menu(menubar,tearoff=0)
+        menureportes.configure(bg='#C1B2A6')
+        menureportes.add_command(label="Propietarios",command=lambda:[reportesProp(diccProptodo),messagebox.showinfo("Alerta","El reporte se ha creado exitosamente!")])
+        menureportes.add_command(label="Playlist",command=lambda:navegacionVentanas(VentanaReportesPlaylist,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+        menureportes.add_command(label="Genero",command=lambda:[reporteGeneros(diccGentodo),messagebox.showinfo("Alerta","El reporte se ha creado exitosamente!")])
+        menureportes.add_command(label="Artistas de un genero",command=lambda:navegacionVentanas(VentanaReportesArtistas,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+        menureportes.add_command(label="Album",command=lambda:navegacionVentanas(VentanaReportesAlbumes,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+        menureportes.add_command(label="Canciones",command=lambda:navegacionVentanas(VentanaReportesCanciones,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+        menureportes.add_command(label="Artista con mas canciones",command=lambda:[artistaConMasCanciones(diccCancionestodo,diccArttodo,diccGentodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Album con mas canciones",command=lambda:[albumConMasCanciones(diccCancionestodo,diccAlbumtodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Genero mas solicitado",command=lambda:[reportemodagenero(diccCancionestodo,diccGentodo,modaMusica),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Propietario con más playlist",command=lambda:[propietarioConMasPlaylist(diccProptodo,diccPlaylisttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Álbum más solicitado",command=lambda:[reportemodaalbum(diccCancionestodo,diccAlbumtodo,modaMusica),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Playlist con más canciones",command=lambda:[playlistConMasCanciones(diccCancionestodo,diccPlaylisttodo,diccProptodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Genero con más artistas",command=lambda:[generoConMasArtistas(diccGentodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Genero con más álbumes",command=lambda:[generoConMasAlbumes(diccGentodo,diccArttodo,diccAlbumtodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Artista con más álbumes",command=lambda:[artistaConMasAlbumes(diccArttodo,diccAlbumtodo,diccGentodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Album nunca buscado",command=lambda:[albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Cancion nunca reproducida",command=lambda:[cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Artista nunca buscado",command=lambda:[artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Propietario sin playlist",command=lambda:[propietarioSinPlayList(diccProptodo,diccPlaylisttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menubar.add_cascade(label="Reportes", menu=menureportes)
+        
         #Pop up de reproductor
         menuReproductor=tk.Menu(menubar,tearoff=0)
         menuReproductor.configure(bg='#C1B2A6')
         menuReproductor.add_command(label="Ventana de reproductor",command=lambda:reproductor(diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
         menubar.add_cascade(label="Reproductor", menu=menuReproductor)
         VentanaMenu.config(menu=menubar)
+        #Acerca de de
+        menuAcercaDe = tk.Menu(menubar,tearoff=0)
+        menuAcercaDe.configure(bg='#C1B2A6')
+        menuAcercaDe.add_command(label="Acerca de nosotros",command=lambda:navegacionVentanas(VentanaAcerca,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+        menubar.add_cascade(label="Acerca de", menu=menuAcercaDe)
+        #Contacto
+        menuContacto = tk.Menu(menubar,tearoff=0)
+        menuContacto.configure(bg="#C1B2A6")
+        menuContacto.add_command(label="Contacto",command=lambda:navegacionVentanas(VentanaContacto,VentanaMenu,obtenerDimenciones(VentanaMenu)))
+        menubar.add_cascade(label="Contacto", menu=menuContacto)
         #Pop up para imgs de menu
         emergentePrincipal = tk.Menu(VentanaMenu, tearoff=0)
         #Creamos imagenes
@@ -1256,5 +1268,49 @@ def menu(tipoUsuario,codigoUsuario):
         botonDeBusquedaAMenu = tk.Button(VentanaReportesCanciones, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaReportesCanciones,obtenerDimenciones(VentanaMenu)),limpiar_texto(codArt)],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
 ###########################################################################################################################################################################
+        #Contacto
+        VentanaContacto= tk.Toplevel(ventanaLogin)
+        VentanaContacto.title("Contacto")
+        VentanaContacto.configure(bg='#D5CEC1')
+        VentanaContacto.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaContacto.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        TituloModGen=tk.Label(VentanaContacto,text='Contacto', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        TituloModGen.grid(sticky=tk.N,pady=10)
+        DigiteCorreo=tk.Label(VentanaContacto,text='Digite su correo electronico:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteCorreo.grid(sticky=tk.N,pady=10)
+        #Codigo de Prop
+        correo=tk.Entry(VentanaContacto,font=("Times New Roman",15),background='#E4E4E4')
+        correo.grid(sticky=tk.N,pady=10)
+        #Instruccion en pantalla
+        DigiteMensaje=tk.Label(VentanaContacto,text='Escriba su mensaje:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteMensaje.grid(sticky=tk.N,pady=10)
+        #Nombre de Gen
+        Mensaje=tk.Entry(VentanaContacto,font=("Times New Roman",15),background='#E4E4E4')
+        Mensaje.grid(sticky=tk.N,pady=10)
+        #Boton de buscar
+        botonEnviar= tk.Button(VentanaContacto, text="Enviar", command=lambda:[messagebox.showinfo("Alerta","Su mensaje ha sido enviado"),limpiar_texto(correo),limpiar_texto(Mensaje)],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonEnviar.grid(sticky=tk.N,pady=10)
+        #Boton de volver
+        botonDeContactoAMenu = tk.Button(VentanaContacto, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaContacto,obtenerDimenciones(VentanaMenu)),limpiar_texto(correo),limpiar_texto(Mensaje)],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeContactoAMenu.grid(sticky=tk.N,pady=10)
+###########################################################################################################################################################################
+        #Acerca De
+        VentanaAcerca= tk.Toplevel(ventanaLogin)
+        VentanaAcerca.title("Acerca De Nosotros")
+        VentanaAcerca.configure(bg='#D5CEC1')
+        VentanaAcerca.withdraw()  # Oculta la ventana secundaria inicialmente
+        VentanaAcerca.columnconfigure(0,weight=3)
+        #Instruccion en pantalla
+        Titulo=tk.Label(VentanaAcerca,text='Contacto', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        Titulo.grid(sticky=tk.N,pady=10)
+        DigiteCorreo=tk.Label(VentanaAcerca,text='Desarrolladores:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
+        DigiteCorreo.grid(sticky=tk.N,pady=10)
+        Brian=tk.Label(VentanaAcerca,text="-Brian Ramirez:\n Hola, soy Brian, tengo 18 años y soy de Cartago. Estoy comenzando la carrera de ingeniería en computación en el TEC.\nDesde siempre me ha gustado la tecnología y en el colegio técnico adquirí conocimientos en áreas como redes, IT y Linux,\n aunque mi principal interés es la programación. También me interesan las criptomonedas y blockchain.\nEste es mi primer mini proyecto en python!\nGithub: BraCR10",font=("Sitka Text Semibold",15),bg='#D5CEC1')
+        Brian.grid(sticky=tk.N,pady=10)
+        Matthew=tk.Label(VentanaAcerca,text='-Matthew Cordero:\nHola a todos, mi nombre es Matthew, tengo 17 años, soy estudiante de ingeniería en computación en el TEC.\nSoy alguien que le gusta mucho estar buscando mejorar constantemente,\n siempre estoy intentando aprender cosas nuevas y ser la mejor versión de mi posible.\nSoy de Bahía Ballena, Osa, pero actualmente vivo en Cartago debido al estudio.\nSobre las cosas que me gusta hacer, me considero alguien muy activo, hago alguna actividad física todos los días,\n voy al gimnasio regularmente y además practico Volleyball.\nAparte de eso, tengo experiencia con HTML, un poco de Java y ahora estoy aprendiendo python.\nMe considero alguien que siempre tiene ganas de mejorar, asi que,\n ¡A reventarla y mandarse de jupa!\nPeace  everybody.\nGithub: MattCS2006',font=("Sitka Text Semibold",15),bg='#D5CEC1')
+        Matthew.grid(sticky=tk.N,pady=10)
+        botonDeAcercaAMenu = tk.Button(VentanaAcerca, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaAcerca,obtenerDimenciones(VentanaMenu))],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeAcercaAMenu.grid(sticky=tk.N,pady=10)
 
 loginVentana()
