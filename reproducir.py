@@ -1,10 +1,17 @@
+#Avance final proyecto del reproductor de musica
+#Estudiantes:
+#Matthew Cordero Salazar
+#Brian Ramirez Arias 
+#Importaciones
 import tkinter as tk
 from acciones import mostrarEnPantalla,limpiar_texto
 from tkinter import messagebox
 from busqueda import buscarCancion
 import pygame
 from pygame import mixer
-import os#Se utiliza para ver si existe el archivo
+import os#Se utiliza para ver si existe el archivo mp3 o wav
+
+#Se utiliza para mostrar un numero de caracteres en al cola
 def cortadorTexto(numerador,numCola,ColasDeReproduccion,prop,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo):#Se utiliza para mostrar solo 14 cracteres en la pantalla
     if type(buscarCancion(ColasDeReproduccion[prop][numCola],diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo))==tuple:
         cont=0
@@ -16,6 +23,7 @@ def cortadorTexto(numerador,numCola,ColasDeReproduccion,prop,diccCancionestodo,d
                 return f"{numerador}-{temp}"
     else:
         return 'Espacio vacio'
+    
 #Agrega un cancion a cola y hace validaciones
 def agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCancionestodo,usuarioActual,ColasDeReproduccion,diccProptodo,diccAdmintodo):
     if usuarioActual not in list(ColasDeReproduccion.keys()) :
@@ -38,7 +46,8 @@ def agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCanc
     else:
         messagebox.showinfo("Alerta", "Cancion inexsistente o los datos relacionados son incorrectos!")
         limpiar_texto(codigoCancion)
-#Presenta un max de 10 caracteres en pantalla 
+        
+#Presenta un max de 10 caracteres en pantalla y se actualiza
 def actualizarCola(ColasDeReproduccion,et1,et2,et3,et4,et5,prop,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo):
     if prop  in list(ColasDeReproduccion.keys()):
         eliminador=0
@@ -82,6 +91,7 @@ def actualizarCola(ColasDeReproduccion,et1,et2,et3,et4,et5,prop,diccCancionestod
             mostrarEnPantalla(et3,f'Espacio vacio')
             mostrarEnPantalla(et4,f'Espacio vacio')
             mostrarEnPantalla(et5,f'Espacio vacio')
+            
 #Vacia cola deacuerdo a la cancion que el usaurio quiera
 def vaciarCola(ColasDeReproduccion,usuarioActual,numCancion):
     if numCancion==1 and len(ColasDeReproduccion[usuarioActual])>=1:
@@ -95,6 +105,7 @@ def vaciarCola(ColasDeReproduccion,usuarioActual,numCancion):
     if numCancion==5 and len(ColasDeReproduccion[usuarioActual])>=5:
         ColasDeReproduccion[usuarioActual].pop(4)
 
+#Funcion principal, presenta todo dos labelFrames principales cola y reproductor
 def reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,usuarioActual,ColasDeReproduccion,diccProptodo,diccAdmintodo):
     # Crear la ventana principal
     ventana = tk.Toplevel(VentanaMenu)
@@ -276,7 +287,8 @@ def continuar():
 def parar():
     if pygame.mixer.music.get_busy():
         mixer.quit()
-        
+    
+#Lista que almacena todas las canciones reproducidas para dar reportes    
 modaMusica=[]
 # Función para reproducir una canción específica
 def reproducir(numeroCancion,ColasDeReproduccion):
@@ -311,7 +323,8 @@ def previaCancion(ColasDeReproduccion):
     else:
         mixer.music.load(ColasDeReproduccion[cancionActual]+'.mp3')
     mixer.music.play()
-    
+
+#Ejecuta cada instruccion relacionada con reporudccion
 def reproducirCancion(accion,ColasDeReproduccion,prop):
     if prop in list(ColasDeReproduccion.keys()):
         if len(ColasDeReproduccion[prop])>0:
@@ -338,8 +351,5 @@ def reproducirCancion(accion,ColasDeReproduccion,prop):
             parar()
         elif accion == 'pausar':
             pausar()
-
-
-
-
-    
+            
+            

@@ -19,7 +19,7 @@ def leerProp():
                     estado = columnas[3]
                     dicc[cod]={'nombre':nombre,'codMem':codMem,'estado':estado}
                     membresias[columnas[0]]=columnas[2]
-
+    archivo.close()
     return dicc,membresias
 #Esta funcion lee un fichero llamado Genero.txt y retorna cada linea en una lista dentro de otra lista
 def leerAdmin(): 
@@ -32,6 +32,7 @@ def leerAdmin():
                 cod = columnas[0]
                 nombre = columnas[1]
                 dicc[cod]={'nombre':nombre}
+    archivo.close()
     return dicc  
 
 #Esta funcion lee un fichero llamado Genero.txt y retorna cada linea en una lista dentro de otra lista
@@ -45,6 +46,7 @@ def leerGen():
                 cod = columnas[0]
                 nombre = columnas[1]
                 dicc[cod]={'nombre':nombre}
+    archivo.close()
     return dicc  
 #Esta funcion lee un fichero llamado Artista.txt y retorna cada linea en una lista dentro de otra lista
 def leerArt(): 
@@ -58,6 +60,7 @@ def leerArt():
                 nombre = columnas[1]
                 codGen = columnas[2]
                 dicc[cod]={'nombre':nombre,'codGen':codGen}
+    archivo.close()
     return dicc
 #Esta funcion lee un fichero llamado Playlist.txt y retorna cada linea en una lista dentro de otra lista
 def leerPlaylist(): 
@@ -71,6 +74,7 @@ def leerPlaylist():
                 nombre = columnas[1]
                 codProp = columnas[2]
                 dicc[cod]={'nombre':nombre,'codProp':codProp}
+    archivo.close()
     return dicc
 #Esta funcion lee un fichero llamado Album.txt y retorna cada linea en una lista dentro de otra lista
 def leerAlbum(): 
@@ -79,11 +83,12 @@ def leerAlbum():
     for linea in archivo:
             linea = linea.rstrip("\n")  # Quitar salto de línea
             columnas = linea.split(';')
-            if columnas[0] not in list(dicc.keys()) and (len(columnas)==3 or len(columnas)==4) and columnas[2] in list(leerArt().keys()):#Agrega solo si existe el artista.
+            if columnas[0] not in list(dicc.keys()) and (len(columnas)>=3 ) and columnas[2] in list(leerArt().keys()):#Agrega solo si existe el artista.
                 cod = columnas[0]
                 nombre = columnas[1]
                 codArt = columnas[2]
                 dicc[cod]={'nombre':nombre,'codArt':codArt}
+    archivo.close()
     return dicc
 #Esta funcion lee un fichero llamado Canciones.txt y retorna cada linea en una lista dentro de otra lista
 def leerCanciones(): 
@@ -92,7 +97,7 @@ def leerCanciones():
     for linea in archivo:
             linea = linea.rstrip("\n")  # Quitar salto de línea
             columnas = linea.split(';')
-            if columnas[0] not in list(dicc.keys()) and (len(columnas)==6 or len(columnas)==7) and columnas[2] in list(leerArt().keys()) and columnas[3] in list(leerAlbum().keys()) and columnas[4] in list(leerGen().keys())and columnas[5] in list(leerPlaylist().keys()):
+            if columnas[0] not in list(dicc.keys()) and (len(columnas)>=6) and columnas[2] in list(leerArt().keys()) and columnas[3] in list(leerAlbum().keys()) and columnas[4] in list(leerGen().keys())and columnas[5] in list(leerPlaylist().keys()):
                 cod = columnas[0]
                 nombre = columnas[1]
                 codArt = columnas[2]
@@ -100,4 +105,5 @@ def leerCanciones():
                 codGen= columnas[4]
                 codPlaylist= columnas[5]
                 dicc[cod]={'nombre':nombre,'codArt':codArt,'codAlb':codAlb,'codGen':codGen,'codPlaylist':codPlaylist }
+    archivo.close()
     return dicc

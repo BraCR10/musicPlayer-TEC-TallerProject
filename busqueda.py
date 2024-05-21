@@ -1,5 +1,4 @@
-#Primer avance proyecto del reproductor de musica
-#Estudiantes:
+#Avance final proyecto del reproductor de musica#Estudiantes:
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
 

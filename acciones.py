@@ -1,7 +1,8 @@
-#Primer avance proyecto del reproductor de musica
+#Avance final proyecto del reproductor de musica
 #Estudiantes:
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
+#Importaciones
 import tkinter as tk
 from busqueda import buscarProp #buscarProp
 from lecturaArchivos import *

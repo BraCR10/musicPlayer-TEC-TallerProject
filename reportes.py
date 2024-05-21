@@ -1,12 +1,12 @@
-#Primer avance proyecto del reproductor de musica
+#Avance final proyecto del reproductor de musica
 #Estudiantes:
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
 from busqueda import *
 from statistics import mode
 from tkinter import messagebox
-cont=0
 
+cont=0
 def reportesProp(diccProptodo):
     global cont
     reporte = open(f"reportePropietario{cont}.txt", "a")#Crea un nuevo archivo .txt
