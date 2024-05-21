@@ -1,17 +1,21 @@
-#Primer avance proyecto del reproductor de musica
+#Avance final proyecto del reproductor de musica
 #Estudiantes:
 #Matthew Cordero Salazar
 #Brian Ramirez Arias 
+
+#Modulos importados
 from lecturaArchivos import *#leerAlbum,leerArt,leerCanciones,leerGen,leerPlaylist,leerProp
 from insercion import *#insertAlbum,insertArt,insertCanciones,insertGen,insertPlaylist,insertProp
 from busqueda import * #buscarAlbum,buscarArtista,buscarCancion,buscarGenero,buscarPlaylist,buscarProp
-import tkinter as tk
-from tkinter import ttk
-from acciones import * 
+import tkinter as tk # importa libreria
+from tkinter import ttk # importa libreria
+from acciones import * #Acciones que puede hacer el propietario
 from modificacion import *#ModificarPlaylist,modificarArt,modificarCancion,modificarGen,modificarProp
 from eliminacion import *#eliminarProp,eliminarCanciones,eliminarPlaylist,eliminarAlbum,eliminarGenero,eliminarArtistas
-from reproducir import *
-from reportes import *
+from reproducir import *#Todo lo relacionado con eliminacion
+from reportes import *#Todo lo relacionado con reportes
+
+#Diccionarios creados con los txts
 diccProptodo=leerProp()[0]#Devuelve una lista con membresias
 diccAdmintodo=leerAdmin()
 diccMembresias=leerProp()[1]
@@ -23,11 +27,13 @@ diccCancionestodo=leerCanciones()
 ColasDeReproduccion={}#Cada propietarion tiene su propia cola
 listaFacturas=[]
 ######################################################################################################################################
+#Todo se trabaja sobre la ventana login
 ventanaLogin = tk.Tk()
 VentanaMenu = tk.Toplevel(ventanaLogin)
-VentanaMenu.withdraw()  # Oculta la ventana secundaria inicialmente
-verificadorElementosMenu=False#Se utiiza para destruir elementos en el menu y que no se repitan
+VentanaMenu.withdraw()  # Oculta la ventana menu inicialmente
+verificadorElementosMenu=False#Se utiiza para destruir elementos en el menu y que no se repitan a la hora de entrar
 #######################################################################################################################################################################################
+#Funcion especial que genera una emergente al tocar en el icono del menu principal
 def emergenteReproduccion(emergentePrincipal,VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo):
         try:
             emergentePrincipal.delete(0, tk.END)
@@ -40,8 +46,8 @@ def emergenteReproduccion(emergentePrincipal,VentanaMenu,diccCancionestodo,diccA
         emergentePrincipal.add_command(image=imagenCola, command=lambda:reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))#En ventana uno esta diccPropTodo y en ventana2 el codigo de usuario
         emergentePrincipal.image = imagenCola
         emergentePrincipal.post(VentanaMenu.winfo_pointerx(), VentanaMenu.winfo_pointery())
-
 #######################################################################################################################################################################################
+#Funcion que verifica la existencia de un usuario para loguearse
 def login(tipoUsuario,codigo,diccProptodo,ventanaPago,ventanaRegistro,diccAdminTodo,ventanaLogin,VentanaMenu):
     if  tipoUsuario=='Usuario' and codigo not in list(diccProptodo.keys()) :
         return navegacionVentanas(ventanaRegistro,ventanaLogin,obtenerDimenciones(ventanaLogin))
@@ -55,7 +61,6 @@ def login(tipoUsuario,codigo,diccProptodo,ventanaPago,ventanaRegistro,diccAdminT
         return navegacionVentanas(VentanaMenu,ventanaLogin,obtenerDimenciones(ventanaLogin))
     elif tipoUsuario=='Administrador' and codigo not in list(diccAdminTodo.keys()):
         messagebox.showinfo("Alerta", "El codigo no pertenece a ningun administrador")
-
 #######################################################################################################################################################################################
 def loginVentana():
         ##########################################################################################################################################################################################
@@ -89,8 +94,6 @@ def loginVentana():
         ventanaRegistro.title("Registro")
         ventanaRegistro.configure(bg='#28342C')
         ventanaRegistro.withdraw()
-        #ventanaRegistro.resizable(0, 0)
-        #Grid
         ventanaRegistro.columnconfigure(0, weight=3)
         #Etiqueta de instruccion
         Registarse=tk.Label(ventanaRegistro,text="Registrarse",font=("Sitka Text Semibold",25),bg="#E4E4E4",foreground='#28342C')
@@ -116,8 +119,6 @@ def loginVentana():
         ventanaPago.title("Pago")
         ventanaPago.configure(bg='#D5CEC1')
         ventanaPago.withdraw()
-        #ventanaRegistro.resizable(0, 0)
-        #Grid
         ventanaPago.columnconfigure(0, weight=3)
         #Etiqueta de instruccion
         pago=tk.Label(ventanaPago,text="Pago",font=("Sitka Text Semibold",25),bg="#28342C",fg="#E4E4E4")
@@ -177,7 +178,6 @@ def menu(tipoUsuario,codigoUsuario):
                 #Bienvenida
                 etiquetaBienvenida.pack(pady=10)
                 verificadorElementosMenu=True  
-        
         # Configuración de la ventana menu
         VentanaMenu.title("Menu")
         VentanaMenu.configure(bg='#D5CeC1')
@@ -194,7 +194,7 @@ def menu(tipoUsuario,codigoUsuario):
         menubusqueda.add_command(label="Album",command=lambda:navegacionVentanas(VentanaBusquedaAlbum,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         menubusqueda.add_command(label="Cancion",command=lambda:navegacionVentanas(VentanaBusquedaCancion,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         menubar.add_cascade(label="Busqueda", menu=menubusqueda)
-        
+        #Pop ups exclusivos de administrador
         if tipoUsuario=="Administrador":
                 #Busqueda
                 menubusqueda.add_command(label="Administrador",command=lambda:navegacionVentanas(VentanaBusquedaAdm,VentanaMenu,obtenerDimenciones(VentanaMenu)))
@@ -278,8 +278,7 @@ def menu(tipoUsuario,codigoUsuario):
                 menuPagos.configure(bg='#C1B2A6')
                 menuPagos.add_command(label="Facturacion",command=lambda:mostrarFactura(diccProptodo,codigoUsuario,listaFacturas))
                 menubar.add_cascade(label="Pagos", menu=menuPagos)
-        
-        #Reportes
+        #Pop up de Reportes
         menureportes = tk.Menu(menubar,tearoff=0)
         menureportes.configure(bg='#C1B2A6')
         menureportes.add_command(label="Propietarios",command=lambda:[reportesProp(diccProptodo),messagebox.showinfo("Alerta","El reporte se ha creado exitosamente!")])
@@ -302,7 +301,6 @@ def menu(tipoUsuario,codigoUsuario):
         menureportes.add_command(label="Artista nunca buscado",command=lambda:[artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
         menureportes.add_command(label="Propietario sin playlist",command=lambda:[propietarioSinPlayList(diccProptodo,diccPlaylisttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
         menubar.add_cascade(label="Reportes", menu=menureportes)
-        
         #Pop up de reproductor
         menuReproductor=tk.Menu(menubar,tearoff=0)
         menuReproductor.configure(bg='#C1B2A6')
@@ -310,12 +308,12 @@ def menu(tipoUsuario,codigoUsuario):
         menuReproductor.add_command(label="Cola de reproduccion",command=lambda:reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
         menubar.add_cascade(label="Reproductor", menu=menuReproductor)
         VentanaMenu.config(menu=menubar)
-        #Acerca de de
+        #Pop up de Acerca de de
         menuAcercaDe = tk.Menu(menubar,tearoff=0)
         menuAcercaDe.configure(bg='#C1B2A6')
         menuAcercaDe.add_command(label="Acerca de nosotros",command=lambda:navegacionVentanas(VentanaAcerca,VentanaMenu,obtenerDimenciones(VentanaMenu)))
         menubar.add_cascade(label="Acerca de", menu=menuAcercaDe)
-        #Contacto
+        #Pop up Contacto
         menuContacto = tk.Menu(menubar,tearoff=0)
         menuContacto.configure(bg="#C1B2A6")
         menuContacto.add_command(label="Contacto",command=lambda:navegacionVentanas(VentanaContacto,VentanaMenu,obtenerDimenciones(VentanaMenu)))
@@ -352,7 +350,7 @@ def menu(tipoUsuario,codigoUsuario):
         botonCerrarSesion = tk.Button(VentanaMenu, text="Cerrar sesion", command=lambda:navegacionVentanas(ventanaLogin,VentanaMenu,obtenerDimenciones(VentanaMenu)),font=("Times New Roman",15),background='#28342C',fg='#E4E4E4')
         botonCerrarSesion.pack(pady=100)
         ##########################################################################################################################################################################################
-# Configuración de la ventana de busquedas
+        # Configuración de la ventana de busquedas
         VentanaBusquedaPropietario = tk.Toplevel(ventanaLogin)
         VentanaBusquedaPropietario.title("Busqueda")
         VentanaBusquedaPropietario.configure(bg='#D5CEC1')
@@ -381,12 +379,11 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaBusquedaPlaylist.configure(bg='#D5CEC1')
         VentanaBusquedaPlaylist.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaBusquedaPlaylist.columnconfigure(0,weight=3)
-
+        #Codigo de usuario
         TituloBusPlaylist=tk.Label(VentanaBusquedaPlaylist,text='Busqueda de playlist', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         TituloBusPlaylist.grid(sticky=tk.N,pady=10)
         DigitecodPlay=tk.Label(VentanaBusquedaPlaylist,text='Digite el codigo de playlist:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigitecodPlay.grid(sticky=tk.N,pady=10)
-        #Codigo de usuario
         codigoBusquedaPlaylist=tk.Entry(VentanaBusquedaPlaylist,font=("Times New Roman",15),background='#E4E4E4')
         codigoBusquedaPlaylist.grid(sticky=tk.N,pady=10)
         #Etiqueta display
@@ -405,16 +402,13 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaBusquedaGenero.configure(bg='#D5CEC1')
         VentanaBusquedaGenero.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaBusquedaGenero.columnconfigure(0,weight=3)
-
         TituloBusGen=tk.Label(VentanaBusquedaGenero,text='Busqueda de genero', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         TituloBusGen.grid(sticky=tk.N,pady=10)
         DigitecodGen=tk.Label(VentanaBusquedaGenero,text='Digite el codigo de genero:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigitecodGen.grid(sticky=tk.N,pady=10)
-
         #Codigo de usuario
         codigoBusquedaGenero=tk.Entry(VentanaBusquedaGenero,font=("Times New Roman",15),background='#E4E4E4')
         codigoBusquedaGenero.grid(sticky=tk.N,pady=10)
-        
         #Etiqueta display
         etiquetaGenero=tk.Label(VentanaBusquedaGenero, text="",font=("Times New Roman",15),background='#D5CEC1')
         etiquetaGenero.grid(sticky=tk.N,pady=10)
@@ -431,16 +425,13 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaBusquedaAdm.configure(bg='#D5CEC1')
         VentanaBusquedaAdm.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaBusquedaAdm.columnconfigure(0,weight=3)
-
         TituloBusAdm=tk.Label(VentanaBusquedaAdm,text='Busqueda de administrador', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         TituloBusAdm.grid(sticky=tk.N,pady=10)
         DigitecodAdm=tk.Label(VentanaBusquedaAdm,text='Digite el codigo de administrador:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigitecodAdm.grid(sticky=tk.N,pady=10)
-
         #Codigo de usuario
         codigoBusquedaAdm=tk.Entry(VentanaBusquedaAdm,font=("Times New Roman",15),background='#E4E4E4')
         codigoBusquedaAdm.grid(sticky=tk.N,pady=10)
-        
         #Etiqueta display
         etiquetaAdm=tk.Label(VentanaBusquedaAdm, text="",font=("Times New Roman",15),background='#D5CEC1')
         etiquetaAdm.grid(sticky=tk.N,pady=10)
@@ -457,7 +448,6 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaBusquedaArtista.configure(bg='#D5CEC1')
         VentanaBusquedaArtista.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaBusquedaArtista.columnconfigure(0,weight=3)
-
         TituloBusArt=tk.Label(VentanaBusquedaArtista,text='Busqueda de artista', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         TituloBusArt.grid(sticky=tk.N,pady=10)
         DigitecodArt=tk.Label(VentanaBusquedaArtista,text='Digite el codigo del artista:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
@@ -481,7 +471,6 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaBusquedaAlbum.configure(bg='#D5CEC1')
         VentanaBusquedaAlbum.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaBusquedaAlbum.columnconfigure(0,weight=3)
-
         TituloBusAlb=tk.Label(VentanaBusquedaAlbum,text='Busqueda de album', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         TituloBusAlb.grid(sticky=tk.N,pady=10)
         DigitecodAlb=tk.Label(VentanaBusquedaAlbum,text='Digite el codigo del album:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
@@ -505,7 +494,6 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaBusquedaCancion.configure(bg='#D5CEC1')
         VentanaBusquedaCancion.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaBusquedaCancion.columnconfigure(0,weight=3)
-
         TituloBusCan=tk.Label(VentanaBusquedaCancion,text='Busqueda de canción', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         TituloBusCan.grid(sticky=tk.N,pady=10)
         DigitecodCan=tk.Label(VentanaBusquedaCancion,text='Digite el codigo de la canción:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
@@ -523,13 +511,12 @@ def menu(tipoUsuario,codigoUsuario):
         botonDeBusquedaAMenu = tk.Button(VentanaBusquedaCancion, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaBusquedaCancion,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoBusquedaCancion),mostrarEnPantalla(etiquetaCancion,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
         ##############################################################################################################################################
-                # Configuración de la ventana de insercion
+        # Configuración de la ventana de insercion
         VentanaInsercionProp= tk.Toplevel(ventanaLogin)
         VentanaInsercionProp.title("Insercion")
         VentanaInsercionProp.configure(bg='#D5CEC1')
         VentanaInsercionProp.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaInsercionProp.columnconfigure(0,weight=3)
-
         TituloInsProp=tk.Label(VentanaInsercionProp,text='Inserción de propietario', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         TituloInsProp.grid(sticky=tk.N,pady=10)
         DigiteProp1=tk.Label(VentanaInsercionProp,text='Digite el código del propietario:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
@@ -537,25 +524,21 @@ def menu(tipoUsuario,codigoUsuario):
         #Codigo de Propietario
         codigoInsericionProp=tk.Entry(VentanaInsercionProp,font=("Times New Roman",15),background='#E4E4E4')
         codigoInsericionProp.grid(sticky=tk.N,pady=10)
-
         DigiteNomProp1=tk.Label(VentanaInsercionProp,text='Digite el nombre del propietario:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigiteNomProp1.grid(sticky=tk.N,pady=10)
         #nombre de Prop
         nombreInsercionProp=tk.Entry(VentanaInsercionProp,font=("Times New Roman",15),background='#E4E4E4')
         nombreInsercionProp.grid(sticky=tk.N,pady=10)
-
         DigiteMem1=tk.Label(VentanaInsercionProp,text='Digite el código de memebresia del propietario:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigiteMem1.grid(sticky=tk.N,pady=10)
         #Codigo de membresia
         codigoInsercionMem=tk.Entry(VentanaInsercionProp,font=("Times New Roman",15),background='#E4E4E4')
         codigoInsercionMem.grid(sticky=tk.N,pady=10)
-
         DigiteEstMem1=tk.Label(VentanaInsercionProp,text='Digite el estado de la membresia:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigiteEstMem1.grid(sticky=tk.N,pady=10)
         #estado
         estadoInsercionMem=tk.Entry(VentanaInsercionProp,font=("Times New Roman",15),background='#E4E4E4')
         estadoInsercionMem.grid(sticky=tk.N,pady=10)
-
         #Etiqueta display
         etiquetaConfirmacionInsercionProp=tk.Label(VentanaInsercionProp, text="",font=("Times New Roman",15),background='#D5CEC1')
         etiquetaConfirmacionInsercionProp.grid(sticky=tk.N,pady=10)
@@ -572,7 +555,6 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaInsercionPlaylist.configure(bg='#D5CEC1')
         VentanaInsercionPlaylist.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaInsercionPlaylist.columnconfigure(0,weight=3)
-
         TituloInsPlay=tk.Label(VentanaInsercionPlaylist,text='Inserción de playlist', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         TituloInsPlay.grid(sticky=tk.N,pady=10)
         DigiteProp1=tk.Label(VentanaInsercionPlaylist,text='Digite el código de la playlist:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
@@ -580,13 +562,11 @@ def menu(tipoUsuario,codigoUsuario):
         #Codigo de Playlist
         codigoInsericionPlaylist=tk.Entry(VentanaInsercionPlaylist,font=("Times New Roman",15),background='#E4E4E4')
         codigoInsericionPlaylist.grid(sticky=tk.N,pady=10)
-
         DigiteNomPlay1=tk.Label(VentanaInsercionPlaylist,text='Digite el nombre de la playlist:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigiteNomPlay1.grid(sticky=tk.N,pady=10)
         #Nombre de Playlist
         nombreInsercionPlaylist=tk.Entry(VentanaInsercionPlaylist,font=("Times New Roman",15),background='#E4E4E4')
         nombreInsercionPlaylist.grid(sticky=tk.N,pady=10)
-
         DigiteProp2=tk.Label(VentanaInsercionPlaylist,text='Digite el código del propietario de la playlist:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigiteProp2.grid(sticky=tk.N,pady=10)
         #Codigo Prop
@@ -607,7 +587,6 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaInsercionGen.title("Insercion")
         VentanaInsercionGen.configure(bg='#D5CEC1')
         VentanaInsercionGen.withdraw()  # Oculta la ventana secundaria inicialmente
-
         TituloInsGen=tk.Label(VentanaInsercionGen,text='Inserción de género', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         TituloInsGen.pack(side="top",pady=10)
         DigiteGen1=tk.Label(VentanaInsercionGen,text='Digite el código del género:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
@@ -615,13 +594,11 @@ def menu(tipoUsuario,codigoUsuario):
         #Codigo de Genero
         codigoInsericionGen=tk.Entry(VentanaInsercionGen,font=("Times New Roman",15),background='#E4E4E4')
         codigoInsericionGen.pack(side="top",pady=10)
-
         DigiteNomGen1=tk.Label(VentanaInsercionGen,text='Digite el nombre del género:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigiteNomGen1.pack(side="top",pady=10)
         #Nombre de Genero
         nombreInsercionGenero=tk.Entry(VentanaInsercionGen,font=("Times New Roman",15),background='#E4E4E4')
         nombreInsercionGenero.pack(side="top",pady=10)
-        
         #Etiqueta display
         etiquetaConfirmacionInsercionGen=tk.Label(VentanaInsercionGen, text="",font=("Times New Roman",15),background='#D5CEC1')
         etiquetaConfirmacionInsercionGen.pack(side="top",pady=10)
@@ -638,7 +615,6 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaInsercionArtista.configure(bg='#D5CEC1')
         VentanaInsercionArtista.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaInsercionArtista.columnconfigure(0,weight=3)
-
         TituloInsArt=tk.Label(VentanaInsercionArtista,text='Inserción de artista', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         TituloInsArt.grid(sticky=tk.N,pady=10)
         DigiteArt1=tk.Label(VentanaInsercionArtista,text='Digite el código del artista:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
@@ -646,19 +622,16 @@ def menu(tipoUsuario,codigoUsuario):
         #Codigo de Artista
         codigoInsericionArt=tk.Entry(VentanaInsercionArtista,font=("Times New Roman",15),background='#E4E4E4')
         codigoInsericionArt.grid(sticky=tk.N,pady=10)
-
         DigiteNomArt1=tk.Label(VentanaInsercionArtista,text='Digite el nombre del artista:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigiteNomArt1.grid(sticky=tk.N,pady=10)
         #Nombre de Artista
         nombreInsercionArt=tk.Entry(VentanaInsercionArtista,font=("Times New Roman",15),background='#E4E4E4')
         nombreInsercionArt.grid(sticky=tk.N,pady=10)
-
         DigitecodGen1=tk.Label(VentanaInsercionArtista,text='Digite el código del género al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigitecodGen1.grid(sticky=tk.N,pady=10)
         #Codigo Gen
         codigoGenInsercionArt=tk.Entry(VentanaInsercionArtista,font=("Times New Roman",15),background='#E4E4E4')
         codigoGenInsercionArt.grid(sticky=tk.N,pady=10)
-
         #Etiqueta display
         etiquetaConfirmacionInsercionArt=tk.Label(VentanaInsercionArtista, text="",font=("Times New Roman",15),background='#D5CEC1')
         etiquetaConfirmacionInsercionArt.grid(sticky=tk.N,pady=10)
@@ -675,7 +648,6 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaInsercionAlbum.configure(bg='#D5CEC1')
         VentanaInsercionAlbum.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaInsercionAlbum.columnconfigure(0,weight=3)
-
         TituloInsAlb=tk.Label(VentanaInsercionAlbum,text='Inserción de album', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         TituloInsAlb.grid(sticky=tk.N,pady=10)
         DigiteAlb1=tk.Label(VentanaInsercionAlbum,text='Digite el código del album:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
@@ -683,23 +655,19 @@ def menu(tipoUsuario,codigoUsuario):
         #Codigo de Album
         codigoInsericionAlb=tk.Entry(VentanaInsercionAlbum,font=("Times New Roman",15),background='#E4E4E4')
         codigoInsericionAlb.grid(sticky=tk.N,pady=10)
-
         DigiteNomAlb1=tk.Label(VentanaInsercionAlbum,text='Digite el nombre del album:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigiteNomAlb1.grid(sticky=tk.N,pady=10)
         #Nombre de Album
         nombreInsercionAlb=tk.Entry(VentanaInsercionAlbum,font=("Times New Roman",15),background='#E4E4E4')
         nombreInsercionAlb.grid(sticky=tk.N,pady=10)
-
         DigitecodArt1=tk.Label(VentanaInsercionAlbum,text='Digite el código del artista al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigitecodArt1.grid(sticky=tk.N,pady=10)
         #Codigo Art
         codigoArtInsercionAlb=tk.Entry(VentanaInsercionAlbum,font=("Times New Roman",15),background='#E4E4E4')
         codigoArtInsercionAlb.grid(sticky=tk.N,pady=10)
-
         #Etiqueta display
         etiquetaConfirmacionInsercionAlb=tk.Label(VentanaInsercionAlbum, text="",font=("Times New Roman",15),background='#D5CEC1')
         etiquetaConfirmacionInsercionAlb.grid(sticky=tk.N,pady=10)
-
         #Boton de buscar
         botonDeinsercion= tk.Button(VentanaInsercionAlbum, text="Insertar", command=lambda:insertAlbum(diccAlbumtodo,diccArttodo,codigoInsericionAlb,nombreInsercionAlb,codigoArtInsercionAlb,etiquetaConfirmacionInsercionAlb),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeinsercion.grid(sticky=tk.N,pady=10)
@@ -713,7 +681,6 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaInsercionCancion.configure(bg='#D5CEC1')
         VentanaInsercionCancion.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaInsercionCancion.columnconfigure(0,weight=3)
-
         TituloInsCan=tk.Label(VentanaInsercionCancion,text='Inserción de canciones', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         TituloInsCan.grid(sticky=tk.N,pady=2)
         DigiteCan1=tk.Label(VentanaInsercionCancion,text='Digite el código de la canción:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
@@ -721,31 +688,26 @@ def menu(tipoUsuario,codigoUsuario):
         #Codigo de Cancion
         codigoInsericionCancion=tk.Entry(VentanaInsercionCancion,font=("Times New Roman",15),background='#E4E4E4')
         codigoInsericionCancion.grid(sticky=tk.N,pady=2)
-
         DigiteNomCan1=tk.Label(VentanaInsercionCancion,text='Digite el nombre de la canción:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigiteNomCan1.grid(sticky=tk.N,pady=2)
         #Nombre de Cancion
         nombreInsercionCancion=tk.Entry(VentanaInsercionCancion,font=("Times New Roman",15),background='#E4E4E4')
         nombreInsercionCancion.grid(sticky=tk.N,pady=2)
-
         DigitecodArt2=tk.Label(VentanaInsercionCancion,text='Digite el código del artista al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigitecodArt2.grid(sticky=tk.N,pady=2)
         #Codigo Art
         codigoArtInsercionCancion=tk.Entry(VentanaInsercionCancion,font=("Times New Roman",15),background='#E4E4E4')
         codigoArtInsercionCancion.grid(sticky=tk.N,pady=2)
-
         DigitecodAlb2=tk.Label(VentanaInsercionCancion,text='Digite el código del album al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigitecodAlb2.grid(sticky=tk.N,pady=2)
         #Codigo Alb
         codigoAlbInsercionCancion=tk.Entry(VentanaInsercionCancion,font=("Times New Roman",15),background='#E4E4E4')
         codigoAlbInsercionCancion.grid(sticky=tk.N,pady=2)
-
         DigitecodGen2=tk.Label(VentanaInsercionCancion,text='Digite el código del género al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigitecodGen2.grid(sticky=tk.N,pady=2)
         #Codigo Gen
         codigoGenInsercionCancion=tk.Entry(VentanaInsercionCancion,font=("Times New Roman",15),background='#E4E4E4')
         codigoGenInsercionCancion.grid(sticky=tk.N,pady=2)
-
         DigitecodPlay2=tk.Label(VentanaInsercionCancion,text='Digite el código de la playlist al que pertenece:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigitecodPlay2.grid(sticky=tk.N,pady=2)
         #Codigo Playlist
@@ -767,7 +729,6 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaInsercionAdm.configure(bg='#D5CEC1')
         VentanaInsercionAdm.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaInsercionAdm.columnconfigure(0,weight=3)
-
         TituloInsAdm=tk.Label(VentanaInsercionAdm,text='Inserción de administradores', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         TituloInsAdm.grid(sticky=tk.N,pady=10)
         DigiteAdm=tk.Label(VentanaInsercionAdm,text='Digite el código de administrador:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
@@ -775,7 +736,6 @@ def menu(tipoUsuario,codigoUsuario):
         #Codigo de Admin
         codigoInsericionAdm=tk.Entry(VentanaInsercionAdm,font=("Times New Roman",15),background='#E4E4E4')
         codigoInsericionAdm.grid(sticky=tk.N,pady=10)
-
         DigiteNomAdm=tk.Label(VentanaInsercionAdm,text='Digite el nombre de administrador:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigiteNomAdm.grid(sticky=tk.N,pady=10)
         #Nombre de Admin
@@ -1019,7 +979,7 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaModificacionAdm, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaModificacionAdm,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoModificacionAdm),limpiar_texto(nombreModificacionAdm),mostrarEnPantalla(etiquetaConfirmacionModificacionAdm,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-###########################################################################################################################################################################
+        ###########################################################################################################################################################################
         # Configuración de la ventana de eliminacion
         VentanaEliminacionProp= tk.Toplevel(ventanaLogin)
         VentanaEliminacionProp.title("Eliminacion")
@@ -1043,7 +1003,7 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaEliminacionProp, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionProp,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionProp),mostrarEnPantalla(etiquetaConfirmacionEliminacionProp,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-###########################################################################################################################################################################
+        ###########################################################################################################################################################################
         # Configuración de la ventana de eliminacion
         VentanaEliminacionPlaylist= tk.Toplevel(ventanaLogin)
         VentanaEliminacionPlaylist.title("Eliminacion")
@@ -1067,7 +1027,7 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaEliminacionPlaylist, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionPlaylist,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionPlaylist),mostrarEnPantalla(etiquetaConfirmacionEliminacionPlaylist,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-###########################################################################################################################################################################
+        ###########################################################################################################################################################################
         # Configuración de la ventana de eliminacion
         VentanaEliminacionGen= tk.Toplevel(ventanaLogin)
         VentanaEliminacionGen.title("Eliminacion")
@@ -1091,7 +1051,7 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaEliminacionGen, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionGen,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionGen),mostrarEnPantalla(etiquetaConfirmacionEliminacionGen,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-###########################################################################################################################################################################
+        ###########################################################################################################################################################################
         # Configuración de la ventana de eliminacion
         VentanaEliminacionArt= tk.Toplevel(ventanaLogin)
         VentanaEliminacionArt.title("Eliminacion")
@@ -1115,7 +1075,7 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaEliminacionArt, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionArt,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionArt),mostrarEnPantalla(etiquetaConfirmacionEliminacionArt,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-###########################################################################################################################################################################
+        ###########################################################################################################################################################################
         # Configuración de la ventana de eliminacion
         VentanaEliminacionAlb= tk.Toplevel(ventanaLogin)
         VentanaEliminacionAlb.title("Eliminacion")
@@ -1139,7 +1099,7 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaEliminacionAlb, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionAlb,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionAlb),mostrarEnPantalla(etiquetaConfirmacionEliminacionAlb,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-###########################################################################################################################################################################
+        ###########################################################################################################################################################################
         # Configuración de la ventana de eliminacion
         VentanaEliminacionCancion= tk.Toplevel(ventanaLogin)
         VentanaEliminacionCancion.title("Eliminacion")
@@ -1163,7 +1123,7 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaEliminacionCancion, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionCancion,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionCancion),mostrarEnPantalla(etiquetaConfirmacionEliminacionCancion,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-###########################################################################################################################################################################
+        ###########################################################################################################################################################################
         # Configuración de la ventana de eliminacion
         VentanaEliminacionAdm= tk.Toplevel(ventanaLogin)
         VentanaEliminacionAdm.title("Eliminacion")
@@ -1187,7 +1147,7 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaEliminacionAdm, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaEliminacionAdm,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoEliminacionAdm),mostrarEnPantalla(etiquetaConfirmacionEliminacionAdm,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-###########################################################################################################################################################################
+        ###########################################################################################################################################################################
         #Ventanas de reportes
         VentanaReportesPlaylist= tk.Toplevel(ventanaLogin)
         VentanaReportesPlaylist.title("Reporte")
@@ -1208,7 +1168,7 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaReportesPlaylist, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaReportesPlaylist,obtenerDimenciones(VentanaMenu)),limpiar_texto(codProp)],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-###########################################################################################################################################################################
+        ###########################################################################################################################################################################
         VentanaReportesArtistas= tk.Toplevel(ventanaLogin)
         VentanaReportesArtistas.title("Reporte")
         VentanaReportesArtistas.configure(bg='#D5CEC1')
@@ -1228,7 +1188,7 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaReportesArtistas, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaReportesArtistas,obtenerDimenciones(VentanaMenu)),limpiar_texto(codGen)],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-###########################################################################################################################################################################
+        ###########################################################################################################################################################################
         VentanaReportesAlbumes= tk.Toplevel(ventanaLogin)
         VentanaReportesAlbumes.title("Reporte")
         VentanaReportesAlbumes.configure(bg='#D5CEC1')
@@ -1248,7 +1208,7 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaReportesAlbumes, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaReportesAlbumes,obtenerDimenciones(VentanaMenu)),limpiar_texto(codArt)],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-###########################################################################################################################################################################
+        ###########################################################################################################################################################################
         VentanaReportesCanciones= tk.Toplevel(ventanaLogin)
         VentanaReportesCanciones.title("Reporte")
         VentanaReportesCanciones.configure(bg='#D5CEC1')
@@ -1268,7 +1228,7 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaReportesCanciones, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaReportesCanciones,obtenerDimenciones(VentanaMenu)),limpiar_texto(codArt)],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-###########################################################################################################################################################################
+        ###########################################################################################################################################################################
         #Contacto
         VentanaContacto= tk.Toplevel(ventanaLogin)
         VentanaContacto.title("Contacto")
@@ -1295,8 +1255,8 @@ def menu(tipoUsuario,codigoUsuario):
         #Boton de volver
         botonDeContactoAMenu = tk.Button(VentanaContacto, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaContacto,obtenerDimenciones(VentanaMenu)),limpiar_texto(correo),limpiar_texto(Mensaje)],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeContactoAMenu.grid(sticky=tk.N,pady=10)
-###########################################################################################################################################################################
-        #Acerca De
+        ###########################################################################################################################################################################
+        #Ventana de Acerca De
         VentanaAcerca= tk.Toplevel(ventanaLogin)
         VentanaAcerca.title("Acerca De Nosotros")
         VentanaAcerca.configure(bg='#D5CEC1')
@@ -1313,5 +1273,4 @@ def menu(tipoUsuario,codigoUsuario):
         Matthew.grid(sticky=tk.N,pady=10)
         botonDeAcercaAMenu = tk.Button(VentanaAcerca, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaAcerca,obtenerDimenciones(VentanaMenu))],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeAcercaAMenu.grid(sticky=tk.N,pady=10)
-
 loginVentana()

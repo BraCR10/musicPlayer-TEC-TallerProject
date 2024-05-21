@@ -7,6 +7,7 @@ from busqueda import buscarProp #buscarProp
 from lecturaArchivos import *
 from tkinter import messagebox
 
+#Funcion para hacer transicion entre ventanas
 diccProptodo=leerProp()[0]
 contFacturas=0
 def navegacionVentanas(ventana_principal,ventana_secundaria,tamaño):
@@ -14,22 +15,16 @@ def navegacionVentanas(ventana_principal,ventana_secundaria,tamaño):
     ventana_principal.geometry(tamaño)
     ventana_principal.deiconify()  # Muestra la ventana principal
     
-
+#Funcion aux que obtiene la dimencion de la pantalla actual para pasar a la otra con la misma dimension
 def obtenerDimenciones(ventana):
     ventana.update_idletasks()  # Actualiza la interfaz de usuario para asegurar que se haya renderizado completamente
     ancho = ventana.winfo_width()
     largo = ventana.winfo_height()
     x=ventana.winfo_x()
     y=ventana.winfo_y()
+    return f"{ancho}x{largo}+{x}+{y}" 
 
-    return f"{ancho}x{largo}+{x}+{y}"
-
-def verificadorUsuario(tipoUsuario):
-    if tipoUsuario=="Administrador":
-        tipoUsuario= "Administrador"
-    else:
-        tipoUsuario= "Usuario" 
-
+#Rescribe algo nuevo en una etiqueta
 def mostrarEnPantalla(etiqueta,dato):
     if dato==None:
         texto='No existe'
@@ -37,20 +32,11 @@ def mostrarEnPantalla(etiqueta,dato):
         texto = dato 
     etiqueta.config(text=texto)  # Actualiza el texto de la etiqueta con el texto ingresado
     
+#Limpia el texto de una entry
 def limpiar_texto(caja):
-    caja.delete(0, tk.END)  # Borra todo el contenido del cuadro de texto
-    
-def verTipoUsuario(permisos,tipoUsuario):
-    permisos.set(tipoUsuario.get())
+    caja.delete(0, tk.END)  # Borra todo el contenido del cuadro de texto   
 
-def mostrarEnPantallaBusqueda(etiqueta,dato):
-    if dato==None:
-        texto='No existe'
-    else:
-        texto = dato[0]
-    etiqueta.config(text=texto,bg="#D5CEC1")
-    
-
+#Permite el regitro de un propietario
 def registar(diccTodo,diccMembresias,nombre,etiqueta):
     estado='0Nuevo'
     cod=1
@@ -63,11 +49,13 @@ def registar(diccTodo,diccMembresias,nombre,etiqueta):
     diccMembresias[str(cod)]=str(codMem)
     mostrarEnPantalla(etiqueta,f"Registrado! \nSu codigo de propietario es: {cod}\nSu codigo de membresia membresia es: {codMem}")
     
-
-descuentoUsuarioActivo=10
-descuentoUsuarioInactivo=20
+#Se definen los descuentos por defecto
+descuentoUsuarioActivo=25
+descuentoUsuarioInactivo=75
 descuentoUsuarioNuevo=0
 Precio=40
+
+#Permite generar la factura de un propietario
 def mostrarFactura(diccTodo,codigo,listaFacturas):
     # Configuración de la ventana de modificacion
         VentanaFacturas= tk.Tk()
@@ -111,7 +99,8 @@ def mostrarFactura(diccTodo,codigo,listaFacturas):
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaFacturas, text="Cerrar", command=lambda:[VentanaFacturas.withdraw(),estado.destroy(),membresia.destroy(),id.destroy,Titulo.destroy(),descuento.destroy()],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusquedaAMenu.grid(sticky=tk.N,pady=10)
-        
+  
+#Permite que propietarios y admins exporten facturas      
 def exportarFactura(diccTodo,codigo,listaFacturas):
     global contFacturas
     contFacturas+=1
@@ -145,6 +134,7 @@ def exportarFactura(diccTodo,codigo,listaFacturas):
     reporte.close()#Cierra el archivo
     print(f'\n ---> La factura  se ha creado correctamente')
 
+#Simula el pago de un propietario en la ventana de pagos antes de loguearse
 def pagar(diccTodo,diccMembresias,codigo,etiqueta,listaFacturas):
     if diccTodo[codigo]['estado']=='0' or diccTodo[codigo]['estado']=='0Nuevo':
         diccTodo[codigo]['estado']='1'
@@ -152,11 +142,11 @@ def pagar(diccTodo,diccMembresias,codigo,etiqueta,listaFacturas):
         for i in range(len(listaFacturas)):
             if listaFacturas[i]==codigo:
                 listaFacturas.pop(i)
-                break
-        
+                break   
     mostrarEnPantalla(etiqueta,"Su usuario ha sido activado, por favor vuelva al login")
     #diccMembresias[codigo]='1'
 
+#Funcion especial para mostrar emergentes en el icono de canciones con 3 emergentes en el menu principal
 def mostrarEmergenteMenuTresOpciones(emergente,VentanaMenu,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4,Ventana5,Ventana6,Ventana7,Ventana8,Ventana9,Ventana10,Ventana11,Ventana12):
     # Eliminar el menú anterior, si existe
     try:
@@ -165,7 +155,6 @@ def mostrarEmergenteMenuTresOpciones(emergente,VentanaMenu,tipousuario,Ventana1,
         pass
     emergenteAux= tk.Menu(VentanaMenu, tearoff=0)
     # Crear el menú emergente con otra imagen
-
     imagenGeneros = tk.PhotoImage(file="generos.png") 
     emergente.add_command(image=imagenGeneros, command=lambda:mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4))
     emergente.image = imagenGeneros  
@@ -177,6 +166,8 @@ def mostrarEmergenteMenuTresOpciones(emergente,VentanaMenu,tipousuario,Ventana1,
     emergente.image = imagenPlaylist 
     # Mostrar el menú emergente
     emergente.post(VentanaMenu.winfo_pointerx(), VentanaMenu.winfo_pointery())
+
+#Emergente en todos los demas iconos del menu principal
 def mostrarEmergenteMenu(emergente,VentanaMenu,id,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4,Ventana5,Ventana6,Ventana7,Ventana8):
     # Eliminar el menú anterior, si existe
     try:
@@ -203,7 +194,6 @@ def mostrarEmergenteMenu(emergente,VentanaMenu,id,tipousuario,Ventana1,Ventana2,
         #Caso especial, se los parametro de ventana se utilizan diferente
         #Ventana1=diccProptodo
         #Ventana2=codigoUsuario
-
         if tipousuario=='Usuario':
             imagenFacturas = tk.PhotoImage(file="Facturacion.png") 
             emergente.add_command(image=imagenFacturas, command=lambda:mostrarFactura(Ventana1,Ventana2,Ventana3))#Ventan3 son la listas de las facturas y 1 diccproptodo y 2 codigo de user
@@ -216,6 +206,7 @@ def mostrarEmergenteMenu(emergente,VentanaMenu,id,tipousuario,Ventana1,Ventana2,
     # Mostrar el menú emergente
     emergente.post(VentanaMenu.winfo_pointerx(), VentanaMenu.winfo_pointery())
 
+#Aux de mostrarEmergente menu
 def mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4):
     # Eliminar el menú anterior, si existe
     try:
@@ -232,11 +223,9 @@ def mostrarEmergenteMenu2(emergenteAux,VentanaMenu,tipousuario,Ventana1,Ventana2
         emergenteAux.add_command(label="Eliminacion",command=lambda:navegacionVentanas(Ventana4,VentanaMenu,obtenerDimenciones(VentanaMenu)))           
     emergenteAux.post(VentanaMenu.winfo_pointerx(), VentanaMenu.winfo_pointery())
 
-verificadorVeces=False
+#Funcion que muestra una ventana al administrador para modificar descuentos y precios
 def administrarDescuentos():
-    global descuentoUsuarioActivo,descuentoUsuarioInactivo,descuentoUsuarioNuevo,Precio,verificadorVeces
-    if verificadorVeces==False:
-        verificadorVeces=True
+    global descuentoUsuarioActivo,descuentoUsuarioInactivo,descuentoUsuarioNuevo,Precio
     # Configuración de la ventana de modificacion
     VentanaDescuentos= tk.Tk()
     VentanaDescuentos.title("Administrador de descuentos")
@@ -271,6 +260,7 @@ def administrarDescuentos():
     Cambio = tk.Button(VentanaDescuentos, text="Cambiar",command=lambda:[modificadorPrecios('Nuevos',descuentoUsuariosNuevosNuevo.get(),descuentoUsuariosNuevos),limpiar_texto(descuentoUsuariosNuevosNuevo)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     Cambio.grid(sticky=tk.N,pady=10)
 
+#Aux que mofdifica los precios
 def modificadorPrecios(cambio,nuevoDescuento,etiqueta):
     global descuentoUsuarioActivo,descuentoUsuarioInactivo,descuentoUsuarioNuevo,Precio
     if nuevoDescuento.isdecimal():
@@ -289,6 +279,7 @@ def modificadorPrecios(cambio,nuevoDescuento,etiqueta):
     else:
         messagebox.showinfo("Alerta", "El dato digitado no es valido!")
 
+#Funcion que le premite al admin generar,exportar y eliminar cobros
 def administrarFacturas(listaFacturas,diccPropTodo):
     # Configuración de la ventana de modificacion
     VentanaFacturacion= tk.Tk()
@@ -301,7 +292,10 @@ def administrarFacturas(listaFacturas,diccPropTodo):
     UsuarioBuscar.grid(sticky=tk.N,pady=10)
     verificar = tk.Button(VentanaFacturacion, text="Ver facturas",command=lambda:[botones(VentanaFacturacion,diccPropTodo,UsuarioBuscar.get(),listaFacturas)],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
     verificar.grid(sticky=tk.N,pady=10)
+    
+#Variable para evitar repeticiones a la hora de mostrar
 verificadorBotones=False
+#Aux que muetra botones de opiciones en adminstrarFacturas
 def botones(ventana,diccPropTodo,usuario,listaFacturas):
     global verificadorBotones
     if usuario in list(diccPropTodo.keys()):
@@ -317,15 +311,15 @@ def botones(ventana,diccPropTodo,usuario,listaFacturas):
         exportar.grid(sticky=tk.N,pady=10)
         pagar = tk.Button(ventana, text="Eliminar factura",command=lambda:[eliminarFactura(diccPropTodo,listaFacturas,usuario),messagebox.showinfo("Confirmacion", "Se ha cancelado la factura!")],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
         pagar.grid(sticky=tk.N,pady=10)
-        
     else:
         messagebox.showinfo("Alerta", "El usuario no existe!")
-        
+
+#Funcion Aux que genera facturas 
 def generarFactura(listaFacturas,usuario,diccPropTodo):#Si un usaurio esta activo y le genero facturas
     if usuario not in listaFacturas and diccPropTodo[usuario]['estado']=='1':
         listaFacturas+=[usuario]
         
-    
+#Funcion aux que borra una factura
 def eliminarFactura(diccPropTodo,listaFacturas,usuario):#Si un usuario se le elimina la facura
     if diccPropTodo[usuario]['estado']=='0' or diccPropTodo[usuario]['estado']=='0Nuevo':
         diccPropTodo[usuario]['estado']='1'
