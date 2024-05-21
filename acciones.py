@@ -290,10 +290,10 @@ def modificadorPrecios(cambio,nuevoDescuento,etiqueta):
 def administrarFacturas(listaFacturas,diccPropTodo):
     # Configuración de la ventana de modificacion
     VentanaFacturacion= tk.Tk()
-    VentanaFacturacion.title("Administrador de descuentos")
+    VentanaFacturacion.title("Administrador de facturas")
     VentanaFacturacion.configure(bg='#D5CEC1')
     VentanaFacturacion.columnconfigure(0,weight=3)
-    Titulo=tk.Label(VentanaFacturacion,text='Generar Factura', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+    Titulo=tk.Label(VentanaFacturacion,text='Generar Factura con el codigo de propietario', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
     Titulo.grid(sticky=tk.N,pady=10)
     UsuarioBuscar=tk.Entry(VentanaFacturacion,font=("Times New Roman",15),background='#E4E4E4')
     UsuarioBuscar.grid(sticky=tk.N,pady=10)
@@ -304,13 +304,12 @@ def administrarFacturas(listaFacturas,diccPropTodo):
 verificadorBotones=False
 #Aux que muetra botones de opiciones en adminstrarFacturas
 def botones(ventana,diccPropTodo,usuario,listaFacturas):
-    global verificadorBotones
+    global verificadorBotones,generar,exportar,pagar
     if usuario in list(diccPropTodo.keys()):
         if verificadorBotones==True:
             generar.destroy()
             exportar.destroy()
             pagar.destroy()
-            verificadorBotones=True
         #Instruccion en pantalla
         generar = tk.Button(ventana, text="Generar factura",command=lambda:[generarFactura(listaFacturas,usuario,diccPropTodo),messagebox.showinfo("Confirmacion", "Se ha generado la factura!")],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
         generar.grid(sticky=tk.N,pady=10)
@@ -318,6 +317,7 @@ def botones(ventana,diccPropTodo,usuario,listaFacturas):
         exportar.grid(sticky=tk.N,pady=10)
         pagar = tk.Button(ventana, text="Eliminar factura",command=lambda:[eliminarFactura(diccPropTodo,listaFacturas,usuario),messagebox.showinfo("Confirmacion", "Se ha cancelado la factura!")],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
         pagar.grid(sticky=tk.N,pady=10)
+        verificadorBotones=True
     else:
         messagebox.showinfo("Alerta", "El usuario no existe!")
 

@@ -46,15 +46,12 @@ def agregarACola(codigoCancion,codArt,codAlb,codGen,codPlaylist,codProp,diccCanc
     else:
         messagebox.showinfo("Alerta", "Cancion inexsistente o los datos relacionados son incorrectos!")
         limpiar_texto(codigoCancion)
-        
+
+
+
 #Presenta un max de 10 caracteres en pantalla y se actualiza
 def actualizarCola(ColasDeReproduccion,et1,et2,et3,et4,et5,prop,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo):
     if prop  in list(ColasDeReproduccion.keys()):
-        eliminador=0
-        for i in ColasDeReproduccion[prop]:#Elimina canciones de cola que son eliminadas eliminadas
-            if i not in list(diccCancionestodo.keys()):
-                ColasDeReproduccion[prop].pop(eliminador)
-            eliminador+=1
         if len(ColasDeReproduccion[prop])==1:
             mostrarEnPantalla(et1,f'{cortadorTexto(1,0,ColasDeReproduccion,prop,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)}')
             mostrarEnPantalla(et2,f'Espacio vacio')

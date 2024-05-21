@@ -33,6 +33,18 @@ VentanaMenu = tk.Toplevel(ventanaLogin)
 VentanaMenu.withdraw()  # Oculta la ventana menu inicialmente
 verificadorElementosMenu=False#Se utiiza para destruir elementos en el menu y que no se repitan a la hora de entrar
 #######################################################################################################################################################################################
+def verificadorDeCola():#Elimina canciones de cola que ya fueron eliminadas
+    global ColasDeReproduccion
+    if ColasDeReproduccion!={}:
+        for i in list(ColasDeReproduccion.keys()):#Pasa ór todos los usuarios con cola 
+                PosicionesEliminar=[]
+                for j in range (len(ColasDeReproduccion[i])):#Elimina canciones de cola que son eliminadas 
+                        if ColasDeReproduccion[i][j] not in list(diccCancionestodo.keys()):
+                                PosicionesEliminar=[j]+PosicionesEliminar
+                while PosicionesEliminar!=[]:
+                      ColasDeReproduccion[i].pop(PosicionesEliminar[0])
+                      PosicionesEliminar=PosicionesEliminar[1:]
+#######################################################################################################################################################################################
 #Funcion especial que genera una emergente al tocar en el icono del menu principal
 def emergenteReproduccion(emergentePrincipal,VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo):
         try:
@@ -40,10 +52,10 @@ def emergenteReproduccion(emergentePrincipal,VentanaMenu,diccCancionestodo,diccA
         except tk.TclError:
             pass
         imagenReproducir = tk.PhotoImage(file="./Reproducir.png") 
-        emergentePrincipal.add_command(image=imagenReproducir, command=lambda:reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))#En ventana uno esta diccPropTodo y en ventana2 el codigo de usuario
+        emergentePrincipal.add_command(image=imagenReproducir, command=lambda:[reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo),verificadorDeCola()])#En ventana uno esta diccPropTodo y en ventana2 el codigo de usuario
         emergentePrincipal.image = imagenReproducir
         imagenCola = tk.PhotoImage(file="./ColaDeReproduccion.png") 
-        emergentePrincipal.add_command(image=imagenCola, command=lambda:reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))#En ventana uno esta diccPropTodo y en ventana2 el codigo de usuario
+        emergentePrincipal.add_command(image=imagenCola, command=lambda:[reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo),verificadorDeCola()])#En ventana uno esta diccPropTodo y en ventana2 el codigo de usuario
         emergentePrincipal.image = imagenCola
         emergentePrincipal.post(VentanaMenu.winfo_pointerx(), VentanaMenu.winfo_pointery())
 #######################################################################################################################################################################################
@@ -304,8 +316,8 @@ def menu(tipoUsuario,codigoUsuario):
         #Pop up de reproductor
         menuReproductor=tk.Menu(menubar,tearoff=0)
         menuReproductor.configure(bg='#C1B2A6')
-        menuReproductor.add_command(label="Reproductor",command=lambda:reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
-        menuReproductor.add_command(label="Cola de reproduccion",command=lambda:reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo))
+        menuReproductor.add_command(label="Reproductor",command=lambda:[reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo),verificadorDeCola()]) 
+        menuReproductor.add_command(label="Cola de reproduccion",command=[lambda:reproductor(VentanaMenu,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo,codigoUsuario,ColasDeReproduccion,diccProptodo,diccAdmintodo),verificadorDeCola()])
         menubar.add_cascade(label="Reproductor", menu=menuReproductor)
         VentanaMenu.config(menu=menubar)
         #Pop up de Acerca de de
