@@ -1212,10 +1212,10 @@ def menu(tipoUsuario,codigoUsuario):
         DigiteReportAlb=tk.Label(VentanaReportesAlbumes,text='Digite el código de artista para reportar sus albumes:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigiteReportAlb.grid(sticky=tk.N,pady=10)
         #Codigo de Prop
-        codArt=tk.Entry(VentanaReportesAlbumes,font=("Times New Roman",15),background='#E4E4E4')
-        codArt.grid(sticky=tk.N,pady=10)
+        codigoArtReportes=tk.Entry(VentanaReportesAlbumes,font=("Times New Roman",15),background='#E4E4E4')
+        codigoArtReportes.grid(sticky=tk.N,pady=10)
         #Boton de reporte
-        botonDeReporte= tk.Button(VentanaReportesAlbumes, text="Crear reporte", command=lambda:reporteAlbumes(diccAlbumtodo,diccArttodo,diccGentodo,codArt.get()),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeReporte= tk.Button(VentanaReportesAlbumes, text="Crear reporte", command=lambda:reporteAlbumes(diccAlbumtodo,diccArttodo,diccGentodo,codigoArtReportes.get()),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeReporte.grid(sticky=tk.N,pady=10)
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaReportesAlbumes, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaReportesAlbumes,obtenerDimenciones(VentanaMenu)),limpiar_texto(codArt)],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
