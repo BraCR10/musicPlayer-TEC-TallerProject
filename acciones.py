@@ -31,7 +31,13 @@ def mostrarEnPantalla(etiqueta,dato):
     else:
         texto = dato 
     etiqueta.config(text=texto)  # Actualiza el texto de la etiqueta con el texto ingresado
-    
+#Funcion especial para busquedas
+def mostrarEnPantallaBusqueda(etiqueta,dato):
+    if dato==None:
+        texto='No existe'
+    else:
+        texto = dato[0]
+    etiqueta.config(text=texto,bg="#D5CEC1")
 #Limpia el texto de una entry
 def limpiar_texto(caja):
     caja.delete(0, tk.END)  # Borra todo el contenido del cuadro de texto   
