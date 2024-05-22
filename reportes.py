@@ -148,32 +148,54 @@ def artistaConMasCanciones(diccCancionestodo,diccArttodo,diccGentodo):
 def reportemodacanciones(diccCancionestodo,lista):
     global cont
     if lista==[]:
-        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
-    else:
-        cancionmasreproducida=mode(lista)
         reporte=open(f"reporteCancionMasReproducida{cont}.txt", "a")#Crea un nuevo archivo .txt
-        reporte.write(f'\n ---> La cancion mas reproducida es: \n')#Agerga datos al archivo
-        reporte.write('\n-----------------------------------------\n')
-        reporte.write(f'\n >>> {diccCancionestodo[cancionmasreproducida]["nombre"]}\n')#Agerga datos al archivo
+        reporte.write('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
         reporte.close()#Cierra archivo
-        print(f'\n ---> El reporte de la cancion mas reproducida se ha creado correctamente\n')
+    else:
+        modacanciones=[]
+        for i in lista:
+            if i in list(diccCancionestodo.keys()):
+                modacanciones+=i
+        print(modacanciones)
+        if modacanciones!=[]:
+            cancionmasreproducida=mode(modacanciones)
+            reporte=open(f"reporteCancionMasReproducida{cont}.txt", "a")#Crea un nuevo archivo .txt
+            reporte.write(f'\n ---> La cancion mas reproducida es: \n')#Agerga datos al archivo
+            reporte.write('\n-----------------------------------------\n')
+            reporte.write(f'\n >>> {diccCancionestodo[cancionmasreproducida]["nombre"]}\n')#Agerga datos al archivo
+            reporte.close()#Cierra archivo
+            print(f'\n ---> El reporte de la cancion mas reproducida se ha creado correctamente\n')
+        else:
+            reporte=open(f"reporteCancionMasReproducida{cont}.txt", "a")#Crea un nuevo archivo .txt
+            reporte.write(f'\n ---> La cancion mas reproducida ha sido eliminada \n')#Agerga datos al archivo
+            reporte.close()#Cierra archivo
+            print(f'\n ---> El reporte de la cancion mas reproducida se ha creado correctamente\n')
     cont+=1
 
 def reportemodagenero(diccCancionestodo,diccGentodo,lista):
     global cont
     if lista==[]:
-        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+        reporte=open(f"reporteGeneroMasSolicitado{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+        reporte.close()#Cierra archivo
     else:
         modageneros=[]
         for i in lista:
-            modageneros+=[diccCancionestodo[i]['codGen']]
-        generomassolicitado=mode(modageneros)
-        reporte=open(f"reporteGeneroMasSolicitado{cont}.txt", "a")#Crea un nuevo archivo .txt
-        reporte.write(f'\n ---> El genero mas solicitado es: \n')#Agerga datos al archivo
-        reporte.write('\n-----------------------------------------\n')
-        reporte.write(f'\n >>> {diccGentodo[generomassolicitado]["nombre"]}\n')#Agerga datos al archivo
-        reporte.close()#Cierra archivo
-        print(f'\n ---> El reporte del genero mas solicitado se ha creado correctamente\n')
+            if i in list(diccCancionestodo.keys()):
+                modageneros+=[diccCancionestodo[i]['codGen']]
+        if modageneros!=[]:
+            generomassolicitado=mode(modageneros)
+            reporte=open(f"reporteGeneroMasSolicitado{cont}.txt", "a")#Crea un nuevo archivo .txt
+            reporte.write(f'\n ---> El genero mas solicitado es: \n')#Agerga datos al archivo
+            reporte.write('\n-----------------------------------------\n')
+            reporte.write(f'\n >>> {diccGentodo[generomassolicitado]["nombre"]}\n')#Agerga datos al archivo
+            reporte.close()#Cierra archivo
+            print(f'\n ---> El reporte del genero mas solicitado se ha creado correctamente\n')
+        else:
+            reporte=open(f"reporteGeneroMasSolicitado{cont}.txt", "a")#Crea un nuevo archivo .txt
+            reporte.write(f'\n ---> El genero mas solicitado ha sido eliminado \n')#Agerga datos al archivo
+            reporte.close()#Cierra archivo
+            print(f'\n ---> El reporte del genero mas solicitado se ha creado correctamente\n')
     cont+=1
         
 def albumConMasCanciones(diccCancionestodo,diccAlbumtodo,diccArttodo):
@@ -213,18 +235,28 @@ def propietarioConMasPlaylist(diccProptodo,diccPlaylisttodo):
 def reportemodaalbum(diccCancionestodo,diccAlbumtodo,lista):
     global cont
     if lista==[]:
-        print('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+        reporte=open(f"reporteAlbumMasSolicitado{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write('\n --->El reporte no se puede crear ya que no hay suficientes datos\n')
+        reporte.close()#Cierra archivo
     else:
         modaalbumes=[]
         for i in lista:
-            modaalbumes+=[diccCancionestodo[i]['codAlb']]
-        albummassolicitado=mode(modaalbumes)
-        reporte=open(f"reporteAlbumMasSolicitado{cont}.txt", "a")#Crea un nuevo archivo .txt
-        reporte.write(f'\n ---> El Album mas solicitado es: \n')#Agerga datos al archivo
-        reporte.write('\n-----------------------------------------\n')
-        reporte.write(f'\n >>> {diccAlbumtodo[albummassolicitado]["nombre"]}\n')#Agerga datos al archivo
-        reporte.close()#Cierra archivo
-        print(f'\n ---> El reporte del genero mas solicitado se ha creado correctamente\n')
+            if i in list(diccCancionestodo.keys()):
+                 modaalbumes+=[diccCancionestodo[i]['codAlb']]
+        if modaalbumes!=[]:
+            albummassolicitado=mode(modaalbumes)
+            reporte=open(f"reporteAlbumMasSolicitado{cont}.txt", "a")#Crea un nuevo archivo .txt
+            reporte.write(f'\n ---> El Album mas solicitado es: \n')#Agerga datos al archivo
+            reporte.write('\n-----------------------------------------\n')
+            reporte.write(f'\n >>> {diccAlbumtodo[albummassolicitado]["nombre"]}\n')#Agerga datos al archivo
+            reporte.close()#Cierra archivo
+            print(f'\n ---> El reporte del genero mas solicitado se ha creado correctamente\n')
+        else:
+            reporte=open(f"reporteAlbumMasSolicitado{cont}.txt", "a")#Crea un nuevo archivo .txt
+            reporte.write(f'\n ---> El Album mas solicitado ha sido eliminado \n')#Agerga datos al archivo
+    
+            reporte.close()#Cierra archivo
+            print(f'\n ---> El reporte del genero mas solicitado se ha creado correctamente\n')
     cont+=1
 
 def playlistConMasCanciones(diccCancionestodo,diccPlaylisttodo,diccProptodo):
@@ -318,19 +350,22 @@ def cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,diccArttodo,diccAlbu
     global cont
     temp=[]
     for i in list(diccCancionestodo.keys()):
-        if i not in modaMusica:
+        if i not in modaMusica :
             temp+=[i]
     if temp!=[]:
-        reporte = open(f"Reporte_Cancion_Nunca_Reproducida{cont}.txt", "a")#Crea un nuevo archivo .txt
-        reporte.write(f'\n ---> Reporte de las canciones nunca reproducidas : \n')#Agerga datos al archivo
-        reporte.write('\n-----------------------------------------\n')#Agerga datos al archivo
         for i in temp:
-            reporte.write(f'\n >>> {buscarCancion(i,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]} \n')#Agerga datos al archivo
+            reporte = open(f"Reporte_Cancion_Nunca_Reproducida{cont}.txt", "a")#Crea un nuevo archivo .txt
+            reporte.write(f'\n ---> Reporte de las canciones nunca reproducidas : \n')#Agerga datos al archivo
             reporte.write('\n-----------------------------------------\n')#Agerga datos al archivo
-        reporte.close()#Cierra el archivo
-        print('\n ---> El reporte de las canciones nunca reproducidas se ha creado correctamente\n')#Mensaje
+            for i in temp:
+                reporte.write(f'\n >>> {buscarCancion(i,diccCancionestodo,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo)[0]} \n')#Agerga datos al archivo
+                reporte.write('\n-----------------------------------------\n')#Agerga datos al archivo
+            reporte.close()#Cierra el archivo
+            print('\n ---> El reporte de las canciones nunca reproducidas se ha creado correctamente\n')#Mensaje
     else:
-        print('\n --->El reporte no se puede crear pues todos las canciones han sido  reproducidas o no hay\n')
+        reporte = open(f"Reporte_Cancion_Nunca_Reproducida{cont}.txt", "a")#Crea un nuevo archivo .txt
+        reporte.write('\n --->El reporte no se puede crear pues todos las canciones han sido  reproducidas o no hay\n')
+        reporte.close()#Cierra el archivo
     cont+=1
 
 def artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,diccArttodo):

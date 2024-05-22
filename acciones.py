@@ -55,13 +55,24 @@ def registar(diccTodo,diccMembresias,nombre,etiqueta):
     diccTodo[str(cod)]={'nombre':nombre,'codMem':str(codMem),'estado':estado}#Añade  un propietario al dict
     diccMembresias[str(cod)]=str(codMem)
     mostrarEnPantalla(etiqueta,f"Registrado! \nSu codigo de propietario es: {cod}\nSu codigo de membresia membresia es: {codMem}")
+
+#Simula el pago de un propietario en la ventana de pagos antes de loguearse
+def pagar(diccTodo,diccMembresias,codigo,etiqueta,listaFacturas):
+    if diccTodo[codigo]['estado']=='0' or diccTodo[codigo]['estado']=='0Nuevo':
+        diccTodo[codigo]['estado']='1'
+    elif codigo in listaFacturas:
+        for i in range(len(listaFacturas)):
+            if listaFacturas[i]==codigo:
+                listaFacturas.pop(i)
+                break   
+    mostrarEnPantalla(etiqueta,"Su usuario ha sido activado, por favor vuelva al login")
+    #diccMembresias[codigo]='1'
     
 #Se definen los descuentos por defecto
 descuentoUsuarioActivo=25
 descuentoUsuarioInactivo=75
 descuentoUsuarioNuevo=0
 Precio=40
-
 #Permite generar la factura de un propietario
 def mostrarFactura(diccTodo,codigo,listaFacturas):
     # Configuración de la ventana de modificacion
@@ -141,17 +152,7 @@ def exportarFactura(diccTodo,codigo,listaFacturas):
     reporte.close()#Cierra el archivo
     print(f'\n ---> La factura  se ha creado correctamente')
 
-#Simula el pago de un propietario en la ventana de pagos antes de loguearse
-def pagar(diccTodo,diccMembresias,codigo,etiqueta,listaFacturas):
-    if diccTodo[codigo]['estado']=='0' or diccTodo[codigo]['estado']=='0Nuevo':
-        diccTodo[codigo]['estado']='1'
-    elif codigo in listaFacturas:
-        for i in range(len(listaFacturas)):
-            if listaFacturas[i]==codigo:
-                listaFacturas.pop(i)
-                break   
-    mostrarEnPantalla(etiqueta,"Su usuario ha sido activado, por favor vuelva al login")
-    #diccMembresias[codigo]='1'
+
 
 #Funcion especial para mostrar emergentes en el icono de canciones con 3 emergentes en el menu principal
 def mostrarEmergenteMenuTresOpciones(emergente,VentanaMenu,tipousuario,Ventana1,Ventana2,Ventana3,Ventana4,Ventana5,Ventana6,Ventana7,Ventana8,Ventana9,Ventana10,Ventana11,Ventana12):
@@ -285,9 +286,11 @@ def modificadorPrecios(cambio,nuevoDescuento,etiqueta):
             mostrarEnPantalla(etiqueta,f'El precio actual es de ${round(int(nuevoDescuento))}')
     else:
         messagebox.showinfo("Alerta", "El dato digitado no es valido!")
-
+contadorBotones=0
 #Funcion que le premite al admin generar,exportar y eliminar cobros
 def administrarFacturas(listaFacturas,diccPropTodo):
+    global contadorBotones
+    contadorBotones=0
     # Configuración de la ventana de modificacion
     VentanaFacturacion= tk.Tk()
     VentanaFacturacion.title("Administrador de facturas")
@@ -301,23 +304,23 @@ def administrarFacturas(listaFacturas,diccPropTodo):
     verificar.grid(sticky=tk.N,pady=10)
     
 #Variable para evitar repeticiones a la hora de mostrar
-verificadorBotones=False
+
 #Aux que muetra botones de opiciones en adminstrarFacturas
 def botones(ventana,diccPropTodo,usuario,listaFacturas):
-    global verificadorBotones,generar,exportar,pagar
+    global contadorBotones,generar,exportar,pagarBoton
     if usuario in list(diccPropTodo.keys()):
-        if verificadorBotones==True:
+        if contadorBotones>0:
             generar.destroy()
             exportar.destroy()
-            pagar.destroy()
+            pagarBoton.destroy()
         #Instruccion en pantalla
         generar = tk.Button(ventana, text="Generar factura",command=lambda:[generarFactura(listaFacturas,usuario,diccPropTodo),messagebox.showinfo("Confirmacion", "Se ha generado la factura!")],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
         generar.grid(sticky=tk.N,pady=10)
         exportar = tk.Button(ventana, text="Exportar factura",command=lambda:[exportarFactura(diccPropTodo,usuario,listaFacturas),messagebox.showinfo("Confirmacion", "Se ha exportado la factura!")],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
         exportar.grid(sticky=tk.N,pady=10)
-        pagar = tk.Button(ventana, text="Eliminar factura",command=lambda:[eliminarFactura(diccPropTodo,listaFacturas,usuario),messagebox.showinfo("Confirmacion", "Se ha cancelado la factura!")],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
-        pagar.grid(sticky=tk.N,pady=10)
-        verificadorBotones=True
+        pagarBoton = tk.Button(ventana, text="Eliminar factura",command=lambda:[eliminarFactura(diccPropTodo,listaFacturas,usuario),messagebox.showinfo("Confirmacion", "Se ha cancelado la factura!")],font=("Times New Roman",15),bg='#C1B2A6',fg='#102512')
+        pagarBoton.grid(sticky=tk.N,pady=10)
+        contadorBotones+=1
     else:
         messagebox.showinfo("Alerta", "El usuario no existe!")
 

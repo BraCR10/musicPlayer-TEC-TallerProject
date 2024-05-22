@@ -26,6 +26,14 @@ diccPlaylisttodo=leerPlaylist()
 diccCancionestodo=leerCanciones()
 ColasDeReproduccion={}#Cada propietarion tiene su propia cola
 listaFacturas=[]
+albumNuncaBuscado=[]
+artistaNuncaBuscado=[]
+def agregaralbumNuncaBuscado(cod):
+        global albumNuncaBuscado
+        albumNuncaBuscado+=[cod]
+def agregarartistaNuncaBuscado(cod):
+        global artistaNuncaBuscado
+        artistaNuncaBuscado+=[cod]
 ######################################################################################################################################
 #Todo se trabaja sobre la ventana login
 ventanaLogin = tk.Tk()
@@ -310,6 +318,7 @@ def menu(tipoUsuario,codigoUsuario):
         menureportes.add_command(label="Artista con más álbumes",command=lambda:[artistaConMasAlbumes(diccArttodo,diccAlbumtodo,diccGentodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
         menureportes.add_command(label="Album nunca buscado",command=lambda:[albumNuncaBuscadoFun(albumNuncaBuscado,diccAlbumtodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
         menureportes.add_command(label="Cancion nunca reproducida",command=lambda:[cancionNuncaReproducidaFun(diccCancionestodo,modaMusica,diccArttodo,diccAlbumtodo,diccGentodo,diccPlaylisttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
+        menureportes.add_command(label="Cancion mas reproducida",command=lambda:[reportemodacanciones(diccCancionestodo,modaMusica),messagebox.showinfo("Alerta","El reporte se ha creado!")])
         menureportes.add_command(label="Artista nunca buscado",command=lambda:[artistaNuncaBuscadoFun(artistaNuncaBuscado,diccGentodo,diccArttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
         menureportes.add_command(label="Propietario sin playlist",command=lambda:[propietarioSinPlayList(diccProptodo,diccPlaylisttodo),messagebox.showinfo("Alerta","El reporte se ha creado!")])
         menubar.add_cascade(label="Reportes", menu=menureportes)
@@ -471,7 +480,7 @@ def menu(tipoUsuario,codigoUsuario):
         etiquetaArtista=tk.Label(VentanaBusquedaArtista, text="",font=("Times New Roman",15),background='#D5CEC1')
         etiquetaArtista.grid(sticky=tk.N,pady=10)
         #Boton de buscar
-        botonDeBusqueda= tk.Button(VentanaBusquedaArtista, text="Buscar", command=lambda:mostrarEnPantallaBusqueda(etiquetaArtista, buscarArtista(codigoBusquedaArtista.get(),diccArttodo,diccGentodo)),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusqueda= tk.Button(VentanaBusquedaArtista, text="Buscar", command=lambda:[mostrarEnPantallaBusqueda(etiquetaArtista, buscarArtista(codigoBusquedaArtista.get(),diccArttodo,diccGentodo)),agregarartistaNuncaBuscado(codigoBusquedaArtista.get())],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusqueda.grid(sticky=tk.N,pady=10)
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaBusquedaArtista, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaBusquedaArtista,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoBusquedaArtista),mostrarEnPantalla(etiquetaArtista,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
@@ -494,7 +503,7 @@ def menu(tipoUsuario,codigoUsuario):
         etiquetaAlbum=tk.Label(VentanaBusquedaAlbum, text="",font=("Times New Roman",15),background='#D5CEC1')
         etiquetaAlbum.grid(sticky=tk.N,pady=10)
         #Boton de buscar
-        botonDeBusqueda= tk.Button(VentanaBusquedaAlbum, text="Buscar", command=lambda:mostrarEnPantallaBusqueda(etiquetaAlbum, buscarAlbum(codigoBusquedaAlbum.get(),diccAlbumtodo,diccArttodo)),font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
+        botonDeBusqueda= tk.Button(VentanaBusquedaAlbum, text="Buscar", command=lambda:[mostrarEnPantallaBusqueda(etiquetaAlbum, buscarAlbum(codigoBusquedaAlbum.get(),diccAlbumtodo,diccArttodo)),agregaralbumNuncaBuscado(codigoBusquedaAlbum.get())],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
         botonDeBusqueda.grid(sticky=tk.N,pady=10)
         #Boton de volver
         botonDeBusquedaAMenu = tk.Button(VentanaBusquedaAlbum, text="Volver a menu", command=lambda:[navegacionVentanas(VentanaMenu,VentanaBusquedaAlbum,obtenerDimenciones(VentanaMenu)),limpiar_texto(codigoBusquedaAlbum),mostrarEnPantalla(etiquetaAlbum,"")],font=('Times New Roman',15),bg='#102512',fg='#E4E4E4')
