@@ -1284,7 +1284,7 @@ def menu(tipoUsuario,codigoUsuario):
         VentanaAcerca.withdraw()  # Oculta la ventana secundaria inicialmente
         VentanaAcerca.columnconfigure(0,weight=3)
         #Instruccion en pantalla
-        Titulo=tk.Label(VentanaAcerca,text='Contacto', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
+        Titulo=tk.Label(VentanaAcerca,text='Sobre nosotros', font=("Sitka Text Semibold",25),bg='#28342C',fg='#E4E4E4')
         Titulo.grid(sticky=tk.N,pady=10)
         DigiteCorreo=tk.Label(VentanaAcerca,text='Desarrolladores:', font=("Sitka Text Semibold",15),bg='#28342C',fg='#E4E4E4')
         DigiteCorreo.grid(sticky=tk.N,pady=10)
